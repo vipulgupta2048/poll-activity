@@ -1468,8 +1468,9 @@ class PollSession(ExportedGObject):
                     options, data, votes)
         self.activity._polls.add(poll)
         self.activity.alert(_('New Poll'),
-                            _("%s shared a poll '%s' with you.") % 
-                            (author, title))
+                            _("%(author)s shared a poll "
+                              "'%(title)s' with you.") % {'author': author,
+                                                          'title': title})
 
     def vote_cb(self, author, title, choice, votersha, sender=None):
         """Receive somebody's vote signal.
@@ -1524,8 +1525,9 @@ class PollSession(ExportedGObject):
                     options, data, votes)
         self.activity._polls.add(poll)
         self.activity.alert(_('New Poll'),
-                            _("%s shared a poll '%s' with you.") % 
-                            (author, title))
+                            _("%(author)s shared a poll "
+                              "'%(title)s' with you.") % {'author': author,
+                                                          'title': title})
 
     @method(dbus_interface=IFACE, in_signature='s', out_signature='')
     def PollsWanted(self, sender):
