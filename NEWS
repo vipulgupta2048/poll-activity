@@ -1,5 +1,8 @@
 18
 
+* Fix MANIFEST
+* #8411: Add license field to activity.info
+
 17
 
 * Add COPYING (morgs)
