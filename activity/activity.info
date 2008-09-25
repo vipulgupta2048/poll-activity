@@ -5,3 +5,4 @@ class = poll.PollBuilder
 icon = activity-poll
 activity_version = 17
 show_launcher = yes
+license = GPLv2+
