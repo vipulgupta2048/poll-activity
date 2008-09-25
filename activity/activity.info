@@ -3,6 +3,6 @@ name = Poll
 service_name = org.worldwideworkshop.PollBuilder
 class = poll.PollBuilder
 icon = activity-poll
-activity_version = 17
+activity_version = 18
 show_launcher = yes
 license = GPLv2+
