@@ -7,3 +7,10 @@ lessons/Lesson 3/default.abw
 lessons/Lesson 4/default.abw
 AUTHORS
 COPYING
+NEWS
+i18n_misc_strings.py
+setup.py
+activity/activity-poll.svg
+activity/activity.info
+lessons/Introduction/default.abw
+po/Poll.pot
