@@ -70,7 +70,9 @@ class LangDetails (object):
         self.image = image
 
     def guess_translation (self, fallback=False):
-        self.gnutranslation = gettext.translation('org.worldwideworkshop.olpc.SliderPuzzle', 'locale', [self.code], fallback=fallback)
+        self.gnutranslation = gettext.translation(
+            'org.worldwideworkshop.PollBuilder', 'locale', 
+            [self.code], fallback=fallback)
 
     def install (self):
         self.gnutranslation.install()
