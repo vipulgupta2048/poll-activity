@@ -1,0 +1,242 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-05-13 11:39+0200\n"
+"PO-Revision-Date: 2008-09-04 09:20-0400\n"
+"Last-Translator: Carlo Falciola <cfalciola@yahoo.it>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0rc2\n"
+
+#: activity/activity.info:2
+msgid "Poll"
+msgstr "Sondaggio"
+
+#: poll.py:280
+msgid "VOTE!"
+msgstr "VOTA!"
+
+#: poll.py:282
+msgid "Poll Preview"
+msgstr "Anteprima Sondaggio"
+
+#: poll.py:316 poll.py:1084
+msgid "Choose a Poll"
+msgstr "Scegli un Sondaggio"
+
+#: poll.py:369
+msgid "VOTE"
+msgstr "VOTA"
+
+#: poll.py:371
+msgid "SEE RESULTS"
+msgstr "RISULTATI"
+
+#: poll.py:380
+msgid "DELETE"
+msgstr "CANCELLA"
+
+#: poll.py:407 poll.py:968
+msgid "Lesson Plans"
+msgstr "Sommario Guida"
+
+#: poll.py:576
+msgid "votes"
+msgstr "voti"
+
+#: poll.py:592 poll.py:879
+msgid "Vote"
+msgstr "Vota"
+
+#: poll.py:600
+msgid "Edit Poll"
+msgstr "Modifica Sondaggio"
+
+#: poll.py:603
+msgid "Save Poll"
+msgstr "Salva Sondaggio"
+
+#: poll.py:681 poll.py:1079
+msgid "Build a Poll"
+msgstr "Costruisci Sondaggio"
+
+#: poll.py:699
+msgid "Poll Title:"
+msgstr "Titolo del Sondaggio:"
+
+#: poll.py:710
+msgid "Question:"
+msgstr "Domanda:"
+
+#: poll.py:720
+msgid "Number of votes to collect:"
+msgstr "Numero di voti da raccogliere:"
+
+#: poll.py:731
+msgid "Answer"
+msgstr "Risposta"
+
+#: poll.py:743
+msgid "Step 1: Preview"
+msgstr "Passo 1: Anteprima"
+
+#: poll.py:746
+msgid "Step 2: Save"
+msgstr "Passo 2: Salvataggio "
+
+#: poll.py:810
+msgid "Favorite Color"
+msgstr "Colore preferito"
+
+#: poll.py:812
+msgid "What is your favorite color?"
+msgstr "Quale è il tuo colore preferito?"
+
+#: poll.py:813
+msgid "Green"
+msgstr "Verde"
+
+#: poll.py:813
+msgid "Red"
+msgstr "Rosso"
+
+#: poll.py:813
+msgid "Blue"
+msgstr "Blu"
+
+#: poll.py:814
+msgid "Orange"
+msgstr "Arancione"
+
+#: poll.py:814
+msgid "None of the above"
+msgstr "Nessuno dei precedenti"
+
+#: poll.py:880
+#, python-format
+msgid "Somebody voted on %s"
+msgstr "Qualcuno a votato su %s"
+
+#: poll.py:965
+msgid "Close Lessons"
+msgstr "Chiudi Guida"
+
+#: poll.py:1133 poll.py:1159
+msgid "Joined"
+msgstr "Collegato"
+
+#: poll.py:1163
+msgid "Left"
+msgstr "Sinistra"
+
+#: poll.py:1470 poll.py:1527
+msgid "New Poll"
+msgstr "Nuovo Sondaggio"
+
+#: poll.py:1471 poll.py:1528
+#, python-format
+msgid "%(author)s shared a poll '%(title)s' with you."
+msgstr "%(author)s ha condiviso il Sondaggio '%(title)s' con te."
+
+#: i18n.py:39
+msgid "Chinese (simplified)"
+msgstr "Cinese (semplificato)"
+
+#: i18n.py:40
+msgid "Chinese (traditional)"
+msgstr "Cinese (tradizionale)"
+
+#: i18n.py:41
+msgid "Czech"
+msgstr "Ceco"
+
+#: i18n.py:42
+msgid "Danish"
+msgstr "Danese"
+
+#: i18n.py:43
+msgid "Dutch"
+msgstr "Olandese"
+
+#: i18n.py:44
+msgid "English"
+msgstr "Inglese"
+
+#: i18n.py:45
+msgid "English - Great Britain"
+msgstr "Inglese - Regno Unito"
+
+#: i18n.py:46
+msgid "English - U.S."
+msgstr "Inglese - U.S.A."
+
+#: i18n.py:47
+msgid "Finnish"
+msgstr "Finlandese"
+
+#: i18n.py:48
+msgid "French"
+msgstr "Francese"
+
+#: i18n.py:49
+msgid "German"
+msgstr "Tedesco"
+
+#: i18n.py:50
+msgid "Hungarian"
+msgstr "Ungherese"
+
+#: i18n.py:51
+msgid "Italian"
+msgstr "Italiano"
+
+#: i18n.py:52
+msgid "Japanese"
+msgstr "Giapponese"
+
+#: i18n.py:53
+msgid "Korean"
+msgstr "Coreano"
+
+#: i18n.py:54
+msgid "Norwegian"
+msgstr "Norvegese"
+
+#: i18n.py:55
+msgid "Polish"
+msgstr "Polacco"
+
+#: i18n.py:56
+msgid "Portuguese"
+msgstr "Portoghese"
+
+#: i18n.py:57
+msgid "Portuguese - Brazilian"
+msgstr "Portoghese -Brasiliano"
+
+#: i18n.py:58
+msgid "Russian"
+msgstr "Russo"
+
+#: i18n.py:59
+msgid "Slovak"
+msgstr "Slovacco"
+
+#: i18n.py:60
+msgid "Spanish"
+msgstr "Spagnolo"
+
+#: i18n.py:61
+msgid "Swedish"
+msgstr "Svedese"
+
+#: i18n.py:62
+msgid "Turkish"
+msgstr "Turco"

@@ -1,0 +1,242 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-05-13 11:39+0200\n"
+"PO-Revision-Date: 2008-08-14 18:36-0400\n"
+"Last-Translator: John Sarlis <sarlis@sch.gr>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 1.1.0rc2\n"
+
+#: activity/activity.info:2
+msgid "Poll"
+msgstr "Ψηφοφορία"
+
+#: poll.py:280
+msgid "VOTE!"
+msgstr "ΨΗΦΙΣΕ!"
+
+#: poll.py:282
+msgid "Poll Preview"
+msgstr "Προεπισκόπηση Ψηφοφορίας"
+
+#: poll.py:316 poll.py:1084
+msgid "Choose a Poll"
+msgstr "Διάλλεξε Ψηφοφορία"
+
+#: poll.py:369
+msgid "VOTE"
+msgstr "ΨΗΦΙΣΕ"
+
+#: poll.py:371
+msgid "SEE RESULTS"
+msgstr "ΔΕΣ ΑΠΟΤΕΛΕΣΜΑΤΑ"
+
+#: poll.py:380
+msgid "DELETE"
+msgstr "ΔΙΑΓΡΑΦΗ"
+
+#: poll.py:407 poll.py:968
+msgid "Lesson Plans"
+msgstr "Σχέδια Μαθημάτων"
+
+#: poll.py:576
+msgid "votes"
+msgstr "ψήφοι"
+
+#: poll.py:592 poll.py:879
+msgid "Vote"
+msgstr "Ψήφος"
+
+#: poll.py:600
+msgid "Edit Poll"
+msgstr "Επεξεργασία Ψηφοφορίας"
+
+#: poll.py:603
+msgid "Save Poll"
+msgstr "Αποθήκευση Ψηφοφορίας"
+
+#: poll.py:681 poll.py:1079
+msgid "Build a Poll"
+msgstr "Δημιουργία Ψηφοφορίας"
+
+#: poll.py:699
+msgid "Poll Title:"
+msgstr "Τίτλος Ψηφοφορίας:"
+
+#: poll.py:710
+msgid "Question:"
+msgstr "Ερώτηση:"
+
+#: poll.py:720
+msgid "Number of votes to collect:"
+msgstr "Αριθμός ψήφων που θα μαζευτούν:"
+
+#: poll.py:731
+msgid "Answer"
+msgstr "Απάντηση"
+
+#: poll.py:743
+msgid "Step 1: Preview"
+msgstr "Βήμα 1: Προεπισκόπηση"
+
+#: poll.py:746
+msgid "Step 2: Save"
+msgstr "Βήμα 2: Αποθήκευση"
+
+#: poll.py:810
+msgid "Favorite Color"
+msgstr "Αγαπημένο Χρώμα"
+
+#: poll.py:812
+msgid "What is your favorite color?"
+msgstr "Ποιο είναι το αγαπημένο σου χρώμα;"
+
+#: poll.py:813
+msgid "Green"
+msgstr "Πράσινο"
+
+#: poll.py:813
+msgid "Red"
+msgstr "Κόκκινο"
+
+#: poll.py:813
+msgid "Blue"
+msgstr "Μπλε"
+
+#: poll.py:814
+msgid "Orange"
+msgstr "Πορτοκαλί"
+
+#: poll.py:814
+msgid "None of the above"
+msgstr "Κανένα από τα παραπάνω"
+
+#: poll.py:880
+#, python-format
+msgid "Somebody voted on %s"
+msgstr "Κάποιος ψήφισε για %s"
+
+#: poll.py:965
+msgid "Close Lessons"
+msgstr "Κλείσε τα Μαθήματα"
+
+#: poll.py:1133 poll.py:1159
+msgid "Joined"
+msgstr "Εισήλθε"
+
+#: poll.py:1163
+msgid "Left"
+msgstr "Αριστερά"
+
+#: poll.py:1470 poll.py:1527
+msgid "New Poll"
+msgstr "Νέα Ψηφοφορία"
+
+#: poll.py:1471 poll.py:1528
+#, python-format
+msgid "%(author)s shared a poll '%(title)s' with you."
+msgstr "Ο/Η %(author)s μοιράστηκε μαζί σου τη ψηφοφορία '%(title)s'."
+
+#: i18n.py:39
+msgid "Chinese (simplified)"
+msgstr "Κινέζικα (απλοποιημένα)"
+
+#: i18n.py:40
+msgid "Chinese (traditional)"
+msgstr "Κινέζικα (παραδοσιακά)"
+
+#: i18n.py:41
+msgid "Czech"
+msgstr "Τσέχικα"
+
+#: i18n.py:42
+msgid "Danish"
+msgstr "Δανέζικα"
+
+#: i18n.py:43
+msgid "Dutch"
+msgstr "Ολλανδικά"
+
+#: i18n.py:44
+msgid "English"
+msgstr "Αγγλικά"
+
+#: i18n.py:45
+msgid "English - Great Britain"
+msgstr "Αγγλικά - Μεγάλης Βρετανίας"
+
+#: i18n.py:46
+msgid "English - U.S."
+msgstr "Αγγλικά - Η.Π.Α."
+
+#: i18n.py:47
+msgid "Finnish"
+msgstr "Φινλανδικά"
+
+#: i18n.py:48
+msgid "French"
+msgstr "Γαλλικά"
+
+#: i18n.py:49
+msgid "German"
+msgstr "Γερμανικά"
+
+#: i18n.py:50
+msgid "Hungarian"
+msgstr "Ουγγρικά"
+
+#: i18n.py:51
+msgid "Italian"
+msgstr "Ιταλικά"
+
+#: i18n.py:52
+msgid "Japanese"
+msgstr "Ιαπωνικά"
+
+#: i18n.py:53
+msgid "Korean"
+msgstr "Κορεάτικα"
+
+#: i18n.py:54
+msgid "Norwegian"
+msgstr "Νορβηγικά"
+
+#: i18n.py:55
+msgid "Polish"
+msgstr "Πολωνικά"
+
+#: i18n.py:56
+msgid "Portuguese"
+msgstr "Πορτογαλικά"
+
+#: i18n.py:57
+msgid "Portuguese - Brazilian"
+msgstr "Πορτογαλικά - Βραζιλίας"
+
+#: i18n.py:58
+msgid "Russian"
+msgstr "Ρώσικα"
+
+#: i18n.py:59
+msgid "Slovak"
+msgstr "Σλοβάκικα"
+
+#: i18n.py:60
+msgid "Spanish"
+msgstr "Ισπανικά"
+
+#: i18n.py:61
+msgid "Swedish"
+msgstr "Σουηδικά"
+
+#: i18n.py:62
+msgid "Turkish"
+msgstr "Τούρκικα"
