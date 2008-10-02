@@ -1,5 +1,5 @@
 [Activity]
-name = Poll Builder
+name = Poll
 bundle_id = org.worldwideworkshop.PollBuilder
 class = poll.PollBuilder
 icon = activity-poll
