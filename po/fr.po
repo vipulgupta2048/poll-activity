@@ -2,19 +2,18 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-13 11:39+0200\n"
-"PO-Revision-Date: 2008-08-12 21:24-0500\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2008-10-01 11:55-0400\n"
+"PO-Revision-Date: 2008-10-02 03:18-0400\n"
+"Last-Translator: samy boutayeb <s.boutayeb@free.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.1.1rc4\n"
+"X-Generator: Pootle 1.1.0rc2\n"
 
 #: activity/activity.info:2
 msgid "Poll"
@@ -66,7 +65,7 @@ msgstr "Sauvegarder le sondage"
 
 #: poll.py:681 poll.py:1079
 msgid "Build a Poll"
-msgstr "Construire un sondage"
+msgstr "Élaborer un sondage"
 
 #: poll.py:699
 msgid "Poll Title:"
@@ -78,7 +77,7 @@ msgstr "Question :"
 
 #: poll.py:720
 msgid "Number of votes to collect:"
-msgstr "Nombre de votes à collecter :"
+msgstr "Nombre de voix à recueillir :"
 
 #: poll.py:731
 msgid "Answer"
@@ -86,11 +85,11 @@ msgstr "Réponse"
 
 #: poll.py:743
 msgid "Step 1: Preview"
-msgstr "Étape 1 : aperçu"
+msgstr "Étape 1 : Prévisualiser"
 
 #: poll.py:746
 msgid "Step 2: Save"
-msgstr "Étape 2 : sauvegarde"
+msgstr "Étape 2 : Sauvegarder"
 
 #: poll.py:810
 msgid "Favorite Color"
@@ -164,7 +163,7 @@ msgstr "Danois"
 
 #: i18n.py:43
 msgid "Dutch"
-msgstr "Hollandais"
+msgstr "Néerlandais"
 
 #: i18n.py:44
 msgid "English"
@@ -172,7 +171,7 @@ msgstr "Anglais"
 
 #: i18n.py:45
 msgid "English - Great Britain"
-msgstr "Anglais - Grande Bretagne"
+msgstr "Anglais - Grande-Bretagne"
 
 #: i18n.py:46
 msgid "English - U.S."
@@ -228,11 +227,11 @@ msgstr "Russe"
 
 #: i18n.py:59
 msgid "Slovak"
-msgstr "Slovak"
+msgstr "Slovaque"
 
 #: i18n.py:60
 msgid "Spanish"
-msgstr "Spanish"
+msgstr "Espagnol"
 
 #: i18n.py:61
 msgid "Swedish"
@@ -240,4 +239,24 @@ msgstr "Suédois"
 
 #: i18n.py:62
 msgid "Turkish"
-msgstr "Turque"
+msgstr "Turc"
+
+#: i18n_misc_strings.py:1
+msgid "Lesson 1"
+msgstr "Leçon 1"
+
+#: i18n_misc_strings.py:2
+msgid "Lesson 2"
+msgstr "Leçon 2"
+
+#: i18n_misc_strings.py:3
+msgid "Lesson 3"
+msgstr "Leçon 3"
+
+#: i18n_misc_strings.py:4
+msgid "Lesson 4"
+msgstr "Leçon 4"
+
+#: i18n_misc_strings.py:5
+msgid "Introduction"
+msgstr "Introduction"
