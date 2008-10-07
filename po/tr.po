@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-13 11:39+0200\n"
-"PO-Revision-Date: 2008-09-07 07:54-0400\n"
+"POT-Creation-Date: 2008-10-01 11:55-0400\n"
+"PO-Revision-Date: 2008-10-06 10:29-0400\n"
 "Last-Translator: abdullah kocabas <abdullah.kocabas@abcdizustu.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 
 #: activity/activity.info:2
 msgid "Poll"
-msgstr "anket"
+msgstr "Anket"
 
 #: poll.py:280
 msgid "VOTE!"
@@ -29,23 +29,23 @@ msgstr "anket önizleme"
 
 #: poll.py:316 poll.py:1084
 msgid "Choose a Poll"
-msgstr "bir anket seçiniz."
+msgstr "Bir anket seç"
 
 #: poll.py:369
 msgid "VOTE"
-msgstr "Oy veriniz."
+msgstr "Oy ver"
 
 #: poll.py:371
 msgid "SEE RESULTS"
-msgstr "Sonuçları görüntüleyiniz."
+msgstr "Sonuçları görüntüle"
 
 #: poll.py:380
 msgid "DELETE"
-msgstr "Siliniz."
+msgstr "Sil"
 
 #: poll.py:407 poll.py:968
 msgid "Lesson Plans"
-msgstr "Ders planları"
+msgstr "Ders Planları"
 
 #: poll.py:576
 msgid "votes"
@@ -53,97 +53,97 @@ msgstr "oylar"
 
 #: poll.py:592 poll.py:879
 msgid "Vote"
-msgstr "oy"
+msgstr "Oy"
 
 #: poll.py:600
 msgid "Edit Poll"
-msgstr "anketi düzenleyiniz."
+msgstr "Anketi düzenle"
 
 #: poll.py:603
 msgid "Save Poll"
-msgstr "anketi kaydediniz."
+msgstr "Anketi kaydet"
 
 #: poll.py:681 poll.py:1079
 msgid "Build a Poll"
-msgstr "anket oluşturunuz."
+msgstr "Anket oluştur"
 
 #: poll.py:699
 msgid "Poll Title:"
-msgstr "anket başlığı:"
+msgstr "Anket Başlığı:"
 
 #: poll.py:710
 msgid "Question:"
-msgstr "soru:"
+msgstr "Soru:"
 
 #: poll.py:720
 msgid "Number of votes to collect:"
-msgstr "toplanacak oy sayısı:"
+msgstr "Toplanacak oy sayısı:"
 
 #: poll.py:731
 msgid "Answer"
-msgstr "cevap"
+msgstr "Cevap"
 
 #: poll.py:743
 msgid "Step 1: Preview"
-msgstr "birinci adım: önizleme"
+msgstr "Birinci adım: Önizleme"
 
 #: poll.py:746
 msgid "Step 2: Save"
-msgstr "ikinci adım: kaydetmek"
+msgstr "İkinci adım: Kaydetmek"
 
 #: poll.py:810
 msgid "Favorite Color"
-msgstr "favori renk"
+msgstr "Favori Renk"
 
 #: poll.py:812
 msgid "What is your favorite color?"
-msgstr "favori renginiz nedir?"
+msgstr "Favori renginiz nedir?"
 
 #: poll.py:813
 msgid "Green"
-msgstr "yeşil"
+msgstr "Yeşil"
 
 #: poll.py:813
 msgid "Red"
-msgstr "kırmızı"
+msgstr "Kırmızı"
 
 #: poll.py:813
 msgid "Blue"
-msgstr "mavi"
+msgstr "Mavi"
 
 #: poll.py:814
 msgid "Orange"
-msgstr "turuncu"
+msgstr "Turuncu"
 
 #: poll.py:814
 msgid "None of the above"
-msgstr "üsttekilerin hiçbiri değildir."
+msgstr "Üsttekilerin hiçbiri değil"
 
 #: poll.py:880
 #, python-format
 msgid "Somebody voted on %s"
-msgstr "birisi %s'e oy kullanmış."
+msgstr "Birisi %s'e oy kullanmış"
 
 #: poll.py:965
 msgid "Close Lessons"
-msgstr "dersleri kapatınız."
+msgstr "Dersleri kapat"
 
 #: poll.py:1133 poll.py:1159
 msgid "Joined"
-msgstr "birleşmiş"
+msgstr "Birleşmiş"
 
 #: poll.py:1163
 msgid "Left"
-msgstr "sol"
+msgstr "Sol"
 
 #: poll.py:1470 poll.py:1527
 msgid "New Poll"
-msgstr "yeni anket"
+msgstr "Yeni anket"
 
 #: poll.py:1471 poll.py:1528
 #, python-format
 msgid "%(author)s shared a poll '%(title)s' with you."
-msgstr "%(yazar)s '%(başlık)s başlıklı anketi sizinle paylaştı."
+msgstr "%(yazar)s '%(başlık)s başlıklı anketi sizinle paylaştı"
 
 #: i18n.py:39
 msgid "Chinese (simplified)"
@@ -240,3 +240,23 @@ msgstr "İsveçce"
 #: i18n.py:62
 msgid "Turkish"
 msgstr "Türkçe"
+
+#: i18n_misc_strings.py:1
+msgid "Lesson 1"
+msgstr "Ders 1"
+
+#: i18n_misc_strings.py:2
+msgid "Lesson 2"
+msgstr "Ders 2"
+
+#: i18n_misc_strings.py:3
+msgid "Lesson 3"
+msgstr "Ders 3"
+
+#: i18n_misc_strings.py:4
+msgid "Lesson 4"
+msgstr "Ders 4"
+
+#: i18n_misc_strings.py:5
+msgid "Introduction"
+msgstr "Giriş"
