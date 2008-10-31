@@ -1585,11 +1585,7 @@ class LessonPlanWidget (gtk.Notebook):
                     ('_'+code.lower(), '_'+code.split('_')[0].lower(), 
                      'default'))
         files = filter(lambda x: os.path.exists(x), files)
-        # On jhbuild, the first works, on XO image 432 the second works:
-        try:
-            canvas.load_file('file://%s' % files[0], 'text/plain')
-        except:
-            canvas.load_file('file://%s' % files[0])
+        canvas.load_file('file://%s' % files[0], '')
         canvas.view_online_layout()
         canvas.zoom_width()
         canvas.set_show_margin(False)
