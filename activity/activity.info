@@ -3,6 +3,6 @@ name = Poll
 bundle_id = org.worldwideworkshop.PollBuilder
 class = poll.PollBuilder
 icon = activity-poll
-activity_version = 20
+activity_version = 21
 show_launcher = yes
 license = GPLv2+

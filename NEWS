@@ -1,3 +1,9 @@
+21
+
+* #7864 Fix Lesson Plan crash on loading repeatedly (morgs)
+* #7863: Fix lesson plan mime type (morgs)
+* Translation udpates: nl, tr
+
 20
 
 * Translation update: fr (pootle)
