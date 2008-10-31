@@ -1,5 +1,6 @@
 # Copyright 2007 World Wide Workshop Foundation
 # Copyright 2007 Collabora Ltd
+# Copyright 2008 Morgan Collett
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -186,6 +187,9 @@ class PollBuilder(activity.Activity):
         self._has_voted = False
         self._previewing = False
         self._current_view = None  # so we can switch back
+
+        # Lesson plan widget
+        self._lessonplan_widget = None
 
         toolbox = activity.ActivityToolbox(self)
         self.set_toolbox(toolbox)
@@ -417,6 +421,7 @@ class PollBuilder(activity.Activity):
 
         lessonplan = LessonPlanWidget(self._basepath)
         lessonplan.set_size_request(1050, 500)
+        self._lessonplan_widget = lessonplan
         poll_details_box.append(hippo.CanvasWidget(widget=lessonplan),
                                 hippo.PACK_EXPAND)
 
@@ -993,6 +998,8 @@ class PollBuilder(activity.Activity):
         elif lesson_return == 'build':
             self._canvas.set_root(self._build_canvas())
         self.show_all()
+        del self._lessonplan_widget
+        self._lessonplan_widget = None
 
     def _size_answer_text(self, choice):
         """Choose font size for poll answers.
