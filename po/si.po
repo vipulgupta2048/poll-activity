@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-13 11:39+0200\n"
+"POT-Creation-Date: 2008-10-03 00:30-0400\n"
 "PO-Revision-Date: 2008-09-15 06:49-0400\n"
 "Last-Translator: Rashan Anushka <rashan.uoc@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -240,3 +240,23 @@ msgstr "ස්වීඩනියානු"
 #: i18n.py:62
 msgid "Turkish"
 msgstr "තුර්කි"
+
+#: i18n_misc_strings.py:1
+msgid "Lesson 1"
+msgstr ""
+
+#: i18n_misc_strings.py:2
+msgid "Lesson 2"
+msgstr ""
+
+#: i18n_misc_strings.py:3
+msgid "Lesson 3"
+msgstr ""
+
+#: i18n_misc_strings.py:4
+msgid "Lesson 4"
+msgstr ""
+
+#: i18n_misc_strings.py:5
+msgid "Introduction"
+msgstr ""
