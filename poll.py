@@ -491,6 +491,19 @@ class PollBuilder(activity.Activity):
         question.props.size_mode = 'wrap-word'
         poll_details_box.append(question)
 
+        answer_box = hippo.CanvasBox(
+            orientation=hippo.ORIENTATION_VERTICAL)
+
+        answer_box = hippo.CanvasBox(spacing=8,
+            background_color=style.COLOR_WHITE.get_int(),
+            padding=20,
+            orientation=hippo.ORIENTATION_VERTICAL)
+        scrolledwindow = hippo.CanvasScrollbars()
+        scrolledwindow.set_policy(
+            hippo.ORIENTATION_HORIZONTAL, hippo.SCROLLBAR_NEVER)
+        scrolledwindow.set_root(answer_box)
+        poll_details_box.append(scrolledwindow, hippo.PACK_EXPAND)
+
         group = gtk.RadioButton()  # required for radio button group
 
         for choice in range(self._poll.number_of_options):
@@ -548,7 +561,7 @@ class PollBuilder(activity.Activity):
                         color=style.Color(DARK_GREEN).get_int(),
                         box_width = GRAPH_TEXT_WIDTH))
 
-            poll_details_box.append(answer_row)
+            answer_box.append(answer_row)
 
         if (self._poll.active and self._has_voted) or\
             not self._poll.active:
@@ -566,7 +579,7 @@ class PollBuilder(activity.Activity):
                 box_width = GRAPH_WIDTH - GRAPH_TEXT_WIDTH*2,
                 orientation=hippo.ORIENTATION_HORIZONTAL)
             line_box.append(line)
-            poll_details_box.append(line_box)
+            answer_box.append(line_box)
 
             # total votes
             totals_box = hippo.CanvasBox(
@@ -576,7 +589,7 @@ class PollBuilder(activity.Activity):
                 padding_left = GRAPH_TEXT_WIDTH,
                 padding_right = GRAPH_TEXT_WIDTH,
                 orientation=hippo.ORIENTATION_HORIZONTAL)
-            poll_details_box.append(totals_box)
+            answer_box.append(totals_box)
 
             spacer = hippo.CanvasBox(
                 box_width=100, orientation=hippo.ORIENTATION_VERTICAL)
