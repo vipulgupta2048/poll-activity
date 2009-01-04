@@ -197,14 +197,21 @@ class PollBuilder(activity.Activity):
 
         # Show poll screen
         # Setup screen
-        self._canvas = hippo.Canvas()
-        self._canvas.set_root(self._select_canvas())
-        self.set_canvas(self._canvas)
+        self._root = hippo.CanvasBox(orientation = hippo.ORIENTATION_VERTICAL)
+        canvas = hippo.Canvas()
+        canvas.set_root(self._root)
+        self.set_canvas(canvas)
         self.show_all()
+
+        self.set_root(self._select_canvas())
 
         self.poll_session = None  # PollSession
         self.connect('shared', self._shared_cb)
         self.connect('joined', self._joined_cb)
+
+    def set_root(self, hippo_widget):
+        self._root.clear()
+        self._root.append(hippo_widget, hippo.PACK_EXPAND)
 
     def read_file(self, file_path):
         """Implement reading from journal
@@ -273,12 +280,12 @@ class PollBuilder(activity.Activity):
 
         # pollbuilderbox is centered within canvasbox
         pollbuilderbox = self._canvas_pollbuilder_box()
-        canvasbox.append(pollbuilderbox)
+        canvasbox.append(pollbuilderbox, hippo.PACK_EXPAND)
 
         pollbuilderbox.append(self._canvas_topbox())
 
         mainbox = self._canvas_mainbox()
-        pollbuilderbox.append(mainbox)
+        pollbuilderbox.append(mainbox, hippo.PACK_EXPAND)
 
         if not self._previewing:
             mainbox.append(self._text_mainbox(_('VOTE!')))
@@ -292,7 +299,7 @@ class PollBuilder(activity.Activity):
             padding=20,
             xalign=hippo.ALIGNMENT_START,
             orientation=hippo.ORIENTATION_VERTICAL)
-        mainbox.append(poll_details_box)
+        mainbox.append(poll_details_box, hippo.PACK_EXPAND)
         self.poll_details_box = poll_details_box
 
         self.current_vote = None
@@ -310,24 +317,22 @@ class PollBuilder(activity.Activity):
 
         # pollbuilderbox is centered within canvasbox
         pollbuilderbox = self._canvas_pollbuilder_box()
-        canvasbox.append(pollbuilderbox)
+        canvasbox.append(pollbuilderbox, hippo.PACK_EXPAND)
 
         pollbuilderbox.append(self._canvas_topbox())
 
         mainbox = self._canvas_mainbox()
-        pollbuilderbox.append(mainbox)
+        pollbuilderbox.append(mainbox, hippo.PACK_EXPAND)
 
         mainbox.append(self._text_mainbox(_('Choose a Poll')))
 
         poll_details_box = hippo.CanvasBox(spacing=8,
             background_color=style.COLOR_WHITE.get_int(),
             border=4,
-            box_height=500,
             border_color=style.Color(PINK).get_int(),  # XXXX
             padding=20,
-            xalign=hippo.ALIGNMENT_START,
             orientation=hippo.ORIENTATION_VERTICAL)
-        mainbox.append(poll_details_box)
+        mainbox.append(poll_details_box, hippo.PACK_EXPAND)
 
         # add scroll window
         scrolledwindow = hippo.CanvasScrollbars()
@@ -401,12 +406,12 @@ class PollBuilder(activity.Activity):
 
         # pollbuilderbox is centered within canvasbox
         pollbuilderbox = self._canvas_pollbuilder_box()
-        canvasbox.append(pollbuilderbox)
+        canvasbox.append(pollbuilderbox, hippo.PACK_EXPAND)
 
         pollbuilderbox.append(self._canvas_topbox(lesson_return=previous_view))
 
         mainbox = self._canvas_mainbox()
-        pollbuilderbox.append(mainbox)
+        pollbuilderbox.append(mainbox, hippo.PACK_EXPAND)
 
         mainbox.append(self._text_mainbox(_('Lesson Plans')))
 
@@ -415,12 +420,10 @@ class PollBuilder(activity.Activity):
             border=4,
             border_color=style.Color(PINK).get_int(),
             padding=20,
-            xalign=hippo.ALIGNMENT_START,
             orientation=hippo.ORIENTATION_VERTICAL)
-        mainbox.append(poll_details_box)
+        mainbox.append(poll_details_box, hippo.PACK_EXPAND)
 
         lessonplan = LessonPlanWidget(self._basepath)
-        lessonplan.set_size_request(1050, 500)
         self._lessonplan_widget = lessonplan
         poll_details_box.append(hippo.CanvasWidget(widget=lessonplan),
                                 hippo.PACK_EXPAND)
@@ -437,7 +440,7 @@ class PollBuilder(activity.Activity):
             return
         self._switch_to_poll(sha)
         self._has_voted = False
-        self._canvas.set_root(self._poll_canvas())
+        self.set_root(self._poll_canvas())
         self.show_all()
 
     def _delete_poll_button_cb(self, button, sha=None):
@@ -446,7 +449,7 @@ class PollBuilder(activity.Activity):
             self._logger.debug('Strange, which button was clicked?')
             return
         self.delete_poll(sha)
-        self._canvas.set_root(self._select_canvas())
+        self.set_root(self._select_canvas())
         self.show_all()
 
     def delete_poll(self, sha=None, poll=None):
@@ -644,7 +647,7 @@ class PollBuilder(activity.Activity):
 
     def button_select_clicked(self, button):
         """Show Choose a Poll canvas"""
-        self._canvas.set_root(self._select_canvas())
+        self.set_root(self._select_canvas())
         self.show_all()
 
     def button_new_clicked(self, button):
@@ -655,12 +658,12 @@ class PollBuilder(activity.Activity):
         owner = self._pservice.get_owner()
         self._poll.author = owner.props.nick
         self._poll.active = False
-        self._canvas.set_root(self._build_canvas())
+        self.set_root(self._build_canvas())
         self.show_all()
 
     def button_edit_clicked(self, button):
         """Go back from preview to edit"""
-        self._canvas.set_root(self._build_canvas())
+        self.set_root(self._build_canvas())
         self.show_all()
 
     def _build_canvas(self, editing=False, highlight=[]):
@@ -676,12 +679,12 @@ class PollBuilder(activity.Activity):
 
         # pollbuilderbox is centered within canvasbox
         pollbuilderbox = self._canvas_pollbuilder_box()
-        canvasbox.append(pollbuilderbox)
+        canvasbox.append(pollbuilderbox, hippo.PACK_EXPAND)
 
         pollbuilderbox.append(self._canvas_topbox())
 
         mainbox = self._canvas_mainbox()
-        pollbuilderbox.append(mainbox)
+        pollbuilderbox.append(mainbox, hippo.PACK_EXPAND)
 
         mainbox.append(self._text_mainbox(_('Build a Poll')))
 
@@ -690,9 +693,8 @@ class PollBuilder(activity.Activity):
             border=4,
             border_color=style.Color(PINK).get_int(),
             padding=20,
-            xalign=hippo.ALIGNMENT_START,
             orientation=hippo.ORIENTATION_VERTICAL)
-        mainbox.append(poll_details_box)
+        mainbox.append(poll_details_box, hippo.PACK_EXPAND)
 
         buildbox = hippo.CanvasBox(spacing=8,
             #xalign=hippo.ALIGNMENT_CENTER,
@@ -763,13 +765,13 @@ class PollBuilder(activity.Activity):
         # Validate data
         failed_items = self._validate()
         if failed_items:
-            self._canvas.set_root(self._build_canvas(highlight=failed_items))
+            self.set_root(self._build_canvas(highlight=failed_items))
             self.show_all()
             return
         # Data OK
         self._poll.active = True  # Show radio buttons
         self._previewing = True
-        self._canvas.set_root(self._poll_canvas())
+        self.set_root(self._poll_canvas())
         self.show_all()
 
     def _button_save_cb(self, button, data=None):
@@ -777,7 +779,7 @@ class PollBuilder(activity.Activity):
         # Validate data
         failed_items = self._validate()
         if failed_items:
-            self._canvas.set_root(self._build_canvas(highlight=failed_items))
+            self.set_root(self._build_canvas(highlight=failed_items))
             self.show_all()
             return
         # Data OK
@@ -785,7 +787,7 @@ class PollBuilder(activity.Activity):
         self._poll.active = True
         self._polls.add(self._poll)
         self._poll.broadcast_on_mesh()
-        self._canvas.set_root(self._poll_canvas())
+        self.set_root(self._poll_canvas())
         self.show_all()
 
     def _entry_activate_cb(self, entrycontrol, data=None):
@@ -982,7 +984,7 @@ class PollBuilder(activity.Activity):
     def _button_lessonplan_cb(self, button):
         """Lesson Plan button clicked."""
         self._logger.debug('%s -> Lesson Plan' % self._current_view)
-        self._canvas.set_root(self._lessonplan_canvas())
+        self.set_root(self._lessonplan_canvas())
         self.show_all()
 
     def _button_closelessonplan_cb(self, button, lesson_return):
@@ -992,11 +994,11 @@ class PollBuilder(activity.Activity):
         """
         self._logger.debug('Lesson plans -> %s' % lesson_return)
         if lesson_return == 'poll':
-            self._canvas.set_root(self._poll_canvas())
+            self.set_root(self._poll_canvas())
         elif lesson_return == 'select':
-            self._canvas.set_root(self._select_canvas())
+            self.set_root(self._select_canvas())
         elif lesson_return == 'build':
-            self._canvas.set_root(self._build_canvas())
+            self.set_root(self._build_canvas())
         self.show_all()
         del self._lessonplan_widget
         self._lessonplan_widget = None
