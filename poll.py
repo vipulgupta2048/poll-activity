@@ -338,6 +338,7 @@ class PollBuilder(activity.Activity):
             hippo.ORIENTATION_HORIZONTAL, hippo.SCROLLBAR_NEVER)
 
         poll_selector_box = hippo.CanvasBox(
+            background_color=style.COLOR_WHITE.get_int(),
             orientation=hippo.ORIENTATION_VERTICAL)
         scrolledwindow.set_root(poll_selector_box)
         poll_details_box.append(scrolledwindow,
