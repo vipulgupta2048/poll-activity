@@ -297,7 +297,6 @@ class PollBuilder(activity.Activity):
             border=4,
             border_color=style.Color(PINK).get_int(),
             padding=20,
-            xalign=hippo.ALIGNMENT_START,
             orientation=hippo.ORIENTATION_VERTICAL)
         mainbox.append(poll_details_box, hippo.PACK_EXPAND)
         self.poll_details_box = poll_details_box
@@ -366,8 +365,7 @@ class PollBuilder(activity.Activity):
             title = hippo.CanvasText(
                 text=poll.title+' ('+poll.author+')',
                 xalign=hippo.ALIGNMENT_START,
-                color=style.Color(DARK_GREEN).get_int(),
-                font_desc = pango.FontDescription('Sans 10'))
+                color=style.Color(DARK_GREEN).get_int())
             sized_box.append(title)
 
             sized_box = hippo.CanvasBox(
@@ -479,118 +477,111 @@ class PollBuilder(activity.Activity):
         poll_details_box.remove_all()
 
         votes_total = self._poll.vote_count
+        graph_width = gtk.gdk.screen_width() / 3
 
-        text_size = self._size_heading_text(self._poll.title)
         title = hippo.CanvasText(
             text=self._poll.title,
             xalign=hippo.ALIGNMENT_START,
-            color=style.Color(DARK_GREEN).get_int(),
-            font_desc = pango.FontDescription('Sans %d' % text_size))
+            color=style.Color(DARK_GREEN).get_int())
+        title.props.size_mode = 'wrap-word'
         poll_details_box.append(title)
-        text_size = self._size_heading_text(self._poll.question)
         question = hippo.CanvasText(
             text=self._poll.question,
             xalign=hippo.ALIGNMENT_START,
-            color=style.Color(DARK_GREEN).get_int(),
-            font_desc = pango.FontDescription('Sans %d' % text_size))
+            color=style.Color(DARK_GREEN).get_int())
+        question.props.size_mode = 'wrap-word'
         poll_details_box.append(question)
 
         group = gtk.RadioButton()  # required for radio button group
+
         for choice in range(self._poll.number_of_options):
             self._logger.debug(self._poll.options[choice])
-            answer_row = hippo.CanvasBox(spacing=8,
-                orientation=hippo.ORIENTATION_HORIZONTAL)
 
-            sized_box = hippo.CanvasBox(
-                box_width=400,
-                orientation=hippo.ORIENTATION_HORIZONTAL)
-            answer_row.append(sized_box)
+            answer_row = hippo.CanvasBox(spacing=8,
+                    orientation=hippo.ORIENTATION_HORIZONTAL)
+
             if self._poll.active:
-                button = gtk.RadioButton(group, ' '+self._poll.options[choice])
-                button.set_size_request(400, -1)
+                button = gtk.RadioButton(group, '')
                 button.connect('toggled', self.vote_choice_radio_button, choice)
-                sized_box.append(hippo.CanvasWidget(
-                    widget=theme_radiobutton(
-                        button,
-                        size=self._size_answer_text(choice))))
-            else:
-                sized_box.append(hippo.CanvasText(
-                    text=self._poll.options[choice],
-                    color=style.Color(DARK_GREEN).get_int(),
-                    font_desc = pango.FontDescription('Sans %d' %
-                        self._size_answer_text(choice))))
+                answer_row.append(hippo.CanvasWidget(
+                        widget = theme_radiobutton(button)))
+
+            answer_row.append(hippo.CanvasText(
+                    text = self._poll.options[choice],
+                    color = style.Color(DARK_GREEN).get_int(),
+                    xalign=hippo.ALIGNMENT_START,
+                    size_mode = 'wrap-word'),
+                    hippo.PACK_EXPAND)
 
             if votes_total > 0:
-                # show results
                 self._logger.debug(str(self._poll.data[choice] * 1.0 / votes_total))
-                result_box = hippo.CanvasBox(
-                    orientation=hippo.ORIENTATION_VERTICAL,
-                    box_width=100)
-                answer_row.append(result_box)
-                result_box.append(hippo.CanvasText(
-                    #text=str(self._poll.data[choice]),
-                    text=justify(self._poll.data, choice),
-                    xalign=hippo.ALIGNMENT_END,
-                    color=style.Color(DARK_GREEN).get_int(),
-                    font_desc = pango.FontDescription('Sans 12')))
-                # int(self._poll.data[choice] * 1.0 / votes_total * 20) * '*',
-                # APPEND BARGRAPH TO result_box
-                graphbox = hippo.CanvasBox(
-                    orientation=hippo.ORIENTATION_HORIZONTAL,
-                    background_color=style.Color(PINK).get_int(),
-                    box_width=int(self._poll.data[choice] * 1.0 / votes_total * 20) * 20)
-                answer_row.append(graphbox)
-                answer_row.append(hippo.CanvasText(
-                    text=str(self._poll.data[choice] * 100 / votes_total)+'%',
-                    color=style.Color(DARK_GREEN).get_int(),
-                    font_desc=pango.FontDescription('Sans 10')))
+
+                graph_box = hippo.CanvasBox(
+                        box_width = graph_width,
+                        orientation = hippo.ORIENTATION_HORIZONTAL)
+                answer_row.append(graph_box)
+
+                graph_box.append(hippo.CanvasText(
+                        text=justify(self._poll.data, choice),
+                        xalign=hippo.ALIGNMENT_END,
+                        padding_right = 2,
+                        color=style.Color(DARK_GREEN).get_int()))
+
+                graph_box.append(hippo.CanvasBox(
+                        orientation=hippo.ORIENTATION_HORIZONTAL,
+                        background_color=style.Color(PINK).get_int(),
+                        box_width = int(float(self._poll.data[choice]) *
+                            (graph_width - graph_width/6) / votes_total)))
+
+                graph_box.append(hippo.CanvasText(
+                        text=str(self._poll.data[choice] * 100 / votes_total)+'%',
+                        padding_left = 2,
+                        color=style.Color(DARK_GREEN).get_int()))
 
             poll_details_box.append(answer_row)
 
         if (self._poll.active and self._has_voted) or\
             not self._poll.active:
+
             # Line above total
             line_box = hippo.CanvasBox(
+                xalign=hippo.ALIGNMENT_END,
                 spacing=8,
                 box_height=4,
                 orientation=hippo.ORIENTATION_HORIZONTAL)
-            spacer = hippo.CanvasBox(
-                box_width=430, orientation=hippo.ORIENTATION_HORIZONTAL)
-            line_box.append(spacer)
             line = hippo.CanvasBox(
                 background_color=style.Color(DARK_GREEN).get_int(),
-                box_width=600,
+                box_width = graph_width,
                 orientation=hippo.ORIENTATION_HORIZONTAL)
             line_box.append(line)
             poll_details_box.append(line_box)
 
             # total votes
             totals_box = hippo.CanvasBox(
+                xalign=hippo.ALIGNMENT_END,
+                box_width = graph_width,
                 spacing=8,
                 orientation=hippo.ORIENTATION_HORIZONTAL)
             poll_details_box.append(totals_box)
-            spacer = hippo.CanvasBox(
-                box_width=400, orientation=hippo.ORIENTATION_HORIZONTAL)
-            totals_box.append(spacer)
+
             spacer = hippo.CanvasBox(
                 box_width=100, orientation=hippo.ORIENTATION_VERTICAL)
+
             spacer.append(hippo.CanvasText(
                 text=str(votes_total),
                 xalign=hippo.ALIGNMENT_END,
-                color=style.Color(DARK_GREEN).get_int(),
-                font_desc = pango.FontDescription('Sans 12')))
+                color=style.Color(DARK_GREEN).get_int()))
             totals_box.append(spacer)
+
             totals_box.append(hippo.CanvasText(
                 text=' '+_('votes'),
                 xalign=hippo.ALIGNMENT_START,
-                color=style.Color(DARK_GREEN).get_int(),
-                font_desc = pango.FontDescription('Sans 12')))
+                color=style.Color(DARK_GREEN).get_int()))
             if votes_total < self._poll.maxvoters:
                 totals_box.append(hippo.CanvasText(
                     text=' ('+str(self._poll.maxvoters-votes_total)+
                          ' votes left to collect)',
-                    color=style.Color(DARK_GREEN).get_int(),
-                    font_desc = pango.FontDescription('Sans 12')))
+                    color=style.Color(DARK_GREEN).get_int()))
 
         # Button area
         if self._poll.active and not self._previewing:
@@ -706,7 +697,6 @@ class PollBuilder(activity.Activity):
         hbox.append(self._text_mainbox(_('Poll Title:'),
                                        warn='title' in highlight))
         entrybox = gtk.Entry()
-        entrybox.set_size_request(800, -1)
         entrybox.set_text(self._poll.title)
         entrybox.connect('changed', self._entry_activate_cb, 'title')
         hbox.append(hippo.CanvasWidget(widget=entrybox), hippo.PACK_EXPAND)
@@ -1003,57 +993,6 @@ class PollBuilder(activity.Activity):
         del self._lessonplan_widget
         self._lessonplan_widget = None
 
-    def _size_answer_text(self, choice):
-        """Choose font size for poll answers.
-
-        choice -- integer to choose an answer.
-
-        returns font size as integer.
-        """
-        text =  self._poll.options[choice]
-        if len(text) <= 16:
-            text_size = 12
-        elif len(text) <= 18:
-            text_size = 11
-        elif len(text) <= 20:
-            text_size = 10
-        elif len(text) <= 22:
-            text_size = 9
-        elif len(text) <= 25:
-            text_size = 8
-        elif len(text) <= 29:
-            text_size = 7
-        elif len(text) <= 33:
-            text_size = 6
-        else:
-            text_size = 5
-        return text_size
-
-    def _size_heading_text(self, text):
-        """Choose font size for poll headings.
-
-        text -- string of the title or question.
-
-        returns font size as integer.
-        """
-        if len(text) <= 38:
-            text_size = 12
-        elif len(text) <= 55:
-            text_size = 11
-        elif len(text) <= 59:
-            text_size = 10
-        elif len(text) <= 65:
-            text_size = 9
-        elif len(text) <= 74:
-            text_size = 8
-        elif len(text) <= 80:
-            text_size = 7
-        elif len(text) <= 90:
-            text_size = 6
-        else:
-            text_size = 5
-        return text_size
-
     def _canvas_mainbox(self):
         mainbox = hippo.CanvasBox(spacing=4,
             background_color=style.Color(LIGHT_GREEN).get_int(),
@@ -1077,7 +1016,6 @@ class PollBuilder(activity.Activity):
         return hippo.CanvasText(
             text=text,
             xalign=hippo.ALIGNMENT_START,
-            font_desc = pango.FontDescription('Sans 12'),
             color=style.Color(text_color).get_int())
 
     def _canvas_buttonbox(self, button_to_highlight=None):
