@@ -95,6 +95,10 @@ COLOR_FG_RADIOBUTTONS = (
     (gtk.STATE_INSENSITIVE,DARK_GREEN),
     )
 
+GRAPH_WIDTH = gtk.gdk.screen_width() / 3
+GRAPH_TEXT_WIDTH = GRAPH_WIDTH / 9
+RADIO_SIZE = 24
+
 def theme_button(btn, w=-1, h=-1, highlight=False):
     """Apply colors to gtk Buttons
     
@@ -124,27 +128,22 @@ def theme_button(btn, w=-1, h=-1, highlight=False):
         btn.set_size_request(w, h)
     return btn
 
-def theme_radiobutton(btn, size=12):
+def theme_radiobutton(btn):
     """Apply colors and font to gtk RadioButtons
     
     btn -- gtk RadioButton
-    size -- integer for font size
 
     returns the modified button.
     """
-    if type(size) != type(1):
-        size = 12
     for state, color in COLOR_BG_RADIOBUTTONS:
         btn.modify_bg(state, gtk.gdk.color_parse(color))
     c = btn.get_child()
     if c is not None:
         for state, color in COLOR_FG_RADIOBUTTONS:
             c.modify_fg(state, gtk.gdk.color_parse(color))
-        c.modify_font(pango.FontDescription('Sans %d' % size))
     else:
         for state, color in COLOR_FG_RADIOBUTTONS:
             btn.modify_fg(state, gtk.gdk.color_parse(color))
-        btn.modify_font(pango.FontDescription('Sans %d' % size))
     return btn
 
 
@@ -477,7 +476,6 @@ class PollBuilder(activity.Activity):
         poll_details_box.remove_all()
 
         votes_total = self._poll.vote_count
-        graph_width = gtk.gdk.screen_width() / 3
 
         title = hippo.CanvasText(
             text=self._poll.title,
@@ -500,11 +498,18 @@ class PollBuilder(activity.Activity):
             answer_row = hippo.CanvasBox(spacing=8,
                     orientation=hippo.ORIENTATION_HORIZONTAL)
 
+            radio_box = hippo.CanvasBox(
+                    box_width = RADIO_SIZE + RADIO_SIZE/2,
+                    box_height = RADIO_SIZE,
+                    orientation = hippo.ORIENTATION_HORIZONTAL)
+            answer_row.append(radio_box)
+
             if self._poll.active:
                 button = gtk.RadioButton(group, '')
                 button.connect('toggled', self.vote_choice_radio_button, choice)
-                answer_row.append(hippo.CanvasWidget(
-                        widget = theme_radiobutton(button)))
+                radio_box.append(hippo.CanvasWidget(
+                        widget = theme_radiobutton(button)),
+                        hippo.PACK_EXPAND)
 
             answer_row.append(hippo.CanvasText(
                     text = self._poll.options[choice],
@@ -517,7 +522,7 @@ class PollBuilder(activity.Activity):
                 self._logger.debug(str(self._poll.data[choice] * 1.0 / votes_total))
 
                 graph_box = hippo.CanvasBox(
-                        box_width = graph_width,
+                        box_width = GRAPH_WIDTH,
                         orientation = hippo.ORIENTATION_HORIZONTAL)
                 answer_row.append(graph_box)
 
@@ -525,18 +530,22 @@ class PollBuilder(activity.Activity):
                         text=justify(self._poll.data, choice),
                         xalign=hippo.ALIGNMENT_END,
                         padding_right = 2,
-                        color=style.Color(DARK_GREEN).get_int()))
+                        color=style.Color(DARK_GREEN).get_int(),
+                        box_width = GRAPH_TEXT_WIDTH))
+
 
                 graph_box.append(hippo.CanvasBox(
                         orientation=hippo.ORIENTATION_HORIZONTAL,
                         background_color=style.Color(PINK).get_int(),
                         box_width = int(float(self._poll.data[choice]) *
-                            (graph_width - graph_width/6) / votes_total)))
+                            (GRAPH_WIDTH - GRAPH_TEXT_WIDTH*2) / votes_total)))
 
                 graph_box.append(hippo.CanvasText(
                         text=str(self._poll.data[choice] * 100 / votes_total)+'%',
+                        xalign=hippo.ALIGNMENT_START,
                         padding_left = 2,
-                        color=style.Color(DARK_GREEN).get_int()))
+                        color=style.Color(DARK_GREEN).get_int(),
+                        box_width = GRAPH_TEXT_WIDTH))
 
             poll_details_box.append(answer_row)
 
@@ -548,10 +557,12 @@ class PollBuilder(activity.Activity):
                 xalign=hippo.ALIGNMENT_END,
                 spacing=8,
                 box_height=4,
+                padding_left = GRAPH_TEXT_WIDTH,
+                padding_right = GRAPH_TEXT_WIDTH,
                 orientation=hippo.ORIENTATION_HORIZONTAL)
             line = hippo.CanvasBox(
                 background_color=style.Color(DARK_GREEN).get_int(),
-                box_width = graph_width,
+                box_width = GRAPH_WIDTH - GRAPH_TEXT_WIDTH*2,
                 orientation=hippo.ORIENTATION_HORIZONTAL)
             line_box.append(line)
             poll_details_box.append(line_box)
@@ -559,8 +570,10 @@ class PollBuilder(activity.Activity):
             # total votes
             totals_box = hippo.CanvasBox(
                 xalign=hippo.ALIGNMENT_END,
-                box_width = graph_width,
+                box_width = GRAPH_WIDTH,
                 spacing=8,
+                padding_left = GRAPH_TEXT_WIDTH,
+                padding_right = GRAPH_TEXT_WIDTH,
                 orientation=hippo.ORIENTATION_HORIZONTAL)
             poll_details_box.append(totals_box)
 
