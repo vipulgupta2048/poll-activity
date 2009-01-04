@@ -1134,9 +1134,7 @@ class Poll:
     """Represent the data of one poll."""
     def __init__(self, activity=None, title='', author='', active=False,
                  createdate=date.today(), maxvoters=20, question='',
-                 number_of_options=5, 
-                 options={0: '', 1: '', 2: '', 3: '', 4: ''},
-                 data={0:0, 1:0, 2:0, 3:0, 4:0}, votes={'foo': 0}):
+                 number_of_options=5, options=None, data=None, votes=None):
         """Create the Poll."""
         self.activity = activity
         self.title = title
@@ -1146,9 +1144,9 @@ class Poll:
         self.maxvoters = maxvoters
         self.question = question
         self.number_of_options = number_of_options
-        self.options = options
-        self.data = data
-        self.votes = votes
+        self.options = (options or {0: '', 1: '', 2: '', 3: '', 4: ''})
+        self.data = (data or {0:0, 1:0, 2:0, 3:0, 4:0})
+        self.votes = (votes or {})
         self._logger = logging.getLogger('poll-activity.Poll')
         self._logger.debug('Creating Poll(%s by %s)' % (title, author))
 
