@@ -97,7 +97,7 @@ COLOR_FG_RADIOBUTTONS = (
 
 GRAPH_WIDTH = gtk.gdk.screen_width() / 3
 GRAPH_TEXT_WIDTH = GRAPH_WIDTH / 9
-RADIO_SIZE = 24
+RADIO_SIZE = 32
 
 def theme_button(btn, w=-1, h=-1, highlight=False):
     """Apply colors to gtk Buttons
