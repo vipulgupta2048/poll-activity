@@ -206,3 +206,6 @@ locale/zh_CN/activity.linfo
 locale/zh_CN/LC_MESSAGES/org.worldwideworkshop.PollBuilder.mo
 locale/zh_TW/activity.linfo
 locale/zh_TW/LC_MESSAGES/org.worldwideworkshop.PollBuilder.mo
+locale/sv/activity.linfo
+locale/sv/LC_MESSAGES/org.worldwideworkshop.PollBuilder.mo
+po/sv.po
