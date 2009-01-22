@@ -6,10 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-13 11:39+0200\n"
-"PO-Revision-Date: 2008-08-17 21:45-0400\n"
-"Last-Translator: Cristian Andrés Rodríguez Ferreira "
-"<djtoxicsoftware@gmail.com>\n"
+"POT-Creation-Date: 2008-10-03 00:30-0400\n"
+"PO-Revision-Date: 2008-11-23 13:28-0500\n"
+"Last-Translator: Gabriel Caro <gecaro@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -129,15 +128,14 @@ msgstr "Alguien votó en %s"
 msgid "Close Lessons"
 msgstr "Cerrar Lecciones"
 
-# Dj ToXiC: Es lo más adecuado al contexto
+# Dj ToXiC: Es lo más adecuado al contexto. GC: Presente no es un verbo. En este caso Joined se refiere a "unirse a..."
 #: poll.py:1133 poll.py:1159
-#, fuzzy
 msgid "Joined"
-msgstr "Presente"
+msgstr "Se Unió"
 
 #: poll.py:1163
 msgid "Left"
-msgstr "Ausente"
+msgstr "Abandonó"
 
 #: poll.py:1470 poll.py:1527
 msgid "New Poll"
@@ -150,96 +148,116 @@ msgstr "%(author)s ha compartido la encuesta '%(title)s' contigo."
 
 #: i18n.py:39
 msgid "Chinese (simplified)"
-msgstr ""
+msgstr "Chino (simplificado)"
 
 #: i18n.py:40
 msgid "Chinese (traditional)"
-msgstr ""
+msgstr "Chino (tradicional)"
 
 #: i18n.py:41
 msgid "Czech"
-msgstr ""
+msgstr "Checo"
 
 #: i18n.py:42
 msgid "Danish"
-msgstr ""
+msgstr "Danés"
 
 #: i18n.py:43
 msgid "Dutch"
-msgstr ""
+msgstr "Holandés"
 
 #: i18n.py:44
 msgid "English"
-msgstr ""
+msgstr "Inglés"
 
 #: i18n.py:45
 msgid "English - Great Britain"
-msgstr ""
+msgstr "Inglés - Gran Bretaña"
 
 #: i18n.py:46
 msgid "English - U.S."
-msgstr ""
+msgstr "Inglés - Estados Unidos"
 
 #: i18n.py:47
 msgid "Finnish"
-msgstr ""
+msgstr "Finlandés"
 
 #: i18n.py:48
 msgid "French"
-msgstr ""
+msgstr "Francés"
 
 #: i18n.py:49
 msgid "German"
-msgstr ""
+msgstr "Alemán"
 
 #: i18n.py:50
 msgid "Hungarian"
-msgstr ""
+msgstr "Húngaro"
 
 #: i18n.py:51
 msgid "Italian"
-msgstr ""
+msgstr "Italiano"
 
 #: i18n.py:52
 msgid "Japanese"
-msgstr ""
+msgstr "Japonés"
 
 #: i18n.py:53
 msgid "Korean"
-msgstr ""
+msgstr "Coreano"
 
 #: i18n.py:54
 msgid "Norwegian"
-msgstr ""
+msgstr "Noruego"
 
 #: i18n.py:55
 msgid "Polish"
-msgstr ""
+msgstr "Polaco"
 
 #: i18n.py:56
 msgid "Portuguese"
-msgstr ""
+msgstr "Portugués"
 
 #: i18n.py:57
 msgid "Portuguese - Brazilian"
-msgstr ""
+msgstr "Portugués - Brasileño"
 
 #: i18n.py:58
 msgid "Russian"
-msgstr ""
+msgstr "Ruso"
 
 #: i18n.py:59
 msgid "Slovak"
-msgstr ""
+msgstr "Eslovaco"
 
 #: i18n.py:60
 msgid "Spanish"
-msgstr ""
+msgstr "Español"
 
 #: i18n.py:61
 msgid "Swedish"
-msgstr ""
+msgstr "Sueco"
 
 #: i18n.py:62
 msgid "Turkish"
-msgstr ""
+msgstr "Turco"
+
+#: i18n_misc_strings.py:1
+msgid "Lesson 1"
+msgstr "Lección 1"
+
+#: i18n_misc_strings.py:2
+msgid "Lesson 2"
+msgstr "Lección 2"
+
+#: i18n_misc_strings.py:3
+msgid "Lesson 3"
+msgstr "Lección 3"
+
+#: i18n_misc_strings.py:4
+msgid "Lesson 4"
+msgstr "Lección 4"
+
+#: i18n_misc_strings.py:5
+msgid "Introduction"
+msgstr "Introducción"
