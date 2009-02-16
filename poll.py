@@ -370,22 +370,22 @@ class PollBuilder(activity.Activity):
             row_number += 1
             poll_row = hippo.CanvasBox(
                 padding_top=4, padding_bottom=4,
+                spacing=PAD,
                 background_color=row_bgcolor,
                 orientation=hippo.ORIENTATION_HORIZONTAL)
             poll_selector_box.append(poll_row)
 
             sized_box = hippo.CanvasBox(
-                box_width=600,
                 orientation=hippo.ORIENTATION_HORIZONTAL)
-            poll_row.append(sized_box)
+            poll_row.append(sized_box, hippo.PACK_EXPAND)
             title = hippo.CanvasText(
                 text=poll.title+' ('+poll.author+')',
+                size_mode=hippo.CANVAS_SIZE_ELLIPSIZE_END,
                 xalign=hippo.ALIGNMENT_START,
                 color=style.Color(DARK_GREEN).get_int())
-            sized_box.append(title)
+            sized_box.append(title, hippo.PACK_EXPAND)
 
             sized_box = hippo.CanvasBox(
-                box_width=180,
                 orientation=hippo.ORIENTATION_HORIZONTAL)
             poll_row.append(sized_box)
             if poll.active:
@@ -396,7 +396,6 @@ class PollBuilder(activity.Activity):
             sized_box.append(hippo.CanvasWidget(widget=theme_button(button)))
 
             sized_box = hippo.CanvasBox(
-                box_width=150,
                 orientation=hippo.ORIENTATION_HORIZONTAL)
             poll_row.append(sized_box)
             if poll.author == self._pservice.get_owner().props.nick:
