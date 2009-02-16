@@ -21,6 +21,10 @@
 # info@WorldWideWorkshop.org !
 #
 
+# init gthreads before using abiword
+import gobject
+gobject.threads_init()
+
 import os
 import cPickle
 import gtk
