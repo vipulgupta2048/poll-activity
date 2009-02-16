@@ -65,6 +65,7 @@ YELLOW = '#FFFF00'
 GRAY = '#ACACAC'
 LIGHT_GRAY = '#E2E2E3'
 RED = '#FF0000'
+PAD = 10
 
 COLOR_FG_BUTTONS = (
     (gtk.STATE_NORMAL,"#CCFF99"),
@@ -96,7 +97,7 @@ COLOR_FG_RADIOBUTTONS = (
     )
 
 GRAPH_WIDTH = gtk.gdk.screen_width() / 3
-GRAPH_TEXT_WIDTH = GRAPH_WIDTH / 9
+GRAPH_TEXT_WIDTH = 50
 RADIO_SIZE = 32
 
 def theme_button(btn, w=-1, h=-1, highlight=False):
@@ -295,7 +296,7 @@ class PollBuilder(activity.Activity):
             background_color=style.COLOR_WHITE.get_int(),
             border=4,
             border_color=style.Color(PINK).get_int(),
-            padding=20,
+            padding=PAD*2,
             orientation=hippo.ORIENTATION_VERTICAL)
         mainbox.append(poll_details_box, hippo.PACK_EXPAND)
 
@@ -343,7 +344,7 @@ class PollBuilder(activity.Activity):
             background_color=style.COLOR_WHITE.get_int(),
             border=4,
             border_color=style.Color(PINK).get_int(),  # XXXX
-            padding=20,
+            padding=PAD,
             orientation=hippo.ORIENTATION_VERTICAL)
         mainbox.append(poll_details_box, hippo.PACK_EXPAND)
 
@@ -432,7 +433,7 @@ class PollBuilder(activity.Activity):
             background_color=style.COLOR_WHITE.get_int(),
             border=4,
             border_color=style.Color(PINK).get_int(),
-            padding=20,
+            padding=PAD,
             orientation=hippo.ORIENTATION_VERTICAL)
         mainbox.append(poll_details_box, hippo.PACK_EXPAND)
 
@@ -513,7 +514,7 @@ class PollBuilder(activity.Activity):
 
         answer_box = hippo.CanvasBox(spacing=8,
             background_color=style.COLOR_WHITE.get_int(),
-            padding=20,
+            padding=PAD,
             orientation=hippo.ORIENTATION_VERTICAL)
         poll_details_box.append(answer_box, hippo.PACK_EXPAND)
 
@@ -725,7 +726,7 @@ class PollBuilder(activity.Activity):
             background_color=style.COLOR_WHITE.get_int(),
             border=4,
             border_color=style.Color(PINK).get_int(),
-            padding=20,
+            padding=PAD,
             orientation=hippo.ORIENTATION_VERTICAL)
         mainbox.append(poll_details_box, hippo.PACK_EXPAND)
 
@@ -1040,8 +1041,8 @@ class PollBuilder(activity.Activity):
             background_color=style.Color(LIGHT_GREEN).get_int(),
             border=4,
             border_color=style.Color(YELLOW).get_int(),
-            padding_top=20, padding_left=40, padding_right=40,
-            padding_bottom=20,
+            padding_top=PAD, padding_left=40, padding_right=40,
+            padding_bottom=PAD,
             orientation=hippo.ORIENTATION_VERTICAL)
         return mainbox
 
