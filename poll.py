@@ -298,7 +298,22 @@ class PollBuilder(activity.Activity):
             padding=20,
             orientation=hippo.ORIENTATION_VERTICAL)
         mainbox.append(poll_details_box, hippo.PACK_EXPAND)
-        self.poll_details_box = poll_details_box
+
+        self.poll_details_box_head = hippo.CanvasBox(
+            orientation=hippo.ORIENTATION_VERTICAL)
+        poll_details_box.append(self.poll_details_box_head)
+
+        self.poll_details_box = hippo.CanvasBox(
+            orientation=hippo.ORIENTATION_VERTICAL)
+        poll_details_scroll = hippo.CanvasScrollbars()
+        poll_details_scroll.set_policy(
+            hippo.ORIENTATION_HORIZONTAL, hippo.SCROLLBAR_NEVER)
+        poll_details_scroll.set_root(self.poll_details_box)
+        poll_details_box.append(poll_details_scroll, hippo.PACK_EXPAND)
+
+        self.poll_details_box_tail = hippo.CanvasBox(
+            orientation=hippo.ORIENTATION_HORIZONTAL)
+        poll_details_box.append(self.poll_details_box_tail)
 
         self.current_vote = None
         self.draw_poll_details_box()
@@ -475,6 +490,8 @@ class PollBuilder(activity.Activity):
         """
         poll_details_box = self.poll_details_box
         poll_details_box.remove_all()
+        self.poll_details_box_head.remove_all()
+        self.poll_details_box_tail.remove_all()
 
         votes_total = self._poll.vote_count
 
@@ -483,13 +500,13 @@ class PollBuilder(activity.Activity):
             xalign=hippo.ALIGNMENT_START,
             color=style.Color(DARK_GREEN).get_int())
         title.props.size_mode = 'wrap-word'
-        poll_details_box.append(title)
+        self.poll_details_box_head.append(title)
         question = hippo.CanvasText(
             text=self._poll.question,
             xalign=hippo.ALIGNMENT_START,
             color=style.Color(DARK_GREEN).get_int())
         question.props.size_mode = 'wrap-word'
-        poll_details_box.append(question)
+        self.poll_details_box_head.append(question)
 
         answer_box = hippo.CanvasBox(
             orientation=hippo.ORIENTATION_VERTICAL)
@@ -498,11 +515,7 @@ class PollBuilder(activity.Activity):
             background_color=style.COLOR_WHITE.get_int(),
             padding=20,
             orientation=hippo.ORIENTATION_VERTICAL)
-        scrolledwindow = hippo.CanvasScrollbars()
-        scrolledwindow.set_policy(
-            hippo.ORIENTATION_HORIZONTAL, hippo.SCROLLBAR_NEVER)
-        scrolledwindow.set_root(answer_box)
-        poll_details_box.append(scrolledwindow, hippo.PACK_EXPAND)
+        poll_details_box.append(answer_box, hippo.PACK_EXPAND)
 
         group = gtk.RadioButton()  # required for radio button group
 
@@ -618,7 +631,7 @@ class PollBuilder(activity.Activity):
             button = gtk.Button(_("Vote"))
             button.connect('clicked', self._button_vote_cb)
             button_box.append(hippo.CanvasWidget(widget=theme_button(button)))
-            poll_details_box.append(button_box)
+            self.poll_details_box_tail.append(button_box)
         elif self._previewing:
             button_box = hippo.CanvasBox(spacing=8,
                 padding = 8,
@@ -629,7 +642,7 @@ class PollBuilder(activity.Activity):
             button = gtk.Button(_("Save Poll"))
             button.connect('clicked', self._button_save_cb)
             button_box.append(hippo.CanvasWidget(widget=theme_button(button)))
-            poll_details_box.append(button_box)
+            self.poll_details_box_tail.append(button_box)
 
     def vote_choice_radio_button(self, widget, data=None):
         """Track which radio button has been selected
