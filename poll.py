@@ -537,6 +537,8 @@ class PollBuilder(activity.Activity):
                 radio_box.append(hippo.CanvasWidget(
                         widget = theme_radiobutton(button)),
                         hippo.PACK_EXPAND)
+                if choice == self.current_vote:
+                    button.set_active(True)
 
             answer_row.append(hippo.CanvasText(
                     text = self._poll.options[choice],
