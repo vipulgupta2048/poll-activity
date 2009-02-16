@@ -744,6 +744,8 @@ class PollBuilder(activity.Activity):
                                        warn='title' in highlight))
         entrybox = gtk.Entry()
         entrybox.set_text(self._poll.title)
+        entrybox.modify_bg(gtk.STATE_INSENSITIVE,
+                style.COLOR_WHITE.get_gdk_color())
         entrybox.connect('changed', self._entry_activate_cb, 'title')
         hbox.append(hippo.CanvasWidget(widget=entrybox), hippo.PACK_EXPAND)
         buildbox.append(hbox, hippo.PACK_EXPAND)
@@ -754,6 +756,8 @@ class PollBuilder(activity.Activity):
                                        warn='question' in highlight))
         entrybox = gtk.Entry()
         entrybox.set_text(self._poll.question)
+        entrybox.modify_bg(gtk.STATE_INSENSITIVE,
+                style.COLOR_WHITE.get_gdk_color())
         entrybox.connect('changed', self._entry_activate_cb, 'question')
         hbox.append(hippo.CanvasWidget(widget=entrybox), hippo.PACK_EXPAND)
         buildbox.append(hbox, hippo.PACK_EXPAND)
@@ -764,6 +768,8 @@ class PollBuilder(activity.Activity):
                                        warn='maxvoters' in highlight))
         entrybox = gtk.Entry()
         entrybox.set_text(str(self._poll.maxvoters))
+        entrybox.modify_bg(gtk.STATE_INSENSITIVE,
+                style.COLOR_WHITE.get_gdk_color())
         entrybox.connect('changed', self._entry_activate_cb, 'maxvoters')
         hbox.append(hippo.CanvasWidget(widget=entrybox))
         buildbox.append(hbox)
@@ -776,6 +782,8 @@ class PollBuilder(activity.Activity):
                                            warn=str(choice) in highlight))
             entrybox = gtk.Entry()
             entrybox.set_text(self._poll.options[choice])
+            entrybox.modify_bg(gtk.STATE_INSENSITIVE,
+                    style.COLOR_WHITE.get_gdk_color())
             entrybox.connect('changed', self._entry_activate_cb, str(choice))
             hbox.append(hippo.CanvasWidget(widget=entrybox), hippo.PACK_EXPAND)
             buildbox.append(hbox, hippo.PACK_EXPAND)
