@@ -55,7 +55,6 @@ except:
     pass  # FIXME remove this once compatibility with Trial 3 not required
 from sugar.presence import presenceservice
 from abiword import Canvas as AbiCanvas
-from i18n import LanguageComboBox
 
 SERVICE = "org.worldwideworkshop.olpc.PollBuilder"
 IFACE = SERVICE
@@ -938,23 +937,6 @@ class PollBuilder(activity.Activity):
                         ' poll closed.',
                         choice, votersha)
 
-    def _canvas_language_select_box(self):
-        """CanvasBox definition for lang select box.
-        
-        Called from _poll_canvas, _select_canvas, _build_canvas
-        """
-        languageselectbox = hippo.CanvasBox(
-            background_color=style.Color(LIGHT_GREEN).get_int(),
-            border_top=4, border_left=4,
-            border_color=style.Color(YELLOW).get_int(),
-            padding_top=12, padding_bottom=12,
-            padding_left=100, padding_right=100,
-            orientation=hippo.ORIENTATION_VERTICAL)
-        button = LanguageComboBox()
-        button.install()
-        languageselectbox.append(hippo.CanvasWidget(widget=theme_button(button)))
-        return languageselectbox
-
     def _canvas_pollbuilder_box(self):
         """CanvasBox definition for pollbuilderbox.
         
@@ -986,8 +968,6 @@ class PollBuilder(activity.Activity):
             background_color=style.Color(LIGHT_GREEN).get_int(),
             orientation=hippo.ORIENTATION_HORIZONTAL)
         topbox.append(hippo.CanvasWidget(widget=self._logo()))
-        languageselectbox = self._canvas_language_select_box()
-        topbox.append(languageselectbox, hippo.PACK_EXPAND)
         lessonplanbox = self._canvas_lessonplanbox(lesson_return)
         topbox.append(lessonplanbox, hippo.PACK_EXPAND)
         return topbox

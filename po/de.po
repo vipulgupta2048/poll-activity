@@ -16,108 +16,87 @@ msgstr ""
 "X-Generator: Pootle 1.1.0rc2\n"
 
 #: activity/activity.info:2
-#, fuzzy
 msgid "Poll"
 msgstr "Abstimmung"
 
 #: poll.py:280
-#, fuzzy
 msgid "VOTE!"
 msgstr "ABSTIMMEN!"
 
 #: poll.py:282
-#, fuzzy
 msgid "Poll Preview"
 msgstr "Abstimmungsvorschau"
 
 #: poll.py:316 poll.py:1084
-#, fuzzy
 msgid "Choose a Poll"
 msgstr "Abstimmung auswählen"
 
 # (Markus S.) 'STIMME'?
 #: poll.py:369
-#, fuzzy
 msgid "VOTE"
 msgstr "ABSTIMMEN"
 
 #: poll.py:371
-#, fuzzy
 msgid "SEE RESULTS"
 msgstr "ERGEBNISSE"
 
 #: poll.py:380
-#, fuzzy
 msgid "DELETE"
 msgstr "LÖSCHEN"
 
 #: poll.py:407 poll.py:968
-#, fuzzy
 msgid "Lesson Plans"
 msgstr "Übungspläne"
 
 #: poll.py:576
-#, fuzzy
 msgid "votes"
 msgstr "Stimmen"
 
 #: poll.py:592 poll.py:879
-#, fuzzy
 msgid "Vote"
 msgstr "Abstimmen"
 
 #: poll.py:600
-#, fuzzy
 msgid "Edit Poll"
 msgstr "Abstimmung bearbeiten"
 
 #: poll.py:603
-#, fuzzy
 msgid "Save Poll"
 msgstr "Abstimmung speichern"
 
 #: poll.py:681 poll.py:1079
-#, fuzzy
 msgid "Build a Poll"
 msgstr "Abstimmung erstellen"
 
 #: poll.py:699
-#, fuzzy
 msgid "Poll Title:"
 msgstr "Abstimmungstitel"
 
 #: poll.py:710
-#, fuzzy
 msgid "Question:"
 msgstr "Frage:"
 
 #: poll.py:720
-#, fuzzy
 msgid "Number of votes to collect:"
 msgstr "Zahl der zu sammelnden Stimmen:"
 
 #: poll.py:731
-#, fuzzy
 msgid "Answer"
 msgstr "Antwort"
 
 #: poll.py:743
-#, fuzzy
 msgid "Step 1: Preview"
 msgstr "Schritt 1: Vorschau"
 
 #: poll.py:746
-#, fuzzy
 msgid "Step 2: Save"
 msgstr "Schritt 2: Speichern"
 
 #: poll.py:810
-#, fuzzy
 msgid "Favorite Color"
 msgstr "Lieblingsfarbe"
 
 #: poll.py:812
-#, fuzzy
 msgid "What is your favorite color?"
 msgstr "Welches ist deine Lieblingsfarbe?"
 
@@ -138,39 +117,32 @@ msgid "Orange"
 msgstr "Orange"
 
 #: poll.py:814
-#, fuzzy
 msgid "None of the above"
 msgstr "Keine der angeführten"
 
 #: poll.py:880
 #, python-format
-#, fuzzy
 msgid "Somebody voted on %s"
 msgstr "Jemand stimmte für %s"
 
 #: poll.py:965
-#, fuzzy
 msgid "Close Lessons"
 msgstr "Übungen beenden"
 
 #: poll.py:1133 poll.py:1159
-#, fuzzy
 msgid "Joined"
 msgstr "Dazugekommen"
 
 #: poll.py:1163
-#, fuzzy
 msgid "Left"
 msgstr "Ausgestiegen"
 
 #: poll.py:1470 poll.py:1527
-#, fuzzy
 msgid "New Poll"
 msgstr "Neue Abstimmung"
 
 #: poll.py:1471 poll.py:1528
 #, python-format
-#, fuzzy
 msgid "%(author)s shared a poll '%(title)s' with you."
 msgstr "%(author)s teilte eine Abstimmung '%(title)s' mit dir."
 
