@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-01 11:55-0400\n"
+"POT-Creation-Date: 2008-10-03 00:30-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,246 +18,246 @@ msgstr ""
 
 #: activity/activity.info:2
 msgid "Poll"
-msgstr ""
+msgstr "Omröstnig"
 
 #: poll.py:280
 msgid "VOTE!"
-msgstr ""
+msgstr "Rösta!"
 
 #: poll.py:282
 msgid "Poll Preview"
-msgstr ""
+msgstr "Omröstningsförhandsgranskning"
 
 #: poll.py:316 poll.py:1084
 msgid "Choose a Poll"
-msgstr ""
+msgstr "Välj en omröstning"
 
 #: poll.py:369
 msgid "VOTE"
-msgstr ""
+msgstr "Rösta"
 
 #: poll.py:371
 msgid "SEE RESULTS"
-msgstr ""
+msgstr "Se resultat"
 
 #: poll.py:380
 msgid "DELETE"
-msgstr ""
+msgstr "Ta bort"
 
 #: poll.py:407 poll.py:968
 msgid "Lesson Plans"
-msgstr ""
+msgstr "Lektionsplaner"
 
 #: poll.py:576
 msgid "votes"
-msgstr ""
+msgstr "röster"
 
 #: poll.py:592 poll.py:879
 msgid "Vote"
-msgstr ""
+msgstr "Röst"
 
 #: poll.py:600
 msgid "Edit Poll"
-msgstr ""
+msgstr "Regigera omröstning"
 
 #: poll.py:603
 msgid "Save Poll"
-msgstr ""
+msgstr "Spara omröstning"
 
 #: poll.py:681 poll.py:1079
 msgid "Build a Poll"
-msgstr ""
+msgstr "Skapa en omröstnnig"
 
 #: poll.py:699
 msgid "Poll Title:"
-msgstr ""
+msgstr "Omröstningstitel:"
 
 #: poll.py:710
 msgid "Question:"
-msgstr ""
+msgstr "Fråga:"
 
 #: poll.py:720
 msgid "Number of votes to collect:"
-msgstr ""
+msgstr "Antal röster som ska samlas in:"
 
 #: poll.py:731
 msgid "Answer"
-msgstr ""
+msgstr "Svar"
 
 #: poll.py:743
 msgid "Step 1: Preview"
-msgstr ""
+msgstr "Steg 1: Förhandsgranskning"
 
 #: poll.py:746
 msgid "Step 2: Save"
-msgstr ""
+msgstr "Steg 2: Spara"
 
 #: poll.py:810
 msgid "Favorite Color"
-msgstr ""
+msgstr "Favoritfärg"
 
 #: poll.py:812
 msgid "What is your favorite color?"
-msgstr ""
+msgstr "Vilken är din favoritfärg?"
 
 #: poll.py:813
 msgid "Green"
-msgstr ""
+msgstr "Grön"
 
 #: poll.py:813
 msgid "Red"
-msgstr ""
+msgstr "Röd"
 
 #: poll.py:813
 msgid "Blue"
-msgstr ""
+msgstr "Blå"
 
 #: poll.py:814
 msgid "Orange"
-msgstr ""
+msgstr "Orange"
 
 #: poll.py:814
 msgid "None of the above"
-msgstr ""
+msgstr "Ingen av ovanstående"
 
 #: poll.py:880
 #, python-format
 msgid "Somebody voted on %s"
-msgstr ""
+msgstr "Någon röstade på %s"
 
 #: poll.py:965
 msgid "Close Lessons"
-msgstr ""
+msgstr "Stäng lektioner"
 
 #: poll.py:1133 poll.py:1159
 msgid "Joined"
-msgstr ""
+msgstr "Gick med i"
 
 #: poll.py:1163
 msgid "Left"
-msgstr ""
+msgstr "Lämnade"
 
 #: poll.py:1470 poll.py:1527
 msgid "New Poll"
-msgstr ""
+msgstr "Ny omröstning"
 
 #: poll.py:1471 poll.py:1528
 #, python-format
 msgid "%(author)s shared a poll '%(title)s' with you."
-msgstr ""
+msgstr "%(author)s delade en omröstning med dig: '%(title)s'"
 
 #: i18n.py:39
 msgid "Chinese (simplified)"
-msgstr ""
+msgstr "kinesiska (förenklad)"
 
 #: i18n.py:40
 msgid "Chinese (traditional)"
-msgstr ""
+msgstr "kinesiska (traditionell)"
 
 #: i18n.py:41
 msgid "Czech"
-msgstr ""
+msgstr "tjeckiska"
 
 #: i18n.py:42
 msgid "Danish"
-msgstr ""
+msgstr "danska"
 
 #: i18n.py:43
 msgid "Dutch"
-msgstr ""
+msgstr "holländska"
 
 #: i18n.py:44
 msgid "English"
-msgstr ""
+msgstr "engelska"
 
 #: i18n.py:45
 msgid "English - Great Britain"
-msgstr ""
+msgstr "engelska (Storbritannien)"
 
 #: i18n.py:46
 msgid "English - U.S."
-msgstr ""
+msgstr "engelska (USA)"
 
 #: i18n.py:47
 msgid "Finnish"
-msgstr ""
+msgstr "finska"
 
 #: i18n.py:48
 msgid "French"
-msgstr ""
+msgstr "franska"
 
 #: i18n.py:49
 msgid "German"
-msgstr ""
+msgstr "tyska"
 
 #: i18n.py:50
 msgid "Hungarian"
-msgstr ""
+msgstr "ungerska"
 
 #: i18n.py:51
 msgid "Italian"
-msgstr ""
+msgstr "itanlienska"
 
 #: i18n.py:52
 msgid "Japanese"
-msgstr ""
+msgstr "japanska"
 
 #: i18n.py:53
 msgid "Korean"
-msgstr ""
+msgstr "koreanska"
 
 #: i18n.py:54
 msgid "Norwegian"
-msgstr ""
+msgstr "norska"
 
 #: i18n.py:55
 msgid "Polish"
-msgstr ""
+msgstr "polska"
 
 #: i18n.py:56
 msgid "Portuguese"
-msgstr ""
+msgstr "portogisiska"
 
 #: i18n.py:57
 msgid "Portuguese - Brazilian"
-msgstr ""
+msgstr "portogisiska (brasilianska)"
 
 #: i18n.py:58
 msgid "Russian"
-msgstr ""
+msgstr "ryska"
 
 #: i18n.py:59
 msgid "Slovak"
-msgstr ""
+msgstr "slovaksika"
 
 #: i18n.py:60
 msgid "Spanish"
-msgstr ""
+msgstr "spanska"
 
 #: i18n.py:61
 msgid "Swedish"
-msgstr ""
+msgstr "svenska"
 
 #: i18n.py:62
 msgid "Turkish"
-msgstr ""
+msgstr "turkiska"
 
 #: i18n_misc_strings.py:1
 msgid "Lesson 1"
-msgstr ""
+msgstr "Lektion 1"
 
 #: i18n_misc_strings.py:2
 msgid "Lesson 2"
-msgstr ""
+msgstr "Lektion 3"
 
 #: i18n_misc_strings.py:3
 msgid "Lesson 3"
-msgstr ""
+msgstr "Lektion 3"
 
 #: i18n_misc_strings.py:4
 msgid "Lesson 4"
-msgstr ""
+msgstr "Lektion 4"
 
 #: i18n_misc_strings.py:5
 msgid "Introduction"
-msgstr ""
+msgstr "Introduktion"
