@@ -2,7 +2,8 @@
 name = Poll
 bundle_id = org.worldwideworkshop.PollBuilder
 class = poll.PollBuilder
+exec = sugar-activity poll.PollBuilder
 icon = activity-poll
-activity_version = 21
+activity_version = 22
 show_launcher = yes
 license = GPLv2+
