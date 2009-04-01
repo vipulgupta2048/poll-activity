@@ -2,242 +2,261 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-13 11:39+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2008-10-03 00:30-0400\n"
+"PO-Revision-Date: 2009-01-25 17:20-0500\n"
+"Last-Translator: Yuan Chao <yuanchao@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.1.1rc4\n"
+"X-Generator: Pootle 1.1.0rc2\n"
 
 #: activity/activity.info:2
 msgid "Poll"
-msgstr ""
+msgstr "投票表決"
 
 #: poll.py:280
 msgid "VOTE!"
-msgstr ""
+msgstr "投票！"
 
 #: poll.py:282
 msgid "Poll Preview"
-msgstr ""
+msgstr "表決預覽"
 
 #: poll.py:316 poll.py:1084
 msgid "Choose a Poll"
-msgstr ""
+msgstr "選擇表決議題"
 
 #: poll.py:369
 msgid "VOTE"
-msgstr ""
+msgstr "投票"
 
 #: poll.py:371
 msgid "SEE RESULTS"
-msgstr ""
+msgstr "看結果"
 
 #: poll.py:380
 msgid "DELETE"
-msgstr ""
+msgstr "删除"
 
 #: poll.py:407 poll.py:968
 msgid "Lesson Plans"
-msgstr ""
+msgstr "議題規劃"
 
 #: poll.py:576
 msgid "votes"
-msgstr ""
+msgstr "得票數"
 
 #: poll.py:592 poll.py:879
 msgid "Vote"
-msgstr ""
+msgstr "投票"
 
 #: poll.py:600
 msgid "Edit Poll"
-msgstr ""
+msgstr "編輯表決項目"
 
 #: poll.py:603
 msgid "Save Poll"
-msgstr ""
+msgstr "儲存表決項目"
 
 #: poll.py:681 poll.py:1079
 msgid "Build a Poll"
-msgstr ""
+msgstr "建立表決項目"
 
 #: poll.py:699
 msgid "Poll Title:"
-msgstr ""
+msgstr "議題："
 
 #: poll.py:710
 msgid "Question:"
-msgstr ""
+msgstr "問題："
 
 #: poll.py:720
 msgid "Number of votes to collect:"
-msgstr ""
+msgstr "達成尚需票數"
 
 #: poll.py:731
 msgid "Answer"
-msgstr ""
+msgstr "回答"
 
 #: poll.py:743
 msgid "Step 1: Preview"
-msgstr ""
+msgstr "第一步：預覽"
 
 #: poll.py:746
 msgid "Step 2: Save"
-msgstr ""
+msgstr "第二步：存檔"
 
 #: poll.py:810
 msgid "Favorite Color"
-msgstr ""
+msgstr "最愛的顏色"
 
 #: poll.py:812
 msgid "What is your favorite color?"
-msgstr ""
+msgstr "您最愛的顏色是什麼？"
 
 #: poll.py:813
 msgid "Green"
-msgstr ""
+msgstr "綠色"
 
 #: poll.py:813
 msgid "Red"
-msgstr ""
+msgstr "紅色"
 
 #: poll.py:813
 msgid "Blue"
-msgstr ""
+msgstr "藍色"
 
 #: poll.py:814
 msgid "Orange"
-msgstr ""
+msgstr "橘色"
 
 #: poll.py:814
 msgid "None of the above"
-msgstr ""
+msgstr "以上接非"
 
 #: poll.py:880
 #, python-format
 msgid "Somebody voted on %s"
-msgstr ""
+msgstr "有人投給 %s"
 
 #: poll.py:965
 msgid "Close Lessons"
-msgstr ""
+msgstr "關閉議題"
 
 #: poll.py:1133 poll.py:1159
 msgid "Joined"
-msgstr ""
+msgstr "已加入"
 
 #: poll.py:1163
 msgid "Left"
-msgstr ""
+msgstr "左側"
 
 #: poll.py:1470 poll.py:1527
 msgid "New Poll"
-msgstr ""
+msgstr "新增表決項目"
 
 #: poll.py:1471 poll.py:1528
 #, python-format
 msgid "%(author)s shared a poll '%(title)s' with you."
-msgstr ""
+msgstr "%(author)s 與你分享 '%(title)s' 表決"
 
 #: i18n.py:39
 msgid "Chinese (simplified)"
-msgstr ""
+msgstr "簡體中文"
 
 #: i18n.py:40
 msgid "Chinese (traditional)"
-msgstr ""
+msgstr "正體中文"
 
 #: i18n.py:41
 msgid "Czech"
-msgstr ""
+msgstr "捷克文"
 
 #: i18n.py:42
 msgid "Danish"
-msgstr ""
+msgstr "丹麥文"
 
 #: i18n.py:43
 msgid "Dutch"
-msgstr ""
+msgstr "荷蘭文"
 
 #: i18n.py:44
 msgid "English"
-msgstr ""
+msgstr "英文"
 
 #: i18n.py:45
 msgid "English - Great Britain"
-msgstr ""
+msgstr "英式英文"
 
 #: i18n.py:46
 msgid "English - U.S."
-msgstr ""
+msgstr "美式英文"
 
 #: i18n.py:47
 msgid "Finnish"
-msgstr ""
+msgstr "芬蘭文"
 
 #: i18n.py:48
 msgid "French"
-msgstr ""
+msgstr "法文"
 
 #: i18n.py:49
 msgid "German"
-msgstr ""
+msgstr "德文"
 
 #: i18n.py:50
 msgid "Hungarian"
-msgstr ""
+msgstr "匈牙利文"
 
 #: i18n.py:51
 msgid "Italian"
-msgstr ""
+msgstr "義大利文"
 
 #: i18n.py:52
 msgid "Japanese"
-msgstr ""
+msgstr "日文"
 
 #: i18n.py:53
 msgid "Korean"
-msgstr ""
+msgstr "韓文"
 
 #: i18n.py:54
 msgid "Norwegian"
-msgstr ""
+msgstr "挪威文"
 
 #: i18n.py:55
 msgid "Polish"
-msgstr ""
+msgstr "波蘭文"
 
 #: i18n.py:56
 msgid "Portuguese"
-msgstr ""
+msgstr "葡萄牙文"
 
 #: i18n.py:57
 msgid "Portuguese - Brazilian"
-msgstr ""
+msgstr "巴西葡語"
 
 #: i18n.py:58
 msgid "Russian"
-msgstr ""
+msgstr "俄文"
 
 #: i18n.py:59
 msgid "Slovak"
-msgstr ""
+msgstr "斯洛伐克文"
 
 #: i18n.py:60
 msgid "Spanish"
-msgstr ""
+msgstr "西班牙文"
 
 #: i18n.py:61
 msgid "Swedish"
-msgstr ""
+msgstr "瑞典文"
 
 #: i18n.py:62
 msgid "Turkish"
-msgstr ""
+msgstr "突耳其文"
+
+#: i18n_misc_strings.py:1
+msgid "Lesson 1"
+msgstr "第一課"
+
+#: i18n_misc_strings.py:2
+msgid "Lesson 2"
+msgstr "第二課"
+
+#: i18n_misc_strings.py:3
+msgid "Lesson 3"
+msgstr "第三課"
+
+#: i18n_misc_strings.py:4
+msgid "Lesson 4"
+msgstr "第四課"
+
+#: i18n_misc_strings.py:5
+msgid "Introduction"
+msgstr "介紹"
