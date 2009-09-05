@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-03 00:30-0400\n"
+"POT-Creation-Date: 2009-04-29 17:36-0400\n"
 "PO-Revision-Date: 2008-10-02 15:41-0400\n"
 "Last-Translator: Myckel Habets <myckel@sdf.lonestar.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,228 +18,6 @@ msgstr ""
 #: activity/activity.info:2
 msgid "Poll"
 msgstr "Enquête"
-
-#: poll.py:280
-msgid "VOTE!"
-msgstr "STEM!"
-
-#: poll.py:282
-msgid "Poll Preview"
-msgstr "Enquêtevoorbeeld"
-
-#: poll.py:316 poll.py:1084
-msgid "Choose a Poll"
-msgstr "Kies een vraag"
-
-#: poll.py:369
-msgid "VOTE"
-msgstr "STEM"
-
-#: poll.py:371
-msgid "SEE RESULTS"
-msgstr "RESULTATEN BEKIJKEN"
-
-#: poll.py:380
-msgid "DELETE"
-msgstr "VERWIJDEREN"
-
-#: poll.py:407 poll.py:968
-msgid "Lesson Plans"
-msgstr "Les ideeën"
-
-#: poll.py:576
-msgid "votes"
-msgstr "stemmen"
-
-#: poll.py:592 poll.py:879
-msgid "Vote"
-msgstr "Stem"
-
-#: poll.py:600
-msgid "Edit Poll"
-msgstr "Enquête bewerken"
-
-#: poll.py:603
-msgid "Save Poll"
-msgstr "Enquête opslaan"
-
-#: poll.py:681 poll.py:1079
-msgid "Build a Poll"
-msgstr "Enquête opstellen"
-
-#: poll.py:699
-msgid "Poll Title:"
-msgstr "Enquête-titel"
-
-#: poll.py:710
-msgid "Question:"
-msgstr "Vraag:"
-
-#: poll.py:720
-msgid "Number of votes to collect:"
-msgstr "Aantal stemmen om te verzamelen:"
-
-#: poll.py:731
-msgid "Answer"
-msgstr "Antwoord"
-
-#: poll.py:743
-msgid "Step 1: Preview"
-msgstr "Stap 1: Voorbeeld"
-
-#: poll.py:746
-msgid "Step 2: Save"
-msgstr "Stap 2: Opslaan"
-
-#: poll.py:810
-msgid "Favorite Color"
-msgstr "Lievelingskleur"
-
-#: poll.py:812
-msgid "What is your favorite color?"
-msgstr "Wat is jouw lievelingskleur?"
-
-#: poll.py:813
-msgid "Green"
-msgstr "Groen"
-
-#: poll.py:813
-msgid "Red"
-msgstr "Rood"
-
-#: poll.py:813
-msgid "Blue"
-msgstr "Blauw"
-
-#: poll.py:814
-msgid "Orange"
-msgstr "Oranje"
-
-#: poll.py:814
-msgid "None of the above"
-msgstr "Iets anders"
-
-#: poll.py:880
-#, python-format
-msgid "Somebody voted on %s"
-msgstr "Iemand heeft %s gekozen"
-
-#: poll.py:965
-msgid "Close Lessons"
-msgstr "Lessen sluiten"
-
-#: poll.py:1133 poll.py:1159
-msgid "Joined"
-msgstr "Neemt deel"
-
-#: poll.py:1163
-msgid "Left"
-msgstr "Ging weg"
-
-#: poll.py:1470 poll.py:1527
-msgid "New Poll"
-msgstr "Nieuwe enquête"
-
-#: poll.py:1471 poll.py:1528
-#, python-format
-msgid "%(author)s shared a poll '%(title)s' with you."
-msgstr "%(author)s delen een enquête '%(title)s' met jou."
-
-#: i18n.py:39
-msgid "Chinese (simplified)"
-msgstr "Chinees (vereenvoudigd)"
-
-#: i18n.py:40
-msgid "Chinese (traditional)"
-msgstr "Chinees (traditioneel)"
-
-#: i18n.py:41
-msgid "Czech"
-msgstr "Tsjechisch"
-
-#: i18n.py:42
-msgid "Danish"
-msgstr "Deens"
-
-#: i18n.py:43
-msgid "Dutch"
-msgstr "Nederlands"
-
-#: i18n.py:44
-msgid "English"
-msgstr "Engels"
-
-#: i18n.py:45
-msgid "English - Great Britain"
-msgstr "Engels - Groot-Brittannië"
-
-#: i18n.py:46
-msgid "English - U.S."
-msgstr "Engels - V.S."
-
-#: i18n.py:47
-msgid "Finnish"
-msgstr "Fins"
-
-#: i18n.py:48
-msgid "French"
-msgstr "Frans"
-
-#: i18n.py:49
-msgid "German"
-msgstr "Duits"
-
-#: i18n.py:50
-msgid "Hungarian"
-msgstr "Hongaars"
-
-#: i18n.py:51
-msgid "Italian"
-msgstr "Italiaans"
-
-#: i18n.py:52
-msgid "Japanese"
-msgstr "Japans"
-
-#: i18n.py:53
-msgid "Korean"
-msgstr "Koreaans"
-
-#: i18n.py:54
-msgid "Norwegian"
-msgstr "Noors"
-
-#: i18n.py:55
-msgid "Polish"
-msgstr "Pools"
-
-#: i18n.py:56
-msgid "Portuguese"
-msgstr "Portugees"
-
-#: i18n.py:57
-msgid "Portuguese - Brazilian"
-msgstr "Portugees - Braziliaans"
-
-#: i18n.py:58
-msgid "Russian"
-msgstr "Russisch"
-
-#: i18n.py:59
-msgid "Slovak"
-msgstr "Slowaaks"
-
-#: i18n.py:60
-msgid "Spanish"
-msgstr "Spaans"
-
-#: i18n.py:61
-msgid "Swedish"
-msgstr "Zweeds"
-
-#: i18n.py:62
-msgid "Turkish"
-msgstr "Turks"
 
 #: i18n_misc_strings.py:1
 msgid "Lesson 1"
@@ -260,3 +38,201 @@ msgstr "Les 4"
 #: i18n_misc_strings.py:5
 msgid "Introduction"
 msgstr "Introductie"
+
+#: poll.py:294
+msgid "VOTE!"
+msgstr "STEM!"
+
+#: poll.py:296
+msgid "Poll Preview"
+msgstr "Enquêtevoorbeeld"
+
+#: poll.py:344 poll.py:1065
+msgid "Choose a Poll"
+msgstr "Kies een vraag"
+
+#: poll.py:395
+msgid "VOTE"
+msgstr "STEM"
+
+#: poll.py:397
+msgid "SEE RESULTS"
+msgstr "RESULTATEN BEKIJKEN"
+
+#: poll.py:405
+msgid "DELETE"
+msgstr "VERWIJDEREN"
+
+#: poll.py:432 poll.py:999
+msgid "Lesson Plans"
+msgstr "Les ideeën"
+
+#: poll.py:622
+msgid "votes"
+msgstr "stemmen"
+
+#: poll.py:636 poll.py:929
+msgid "Vote"
+msgstr "Stem"
+
+#: poll.py:644
+msgid "Edit Poll"
+msgstr "Enquête bewerken"
+
+#: poll.py:647
+msgid "Save Poll"
+msgstr "Enquête opslaan"
+
+#: poll.py:725 poll.py:1060
+msgid "Build a Poll"
+msgstr "Enquête opstellen"
+
+#: poll.py:742
+msgid "Poll Title:"
+msgstr "Enquête-titel"
+
+#: poll.py:754
+msgid "Question:"
+msgstr "Vraag:"
+
+#: poll.py:766
+msgid "Number of votes to collect:"
+msgstr "Aantal stemmen om te verzamelen:"
+
+#: poll.py:779
+msgid "Answer"
+msgstr "Antwoord"
+
+#: poll.py:793
+msgid "Step 1: Preview"
+msgstr "Stap 1: Voorbeeld"
+
+#: poll.py:796
+msgid "Step 2: Save"
+msgstr "Stap 2: Opslaan"
+
+#: poll.py:860
+msgid "Favorite Color"
+msgstr "Lievelingskleur"
+
+#: poll.py:862
+msgid "What is your favorite color?"
+msgstr "Wat is jouw lievelingskleur?"
+
+#: poll.py:863
+msgid "Green"
+msgstr "Groen"
+
+#: poll.py:863
+msgid "Red"
+msgstr "Rood"
+
+#: poll.py:863
+msgid "Blue"
+msgstr "Blauw"
+
+#: poll.py:864
+msgid "Orange"
+msgstr "Oranje"
+
+#: poll.py:864
+msgid "None of the above"
+msgstr "Iets anders"
+
+#: poll.py:930
+#, python-format
+msgid "Somebody voted on %s"
+msgstr "Iemand heeft %s gekozen"
+
+#: poll.py:996
+msgid "Close Lessons"
+msgstr "Lessen sluiten"
+
+#: poll.py:1114 poll.py:1140
+msgid "Joined"
+msgstr "Neemt deel"
+
+#: poll.py:1144
+msgid "Left"
+msgstr "Ging weg"
+
+#: poll.py:1449 poll.py:1506
+msgid "New Poll"
+msgstr "Nieuwe enquête"
+
+#: poll.py:1450 poll.py:1507
+#, python-format
+msgid "%(author)s shared a poll '%(title)s' with you."
+msgstr "%(author)s delen een enquête '%(title)s' met jou."
+
+#~ msgid "Chinese (simplified)"
+#~ msgstr "Chinees (vereenvoudigd)"
+
+#~ msgid "Chinese (traditional)"
+#~ msgstr "Chinees (traditioneel)"
+
+#~ msgid "Czech"
+#~ msgstr "Tsjechisch"
+
+#~ msgid "Danish"
+#~ msgstr "Deens"
+
+#~ msgid "Dutch"
+#~ msgstr "Nederlands"
+
+#~ msgid "English"
+#~ msgstr "Engels"
+
+#~ msgid "English - Great Britain"
+#~ msgstr "Engels - Groot-Brittannië"
+
+#~ msgid "English - U.S."
+#~ msgstr "Engels - V.S."
+
+#~ msgid "Finnish"
+#~ msgstr "Fins"
+
+#~ msgid "French"
+#~ msgstr "Frans"
+
+#~ msgid "German"
+#~ msgstr "Duits"
+
+#~ msgid "Hungarian"
+#~ msgstr "Hongaars"
+
+#~ msgid "Italian"
+#~ msgstr "Italiaans"
+
+#~ msgid "Japanese"
+#~ msgstr "Japans"
+
+#~ msgid "Korean"
+#~ msgstr "Koreaans"
+
+#~ msgid "Norwegian"
+#~ msgstr "Noors"
+
+#~ msgid "Polish"
+#~ msgstr "Pools"
+
+#~ msgid "Portuguese"
+#~ msgstr "Portugees"
+
+#~ msgid "Portuguese - Brazilian"
+#~ msgstr "Portugees - Braziliaans"
+
+#~ msgid "Russian"
+#~ msgstr "Russisch"
+
+#~ msgid "Slovak"
+#~ msgstr "Slowaaks"
+
+#~ msgid "Spanish"
+#~ msgstr "Spaans"
+
+#~ msgid "Swedish"
+#~ msgstr "Zweeds"
+
+#~ msgid "Turkish"
+#~ msgstr "Turks"
