@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-13 11:39+0200\n"
+"POT-Creation-Date: 2009-04-29 17:36-0400\n"
 "PO-Revision-Date: 2008-09-19 10:04-0400\n"
 "Last-Translator: Markus Schlager <m.slg@gmx.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,225 +19,221 @@ msgstr ""
 msgid "Poll"
 msgstr "Abstimmung"
 
-#: poll.py:280
+#: i18n_misc_strings.py:1
+msgid "Lesson 1"
+msgstr ""
+
+#: i18n_misc_strings.py:2
+msgid "Lesson 2"
+msgstr ""
+
+#: i18n_misc_strings.py:3
+msgid "Lesson 3"
+msgstr ""
+
+#: i18n_misc_strings.py:4
+msgid "Lesson 4"
+msgstr ""
+
+#: i18n_misc_strings.py:5
+msgid "Introduction"
+msgstr ""
+
+#: poll.py:294
 msgid "VOTE!"
 msgstr "ABSTIMMEN!"
 
-#: poll.py:282
+#: poll.py:296
 msgid "Poll Preview"
 msgstr "Abstimmungsvorschau"
 
-#: poll.py:316 poll.py:1084
+#: poll.py:344 poll.py:1065
 msgid "Choose a Poll"
 msgstr "Abstimmung auswählen"
 
 # (Markus S.) 'STIMME'?
-#: poll.py:369
+#: poll.py:395
 msgid "VOTE"
 msgstr "ABSTIMMEN"
 
-#: poll.py:371
+#: poll.py:397
 msgid "SEE RESULTS"
 msgstr "ERGEBNISSE"
 
-#: poll.py:380
+#: poll.py:405
 msgid "DELETE"
 msgstr "LÖSCHEN"
 
-#: poll.py:407 poll.py:968
+#: poll.py:432 poll.py:999
 msgid "Lesson Plans"
 msgstr "Übungspläne"
 
-#: poll.py:576
+#: poll.py:622
 msgid "votes"
 msgstr "Stimmen"
 
-#: poll.py:592 poll.py:879
+#: poll.py:636 poll.py:929
 msgid "Vote"
 msgstr "Abstimmen"
 
-#: poll.py:600
+#: poll.py:644
 msgid "Edit Poll"
 msgstr "Abstimmung bearbeiten"
 
-#: poll.py:603
+#: poll.py:647
 msgid "Save Poll"
 msgstr "Abstimmung speichern"
 
-#: poll.py:681 poll.py:1079
+#: poll.py:725 poll.py:1060
 msgid "Build a Poll"
 msgstr "Abstimmung erstellen"
 
-#: poll.py:699
+#: poll.py:742
 msgid "Poll Title:"
 msgstr "Abstimmungstitel"
 
-#: poll.py:710
+#: poll.py:754
 msgid "Question:"
 msgstr "Frage:"
 
-#: poll.py:720
+#: poll.py:766
 msgid "Number of votes to collect:"
 msgstr "Zahl der zu sammelnden Stimmen:"
 
-#: poll.py:731
+#: poll.py:779
 msgid "Answer"
 msgstr "Antwort"
 
-#: poll.py:743
+#: poll.py:793
 msgid "Step 1: Preview"
 msgstr "Schritt 1: Vorschau"
 
-#: poll.py:746
+#: poll.py:796
 msgid "Step 2: Save"
 msgstr "Schritt 2: Speichern"
 
-#: poll.py:810
+#: poll.py:860
 msgid "Favorite Color"
 msgstr "Lieblingsfarbe"
 
-#: poll.py:812
+#: poll.py:862
 msgid "What is your favorite color?"
 msgstr "Welches ist deine Lieblingsfarbe?"
 
-#: poll.py:813
+#: poll.py:863
 msgid "Green"
 msgstr "Grün"
 
-#: poll.py:813
+#: poll.py:863
 msgid "Red"
 msgstr "Rot"
 
-#: poll.py:813
+#: poll.py:863
 msgid "Blue"
 msgstr "Blau"
 
-#: poll.py:814
+#: poll.py:864
 msgid "Orange"
 msgstr "Orange"
 
-#: poll.py:814
+#: poll.py:864
 msgid "None of the above"
 msgstr "Keine der angeführten"
 
-#: poll.py:880
+#: poll.py:930
 #, python-format
 msgid "Somebody voted on %s"
 msgstr "Jemand stimmte für %s"
 
-#: poll.py:965
+#: poll.py:996
 msgid "Close Lessons"
 msgstr "Übungen beenden"
 
-#: poll.py:1133 poll.py:1159
+#: poll.py:1114 poll.py:1140
 msgid "Joined"
 msgstr "Dazugekommen"
 
-#: poll.py:1163
+#: poll.py:1144
 msgid "Left"
 msgstr "Ausgestiegen"
 
-#: poll.py:1470 poll.py:1527
+#: poll.py:1449 poll.py:1506
 msgid "New Poll"
 msgstr "Neue Abstimmung"
 
-#: poll.py:1471 poll.py:1528
+#: poll.py:1450 poll.py:1507
 #, python-format
 msgid "%(author)s shared a poll '%(title)s' with you."
 msgstr "%(author)s teilte eine Abstimmung '%(title)s' mit dir."
 
-#: i18n.py:39
-msgid "Chinese (simplified)"
-msgstr "Chinesisch (vereinfacht)"
+#~ msgid "Chinese (simplified)"
+#~ msgstr "Chinesisch (vereinfacht)"
 
-#: i18n.py:40
-msgid "Chinese (traditional)"
-msgstr "Chinesisch (traditionell)"
+#~ msgid "Chinese (traditional)"
+#~ msgstr "Chinesisch (traditionell)"
 
-#: i18n.py:41
-msgid "Czech"
-msgstr "Tschechisch"
+#~ msgid "Czech"
+#~ msgstr "Tschechisch"
 
-#: i18n.py:42
-msgid "Danish"
-msgstr "Dänisch"
+#~ msgid "Danish"
+#~ msgstr "Dänisch"
 
-#: i18n.py:43
-msgid "Dutch"
-msgstr "Niederländisch"
+#~ msgid "Dutch"
+#~ msgstr "Niederländisch"
 
-#: i18n.py:44
-msgid "English"
-msgstr "Englisch"
+#~ msgid "English"
+#~ msgstr "Englisch"
 
-#: i18n.py:45
-msgid "English - Great Britain"
-msgstr "Englisch (Großbritannien)"
+#~ msgid "English - Great Britain"
+#~ msgstr "Englisch (Großbritannien)"
 
-#: i18n.py:46
-msgid "English - U.S."
-msgstr "Englisch (USA)"
+#~ msgid "English - U.S."
+#~ msgstr "Englisch (USA)"
 
-#: i18n.py:47
-msgid "Finnish"
-msgstr "Finnisch"
+#~ msgid "Finnish"
+#~ msgstr "Finnisch"
 
-#: i18n.py:48
-msgid "French"
-msgstr "Französisch"
+#~ msgid "French"
+#~ msgstr "Französisch"
 
-#: i18n.py:49
-msgid "German"
-msgstr "Deutsch"
+#~ msgid "German"
+#~ msgstr "Deutsch"
 
-#: i18n.py:50
-msgid "Hungarian"
-msgstr "Ungarisch"
+#~ msgid "Hungarian"
+#~ msgstr "Ungarisch"
 
-#: i18n.py:51
-msgid "Italian"
-msgstr "Italienisch"
+#~ msgid "Italian"
+#~ msgstr "Italienisch"
 
-#: i18n.py:52
-msgid "Japanese"
-msgstr "Japanisch"
+#~ msgid "Japanese"
+#~ msgstr "Japanisch"
 
-#: i18n.py:53
-msgid "Korean"
-msgstr "Koreanisch"
+#~ msgid "Korean"
+#~ msgstr "Koreanisch"
 
-#: i18n.py:54
-msgid "Norwegian"
-msgstr "Norwegisch"
+#~ msgid "Norwegian"
+#~ msgstr "Norwegisch"
 
-#: i18n.py:55
-msgid "Polish"
-msgstr "Polnisch"
+#~ msgid "Polish"
+#~ msgstr "Polnisch"
 
-#: i18n.py:56
-msgid "Portuguese"
-msgstr "Portugiesisch"
+#~ msgid "Portuguese"
+#~ msgstr "Portugiesisch"
 
-#: i18n.py:57
-msgid "Portuguese - Brazilian"
-msgstr "Portugiesisch (Brasilien)"
+#~ msgid "Portuguese - Brazilian"
+#~ msgstr "Portugiesisch (Brasilien)"
 
-#: i18n.py:58
-msgid "Russian"
-msgstr "Russisch"
+#~ msgid "Russian"
+#~ msgstr "Russisch"
 
-#: i18n.py:59
-msgid "Slovak"
-msgstr "Slowakisch"
+#~ msgid "Slovak"
+#~ msgstr "Slowakisch"
 
-#: i18n.py:60
-msgid "Spanish"
-msgstr "Spanisch"
+#~ msgid "Spanish"
+#~ msgstr "Spanisch"
 
-#: i18n.py:61
-msgid "Swedish"
-msgstr "Schwedisch"
+#~ msgid "Swedish"
+#~ msgstr "Schwedisch"
 
-#: i18n.py:62
-msgid "Turkish"
-msgstr "Türkisch"
+#~ msgid "Turkish"
+#~ msgstr "Türkisch"
