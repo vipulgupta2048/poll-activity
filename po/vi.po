@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-03 00:30-0400\n"
+"POT-Creation-Date: 2009-04-29 17:36-0400\n"
 "PO-Revision-Date: 2009-02-18 02:51-0500\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,228 +18,6 @@ msgstr ""
 #: activity/activity.info:2
 msgid "Poll"
 msgstr "Trưng cầu"
-
-#: poll.py:280
-msgid "VOTE!"
-msgstr "Bỏ phiếu nhé !"
-
-#: poll.py:282
-msgid "Poll Preview"
-msgstr "Xem thử trưng cầu"
-
-#: poll.py:316 poll.py:1084
-msgid "Choose a Poll"
-msgstr "Chọn trưng cầu"
-
-#: poll.py:369
-msgid "VOTE"
-msgstr "BỎ PHIẾU"
-
-#: poll.py:371
-msgid "SEE RESULTS"
-msgstr "XEM KẾT QUẢ"
-
-#: poll.py:380
-msgid "DELETE"
-msgstr "XOÁ"
-
-#: poll.py:407 poll.py:968
-msgid "Lesson Plans"
-msgstr "Kế hoạch bài học"
-
-#: poll.py:576
-msgid "votes"
-msgstr "phiếu"
-
-#: poll.py:592 poll.py:879
-msgid "Vote"
-msgstr "Bỏ phiếu"
-
-#: poll.py:600
-msgid "Edit Poll"
-msgstr "Sửa sự trưng cầu"
-
-#: poll.py:603
-msgid "Save Poll"
-msgstr "Lưu sự trưng cầu"
-
-#: poll.py:681 poll.py:1079
-msgid "Build a Poll"
-msgstr "Tạo sự trưng cầu"
-
-#: poll.py:699
-msgid "Poll Title:"
-msgstr "Tựa đề trưng cầu :"
-
-#: poll.py:710
-msgid "Question:"
-msgstr "Câu hỏi:"
-
-#: poll.py:720
-msgid "Number of votes to collect:"
-msgstr "Số phiếu cần thu thập:"
-
-#: poll.py:731
-msgid "Answer"
-msgstr "Đáp ứng"
-
-#: poll.py:743
-msgid "Step 1: Preview"
-msgstr "Bước 1: xem thử"
-
-#: poll.py:746
-msgid "Step 2: Save"
-msgstr "Bước 2: lưu"
-
-#: poll.py:810
-msgid "Favorite Color"
-msgstr "Màu ưa thích"
-
-#: poll.py:812
-msgid "What is your favorite color?"
-msgstr "Màu ưa thích của bạn là gì?"
-
-#: poll.py:813
-msgid "Green"
-msgstr "Lục"
-
-#: poll.py:813
-msgid "Red"
-msgstr "Đỏ"
-
-#: poll.py:813
-msgid "Blue"
-msgstr "Xanh"
-
-#: poll.py:814
-msgid "Orange"
-msgstr "Cam"
-
-#: poll.py:814
-msgid "None of the above"
-msgstr "Không có gì trên"
-
-#: poll.py:880
-#, python-format
-msgid "Somebody voted on %s"
-msgstr "Ai đó đã bỏ phiếu đối với %s"
-
-#: poll.py:965
-msgid "Close Lessons"
-msgstr "Đóng bài học"
-
-#: poll.py:1133 poll.py:1159
-msgid "Joined"
-msgstr "Tham gia"
-
-#: poll.py:1163
-msgid "Left"
-msgstr "Rời"
-
-#: poll.py:1470 poll.py:1527
-msgid "New Poll"
-msgstr "Trưng cầu mới"
-
-#: poll.py:1471 poll.py:1528
-#, python-format
-msgid "%(author)s shared a poll '%(title)s' with you."
-msgstr "%(author)s chia sẻ với bạn trưng cầu %(title)s'"
-
-#: i18n.py:39
-msgid "Chinese (simplified)"
-msgstr "Tiếng Trung (giản thể)"
-
-#: i18n.py:40
-msgid "Chinese (traditional)"
-msgstr "Tiếng Trung (phồn thể)"
-
-#: i18n.py:41
-msgid "Czech"
-msgstr "Tiếng Séc"
-
-#: i18n.py:42
-msgid "Danish"
-msgstr "Tiếng Đan Mạch"
-
-#: i18n.py:43
-msgid "Dutch"
-msgstr "Tiếng Hoà Lan"
-
-#: i18n.py:44
-msgid "English"
-msgstr "Tiếng Anh"
-
-#: i18n.py:45
-msgid "English - Great Britain"
-msgstr "Tiếng Anh (Quốc Anh)"
-
-#: i18n.py:46
-msgid "English - U.S."
-msgstr "Tiếng Anh (Mỹ)"
-
-#: i18n.py:47
-msgid "Finnish"
-msgstr "Tiếng Phần Lan"
-
-#: i18n.py:48
-msgid "French"
-msgstr "Tiếng Pháp"
-
-#: i18n.py:49
-msgid "German"
-msgstr "Tiếng Đức"
-
-#: i18n.py:50
-msgid "Hungarian"
-msgstr "Tiếng Hung-ga-ri"
-
-#: i18n.py:51
-msgid "Italian"
-msgstr "Tiếng Ý"
-
-#: i18n.py:52
-msgid "Japanese"
-msgstr "Tiếng Nhật"
-
-#: i18n.py:53
-msgid "Korean"
-msgstr "Tiếng Hàn"
-
-#: i18n.py:54
-msgid "Norwegian"
-msgstr "Tiếng Na Uy"
-
-#: i18n.py:55
-msgid "Polish"
-msgstr "Tiếng Ba Lan"
-
-#: i18n.py:56
-msgid "Portuguese"
-msgstr "Tiếng Bồ Đào Nha"
-
-#: i18n.py:57
-msgid "Portuguese - Brazilian"
-msgstr "Tiếng Bồ Đào Nha ở Bra-xin"
-
-#: i18n.py:58
-msgid "Russian"
-msgstr "Tiếng Nga"
-
-#: i18n.py:59
-msgid "Slovak"
-msgstr "Tiếng Xlô-vác"
-
-#: i18n.py:60
-msgid "Spanish"
-msgstr "Tiếng Tây Ban Nha"
-
-#: i18n.py:61
-msgid "Swedish"
-msgstr "Tiếng Thuỵ Điển"
-
-#: i18n.py:62
-msgid "Turkish"
-msgstr "Tiếng Thổ Nhĩ Kỳ"
 
 #: i18n_misc_strings.py:1
 msgid "Lesson 1"
@@ -260,3 +38,201 @@ msgstr "Bài học 4"
 #: i18n_misc_strings.py:5
 msgid "Introduction"
 msgstr "Giới thiệu"
+
+#: poll.py:294
+msgid "VOTE!"
+msgstr "Bỏ phiếu nhé !"
+
+#: poll.py:296
+msgid "Poll Preview"
+msgstr "Xem thử trưng cầu"
+
+#: poll.py:344 poll.py:1065
+msgid "Choose a Poll"
+msgstr "Chọn trưng cầu"
+
+#: poll.py:395
+msgid "VOTE"
+msgstr "BỎ PHIẾU"
+
+#: poll.py:397
+msgid "SEE RESULTS"
+msgstr "XEM KẾT QUẢ"
+
+#: poll.py:405
+msgid "DELETE"
+msgstr "XOÁ"
+
+#: poll.py:432 poll.py:999
+msgid "Lesson Plans"
+msgstr "Kế hoạch bài học"
+
+#: poll.py:622
+msgid "votes"
+msgstr "phiếu"
+
+#: poll.py:636 poll.py:929
+msgid "Vote"
+msgstr "Bỏ phiếu"
+
+#: poll.py:644
+msgid "Edit Poll"
+msgstr "Sửa sự trưng cầu"
+
+#: poll.py:647
+msgid "Save Poll"
+msgstr "Lưu sự trưng cầu"
+
+#: poll.py:725 poll.py:1060
+msgid "Build a Poll"
+msgstr "Tạo sự trưng cầu"
+
+#: poll.py:742
+msgid "Poll Title:"
+msgstr "Tựa đề trưng cầu :"
+
+#: poll.py:754
+msgid "Question:"
+msgstr "Câu hỏi:"
+
+#: poll.py:766
+msgid "Number of votes to collect:"
+msgstr "Số phiếu cần thu thập:"
+
+#: poll.py:779
+msgid "Answer"
+msgstr "Đáp ứng"
+
+#: poll.py:793
+msgid "Step 1: Preview"
+msgstr "Bước 1: xem thử"
+
+#: poll.py:796
+msgid "Step 2: Save"
+msgstr "Bước 2: lưu"
+
+#: poll.py:860
+msgid "Favorite Color"
+msgstr "Màu ưa thích"
+
+#: poll.py:862
+msgid "What is your favorite color?"
+msgstr "Màu ưa thích của bạn là gì?"
+
+#: poll.py:863
+msgid "Green"
+msgstr "Lục"
+
+#: poll.py:863
+msgid "Red"
+msgstr "Đỏ"
+
+#: poll.py:863
+msgid "Blue"
+msgstr "Xanh"
+
+#: poll.py:864
+msgid "Orange"
+msgstr "Cam"
+
+#: poll.py:864
+msgid "None of the above"
+msgstr "Không có gì trên"
+
+#: poll.py:930
+#, python-format
+msgid "Somebody voted on %s"
+msgstr "Ai đó đã bỏ phiếu đối với %s"
+
+#: poll.py:996
+msgid "Close Lessons"
+msgstr "Đóng bài học"
+
+#: poll.py:1114 poll.py:1140
+msgid "Joined"
+msgstr "Tham gia"
+
+#: poll.py:1144
+msgid "Left"
+msgstr "Rời"
+
+#: poll.py:1449 poll.py:1506
+msgid "New Poll"
+msgstr "Trưng cầu mới"
+
+#: poll.py:1450 poll.py:1507
+#, python-format
+msgid "%(author)s shared a poll '%(title)s' with you."
+msgstr "%(author)s chia sẻ với bạn trưng cầu %(title)s'"
+
+#~ msgid "Chinese (simplified)"
+#~ msgstr "Tiếng Trung (giản thể)"
+
+#~ msgid "Chinese (traditional)"
+#~ msgstr "Tiếng Trung (phồn thể)"
+
+#~ msgid "Czech"
+#~ msgstr "Tiếng Séc"
+
+#~ msgid "Danish"
+#~ msgstr "Tiếng Đan Mạch"
+
+#~ msgid "Dutch"
+#~ msgstr "Tiếng Hoà Lan"
+
+#~ msgid "English"
+#~ msgstr "Tiếng Anh"
+
+#~ msgid "English - Great Britain"
+#~ msgstr "Tiếng Anh (Quốc Anh)"
+
+#~ msgid "English - U.S."
+#~ msgstr "Tiếng Anh (Mỹ)"
+
+#~ msgid "Finnish"
+#~ msgstr "Tiếng Phần Lan"
+
+#~ msgid "French"
+#~ msgstr "Tiếng Pháp"
+
+#~ msgid "German"
+#~ msgstr "Tiếng Đức"
+
+#~ msgid "Hungarian"
+#~ msgstr "Tiếng Hung-ga-ri"
+
+#~ msgid "Italian"
+#~ msgstr "Tiếng Ý"
+
+#~ msgid "Japanese"
+#~ msgstr "Tiếng Nhật"
+
+#~ msgid "Korean"
+#~ msgstr "Tiếng Hàn"
+
+#~ msgid "Norwegian"
+#~ msgstr "Tiếng Na Uy"
+
+#~ msgid "Polish"
+#~ msgstr "Tiếng Ba Lan"
+
+#~ msgid "Portuguese"
+#~ msgstr "Tiếng Bồ Đào Nha"
+
+#~ msgid "Portuguese - Brazilian"
+#~ msgstr "Tiếng Bồ Đào Nha ở Bra-xin"
+
+#~ msgid "Russian"
+#~ msgstr "Tiếng Nga"
+
+#~ msgid "Slovak"
+#~ msgstr "Tiếng Xlô-vác"
+
+#~ msgid "Spanish"
+#~ msgstr "Tiếng Tây Ban Nha"
+
+#~ msgid "Swedish"
+#~ msgstr "Tiếng Thuỵ Điển"
+
+#~ msgid "Turkish"
+#~ msgstr "Tiếng Thổ Nhĩ Kỳ"
