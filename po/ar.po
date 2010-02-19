@@ -1,243 +1,242 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#, fuzzy
+# Khaled Hosny <khaledhosny@eglug.org>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-13 11:39+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2009-04-29 17:36-0400\n"
+"PO-Revision-Date: 2010-02-19 18:23+0300\n"
+"Last-Translator: Khaled Hosny <khaledhosny@eglug.org>\n"
+"Language-Team: Arabic <doc@arabeyes.org>\n"
+"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.1.1rc4\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: Virtaal 0.5.2\n"
+"X-Poedit-Language: Arabic\n"
 
 #: activity/activity.info:2
 msgid "Poll"
-msgstr ""
+msgstr "استطلاع"
 
-#: poll.py:280
+#: i18n_misc_strings.py:1
+msgid "Lesson 1"
+msgstr "درس 1"
+
+#: i18n_misc_strings.py:2
+msgid "Lesson 2"
+msgstr "درس 2"
+
+#: i18n_misc_strings.py:3
+msgid "Lesson 3"
+msgstr "درس 3"
+
+#: i18n_misc_strings.py:4
+msgid "Lesson 4"
+msgstr "درس 4"
+
+#: i18n_misc_strings.py:5
+msgid "Introduction"
+msgstr "مقدمة"
+
+#: poll.py:294
 msgid "VOTE!"
-msgstr ""
+msgstr "صوّت"
 
-#: poll.py:282
+#: poll.py:296
 msgid "Poll Preview"
-msgstr ""
+msgstr "معاينة الاستطلاع"
 
-#: poll.py:316 poll.py:1084
+#: poll.py:344 poll.py:1065
 msgid "Choose a Poll"
-msgstr ""
+msgstr "اختر استطلاعا"
 
-#: poll.py:369
+#: poll.py:395
 msgid "VOTE"
-msgstr ""
+msgstr "صوت"
 
-#: poll.py:371
+#: poll.py:397
 msgid "SEE RESULTS"
-msgstr ""
+msgstr "أظهر النتائج"
 
-#: poll.py:380
+#: poll.py:405
 msgid "DELETE"
-msgstr ""
+msgstr "احذف"
 
-#: poll.py:407 poll.py:968
+#: poll.py:432 poll.py:999
 msgid "Lesson Plans"
-msgstr ""
+msgstr "جدول الدروس"
 
-#: poll.py:576
+#: poll.py:622
 msgid "votes"
-msgstr ""
+msgstr "الأصوات"
 
-#: poll.py:592 poll.py:879
+#: poll.py:636 poll.py:929
 msgid "Vote"
-msgstr ""
+msgstr "صوت"
 
-#: poll.py:600
+#: poll.py:644
 msgid "Edit Poll"
-msgstr ""
+msgstr "حرر الاستطلاع"
 
-#: poll.py:603
+#: poll.py:647
 msgid "Save Poll"
-msgstr ""
+msgstr "احفظ الاستطلاع"
 
-#: poll.py:681 poll.py:1079
+#: poll.py:725 poll.py:1060
 msgid "Build a Poll"
-msgstr ""
+msgstr "أنشئ استطلاعا"
 
-#: poll.py:699
+#: poll.py:742
 msgid "Poll Title:"
-msgstr ""
+msgstr "عنوان الاستطلاع:"
 
-#: poll.py:710
+#: poll.py:754
 msgid "Question:"
-msgstr ""
+msgstr "سؤال:"
 
-#: poll.py:720
+#: poll.py:766
 msgid "Number of votes to collect:"
-msgstr ""
+msgstr "عدد الأصوات المجموعة:"
 
-#: poll.py:731
+#: poll.py:779
 msgid "Answer"
-msgstr ""
+msgstr "جواب"
 
-#: poll.py:743
+#: poll.py:793
 msgid "Step 1: Preview"
-msgstr ""
+msgstr "خطوة 1: عاين"
 
-#: poll.py:746
+#: poll.py:796
 msgid "Step 2: Save"
-msgstr ""
+msgstr "خطوة 2: احفظ"
 
-#: poll.py:810
+#: poll.py:860
 msgid "Favorite Color"
-msgstr ""
+msgstr "اللون المفضل"
 
-#: poll.py:812
+#: poll.py:862
 msgid "What is your favorite color?"
-msgstr ""
+msgstr "ماهو لونك المفضل؟"
 
-#: poll.py:813
+#: poll.py:863
 msgid "Green"
-msgstr ""
+msgstr "أخضر"
 
-#: poll.py:813
+#: poll.py:863
 msgid "Red"
-msgstr ""
+msgstr "أحمر"
 
-#: poll.py:813
+#: poll.py:863
 msgid "Blue"
-msgstr ""
+msgstr "أزرق"
 
-#: poll.py:814
+#: poll.py:864
 msgid "Orange"
-msgstr ""
+msgstr "برتقالي"
 
-#: poll.py:814
+#: poll.py:864
 msgid "None of the above"
-msgstr ""
+msgstr "لون آخر"
 
-#: poll.py:880
+#: poll.py:930
 #, python-format
 msgid "Somebody voted on %s"
-msgstr ""
+msgstr "صوّت أحدهم على %s"
 
-#: poll.py:965
+#: poll.py:996
 msgid "Close Lessons"
-msgstr ""
+msgstr "أغلق الدروس"
 
-#: poll.py:1133 poll.py:1159
+#: poll.py:1114 poll.py:1140
 msgid "Joined"
-msgstr ""
+msgstr "انضم"
 
-#: poll.py:1163
+#: poll.py:1144
 msgid "Left"
-msgstr ""
+msgstr "غادر"
 
-#: poll.py:1470 poll.py:1527
+#: poll.py:1449 poll.py:1506
 msgid "New Poll"
-msgstr ""
+msgstr "استطلاع جديد"
 
-#: poll.py:1471 poll.py:1528
+#: poll.py:1450 poll.py:1507
 #, python-format
 msgid "%(author)s shared a poll '%(title)s' with you."
-msgstr ""
+msgstr "شارك %(author)s استطلاعا '%(title)s' معك."
 
-#: i18n.py:39
-msgid "Chinese (simplified)"
-msgstr ""
+#~ msgid "Chinese (simplified)"
+#~ msgstr "صينية(مبسطة)"
 
-#: i18n.py:40
-msgid "Chinese (traditional)"
-msgstr ""
+#~ msgid "Chinese (traditional)"
+#~ msgstr "صينية(تقليدية)"
 
-#: i18n.py:41
-msgid "Czech"
-msgstr ""
+#~ msgid "Czech"
+#~ msgstr "تشيكية"
 
-#: i18n.py:42
-msgid "Danish"
-msgstr ""
+#~ msgid "Danish"
+#~ msgstr "دنماركية"
 
-#: i18n.py:43
-msgid "Dutch"
-msgstr ""
+#~ msgid "Dutch"
+#~ msgstr "هولندية"
 
-#: i18n.py:44
-msgid "English"
-msgstr ""
+#~ msgid "English"
+#~ msgstr "إنجليزية"
 
-#: i18n.py:45
-msgid "English - Great Britain"
-msgstr ""
+#~ msgid "English - Great Britain"
+#~ msgstr "إنجليزية - بريطانية"
 
-#: i18n.py:46
-msgid "English - U.S."
-msgstr ""
+#~ msgid "English - U.S."
+#~ msgstr "إنجليزية - أمريكية"
 
-#: i18n.py:47
-msgid "Finnish"
-msgstr ""
+#~ msgid "Finnish"
+#~ msgstr "فنلندية"
 
-#: i18n.py:48
-msgid "French"
-msgstr ""
+#~ msgid "French"
+#~ msgstr "فرنسية"
 
-#: i18n.py:49
-msgid "German"
-msgstr ""
+#~ msgid "German"
+#~ msgstr "ألمانية"
 
-#: i18n.py:50
-msgid "Hungarian"
-msgstr ""
+#~ msgid "Hungarian"
+#~ msgstr "هنغارية"
 
-#: i18n.py:51
-msgid "Italian"
-msgstr ""
+#~ msgid "Italian"
+#~ msgstr "ايطالية"
 
-#: i18n.py:52
-msgid "Japanese"
-msgstr ""
+#~ msgid "Japanese"
+#~ msgstr "يابانية"
 
-#: i18n.py:53
-msgid "Korean"
-msgstr ""
+#~ msgid "Korean"
+#~ msgstr "كورية"
 
-#: i18n.py:54
-msgid "Norwegian"
-msgstr ""
+#~ msgid "Norwegian"
+#~ msgstr "نرويجية"
 
-#: i18n.py:55
-msgid "Polish"
-msgstr ""
+#~ msgid "Polish"
+#~ msgstr "بولندية"
 
-#: i18n.py:56
-msgid "Portuguese"
-msgstr ""
+#~ msgid "Portuguese"
+#~ msgstr "برتغالية"
 
-#: i18n.py:57
-msgid "Portuguese - Brazilian"
-msgstr ""
+#~ msgid "Portuguese - Brazilian"
+#~ msgstr "برتغالية - برازيلية"
 
-#: i18n.py:58
-msgid "Russian"
-msgstr ""
+#~ msgid "Russian"
+#~ msgstr "روسية"
 
-#: i18n.py:59
-msgid "Slovak"
-msgstr ""
+#~ msgid "Slovak"
+#~ msgstr "سلافية"
 
-#: i18n.py:60
-msgid "Spanish"
-msgstr ""
+#~ msgid "Spanish"
+#~ msgstr "إسبانية"
 
-#: i18n.py:61
-msgid "Swedish"
-msgstr ""
+#~ msgid "Swedish"
+#~ msgstr "سويدية"
 
-#: i18n.py:62
-msgid "Turkish"
-msgstr ""
+#~ msgid "Turkish"
+#~ msgstr "تركية"
