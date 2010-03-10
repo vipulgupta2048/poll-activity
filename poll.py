@@ -190,6 +190,9 @@ class PollBuilder(activity.Activity):
         self._has_voted = False
         self._previewing = False
         self._current_view = None  # so we can switch back
+        
+        #This property allows result viewing while voting
+        self._view_answer = True
 
         # Lesson plan widget
         self._lessonplan_widget = None
@@ -319,7 +322,7 @@ class PollBuilder(activity.Activity):
             orientation=hippo.ORIENTATION_HORIZONTAL)
         poll_details_box.append(self.poll_details_box_tail)
 
-        self.current_vote = None
+        self.current_vote = None        
         self.draw_poll_details_box()
 
         button_box = self._canvas_buttonbox()
@@ -550,83 +553,87 @@ class PollBuilder(activity.Activity):
                     size_mode = 'wrap-word'),
                     hippo.PACK_EXPAND)
 
-            if votes_total > 0:
-                self._logger.debug(str(self._poll.data[choice] * 1.0 / votes_total))
-
-                graph_box = hippo.CanvasBox(
-                        box_width = GRAPH_WIDTH,
-                        orientation = hippo.ORIENTATION_HORIZONTAL)
-                answer_row.append(graph_box)
-
-                graph_box.append(hippo.CanvasText(
-                        text=justify(self._poll.data, choice),
-                        xalign=hippo.ALIGNMENT_END,
-                        padding_right = 2,
-                        color=style.Color(DARK_GREEN).get_int(),
-                        box_width = GRAPH_TEXT_WIDTH))
-
-
-                graph_box.append(hippo.CanvasBox(
-                        orientation=hippo.ORIENTATION_HORIZONTAL,
-                        background_color=style.Color(PINK).get_int(),
-                        box_width = int(float(self._poll.data[choice]) *
-                            (GRAPH_WIDTH - GRAPH_TEXT_WIDTH*2) / votes_total)))
-
-                graph_box.append(hippo.CanvasText(
-                        text=str(self._poll.data[choice] * 100 / votes_total)+'%',
-                        xalign=hippo.ALIGNMENT_START,
-                        padding_left = 2,
-                        color=style.Color(DARK_GREEN).get_int(),
-                        box_width = GRAPH_TEXT_WIDTH))
+            if self._view_answer \
+                or not self._poll.active:
+                    if votes_total > 0:
+                        self._logger.debug(str(self._poll.data[choice] * 1.0 / votes_total))
+        
+                        graph_box = hippo.CanvasBox(
+                                box_width = GRAPH_WIDTH,
+                                orientation = hippo.ORIENTATION_HORIZONTAL)
+                        answer_row.append(graph_box)
+        
+                        graph_box.append(hippo.CanvasText(
+                                text=justify(self._poll.data, choice),
+                                xalign=hippo.ALIGNMENT_END,
+                                padding_right = 2,
+                                color=style.Color(DARK_GREEN).get_int(),
+                                box_width = GRAPH_TEXT_WIDTH))
+        
+        
+                        graph_box.append(hippo.CanvasBox(
+                                orientation=hippo.ORIENTATION_HORIZONTAL,
+                                background_color=style.Color(PINK).get_int(),
+                                box_width = int(float(self._poll.data[choice]) *
+                                    (GRAPH_WIDTH - GRAPH_TEXT_WIDTH*2) / votes_total)))
+        
+                        graph_box.append(hippo.CanvasText(
+                                text=str(self._poll.data[choice] * 100 / votes_total)+'%',
+                                xalign=hippo.ALIGNMENT_START,
+                                padding_left = 2,
+                                color=style.Color(DARK_GREEN).get_int(),
+                                box_width = GRAPH_TEXT_WIDTH))
 
             answer_box.append(answer_row)
 
-        if (self._poll.active and self._has_voted) or\
-            not self._poll.active:
-
-            # Line above total
-            line_box = hippo.CanvasBox(
-                xalign=hippo.ALIGNMENT_END,
-                spacing=8,
-                box_height=4,
-                padding_left = GRAPH_TEXT_WIDTH,
-                padding_right = GRAPH_TEXT_WIDTH,
-                orientation=hippo.ORIENTATION_HORIZONTAL)
-            line = hippo.CanvasBox(
-                background_color=style.Color(DARK_GREEN).get_int(),
-                box_width = GRAPH_WIDTH - GRAPH_TEXT_WIDTH*2,
-                orientation=hippo.ORIENTATION_HORIZONTAL)
-            line_box.append(line)
-            answer_box.append(line_box)
-
-            # total votes
-            totals_box = hippo.CanvasBox(
-                xalign=hippo.ALIGNMENT_END,
-                box_width = GRAPH_WIDTH,
-                spacing=8,
-                padding_left = GRAPH_TEXT_WIDTH,
-                padding_right = GRAPH_TEXT_WIDTH,
-                orientation=hippo.ORIENTATION_HORIZONTAL)
-            answer_box.append(totals_box)
-
-            spacer = hippo.CanvasBox(
-                box_width=100, orientation=hippo.ORIENTATION_VERTICAL)
-
-            spacer.append(hippo.CanvasText(
-                text=str(votes_total),
-                xalign=hippo.ALIGNMENT_END,
-                color=style.Color(DARK_GREEN).get_int()))
-            totals_box.append(spacer)
-
-            totals_box.append(hippo.CanvasText(
-                text=' '+_('votes'),
-                xalign=hippo.ALIGNMENT_START,
-                color=style.Color(DARK_GREEN).get_int()))
-            if votes_total < self._poll.maxvoters:
-                totals_box.append(hippo.CanvasText(
-                    text=' ('+str(self._poll.maxvoters-votes_total)+
-                         ' votes left to collect)',
-                    color=style.Color(DARK_GREEN).get_int()))
+        if self._view_answer \
+            or not self._poll.active:
+                if (self._poll.active and self._has_voted) or\
+                    not self._poll.active:
+        
+                    # Line above total
+                    line_box = hippo.CanvasBox(
+                        xalign=hippo.ALIGNMENT_END,
+                        spacing=8,
+                        box_height=4,
+                        padding_left = GRAPH_TEXT_WIDTH,
+                        padding_right = GRAPH_TEXT_WIDTH,
+                        orientation=hippo.ORIENTATION_HORIZONTAL)
+                    line = hippo.CanvasBox(
+                        background_color=style.Color(DARK_GREEN).get_int(),
+                        box_width = GRAPH_WIDTH - GRAPH_TEXT_WIDTH*2,
+                        orientation=hippo.ORIENTATION_HORIZONTAL)
+                    line_box.append(line)
+                    answer_box.append(line_box)
+        
+                    # total votes
+                    totals_box = hippo.CanvasBox(
+                        xalign=hippo.ALIGNMENT_END,
+                        box_width = GRAPH_WIDTH,
+                        spacing=8,
+                        padding_left = GRAPH_TEXT_WIDTH,
+                        padding_right = GRAPH_TEXT_WIDTH,
+                        orientation=hippo.ORIENTATION_HORIZONTAL)
+                    answer_box.append(totals_box)
+        
+                    spacer = hippo.CanvasBox(
+                        box_width=100, orientation=hippo.ORIENTATION_VERTICAL)
+        
+                    spacer.append(hippo.CanvasText(
+                        text=str(votes_total),
+                        xalign=hippo.ALIGNMENT_END,
+                        color=style.Color(DARK_GREEN).get_int()))
+                    totals_box.append(spacer)
+        
+                    totals_box.append(hippo.CanvasText(
+                        text=' '+_('votes'),
+                        xalign=hippo.ALIGNMENT_START,
+                        color=style.Color(DARK_GREEN).get_int()))
+                    if votes_total < self._poll.maxvoters:
+                        totals_box.append(hippo.CanvasText(
+                            text=' ('+str(self._poll.maxvoters-votes_total)+
+                                 ' votes left to collect)',
+                            color=style.Color(DARK_GREEN).get_int()))
 
         # Button area
         if self._poll.active and not self._previewing:
@@ -771,7 +778,7 @@ class PollBuilder(activity.Activity):
                 style.COLOR_WHITE.get_gdk_color())
         entrybox.connect('changed', self._entry_activate_cb, 'maxvoters')
         hbox.append(hippo.CanvasWidget(widget=entrybox))
-        buildbox.append(hbox)
+        buildbox.append(hbox)         
 
         for choice in self._poll.options.keys():
             hbox = hippo.CanvasBox(spacing=8,
@@ -796,12 +803,23 @@ class PollBuilder(activity.Activity):
         button = gtk.Button(_("Step 2: Save"))
         button.connect('clicked', self._button_save_cb)
         hbox.append(hippo.CanvasWidget(widget=theme_button(button)))
+        
+        hbox.append(self._text_mainbox(_('Show answers while voting')))
+        viewResultCB= gtk.CheckButton(label='')
+        viewResultCB.set_active(self._view_answer)
+        viewResultCB.connect('toggled', self._view_result_checkbox_cb)
+        hbox.append(hippo.CanvasWidget(widget=viewResultCB), hippo.PACK_EXPAND)
+        
         buildbox.append(hbox)
         
         button_box = self._canvas_buttonbox(button_to_highlight=1)
         mainbox.append(button_box, hippo.PACK_END)
 
         return canvasbox
+
+    def _view_result_checkbox_cb(self, checkbox, data=None):
+        logging.debug('Checkbox value= %s', checkbox.get_active())
+        self._view_answer = checkbox.get_active()
 
     def _button_preview_cb(self, button, data=None):
         """Preview button clicked."""
