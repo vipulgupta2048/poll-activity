@@ -53,6 +53,7 @@ try:
     from sugar.graphics.alert import NotifyAlert
 except:
     pass  # FIXME remove this once compatibility with Trial 3 not required
+from jarabe.controlpanel.inlinealert import InlineAlert
 from sugar.presence import presenceservice
 from abiword import Canvas as AbiCanvas
 
@@ -102,6 +103,8 @@ COLOR_FG_RADIOBUTTONS = (
 GRAPH_WIDTH = gtk.gdk.screen_width() / 3
 GRAPH_TEXT_WIDTH = 50
 RADIO_SIZE = 32
+VIEW_ANSWER = True
+REMEMBER_LAST_VOTE = True
 
 def theme_button(btn, w=-1, h=-1, highlight=False):
     """Apply colors to gtk Buttons
@@ -192,7 +195,10 @@ class PollBuilder(activity.Activity):
         self._current_view = None  # so we can switch back
         
         #This property allows result viewing while voting
-        self._view_answer = True
+        self._view_answer = VIEW_ANSWER
+        
+        #This property allows remember in the radio button options the last vote
+        self._remember_last_vote = REMEMBER_LAST_VOTE
 
         # Lesson plan widget
         self._lessonplan_widget = None
@@ -543,8 +549,9 @@ class PollBuilder(activity.Activity):
                 radio_box.append(hippo.CanvasWidget(
                         widget = theme_radiobutton(button)),
                         hippo.PACK_EXPAND)
-                if choice == self.current_vote:
-                    button.set_active(True)
+                if choice == self.current_vote \
+                    and self._remember_last_vote:
+                        button.set_active(True)
 
             answer_row.append(hippo.CanvasText(
                     text = self._poll.options[choice],
@@ -709,6 +716,10 @@ class PollBuilder(activity.Activity):
         self.set_root(self._build_canvas())
         self.show_all()
 
+    def button_options_clicked(self, button):
+        self.set_root(self._options_canvas())
+        self.show_all()
+
     def _build_canvas(self, editing=False, highlight=[]):
         """Show the canvas to set up a new poll.
         
@@ -725,8 +736,8 @@ class PollBuilder(activity.Activity):
         canvasbox.append(pollbuilderbox, hippo.PACK_EXPAND)
 
         pollbuilderbox.append(self._canvas_topbox())
-
         mainbox = self._canvas_mainbox()
+
         pollbuilderbox.append(mainbox, hippo.PACK_EXPAND)
 
         mainbox.append(self._text_mainbox(_('Build a Poll')))
@@ -804,12 +815,6 @@ class PollBuilder(activity.Activity):
         button.connect('clicked', self._button_save_cb)
         hbox.append(hippo.CanvasWidget(widget=theme_button(button)))
         
-        hbox.append(self._text_mainbox(_('Show answers while voting')))
-        viewResultCB= gtk.CheckButton(label='')
-        viewResultCB.set_active(self._view_answer)
-        viewResultCB.connect('toggled', self._view_result_checkbox_cb)
-        hbox.append(hippo.CanvasWidget(widget=viewResultCB), hippo.PACK_EXPAND)
-        
         buildbox.append(hbox)
         
         button_box = self._canvas_buttonbox(button_to_highlight=1)
@@ -817,9 +822,73 @@ class PollBuilder(activity.Activity):
 
         return canvasbox
 
+    def _options_canvas(self, editing=False, highlight=[]):
+        """Show the options canvas."""
+        self._current_view = 'options'
+        canvasbox = self._canvas_root()
+
+        # optionsbox is centered within canvasbox
+        optionsbox = self._canvas_pollbuilder_box()
+        canvasbox.append(optionsbox, hippo.PACK_EXPAND)
+
+        optionsbox.append(self._canvas_topbox())
+        mainbox = self._canvas_mainbox()
+
+        optionsbox.append(mainbox, hippo.PACK_EXPAND)
+
+        mainbox.append(self._text_mainbox(_('Options')))
+
+        options_details_box = hippo.CanvasBox(spacing=8,
+            background_color=style.COLOR_WHITE.get_int(),
+            border=4,
+            border_color=style.Color(PINK).get_int(),
+            padding=PAD,
+            orientation=hippo.ORIENTATION_VERTICAL)
+        mainbox.append(options_details_box, hippo.PACK_EXPAND)
+        
+        #options widgets
+        options_widgets = []
+        
+        hbox = hippo.CanvasBox(spacing=5,
+            orientation=hippo.ORIENTATION_HORIZONTAL)
+        viewResultCB= gtk.CheckButton(label='')
+        viewResultCB.set_active(self._view_answer)
+        viewResultCB.connect('toggled', self._view_result_checkbox_cb)
+        hbox.append(hippo.CanvasWidget(widget=viewResultCB))
+        hbox.append(self._text_mainbox(_('Show answers while voting')))
+        
+        options_details_box.append(hbox)
+        
+        hbox = hippo.CanvasBox(spacing=5,
+            orientation=hippo.ORIENTATION_HORIZONTAL)
+        rememberVoteCB= gtk.CheckButton(label='')
+        rememberVoteCB.set_active(self._remember_last_vote)
+        rememberVoteCB.connect('toggled', self._remember_last_vote_checkbox_cb)
+        hbox.append(hippo.CanvasWidget(widget=rememberVoteCB))
+        hbox.append(self._text_mainbox(_('Remember last vote')))
+        
+        options_details_box.append(hbox)
+
+        hbox = hippo.CanvasBox(spacing=8,
+            orientation=hippo.ORIENTATION_HORIZONTAL)
+        # SAVE button
+        button = gtk.Button(_("Save"))
+        button.connect('clicked', self._button_save_options_cb, hbox)
+        hbox.append(hippo.CanvasWidget(widget=theme_button(button)))
+        
+        options_details_box.append(hbox, hippo.PACK_END)
+        
+        button_box = self._canvas_buttonbox(button_to_highlight=3)
+        mainbox.append(button_box, hippo.PACK_END)
+
+        return canvasbox
+
     def _view_result_checkbox_cb(self, checkbox, data=None):
         logging.debug('Checkbox value= %s', checkbox.get_active())
         self._view_answer = checkbox.get_active()
+        
+    def _remember_last_vote_checkbox_cb(self, checkbox, data=None):        
+        self._remember_last_vote = checkbox.get_active()
 
     def _button_preview_cb(self, button, data=None):
         """Preview button clicked."""
@@ -850,6 +919,12 @@ class PollBuilder(activity.Activity):
         self._poll.broadcast_on_mesh()
         self.set_root(self._poll_canvas())
         self.show_all()
+
+    def _button_save_options_cb(self, button, data=None):        
+        alert = InlineAlert()
+        alert.props.msg = _("The options have been saved")
+        data.append(hippo.CanvasWidget(widget=alert))
+        alert.show()
 
     def _entry_activate_cb(self, entrycontrol, data=None):
         text = entrycontrol.props.text
@@ -1085,6 +1160,11 @@ class PollBuilder(activity.Activity):
         button_box.append(hippo.CanvasWidget(
             widget=theme_button(button,
                                highlight=(button_to_highlight==2))))
+        button = gtk.Button(_("Options"))
+        button.connect('clicked', self.button_options_clicked)
+        button_box.append(hippo.CanvasWidget(
+            widget=theme_button(button,
+                               highlight=(button_to_highlight==3))))
         return button_box
 
     def _shared_cb(self, activity):
