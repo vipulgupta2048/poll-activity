@@ -53,7 +53,6 @@ try:
     from sugar.graphics.alert import NotifyAlert
 except:
     pass  # FIXME remove this once compatibility with Trial 3 not required
-from jarabe.controlpanel.inlinealert import InlineAlert
 from sugar.presence import presenceservice
 from abiword import Canvas as AbiCanvas
 
@@ -921,10 +920,12 @@ class PollBuilder(activity.Activity):
         self.show_all()
 
     def _button_save_options_cb(self, button, data=None):        
-        alert = InlineAlert()
-        alert.props.msg = _("The options have been saved")
-        data.append(hippo.CanvasWidget(widget=alert))
-        alert.show()
+        message = _('The options have been saved')
+        save_message_hippo_text = hippo.CanvasText(
+                                              text=message,
+                                              xalign=hippo.ALIGNMENT_START,
+                                              color=style.Color(GRAY).get_int())
+        data.append(save_message_hippo_text)
 
     def _entry_activate_cb(self, entrycontrol, data=None):
         text = entrycontrol.props.text
