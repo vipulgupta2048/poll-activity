@@ -26,6 +26,8 @@ import gobject
 gobject.threads_init()
 
 import os
+import subprocess
+import time
 import cPickle
 import gtk
 import hippo
@@ -104,6 +106,7 @@ GRAPH_TEXT_WIDTH = 50
 RADIO_SIZE = 32
 VIEW_ANSWER = True
 REMEMBER_LAST_VOTE = True
+PLAY_VOTE_SOUND = False
 
 def theme_button(btn, w=-1, h=-1, highlight=False):
     """Apply colors to gtk Buttons
@@ -198,6 +201,9 @@ class PollBuilder(activity.Activity):
         
         #This property allows remember in the radio button options the last vote
         self._remember_last_vote = REMEMBER_LAST_VOTE
+
+        #This property allows play a sound when click in the button to make a vote
+        self._play_vote_sound = PLAY_VOTE_SOUND
 
         # Lesson plan widget
         self._lessonplan_widget = None
@@ -465,7 +471,7 @@ class PollBuilder(activity.Activity):
         self._switch_to_poll(sha)
         self._has_voted = False
         self.set_root(self._poll_canvas())
-        self.show_all()
+        self.show_all()  
 
     def _delete_poll_button_cb(self, button, sha=None):
         """A DELETE button was clicked."""
@@ -594,52 +600,49 @@ class PollBuilder(activity.Activity):
 
         if self._view_answer \
             or not self._poll.active:
-                if (self._poll.active and self._has_voted) or\
-                    not self._poll.active:
-        
-                    # Line above total
-                    line_box = hippo.CanvasBox(
-                        xalign=hippo.ALIGNMENT_END,
-                        spacing=8,
-                        box_height=4,
-                        padding_left = GRAPH_TEXT_WIDTH,
-                        padding_right = GRAPH_TEXT_WIDTH,
-                        orientation=hippo.ORIENTATION_HORIZONTAL)
-                    line = hippo.CanvasBox(
-                        background_color=style.Color(DARK_GREEN).get_int(),
-                        box_width = GRAPH_WIDTH - GRAPH_TEXT_WIDTH*2,
-                        orientation=hippo.ORIENTATION_HORIZONTAL)
-                    line_box.append(line)
-                    answer_box.append(line_box)
-        
-                    # total votes
-                    totals_box = hippo.CanvasBox(
-                        xalign=hippo.ALIGNMENT_END,
-                        box_width = GRAPH_WIDTH,
-                        spacing=8,
-                        padding_left = GRAPH_TEXT_WIDTH,
-                        padding_right = GRAPH_TEXT_WIDTH,
-                        orientation=hippo.ORIENTATION_HORIZONTAL)
-                    answer_box.append(totals_box)
-        
-                    spacer = hippo.CanvasBox(
-                        box_width=100, orientation=hippo.ORIENTATION_VERTICAL)
-        
-                    spacer.append(hippo.CanvasText(
-                        text=str(votes_total),
-                        xalign=hippo.ALIGNMENT_END,
-                        color=style.Color(DARK_GREEN).get_int()))
-                    totals_box.append(spacer)
-        
-                    totals_box.append(hippo.CanvasText(
-                        text=' '+_('votes'),
-                        xalign=hippo.ALIGNMENT_START,
-                        color=style.Color(DARK_GREEN).get_int()))
-                    if votes_total < self._poll.maxvoters:
-                        totals_box.append(hippo.CanvasText(
-                            text=' ('+str(self._poll.maxvoters-votes_total)+
-                                 ' votes left to collect)',
-                            color=style.Color(DARK_GREEN).get_int()))
+            # Line above total
+            line_box = hippo.CanvasBox(
+                xalign=hippo.ALIGNMENT_END,
+                spacing=8,
+                box_height=4,
+                padding_left = GRAPH_TEXT_WIDTH,
+                padding_right = GRAPH_TEXT_WIDTH,
+                orientation=hippo.ORIENTATION_HORIZONTAL)
+            line = hippo.CanvasBox(
+                background_color=style.Color(DARK_GREEN).get_int(),
+                box_width = GRAPH_WIDTH - GRAPH_TEXT_WIDTH*2,
+                orientation=hippo.ORIENTATION_HORIZONTAL)
+            line_box.append(line)
+            answer_box.append(line_box)        
+                
+        # total votes
+        totals_box = hippo.CanvasBox(
+            xalign=hippo.ALIGNMENT_END,
+            box_width = GRAPH_WIDTH,
+            spacing=8,
+            padding_left = GRAPH_TEXT_WIDTH,
+            padding_right = GRAPH_TEXT_WIDTH,
+            orientation=hippo.ORIENTATION_HORIZONTAL)
+        answer_box.append(totals_box)
+
+        spacer = hippo.CanvasBox(
+            box_width=100, orientation=hippo.ORIENTATION_VERTICAL)
+
+        spacer.append(hippo.CanvasText(
+            text=str(votes_total),
+            xalign=hippo.ALIGNMENT_END,
+            color=style.Color(DARK_GREEN).get_int()))
+        totals_box.append(spacer)
+
+        totals_box.append(hippo.CanvasText(
+            text=' '+_('votes'),
+            xalign=hippo.ALIGNMENT_START,
+            color=style.Color(DARK_GREEN).get_int()))
+        if votes_total < self._poll.maxvoters:
+            totals_box.append(hippo.CanvasText(
+                text=' ('+str(self._poll.maxvoters-votes_total)+
+                     ' votes left to collect)',
+                color=style.Color(DARK_GREEN).get_int()))
 
         # Button area
         if self._poll.active and not self._previewing:
@@ -670,6 +673,12 @@ class PollBuilder(activity.Activity):
         """
         self.current_vote = data
 
+    def _play_vote_button_sound(self):
+        try:
+            subprocess.Popen("aplay extras/vote-sound.wav", shell=True)
+        except (OSError, ValueError), e:
+            logging.exception(e)
+
     def _button_vote_cb(self, button):
         """Register a vote
 
@@ -693,6 +702,8 @@ class PollBuilder(activity.Activity):
                     'poll closed.')
             self._logger.debug('Results: '+str(self._poll.data))
             self.draw_poll_details_box()
+            if self._play_vote_sound:
+                self._play_vote_button_sound()
 
     def button_select_clicked(self, button):
         """Show Choose a Poll canvas"""
@@ -868,11 +879,21 @@ class PollBuilder(activity.Activity):
         
         options_details_box.append(hbox)
 
+        hbox = hippo.CanvasBox(spacing=5,
+            orientation=hippo.ORIENTATION_HORIZONTAL)
+        playVoteSoundCB= gtk.CheckButton(label='')
+        playVoteSoundCB.set_active(self._play_vote_sound)
+        playVoteSoundCB.connect('toggled', self._play_vote_sound_checkbox_cb)
+        hbox.append(hippo.CanvasWidget(widget=playVoteSoundCB))
+        hbox.append(self._text_mainbox(_('Play a sound when make a vote')))
+        
+        options_details_box.append(hbox)
+
         hbox = hippo.CanvasBox(spacing=8,
             orientation=hippo.ORIENTATION_HORIZONTAL)
         # SAVE button
         button = gtk.Button(_("Save"))
-        button.connect('clicked', self._button_save_options_cb, hbox)
+        button.connect('clicked', self._button_save_options_cb)
         hbox.append(hippo.CanvasWidget(widget=theme_button(button)))
         
         options_details_box.append(hbox, hippo.PACK_END)
@@ -883,11 +904,13 @@ class PollBuilder(activity.Activity):
         return canvasbox
 
     def _view_result_checkbox_cb(self, checkbox, data=None):
-        logging.debug('Checkbox value= %s', checkbox.get_active())
         self._view_answer = checkbox.get_active()
         
-    def _remember_last_vote_checkbox_cb(self, checkbox, data=None):        
+    def _remember_last_vote_checkbox_cb(self, checkbox, data=None):
         self._remember_last_vote = checkbox.get_active()
+
+    def _play_vote_sound_checkbox_cb(self, checkbox, data=None):
+        self._play_vote_sound = checkbox.get_active()
 
     def _button_preview_cb(self, button, data=None):
         """Preview button clicked."""
@@ -920,12 +943,12 @@ class PollBuilder(activity.Activity):
         self.show_all()
 
     def _button_save_options_cb(self, button, data=None):        
-        message = _('The options have been saved')
-        save_message_hippo_text = hippo.CanvasText(
-                                              text=message,
-                                              xalign=hippo.ALIGNMENT_START,
-                                              color=style.Color(GRAY).get_int())
-        data.append(save_message_hippo_text)
+        alert = NotifyAlert(timeout=3)
+        alert.props.title = _('Poll Activity')
+        alert.props.msg = _('The options have been saved')
+        self.add_alert(alert)
+        alert.connect('response', self._alert_cancel_cb)        
+        alert.show()
 
     def _entry_activate_cb(self, entrycontrol, data=None):
         text = entrycontrol.props.text
