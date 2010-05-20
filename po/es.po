@@ -1,199 +1,23 @@
-# Spanish translations for PACKAGE package.
-# Copyright (C) 2010 THE PACKAGE'S COPYRIGHT HOLDER
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Jorge Saldivar <jsaldivar@paraguayeduca.org>, 2010.
-#
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-20 09:55-0400\n"
-"PO-Revision-Date: 2010-05-20 09:59-0400\n"
-"Last-Translator: Jorge Saldivar <jsaldivar@paraguayeduca.org>\n"
+"POT-Creation-Date: 2009-04-29 17:36-0400\n"
+"PO-Revision-Date: 2008-11-23 13:28-0500\n"
+"Last-Translator: Gabriel Caro <gecaro@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 1.1.0rc2\n"
 
 #: activity/activity.info:2
 msgid "Poll"
 msgstr "Encuesta"
-
-#: poll.py:346
-msgid "VOTE!"
-msgstr "VOTA!"
-
-#: poll.py:348
-msgid "Poll Preview"
-msgstr "Vista previa de la encuesta"
-
-#: poll.py:396 poll.py:1335
-msgid "Choose a Poll"
-msgstr "Elije una encuesta"
-
-#: poll.py:447
-msgid "VOTE"
-msgstr "VOTAR"
-
-#: poll.py:449
-msgid "SEE RESULTS"
-msgstr "VER RESULTADOS"
-
-#: poll.py:457
-msgid "DELETE"
-msgstr "BORRAR"
-
-#: poll.py:484 poll.py:1269
-msgid "Lesson Plans"
-msgstr "Planes de la lección"
-
-#: poll.py:697
-msgid "votes"
-msgstr "votos"
-
-#: poll.py:711 poll.py:1199
-msgid "Vote"
-msgstr "Vota"
-
-#: poll.py:719
-msgid "Edit Poll"
-msgstr "Editar Encuesta"
-
-#: poll.py:722
-msgid "Save Poll"
-msgstr "Guardar Encuesta"
-
-#: poll.py:793
-msgid "Choose image"
-msgstr "Elegir imagen"
-
-#: poll.py:809 poll.py:917
-msgid "Change Image"
-msgstr "Cambiar Imagen"
-
-#: poll.py:851 poll.py:1330
-msgid "Build a Poll"
-msgstr "Construir Encuesta"
-
-#: poll.py:868
-msgid "Poll Title:"
-msgstr "Título de la encuesta:"
-
-#: poll.py:880
-msgid "Question:"
-msgstr "Pregunta:"
-
-#: poll.py:892
-msgid "Number of votes to collect:"
-msgstr "Número de votos a recoger:"
-
-#: poll.py:905
-msgid "Answer"
-msgstr "Respuesta"
-
-#: poll.py:921
-msgid "Add Image"
-msgstr "Agregar Imagen"
-
-#: poll.py:930
-msgid "Step 1: Preview"
-msgstr "Paso 1: Vista previa"
-
-#: poll.py:933
-msgid "Step 2: Save"
-msgstr "Paso 2: Guardar"
-
-#: poll.py:958 poll.py:1340
-msgid "Settings"
-msgstr "Configuraciones"
-
-#: poll.py:977
-msgid "Show answers while voting"
-msgstr "Mostrar resultados durante la votación"
-
-#: poll.py:987
-msgid "Remember last vote"
-msgstr "Recordar el último voto"
-
-#: poll.py:997
-msgid "Play a sound when make a vote"
-msgstr "Ejecutar sonido al realizar el voto"
-
-#: poll.py:1008
-msgid "Use image in answer"
-msgstr "Usar imagen en respuesta"
-
-#: poll.py:1012
-msgid "Image Size: "
-msgstr "Tamaño de la Imagen: "
-
-#: poll.py:1035
-msgid "Save"
-msgstr "Guardar"
-
-#: poll.py:1094
-msgid "Poll Activity"
-msgstr "Actividad Encuesta"
-
-#: poll.py:1095
-msgid "The settings have been saved"
-msgstr "Las configuraciones han sido guardadas"
-
-#: poll.py:1130
-msgid "Favorite Color"
-msgstr "Color Favorito"
-
-#: poll.py:1132
-msgid "What is your favorite color?"
-msgstr "¿Cuál es tu color favorito?"
-
-#: poll.py:1133
-msgid "Green"
-msgstr "Verde"
-
-#: poll.py:1133
-msgid "Red"
-msgstr "Rojo"
-
-#: poll.py:1133
-msgid "Blue"
-msgstr "Azul"
-
-#: poll.py:1134
-msgid "Orange"
-msgstr "Naranja"
-
-#: poll.py:1134
-msgid "None of the above"
-msgstr "Ninguno de los anteriores"
-
-#: poll.py:1200
-#, python-format
-msgid "Somebody voted on %s"
-msgstr "Alguien votó en %s"
-
-#: poll.py:1266
-msgid "Close Lessons"
-msgstr "Cerrar Lecciones"
-
-#: poll.py:1389 poll.py:1415
-msgid "Joined"
-msgstr "Se Unió"
-
-#: poll.py:1419
-msgid "Left"
-msgstr "Abandonó"
-
-#: poll.py:1774 poll.py:1838
-msgid "New Poll"
-msgstr "Nueva Encuesta"
-
-#: poll.py:1775 poll.py:1839
-#, python-format
-msgid "%(author)s shared a poll '%(title)s' with you."
-msgstr "%(author)s ha compartido la encuesta '%(title)s' contigo."
 
 #: i18n_misc_strings.py:1
 msgid "Lesson 1"
@@ -214,3 +38,202 @@ msgstr "Lección 4"
 #: i18n_misc_strings.py:5
 msgid "Introduction"
 msgstr "Introducción"
+
+#: poll.py:294
+msgid "VOTE!"
+msgstr "VOTA!"
+
+#: poll.py:296
+msgid "Poll Preview"
+msgstr "Vista previa de la encuesta"
+
+#: poll.py:344 poll.py:1065
+msgid "Choose a Poll"
+msgstr "Elije una encuesta"
+
+#: poll.py:395
+msgid "VOTE"
+msgstr "VOTO"
+
+#: poll.py:397
+msgid "SEE RESULTS"
+msgstr "VER RESULTADOS"
+
+#: poll.py:405
+msgid "DELETE"
+msgstr "BORRAR"
+
+#: poll.py:432 poll.py:999
+msgid "Lesson Plans"
+msgstr "Planes de la lección"
+
+#: poll.py:622
+msgid "votes"
+msgstr "votos"
+
+#: poll.py:636 poll.py:929
+msgid "Vote"
+msgstr "Vota"
+
+#: poll.py:644
+msgid "Edit Poll"
+msgstr "Editar Encuesta"
+
+#: poll.py:647
+msgid "Save Poll"
+msgstr "Guardar Encuesta"
+
+#: poll.py:725 poll.py:1060
+msgid "Build a Poll"
+msgstr "Construir Encuesta"
+
+#: poll.py:742
+msgid "Poll Title:"
+msgstr "Título de la encuesta:"
+
+#: poll.py:754
+msgid "Question:"
+msgstr "Pregunta:"
+
+#: poll.py:766
+msgid "Number of votes to collect:"
+msgstr "Número de votos a recoger:"
+
+#: poll.py:779
+msgid "Answer"
+msgstr "Respuesta"
+
+#: poll.py:793
+msgid "Step 1: Preview"
+msgstr "Paso 1: Vista previa"
+
+#: poll.py:796
+msgid "Step 2: Save"
+msgstr "Paso 2: Guardar"
+
+#: poll.py:860
+msgid "Favorite Color"
+msgstr "Color Favorito"
+
+#: poll.py:862
+msgid "What is your favorite color?"
+msgstr "¿Cuál es tu color favorito?"
+
+#: poll.py:863
+msgid "Green"
+msgstr "Verde"
+
+#: poll.py:863
+msgid "Red"
+msgstr "Rojo"
+
+#: poll.py:863
+msgid "Blue"
+msgstr "Azul"
+
+#: poll.py:864
+msgid "Orange"
+msgstr "Naranja"
+
+#: poll.py:864
+msgid "None of the above"
+msgstr "Ninguno de los anteriores"
+
+#: poll.py:930
+#, python-format
+msgid "Somebody voted on %s"
+msgstr "Alguien votó en %s"
+
+#: poll.py:996
+msgid "Close Lessons"
+msgstr "Cerrar Lecciones"
+
+# Dj ToXiC: Es lo más adecuado al contexto. GC: Presente no es un verbo. En este caso Joined se refiere a "unirse a..."
+#: poll.py:1114 poll.py:1140
+msgid "Joined"
+msgstr "Se Unió"
+
+#: poll.py:1144
+msgid "Left"
+msgstr "Abandonó"
+
+#: poll.py:1449 poll.py:1506
+msgid "New Poll"
+msgstr "Nueva Encuesta"
+
+#: poll.py:1450 poll.py:1507
+#, python-format
+msgid "%(author)s shared a poll '%(title)s' with you."
+msgstr "%(author)s ha compartido la encuesta '%(title)s' contigo."
+
+#~ msgid "Chinese (simplified)"
+#~ msgstr "Chino (simplificado)"
+
+#~ msgid "Chinese (traditional)"
+#~ msgstr "Chino (tradicional)"
+
+#~ msgid "Czech"
+#~ msgstr "Checo"
+
+#~ msgid "Danish"
+#~ msgstr "Danés"
+
+#~ msgid "Dutch"
+#~ msgstr "Holandés"
+
+#~ msgid "English"
+#~ msgstr "Inglés"
+
+#~ msgid "English - Great Britain"
+#~ msgstr "Inglés - Gran Bretaña"
+
+#~ msgid "English - U.S."
+#~ msgstr "Inglés - Estados Unidos"
+
+#~ msgid "Finnish"
+#~ msgstr "Finlandés"
+
+#~ msgid "French"
+#~ msgstr "Francés"
+
+#~ msgid "German"
+#~ msgstr "Alemán"
+
+#~ msgid "Hungarian"
+#~ msgstr "Húngaro"
+
+#~ msgid "Italian"
+#~ msgstr "Italiano"
+
+#~ msgid "Japanese"
+#~ msgstr "Japonés"
+
+#~ msgid "Korean"
+#~ msgstr "Coreano"
+
+#~ msgid "Norwegian"
+#~ msgstr "Noruego"
+
+#~ msgid "Polish"
+#~ msgstr "Polaco"
+
+#~ msgid "Portuguese"
+#~ msgstr "Portugués"
+
+#~ msgid "Portuguese - Brazilian"
+#~ msgstr "Portugués - Brasileño"
+
+#~ msgid "Russian"
+#~ msgstr "Ruso"
+
+#~ msgid "Slovak"
+#~ msgstr "Eslovaco"
+
+#~ msgid "Spanish"
+#~ msgstr "Español"
+
+#~ msgid "Swedish"
+#~ msgstr "Sueco"
+
+#~ msgid "Turkish"
+#~ msgstr "Turco"
