@@ -700,7 +700,7 @@ class PollBuilder(activity.Activity):
         if votes_total < self._poll.maxvoters:
             totals_box.append(hippo.CanvasText(
                 text=' ('+str(self._poll.maxvoters-votes_total)+
-                     ' votes left to collect)',
+                     _(' votes left to collect') + ')',
                 color=style.Color(DARK_GREEN).get_int()))
 
         # Button area

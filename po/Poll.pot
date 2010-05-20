@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-20 09:55-0400\n"
+"POT-Creation-Date: 2010-05-20 12:53-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,7 +28,8 @@ msgstr ""
 msgid "Poll Preview"
 msgstr ""
 
-#: poll.py:396 poll.py:1335
+#: poll.py:396
+#: poll.py:1335
 msgid "Choose a Poll"
 msgstr ""
 
@@ -44,7 +45,8 @@ msgstr ""
 msgid "DELETE"
 msgstr ""
 
-#: poll.py:484 poll.py:1269
+#: poll.py:484
+#: poll.py:1269
 msgid "Lesson Plans"
 msgstr ""
 
@@ -52,7 +54,12 @@ msgstr ""
 msgid "votes"
 msgstr ""
 
-#: poll.py:711 poll.py:1199
+#: poll.py:703
+msgid " votes left to collect"
+msgstr ""
+
+#: poll.py:711
+#: poll.py:1199
 msgid "Vote"
 msgstr ""
 
@@ -68,11 +75,13 @@ msgstr ""
 msgid "Choose image"
 msgstr ""
 
-#: poll.py:809 poll.py:917
+#: poll.py:809
+#: poll.py:917
 msgid "Change Image"
 msgstr ""
 
-#: poll.py:851 poll.py:1330
+#: poll.py:851
+#: poll.py:1330
 msgid "Build a Poll"
 msgstr ""
 
@@ -104,7 +113,8 @@ msgstr ""
 msgid "Step 2: Save"
 msgstr ""
 
-#: poll.py:958 poll.py:1340
+#: poll.py:958
+#: poll.py:1340
 msgid "Settings"
 msgstr ""
 
@@ -177,7 +187,8 @@ msgstr ""
 msgid "Close Lessons"
 msgstr ""
 
-#: poll.py:1389 poll.py:1415
+#: poll.py:1389
+#: poll.py:1415
 msgid "Joined"
 msgstr ""
 
@@ -185,11 +196,13 @@ msgstr ""
 msgid "Left"
 msgstr ""
 
-#: poll.py:1774 poll.py:1838
+#: poll.py:1774
+#: poll.py:1838
 msgid "New Poll"
 msgstr ""
 
-#: poll.py:1775 poll.py:1839
+#: poll.py:1775
+#: poll.py:1839
 #, python-format
 msgid "%(author)s shared a poll '%(title)s' with you."
 msgstr ""
