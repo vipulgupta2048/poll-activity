@@ -790,10 +790,15 @@ class PollBuilder(activity.Activity):
         self.show_all()
 
     def _button_choose_image_cb(self, button, data=None, data2=None):
-        chooser = ObjectChooser(_('Choose image'), self,
-                                gtk.DIALOG_MODAL |
-                                gtk.DIALOG_DESTROY_WITH_PARENT, \
-                                what_filter=mime.GENERIC_TYPE_IMAGE)
+        if  hasattr(mime, 'GENERIC_TYPE_IMAGE'):
+            chooser = ObjectChooser(_('Choose image'), self,
+                                    gtk.DIALOG_MODAL |
+                                    gtk.DIALOG_DESTROY_WITH_PARENT, \
+                                    what_filter=mime.GENERIC_TYPE_IMAGE)
+        else:
+            chooser = ObjectChooser(_('Choose image'), self,
+                                    gtk.DIALOG_MODAL |
+                                    gtk.DIALOG_DESTROY_WITH_PARENT)
         try:
             result = chooser.run()
             if result == gtk.RESPONSE_ACCEPT:
