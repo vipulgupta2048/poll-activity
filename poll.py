@@ -58,6 +58,7 @@ except:
     pass  # FIXME remove this once compatibility with Trial 3 not required
 from sugar.presence import presenceservice
 from sugar.graphics.objectchooser import ObjectChooser
+from sugar.datastore import datastore
 from sugar import mime
 #from abiword import Canvas as AbiCanvas
 
@@ -246,15 +247,27 @@ class PollBuilder(activity.Activity):
         self._root.clear()
         self._root.append(hippo_widget, hippo.PACK_EXPAND)
 
-    def _create_pixbuf_from_images_files(self, images_files_paths):
+    def _create_pixbufs(self, images_ds_object_id):
         pixbufs = {}
-        for index, image_file_path in images_files_paths.iteritems():
-            if not image_file_path == '':
-                pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(image_file_path,self._image_size['height'],self._image_size['width'])                
+        for index, ds_object_id in images_ds_object_id.iteritems():
+            if not ds_object_id == '':
+                image_file_path = datastore.get(ds_object_id).file_path
+                pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(image_file_path,
+                                                              self._image_size['height'],
+                                                              self._image_size['width'])                
                 pixbufs[int(index)] = pixbuf
             else:
                 pixbufs[int(index)] = ''
         return pixbufs
+
+    def _get_images_ds_objects(self, images_ds_object_id):
+        images_ds_objects = {}
+        for index, ds_object_id in images_ds_object_id.iteritems():
+            images_ds_objects[int(index)] = {} 
+            if not ds_object_id == '':
+                images_ds_objects[int(index)]['id'] = ds_object_id
+                images_ds_objects[int(index)]['file_path'] = datastore.get(ds_object_id).file_path
+        return images_ds_objects
 
     def read_file(self, file_path):
         """Implement reading from journal
@@ -284,12 +297,13 @@ class PollBuilder(activity.Activity):
             options = cPickle.load(f)
             data = cPickle.load(f)
             votes = cPickle.load(f)
-            images_files_paths = cPickle.load(f)            
-            images = self._create_pixbuf_from_images_files(images_files_paths)
+            images_ds_objects_id = cPickle.load(f)            
+            images = self._create_pixbufs(images_ds_objects_id)
+            images_ds_object = self._get_images_ds_objects(images_ds_objects_id)
             poll = Poll(self, title, author, active,
                         date.fromordinal(int(createdate_i)),
                         maxvoters, question, number_of_options, options,
-                        data, votes, images, images_files_paths)
+                        data, votes, images, images_ds_object)
             self._polls.add(poll)
         f.close()
 
@@ -809,7 +823,8 @@ class PollBuilder(activity.Activity):
                                                                   self._image_size['height'],
                                                                   self._image_size['width'])                    
                     self._poll.images[int(data)] = pixbuf
-                    self._poll.images_files_paths[int(data)] = jobject.file_path 
+                    self._poll.images_ds_objects[int(data)]['id'] = jobject.object_id
+                    self._poll.images_ds_objects[int(data)]['file_path'] = jobject.file_path 
                     self._show_image_thumbnail(data2, data)
                     button.set_label(_('Change Image'))
         finally:
@@ -818,8 +833,9 @@ class PollBuilder(activity.Activity):
 
     def _show_image_thumbnail(self, parent_box, answer_number):
         hbox = gtk.HBox()
-        pixbuf_thumbnail = gtk.gdk.pixbuf_new_from_file_at_size(self._poll.images_files_paths[int(answer_number)],
-                                                                IMAGE_THUMBNAIL_HEIGHT,IMAGE_THUMBNAIL_WIDTH)
+        image_file_path = self._poll.images_ds_objects[int(answer_number)]['file_path']
+        pixbuf_thumbnail = gtk.gdk.pixbuf_new_from_file_at_size(image_file_path, IMAGE_THUMBNAIL_HEIGHT,
+                                                                IMAGE_THUMBNAIL_WIDTH)
         image = gtk.Image()
         image.set_from_pixbuf(pixbuf_thumbnail)
         image.show()
@@ -828,7 +844,7 @@ class PollBuilder(activity.Activity):
         parent_box.append(hippo.CanvasWidget(widget = hbox))
 
     def _already_loaded_image_in_answer(self, answer_number):
-        if not self._poll.images_files_paths[int(answer_number)] == '': 
+        if not self._poll.images_ds_objects[int(answer_number)] == {}: 
             return True
         else:
             return False
@@ -1449,7 +1465,7 @@ class Poll:
     def __init__(self, activity=None, title='', author='', active=False,
                  createdate=date.today(), maxvoters=20, question='',
                  number_of_options=5, options=None, data=None, votes=None,
-                 images=None, images_files_paths=None):
+                 images=None, images_ds_objects=None):
         """Create the Poll."""
         self.activity = activity
         self.title = title
@@ -1461,7 +1477,7 @@ class Poll:
         self.number_of_options = number_of_options
         self.options = (options or {0: '', 1: '', 2: '', 3: '', 4: ''})
         self.images = (images or {0: '', 1: '', 2: '', 3: '', 4: ''})
-        self.images_files_paths = (images_files_paths or {0: '', 1: '', 2: '', 3: '', 4: ''})
+        self.images_ds_objects = (images_ds_objects or {0: {}, 1: {}, 2: {}, 3: {}, 4: {}})
         self.data = (data or {0:0, 1:0, 2:0, 3:0, 4:0})
         self.votes = (votes or {})
         self._logger = logging.getLogger('poll-activity.Poll')
@@ -1492,14 +1508,17 @@ class Poll:
         for key in self.votes:
             value = self.votes[key]
             votes[str(key)] = int(value)
-        images_files_paths = {}
-        for key in self.images_files_paths:
-            value = self.images_files_paths[key]
-            images_files_paths[int(key)] = str(value)
+        images_objects_id = {}
+        for key in self.images_ds_objects:
+            if not self.images_ds_objects[key] == {}:
+                value = self.images_ds_objects[key]['id']
+                images_objects_id[int(key)] = str(value)
+            else:
+                images_objects_id[int(key)] = ''
         s += cPickle.dumps(options)
         s += cPickle.dumps(data)
         s += cPickle.dumps(votes)
-        s += cPickle.dumps(images_files_paths)
+        s += cPickle.dumps(images_objects_id)
         return s
 
     @property
