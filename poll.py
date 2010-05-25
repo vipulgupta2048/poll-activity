@@ -621,9 +621,8 @@ class PollBuilder(activity.Activity):
                 radio_box.append(hippo.CanvasWidget(
                         widget = theme_radiobutton(button)),
                         hippo.PACK_EXPAND)
-                if choice == self.current_vote \
-                    and self._remember_last_vote:
-                        button.set_active(True)
+                if choice == self.current_vote:
+                    button.set_active(True)
 
             if not self._poll.images[int(choice)] == '':
                 hbox = gtk.HBox()
@@ -774,9 +773,18 @@ class PollBuilder(activity.Activity):
                 self._logger.debug('Local vote failed: '
                     'poll closed.')
             self._logger.debug('Results: '+str(self._poll.data))
-            self.draw_poll_details_box()
             if self._play_vote_sound:
                 self._play_vote_button_sound()
+            if not self._remember_last_vote:
+                self.current_vote = None
+            self.draw_poll_details_box()
+        else:
+            alert = NotifyAlert(timeout=3)
+            alert.props.title = _('Poll Activity')
+            alert.props.msg = _('To vote you have to select first one option')
+            self.add_alert(alert)
+            alert.connect('response', self._alert_cancel_cb)
+            alert.show()
 
     def button_select_clicked(self, button):
         """Show Choose a Poll canvas"""
