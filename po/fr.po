@@ -2,11 +2,31 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-29 17:36-0400\n"
+"POT-Creation-Date: 2010-05-27 00:31-0400\n"
 "PO-Revision-Date: 2008-10-02 03:18-0400\n"
 "Last-Translator: samy boutayeb <s.boutayeb@free.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,128 +59,188 @@ msgstr "Leçon 4"
 msgid "Introduction"
 msgstr "Introduction"
 
-#: poll.py:294
+#: poll.py:360
 msgid "VOTE!"
 msgstr "VOTE!"
 
-#: poll.py:296
+#: poll.py:362
 msgid "Poll Preview"
 msgstr "Aperçu du sondage"
 
-#: poll.py:344 poll.py:1065
+#: poll.py:410 poll.py:1377
 msgid "Choose a Poll"
 msgstr "Choisir un sondage"
 
-#: poll.py:395
+#: poll.py:461
 msgid "VOTE"
 msgstr "VOTE"
 
-#: poll.py:397
+#: poll.py:463
 msgid "SEE RESULTS"
 msgstr "VOIR LES RÉSULTATS"
 
-#: poll.py:405
+#: poll.py:471
 msgid "DELETE"
 msgstr "EFFACER"
 
-#: poll.py:432 poll.py:999
+#: poll.py:498 poll.py:1311
 msgid "Lesson Plans"
 msgstr "Plans de la leçon"
 
-#: poll.py:622
+#: poll.py:710
 msgid "votes"
 msgstr "votes"
 
-#: poll.py:636 poll.py:929
+#: poll.py:716
+msgid " votes left to collect"
+msgstr ""
+
+#: poll.py:724 poll.py:1241
 msgid "Vote"
 msgstr "Vote"
 
-#: poll.py:644
+#: poll.py:732
 msgid "Edit Poll"
 msgstr "Éditer le sondage"
 
-#: poll.py:647
+#: poll.py:735
 msgid "Save Poll"
 msgstr "Sauvegarder le sondage"
 
-#: poll.py:725 poll.py:1060
+#: poll.py:783 poll.py:842 poll.py:1136
+msgid "Poll Activity"
+msgstr ""
+
+#: poll.py:784
+msgid "To vote you have to select first one option"
+msgstr ""
+
+#: poll.py:816 poll.py:821
+msgid "Choose image"
+msgstr ""
+
+#: poll.py:839 poll.py:959
+msgid "Change Image"
+msgstr ""
+
+#: poll.py:843
+msgid "Your selection is not an image"
+msgstr ""
+
+#: poll.py:893 poll.py:1372
 msgid "Build a Poll"
 msgstr "Élaborer un sondage"
 
-#: poll.py:742
+#: poll.py:910
 msgid "Poll Title:"
 msgstr "Titre du sondage :"
 
-#: poll.py:754
+#: poll.py:922
 msgid "Question:"
 msgstr "Question :"
 
-#: poll.py:766
+#: poll.py:934
 msgid "Number of votes to collect:"
 msgstr "Nombre de voix à recueillir :"
 
-#: poll.py:779
+#: poll.py:947
 msgid "Answer"
 msgstr "Réponse"
 
-#: poll.py:793
+#: poll.py:963
+msgid "Add Image"
+msgstr ""
+
+#: poll.py:972
 msgid "Step 1: Preview"
 msgstr "Étape 1 : Prévisualiser"
 
-#: poll.py:796
+#: poll.py:975
 msgid "Step 2: Save"
 msgstr "Étape 2 : Sauvegarder"
 
-#: poll.py:860
+#: poll.py:1000 poll.py:1382
+msgid "Settings"
+msgstr ""
+
+#: poll.py:1019
+msgid "Show answers while voting"
+msgstr ""
+
+#: poll.py:1029
+msgid "Remember last vote"
+msgstr ""
+
+#: poll.py:1039
+msgid "Play a sound when make a vote"
+msgstr ""
+
+#: poll.py:1050
+msgid "Use image in answer"
+msgstr ""
+
+#: poll.py:1054
+msgid "Image Size: "
+msgstr ""
+
+#: poll.py:1077
+msgid "Save"
+msgstr ""
+
+#: poll.py:1137
+msgid "The settings have been saved"
+msgstr ""
+
+#: poll.py:1172
 msgid "Favorite Color"
 msgstr "Couleur préférée"
 
-#: poll.py:862
+#: poll.py:1174
 msgid "What is your favorite color?"
 msgstr "Quelle est votre couleur préférée ?"
 
-#: poll.py:863
+#: poll.py:1175
 msgid "Green"
 msgstr "Vert"
 
-#: poll.py:863
+#: poll.py:1175
 msgid "Red"
 msgstr "Rouge"
 
-#: poll.py:863
+#: poll.py:1175
 msgid "Blue"
 msgstr "Bleu"
 
-#: poll.py:864
+#: poll.py:1176
 msgid "Orange"
 msgstr "Orange"
 
-#: poll.py:864
+#: poll.py:1176
 msgid "None of the above"
 msgstr "Aucune de celle ci-dessus"
 
-#: poll.py:930
+#: poll.py:1242
 #, python-format
 msgid "Somebody voted on %s"
 msgstr "Quelqu'un a voté pour %s"
 
-#: poll.py:996
+#: poll.py:1308
 msgid "Close Lessons"
 msgstr "Fermer les leçons"
 
-#: poll.py:1114 poll.py:1140
+#: poll.py:1431 poll.py:1457
 msgid "Joined"
 msgstr "Rejoint"
 
-#: poll.py:1144
+#: poll.py:1461
 msgid "Left"
 msgstr "Gauche"
 
-#: poll.py:1449 poll.py:1506
+#: poll.py:1819 poll.py:1883
 msgid "New Poll"
 msgstr "Nouveau sondage"
 
-#: poll.py:1450 poll.py:1507
+#: poll.py:1820 poll.py:1884
 #, python-format
 msgid "%(author)s shared a poll '%(title)s' with you."
 msgstr "%(author)s a partagé un sondage '%(title)s' avec vous."
