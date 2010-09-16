@@ -2,242 +2,250 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#, fuzzy
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-13 11:39+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2010-05-27 00:31-0400\n"
+"PO-Revision-Date: 2010-08-04 19:48+0200\n"
+"Last-Translator: தங்கமணி <thangam.arunx@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.1.1rc4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.3\n"
 
 #: activity/activity.info:2
 msgid "Poll"
-msgstr ""
+msgstr "வாக்களிப்பு"
 
-#: poll.py:280
+#: i18n_misc_strings.py:1
+msgid "Lesson 1"
+msgstr "பாடம் 1"
+
+#: i18n_misc_strings.py:2
+msgid "Lesson 2"
+msgstr "பாடம் 2"
+
+#: i18n_misc_strings.py:3
+msgid "Lesson 3"
+msgstr "பாடம் 3"
+
+#: i18n_misc_strings.py:4
+msgid "Lesson 4"
+msgstr "பாடம் 4"
+
+#: i18n_misc_strings.py:5
+msgid "Introduction"
+msgstr "அறிமுகம்"
+
+#: poll.py:360
 msgid "VOTE!"
-msgstr ""
+msgstr "வாக்கு அளி !"
 
-#: poll.py:282
+#: poll.py:362
 msgid "Poll Preview"
-msgstr ""
+msgstr "வாக்களிப்பு முன் பார்வை"
 
-#: poll.py:316 poll.py:1084
+#: poll.py:410 poll.py:1377
 msgid "Choose a Poll"
-msgstr ""
+msgstr "வாக்களிப்பை தெரிவு செய் "
 
-#: poll.py:369
+#: poll.py:461
 msgid "VOTE"
-msgstr ""
+msgstr "வாக்களி"
 
-#: poll.py:371
+#: poll.py:463
 msgid "SEE RESULTS"
-msgstr ""
+msgstr "பெறுபேறுகளைப்பார்"
 
-#: poll.py:380
+#: poll.py:471
 msgid "DELETE"
-msgstr ""
+msgstr "அழி"
 
-#: poll.py:407 poll.py:968
+#: poll.py:498 poll.py:1311
 msgid "Lesson Plans"
-msgstr ""
-
-#: poll.py:576
-msgid "votes"
-msgstr ""
-
-#: poll.py:592 poll.py:879
-msgid "Vote"
-msgstr ""
-
-#: poll.py:600
-msgid "Edit Poll"
-msgstr ""
-
-#: poll.py:603
-msgid "Save Poll"
-msgstr ""
-
-#: poll.py:681 poll.py:1079
-msgid "Build a Poll"
-msgstr ""
-
-#: poll.py:699
-msgid "Poll Title:"
-msgstr ""
+msgstr "பாடத்திட்டம் "
 
 #: poll.py:710
+msgid "votes"
+msgstr "வாக்குகள்"
+
+#: poll.py:716
+msgid " votes left to collect"
+msgstr "சேர்ப்பதற்க்காக விடப்பட்ட வாக்குகள்"
+
+#: poll.py:724 poll.py:1241
+msgid "Vote"
+msgstr "வாக்கு"
+
+#: poll.py:732
+msgid "Edit Poll"
+msgstr "வாக்களிப்பை திருத்து"
+
+#: poll.py:735
+msgid "Save Poll"
+msgstr "வாக்களிப்பை பதி"
+
+#: poll.py:783 poll.py:842 poll.py:1136
+msgid "Poll Activity"
+msgstr "வாக்களிப்பு செயற்பாடு"
+
+#: poll.py:784
+msgid "To vote you have to select first one option"
+msgstr ""
+"நீங்கள் வாக்களிக்க வேண்டுமானால் முதல் விருப்பத்தை தெறிவுச்செய்ய வேண்டும்"
+
+#: poll.py:816 poll.py:821
+msgid "Choose image"
+msgstr "படத்தை தெரிவுசெய்"
+
+#: poll.py:839 poll.py:959
+msgid "Change Image"
+msgstr "படத்தை மாற்று"
+
+#: poll.py:843
+msgid "Your selection is not an image"
+msgstr "நீங்கள் தெறிவுச்செய்தது ஒரு படமல்ல"
+
+#: poll.py:893 poll.py:1372
+msgid "Build a Poll"
+msgstr "வாக்களிப்பை நடாத்து"
+
+#: poll.py:910
+msgid "Poll Title:"
+msgstr "வாக்களிப்பு தலைப்பு"
+
+#: poll.py:922
 msgid "Question:"
-msgstr ""
+msgstr "வினா:"
 
-#: poll.py:720
+#: poll.py:934
 msgid "Number of votes to collect:"
-msgstr ""
+msgstr "சேகரிக்க வேண்டிய வாக்குகளின் எண்ணிக்கை"
 
-#: poll.py:731
+#: poll.py:947
 msgid "Answer"
-msgstr ""
+msgstr "விடை"
 
-#: poll.py:743
+#: poll.py:963
+msgid "Add Image"
+msgstr "படத்தை செர்"
+
+#: poll.py:972
 msgid "Step 1: Preview"
-msgstr ""
+msgstr "படி 1: முன்பார்வை"
 
-#: poll.py:746
+#: poll.py:975
 msgid "Step 2: Save"
-msgstr ""
+msgstr "படி 2: சேமி"
 
-#: poll.py:810
+#: poll.py:1000 poll.py:1382
+msgid "Settings"
+msgstr "அமைப்புகள்"
+
+#: poll.py:1019
+msgid "Show answers while voting"
+msgstr "வாக்களிக்கும் போதே பதில்களை காட்டவும்"
+
+#: poll.py:1029
+msgid "Remember last vote"
+msgstr "கடைசி வாக்கை நினைவுக்கூறவும்"
+
+#: poll.py:1039
+msgid "Play a sound when make a vote"
+msgstr "வாக்களிக்கும்பொருட்டு ஒரு சத்தத்தை இயக்கவும்"
+
+#: poll.py:1050
+msgid "Use image in answer"
+msgstr "பதிலில் படத்தை பயன்படுத்தவும்"
+
+#: poll.py:1054
+msgid "Image Size: "
+msgstr "படத்தின் அளவு:"
+
+#: poll.py:1077
+msgid "Save"
+msgstr "சேமி"
+
+#: poll.py:1137
+msgid "The settings have been saved"
+msgstr "அமைப்புகள் யாவும் சேமிக்கப்பட்டன"
+
+#: poll.py:1172
 msgid "Favorite Color"
-msgstr ""
+msgstr "விருப்புக்குரிய நிறம்"
 
-#: poll.py:812
+#: poll.py:1174
 msgid "What is your favorite color?"
-msgstr ""
+msgstr "உனது விருப்புக்குரிய நிறம் என்ன?"
 
-#: poll.py:813
+#: poll.py:1175
 msgid "Green"
-msgstr ""
+msgstr "பச்சை"
 
-#: poll.py:813
+#: poll.py:1175
 msgid "Red"
-msgstr ""
+msgstr "சிவப்பு"
 
-#: poll.py:813
+#: poll.py:1175
 msgid "Blue"
-msgstr ""
+msgstr "நீலம்"
 
-#: poll.py:814
+#: poll.py:1176
 msgid "Orange"
-msgstr ""
+msgstr "செம்மஞ்சல்"
 
-#: poll.py:814
+#: poll.py:1176
 msgid "None of the above"
-msgstr ""
+msgstr "மேலுள்ளவற்றில் எதுவுமில்லை"
 
-#: poll.py:880
+#: poll.py:1242
 #, python-format
 msgid "Somebody voted on %s"
-msgstr ""
+msgstr "யாரோ ஒருவர் இதற்கு வாக்களித்துள்ளார் %s"
 
-#: poll.py:965
+#: poll.py:1308
 msgid "Close Lessons"
-msgstr ""
+msgstr "பாடத்தை மூடு"
 
-#: poll.py:1133 poll.py:1159
+#: poll.py:1431 poll.py:1457
 msgid "Joined"
-msgstr ""
+msgstr "இணைக்கப்பட்டது"
 
-#: poll.py:1163
+#: poll.py:1461
 msgid "Left"
-msgstr ""
+msgstr "இடது"
 
-#: poll.py:1470 poll.py:1527
+#: poll.py:1819 poll.py:1883
 msgid "New Poll"
-msgstr ""
+msgstr "புதிய வாக்களிப்பு"
 
-#: poll.py:1471 poll.py:1528
+#: poll.py:1820 poll.py:1884
 #, python-format
 msgid "%(author)s shared a poll '%(title)s' with you."
 msgstr ""
-
-#: i18n.py:39
-msgid "Chinese (simplified)"
-msgstr ""
-
-#: i18n.py:40
-msgid "Chinese (traditional)"
-msgstr ""
-
-#: i18n.py:41
-msgid "Czech"
-msgstr ""
-
-#: i18n.py:42
-msgid "Danish"
-msgstr ""
-
-#: i18n.py:43
-msgid "Dutch"
-msgstr ""
-
-#: i18n.py:44
-msgid "English"
-msgstr ""
-
-#: i18n.py:45
-msgid "English - Great Britain"
-msgstr ""
-
-#: i18n.py:46
-msgid "English - U.S."
-msgstr ""
-
-#: i18n.py:47
-msgid "Finnish"
-msgstr ""
-
-#: i18n.py:48
-msgid "French"
-msgstr ""
-
-#: i18n.py:49
-msgid "German"
-msgstr ""
-
-#: i18n.py:50
-msgid "Hungarian"
-msgstr ""
-
-#: i18n.py:51
-msgid "Italian"
-msgstr ""
-
-#: i18n.py:52
-msgid "Japanese"
-msgstr ""
-
-#: i18n.py:53
-msgid "Korean"
-msgstr ""
-
-#: i18n.py:54
-msgid "Norwegian"
-msgstr ""
-
-#: i18n.py:55
-msgid "Polish"
-msgstr ""
-
-#: i18n.py:56
-msgid "Portuguese"
-msgstr ""
-
-#: i18n.py:57
-msgid "Portuguese - Brazilian"
-msgstr ""
-
-#: i18n.py:58
-msgid "Russian"
-msgstr ""
-
-#: i18n.py:59
-msgid "Slovak"
-msgstr ""
-
-#: i18n.py:60
-msgid "Spanish"
-msgstr ""
-
-#: i18n.py:61
-msgid "Swedish"
-msgstr ""
-
-#: i18n.py:62
-msgid "Turkish"
-msgstr ""
+"%(உரிமை பெற்றவர்)கள் உங்களுடன் %(தலைப்பு)கள்' வாக்குகளை பகிர்ந்துள்ளார்கள் ' "
+""
