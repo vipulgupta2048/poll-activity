@@ -27,8 +27,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-05-27 00:31-0400\n"
-"PO-Revision-Date: 2010-03-25 22:31+0200\n"
-"Last-Translator: Chris <cjl@laptop.org>\n"
+"PO-Revision-Date: 2010-09-29 15:29+0200\n"
+"Last-Translator: Carlo Falciola <cfalciola@yahoo.it>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -95,7 +95,7 @@ msgstr "voti"
 
 #: poll.py:716
 msgid " votes left to collect"
-msgstr ""
+msgstr " voti rimasti da raccogliere"
 
 #: poll.py:724 poll.py:1241
 msgid "Vote"
@@ -111,23 +111,23 @@ msgstr "Salva Sondaggio"
 
 #: poll.py:783 poll.py:842 poll.py:1136
 msgid "Poll Activity"
-msgstr ""
+msgstr "Attività Votazione"
 
 #: poll.py:784
 msgid "To vote you have to select first one option"
-msgstr ""
+msgstr "Per votare dovete selezionare una opzione"
 
 #: poll.py:816 poll.py:821
 msgid "Choose image"
-msgstr ""
+msgstr "Scegli immagine"
 
 #: poll.py:839 poll.py:959
 msgid "Change Image"
-msgstr ""
+msgstr "Cambia immagine"
 
 #: poll.py:843
 msgid "Your selection is not an image"
-msgstr ""
+msgstr "La tua selezione non è una immagine"
 
 #: poll.py:893 poll.py:1372
 msgid "Build a Poll"
@@ -151,7 +151,7 @@ msgstr "Risposta"
 
 #: poll.py:963
 msgid "Add Image"
-msgstr ""
+msgstr "Aggiungi immagine"
 
 #: poll.py:972
 msgid "Step 1: Preview"
@@ -163,35 +163,35 @@ msgstr "Passo 2: Salvataggio"
 
 #: poll.py:1000 poll.py:1382
 msgid "Settings"
-msgstr ""
+msgstr "Configurazioni"
 
 #: poll.py:1019
 msgid "Show answers while voting"
-msgstr ""
+msgstr "Mostra le risposte durante la votazione"
 
 #: poll.py:1029
 msgid "Remember last vote"
-msgstr ""
+msgstr "Ricorda l'ultimo voto"
 
 #: poll.py:1039
 msgid "Play a sound when make a vote"
-msgstr ""
+msgstr "Riproduci un suono quando si vota"
 
 #: poll.py:1050
 msgid "Use image in answer"
-msgstr ""
+msgstr "Utilizza una immagine nella risposta"
 
 #: poll.py:1054
 msgid "Image Size: "
-msgstr ""
+msgstr "Dimensione Immagine: "
 
 #: poll.py:1077
 msgid "Save"
-msgstr ""
+msgstr "Salva"
 
 #: poll.py:1137
 msgid "The settings have been saved"
-msgstr ""
+msgstr "Le configurazioni sono state salvate "
 
 #: poll.py:1172
 msgid "Favorite Color"
