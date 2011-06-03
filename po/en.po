@@ -2,12 +2,48 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-13 11:39+0200\n"
+"POT-Creation-Date: 2010-05-27 00:31-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,226 +54,210 @@ msgstr ""
 
 #: activity/activity.info:2
 msgid "Poll"
-msgstr ""
+msgstr "Poll"
 
-#: poll.py:280
+#: i18n_misc_strings.py:1
+msgid "Lesson 1"
+msgstr "Lesson 1"
+
+#: i18n_misc_strings.py:2
+msgid "Lesson 2"
+msgstr "Lesson 2"
+
+#: i18n_misc_strings.py:3
+msgid "Lesson 3"
+msgstr "Lesson 3"
+
+#: i18n_misc_strings.py:4
+msgid "Lesson 4"
+msgstr "Lesson 4"
+
+#: i18n_misc_strings.py:5
+msgid "Introduction"
+msgstr "Introduction"
+
+#: poll.py:360
 msgid "VOTE!"
-msgstr ""
+msgstr "VOTE!"
 
-#: poll.py:282
+#: poll.py:362
 msgid "Poll Preview"
-msgstr ""
+msgstr "Poll Preview"
 
-#: poll.py:316 poll.py:1084
+#: poll.py:410 poll.py:1377
 msgid "Choose a Poll"
-msgstr ""
+msgstr "Choose a Poll"
 
-#: poll.py:369
+#: poll.py:461
 msgid "VOTE"
-msgstr ""
+msgstr "VOTE"
 
-#: poll.py:371
+#: poll.py:463
 msgid "SEE RESULTS"
-msgstr ""
+msgstr "SEE RESULTS"
 
-#: poll.py:380
+#: poll.py:471
 msgid "DELETE"
-msgstr ""
+msgstr "DELETE"
 
-#: poll.py:407 poll.py:968
+#: poll.py:498 poll.py:1311
 msgid "Lesson Plans"
-msgstr ""
-
-#: poll.py:576
-msgid "votes"
-msgstr ""
-
-#: poll.py:592 poll.py:879
-msgid "Vote"
-msgstr ""
-
-#: poll.py:600
-msgid "Edit Poll"
-msgstr ""
-
-#: poll.py:603
-msgid "Save Poll"
-msgstr ""
-
-#: poll.py:681 poll.py:1079
-msgid "Build a Poll"
-msgstr ""
-
-#: poll.py:699
-msgid "Poll Title:"
-msgstr ""
+msgstr "Lesson Plans"
 
 #: poll.py:710
+msgid "votes"
+msgstr "votes"
+
+#: poll.py:716
+msgid " votes left to collect"
+msgstr " votes left to collect"
+
+#: poll.py:724 poll.py:1241
+msgid "Vote"
+msgstr "Vote"
+
+#: poll.py:732
+msgid "Edit Poll"
+msgstr "Edit Poll"
+
+#: poll.py:735
+msgid "Save Poll"
+msgstr "Save Poll"
+
+#: poll.py:783 poll.py:842 poll.py:1136
+msgid "Poll Activity"
+msgstr "Poll Activity"
+
+#: poll.py:784
+msgid "To vote you have to select first one option"
+msgstr "To vote you have to select first one option"
+
+#: poll.py:816 poll.py:821
+msgid "Choose image"
+msgstr "Choose image"
+
+#: poll.py:839 poll.py:959
+msgid "Change Image"
+msgstr "Change Image"
+
+#: poll.py:843
+msgid "Your selection is not an image"
+msgstr "Your selection is not an image"
+
+#: poll.py:893 poll.py:1372
+msgid "Build a Poll"
+msgstr "Build a Poll"
+
+#: poll.py:910
+msgid "Poll Title:"
+msgstr "Poll Title:"
+
+#: poll.py:922
 msgid "Question:"
-msgstr ""
+msgstr "Question:"
 
-#: poll.py:720
+#: poll.py:934
 msgid "Number of votes to collect:"
-msgstr ""
+msgstr "Number of votes to collect:"
 
-#: poll.py:731
+#: poll.py:947
 msgid "Answer"
-msgstr ""
+msgstr "Answer"
 
-#: poll.py:743
+#: poll.py:963
+msgid "Add Image"
+msgstr "Add Image"
+
+#: poll.py:972
 msgid "Step 1: Preview"
-msgstr ""
+msgstr "Step 1: Preview"
 
-#: poll.py:746
+#: poll.py:975
 msgid "Step 2: Save"
-msgstr ""
+msgstr "Step 2: Save"
 
-#: poll.py:810
+#: poll.py:1000 poll.py:1382
+msgid "Settings"
+msgstr "Settings"
+
+#: poll.py:1019
+msgid "Show answers while voting"
+msgstr "Show answers while voting"
+
+#: poll.py:1029
+msgid "Remember last vote"
+msgstr "Remember last vote"
+
+#: poll.py:1039
+msgid "Play a sound when make a vote"
+msgstr "Play a sound when make a vote"
+
+#: poll.py:1050
+msgid "Use image in answer"
+msgstr "Use image in answer"
+
+#: poll.py:1054
+msgid "Image Size: "
+msgstr "Image Size: "
+
+#: poll.py:1077
+msgid "Save"
+msgstr "Save"
+
+#: poll.py:1137
+msgid "The settings have been saved"
+msgstr "The settings have been saved"
+
+#: poll.py:1172
 msgid "Favorite Color"
-msgstr ""
+msgstr "Favorite Color"
 
-#: poll.py:812
+#: poll.py:1174
 msgid "What is your favorite color?"
-msgstr ""
+msgstr "What is your favorite color?"
 
-#: poll.py:813
+#: poll.py:1175
 msgid "Green"
-msgstr ""
+msgstr "Green"
 
-#: poll.py:813
+#: poll.py:1175
 msgid "Red"
-msgstr ""
+msgstr "Red"
 
-#: poll.py:813
+#: poll.py:1175
 msgid "Blue"
-msgstr ""
+msgstr "Blue"
 
-#: poll.py:814
+#: poll.py:1176
 msgid "Orange"
-msgstr ""
+msgstr "Orange"
 
-#: poll.py:814
+#: poll.py:1176
 msgid "None of the above"
-msgstr ""
+msgstr "None of the above"
 
-#: poll.py:880
+#: poll.py:1242
 #, python-format
 msgid "Somebody voted on %s"
-msgstr ""
+msgstr "Somebody voted on %s"
 
-#: poll.py:965
+#: poll.py:1308
 msgid "Close Lessons"
-msgstr ""
+msgstr "Close Lessons"
 
-#: poll.py:1133 poll.py:1159
+#: poll.py:1431 poll.py:1457
 msgid "Joined"
-msgstr ""
+msgstr "Joined"
 
-#: poll.py:1163
+#: poll.py:1461
 msgid "Left"
-msgstr ""
+msgstr "Left"
 
-#: poll.py:1470 poll.py:1527
+#: poll.py:1819 poll.py:1883
 msgid "New Poll"
-msgstr ""
+msgstr "New Poll"
 
-#: poll.py:1471 poll.py:1528
+#: poll.py:1820 poll.py:1884
 #, python-format
 msgid "%(author)s shared a poll '%(title)s' with you."
-msgstr ""
-
-#: i18n.py:39
-msgid "Chinese (simplified)"
-msgstr ""
-
-#: i18n.py:40
-msgid "Chinese (traditional)"
-msgstr ""
-
-#: i18n.py:41
-msgid "Czech"
-msgstr ""
-
-#: i18n.py:42
-msgid "Danish"
-msgstr ""
-
-#: i18n.py:43
-msgid "Dutch"
-msgstr ""
-
-#: i18n.py:44
-msgid "English"
-msgstr ""
-
-#: i18n.py:45
-msgid "English - Great Britain"
-msgstr ""
-
-#: i18n.py:46
-msgid "English - U.S."
-msgstr ""
-
-#: i18n.py:47
-msgid "Finnish"
-msgstr ""
-
-#: i18n.py:48
-msgid "French"
-msgstr ""
-
-#: i18n.py:49
-msgid "German"
-msgstr ""
-
-#: i18n.py:50
-msgid "Hungarian"
-msgstr ""
-
-#: i18n.py:51
-msgid "Italian"
-msgstr ""
-
-#: i18n.py:52
-msgid "Japanese"
-msgstr ""
-
-#: i18n.py:53
-msgid "Korean"
-msgstr ""
-
-#: i18n.py:54
-msgid "Norwegian"
-msgstr ""
-
-#: i18n.py:55
-msgid "Polish"
-msgstr ""
-
-#: i18n.py:56
-msgid "Portuguese"
-msgstr ""
-
-#: i18n.py:57
-msgid "Portuguese - Brazilian"
-msgstr ""
-
-#: i18n.py:58
-msgid "Russian"
-msgstr ""
-
-#: i18n.py:59
-msgid "Slovak"
-msgstr ""
-
-#: i18n.py:60
-msgid "Spanish"
-msgstr ""
-
-#: i18n.py:61
-msgid "Swedish"
-msgstr ""
-
-#: i18n.py:62
-msgid "Turkish"
-msgstr ""
+msgstr "%(author)s shared a poll '%(title)s' with you."
