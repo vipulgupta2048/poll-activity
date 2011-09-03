@@ -22,18 +22,36 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-05-27 00:31-0400\n"
-"PO-Revision-Date: 2008-10-02 03:18-0400\n"
+"PO-Revision-Date: 2010-12-16 09:42+0200\n"
 "Last-Translator: samy boutayeb <s.boutayeb@free.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 1.1.0rc2\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 2.0.3\n"
 
 #: activity/activity.info:2
 msgid "Poll"
@@ -93,7 +111,7 @@ msgstr "votes"
 
 #: poll.py:716
 msgid " votes left to collect"
-msgstr ""
+msgstr "votes restant à recueillir"
 
 #: poll.py:724 poll.py:1241
 msgid "Vote"
@@ -109,23 +127,23 @@ msgstr "Sauvegarder le sondage"
 
 #: poll.py:783 poll.py:842 poll.py:1136
 msgid "Poll Activity"
-msgstr ""
+msgstr "Activité Sondage"
 
 #: poll.py:784
 msgid "To vote you have to select first one option"
-msgstr ""
+msgstr "Vous devez sélectionner tout d'abord une option pour voter"
 
 #: poll.py:816 poll.py:821
 msgid "Choose image"
-msgstr ""
+msgstr "Choisir une image"
 
 #: poll.py:839 poll.py:959
 msgid "Change Image"
-msgstr ""
+msgstr "Changer d'image"
 
 #: poll.py:843
 msgid "Your selection is not an image"
-msgstr ""
+msgstr "Votre sélection n'est pas une image"
 
 #: poll.py:893 poll.py:1372
 msgid "Build a Poll"
@@ -149,7 +167,7 @@ msgstr "Réponse"
 
 #: poll.py:963
 msgid "Add Image"
-msgstr ""
+msgstr "Ajouter une image"
 
 #: poll.py:972
 msgid "Step 1: Preview"
@@ -161,35 +179,35 @@ msgstr "Étape 2 : Sauvegarder"
 
 #: poll.py:1000 poll.py:1382
 msgid "Settings"
-msgstr ""
+msgstr "Paramètres"
 
 #: poll.py:1019
 msgid "Show answers while voting"
-msgstr ""
+msgstr "Afficher les réponses pendant le vote"
 
 #: poll.py:1029
 msgid "Remember last vote"
-msgstr ""
+msgstr "Rappeler le dernier vote"
 
 #: poll.py:1039
 msgid "Play a sound when make a vote"
-msgstr ""
+msgstr "Jouer un son en déposant une voix"
 
 #: poll.py:1050
 msgid "Use image in answer"
-msgstr ""
+msgstr "Utiliser l'image dans la réponse"
 
 #: poll.py:1054
 msgid "Image Size: "
-msgstr ""
+msgstr "Dimensions de l'image :"
 
 #: poll.py:1077
 msgid "Save"
-msgstr ""
+msgstr "Enregistrer"
 
 #: poll.py:1137
 msgid "The settings have been saved"
-msgstr ""
+msgstr "Les paramètres ont été sauvegardés"
 
 #: poll.py:1172
 msgid "Favorite Color"
