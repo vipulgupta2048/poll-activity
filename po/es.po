@@ -159,15 +159,15 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-05-27 00:31-0400\n"
-"PO-Revision-Date: 2011-01-09 08:01+0200\n"
-"Last-Translator: Chris <cjl@laptop.org>\n"
+"PO-Revision-Date: 2011-05-30 13:23+0200\n"
+"Last-Translator: <ebordon@plan.ceibal.edu.uy>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.3\n"
+"X-Generator: Pootle 2.0.1\n"
 
 #: activity/activity.info:2
 msgid "Poll"
@@ -203,7 +203,7 @@ msgstr "Vista previa de la encuesta"
 
 #: poll.py:410 poll.py:1377
 msgid "Choose a Poll"
-msgstr "Elije una encuesta"
+msgstr "Elige una encuesta"
 
 #: poll.py:461
 msgid "VOTE"
