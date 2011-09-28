@@ -2,241 +2,331 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-13 11:39+0200\n"
-"PO-Revision-Date: 2008-08-14 18:36-0400\n"
-"Last-Translator: John Sarlis <sarlis@sch.gr>\n"
+"POT-Creation-Date: 2010-05-27 00:31-0400\n"
+"PO-Revision-Date: 2010-07-04 13:10+0200\n"
+"Last-Translator: Yannis <kiolalis@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 1.1.0rc2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.3\n"
 
 #: activity/activity.info:2
 msgid "Poll"
 msgstr "Ψηφοφορία"
 
-#: poll.py:280
+#: i18n_misc_strings.py:1
+msgid "Lesson 1"
+msgstr "Μάθημα 1"
+
+#: i18n_misc_strings.py:2
+msgid "Lesson 2"
+msgstr "Μάθημα 2"
+
+#: i18n_misc_strings.py:3
+msgid "Lesson 3"
+msgstr "Μάθημα 3"
+
+#: i18n_misc_strings.py:4
+msgid "Lesson 4"
+msgstr "Μάθημα 4"
+
+#: i18n_misc_strings.py:5
+msgid "Introduction"
+msgstr "Εισαγωγή"
+
+#: poll.py:360
 msgid "VOTE!"
 msgstr "ΨΗΦΙΣΕ!"
 
-#: poll.py:282
+#: poll.py:362
 msgid "Poll Preview"
-msgstr "Προεπισκόπηση Ψηφοφορίας"
+msgstr "Προεπισκόπηση ψηφοφορίας"
 
-#: poll.py:316 poll.py:1084
+#: poll.py:410 poll.py:1377
 msgid "Choose a Poll"
-msgstr "Διάλλεξε Ψηφοφορία"
+msgstr "Διάλεξε ψηφοφορία"
 
-#: poll.py:369
+#: poll.py:461
 msgid "VOTE"
 msgstr "ΨΗΦΙΣΕ"
 
-#: poll.py:371
+#: poll.py:463
 msgid "SEE RESULTS"
 msgstr "ΔΕΣ ΑΠΟΤΕΛΕΣΜΑΤΑ"
 
-#: poll.py:380
+#: poll.py:471
 msgid "DELETE"
 msgstr "ΔΙΑΓΡΑΦΗ"
 
-#: poll.py:407 poll.py:968
+#: poll.py:498 poll.py:1311
 msgid "Lesson Plans"
-msgstr "Σχέδια Μαθημάτων"
+msgstr "Σχέδια μαθημάτων"
 
-#: poll.py:576
+#: poll.py:710
 msgid "votes"
 msgstr "ψήφοι"
 
-#: poll.py:592 poll.py:879
+#: poll.py:716
+msgid " votes left to collect"
+msgstr " ψήφοι απέμειναν για να συλλεχθούν"
+
+#: poll.py:724 poll.py:1241
 msgid "Vote"
 msgstr "Ψήφος"
 
-#: poll.py:600
+#: poll.py:732
 msgid "Edit Poll"
-msgstr "Επεξεργασία Ψηφοφορίας"
+msgstr "Επεξεργασία ψηφοφορίας"
 
-#: poll.py:603
+#: poll.py:735
 msgid "Save Poll"
-msgstr "Αποθήκευση Ψηφοφορίας"
+msgstr "Αποθήκευση ψηφοφορίας"
 
-#: poll.py:681 poll.py:1079
+#: poll.py:783 poll.py:842 poll.py:1136
+msgid "Poll Activity"
+msgstr "Δραστηριότητα ψηφοφορίας"
+
+#: poll.py:784
+msgid "To vote you have to select first one option"
+msgstr "Για να ψηφίσετε πρέπει να κάνετε πρώτα μια επιλογή"
+
+#: poll.py:816 poll.py:821
+msgid "Choose image"
+msgstr "Επιλογή εικόνας"
+
+#: poll.py:839 poll.py:959
+msgid "Change Image"
+msgstr "Αλλαγή εικόνας"
+
+#: poll.py:843
+msgid "Your selection is not an image"
+msgstr "Η επιλογή σας δεν είναι μια εικόνα"
+
+#: poll.py:893 poll.py:1372
 msgid "Build a Poll"
-msgstr "Δημιουργία Ψηφοφορίας"
+msgstr "Δημιουργία ψηφοφορίας"
 
-#: poll.py:699
+#: poll.py:910
 msgid "Poll Title:"
-msgstr "Τίτλος Ψηφοφορίας:"
+msgstr "Τίτλος ψηφοφορίας:"
 
-#: poll.py:710
+#: poll.py:922
 msgid "Question:"
 msgstr "Ερώτηση:"
 
-#: poll.py:720
+#: poll.py:934
 msgid "Number of votes to collect:"
 msgstr "Αριθμός ψήφων που θα μαζευτούν:"
 
-#: poll.py:731
+#: poll.py:947
 msgid "Answer"
 msgstr "Απάντηση"
 
-#: poll.py:743
+#: poll.py:963
+msgid "Add Image"
+msgstr "Προσθήκη εικόνας"
+
+#: poll.py:972
 msgid "Step 1: Preview"
 msgstr "Βήμα 1: Προεπισκόπηση"
 
-#: poll.py:746
+#: poll.py:975
 msgid "Step 2: Save"
 msgstr "Βήμα 2: Αποθήκευση"
 
-#: poll.py:810
+#: poll.py:1000 poll.py:1382
+msgid "Settings"
+msgstr "Ρυθμίσεις"
+
+#: poll.py:1019
+msgid "Show answers while voting"
+msgstr "Εμφάνιση απαντήσεων ενώ ψηφίζετε"
+
+#: poll.py:1029
+msgid "Remember last vote"
+msgstr "Συγκράτηση στη μνήμη της τελευταίας ψήφου"
+
+#: poll.py:1039
+msgid "Play a sound when make a vote"
+msgstr "Αναπαραγωγή ενός ήχου κατά την καταχώρηση μιας ψήφου"
+
+#: poll.py:1050
+msgid "Use image in answer"
+msgstr "Χρήση εικόνας στην απάντηση"
+
+#: poll.py:1054
+msgid "Image Size: "
+msgstr "Μέγεθος εικόνας: "
+
+#: poll.py:1077
+msgid "Save"
+msgstr "Αποθήκευση"
+
+#: poll.py:1137
+msgid "The settings have been saved"
+msgstr "Οι ρυθμίσεις έχουν αποθηκευτεί"
+
+#: poll.py:1172
 msgid "Favorite Color"
 msgstr "Αγαπημένο Χρώμα"
 
-#: poll.py:812
+#: poll.py:1174
 msgid "What is your favorite color?"
 msgstr "Ποιο είναι το αγαπημένο σου χρώμα;"
 
-#: poll.py:813
+#: poll.py:1175
 msgid "Green"
 msgstr "Πράσινο"
 
-#: poll.py:813
+#: poll.py:1175
 msgid "Red"
 msgstr "Κόκκινο"
 
-#: poll.py:813
+#: poll.py:1175
 msgid "Blue"
 msgstr "Μπλε"
 
-#: poll.py:814
+#: poll.py:1176
 msgid "Orange"
 msgstr "Πορτοκαλί"
 
-#: poll.py:814
+#: poll.py:1176
 msgid "None of the above"
 msgstr "Κανένα από τα παραπάνω"
 
-#: poll.py:880
+#: poll.py:1242
 #, python-format
 msgid "Somebody voted on %s"
 msgstr "Κάποιος ψήφισε για %s"
 
-#: poll.py:965
+#: poll.py:1308
 msgid "Close Lessons"
 msgstr "Κλείσε τα Μαθήματα"
 
-#: poll.py:1133 poll.py:1159
+#: poll.py:1431 poll.py:1457
 msgid "Joined"
 msgstr "Εισήλθε"
 
-#: poll.py:1163
+#: poll.py:1461
 msgid "Left"
 msgstr "Αριστερά"
 
-#: poll.py:1470 poll.py:1527
+#: poll.py:1819 poll.py:1883
 msgid "New Poll"
 msgstr "Νέα Ψηφοφορία"
 
-#: poll.py:1471 poll.py:1528
+#: poll.py:1820 poll.py:1884
 #, python-format
 msgid "%(author)s shared a poll '%(title)s' with you."
 msgstr "Ο/Η %(author)s μοιράστηκε μαζί σου τη ψηφοφορία '%(title)s'."
 
-#: i18n.py:39
-msgid "Chinese (simplified)"
-msgstr "Κινέζικα (απλοποιημένα)"
+#~ msgid "Chinese (simplified)"
+#~ msgstr "Κινέζικα (απλοποιημένα)"
 
-#: i18n.py:40
-msgid "Chinese (traditional)"
-msgstr "Κινέζικα (παραδοσιακά)"
+#~ msgid "Chinese (traditional)"
+#~ msgstr "Κινέζικα (παραδοσιακά)"
 
-#: i18n.py:41
-msgid "Czech"
-msgstr "Τσέχικα"
+#~ msgid "Czech"
+#~ msgstr "Τσέχικα"
 
-#: i18n.py:42
-msgid "Danish"
-msgstr "Δανέζικα"
+#~ msgid "Danish"
+#~ msgstr "Δανέζικα"
 
-#: i18n.py:43
-msgid "Dutch"
-msgstr "Ολλανδικά"
+#~ msgid "Dutch"
+#~ msgstr "Ολλανδικά"
 
-#: i18n.py:44
-msgid "English"
-msgstr "Αγγλικά"
+#~ msgid "English"
+#~ msgstr "Αγγλικά"
 
-#: i18n.py:45
-msgid "English - Great Britain"
-msgstr "Αγγλικά - Μεγάλης Βρετανίας"
+#~ msgid "English - Great Britain"
+#~ msgstr "Αγγλικά - Μεγάλης Βρετανίας"
 
-#: i18n.py:46
-msgid "English - U.S."
-msgstr "Αγγλικά - Η.Π.Α."
+#~ msgid "English - U.S."
+#~ msgstr "Αγγλικά - Η.Π.Α."
 
-#: i18n.py:47
-msgid "Finnish"
-msgstr "Φινλανδικά"
+#~ msgid "Finnish"
+#~ msgstr "Φινλανδικά"
 
-#: i18n.py:48
-msgid "French"
-msgstr "Γαλλικά"
+#~ msgid "French"
+#~ msgstr "Γαλλικά"
 
-#: i18n.py:49
-msgid "German"
-msgstr "Γερμανικά"
+#~ msgid "German"
+#~ msgstr "Γερμανικά"
 
-#: i18n.py:50
-msgid "Hungarian"
-msgstr "Ουγγρικά"
+#~ msgid "Hungarian"
+#~ msgstr "Ουγγρικά"
 
-#: i18n.py:51
-msgid "Italian"
-msgstr "Ιταλικά"
+#~ msgid "Italian"
+#~ msgstr "Ιταλικά"
 
-#: i18n.py:52
-msgid "Japanese"
-msgstr "Ιαπωνικά"
+#~ msgid "Japanese"
+#~ msgstr "Ιαπωνικά"
 
-#: i18n.py:53
-msgid "Korean"
-msgstr "Κορεάτικα"
+#~ msgid "Korean"
+#~ msgstr "Κορεάτικα"
 
-#: i18n.py:54
-msgid "Norwegian"
-msgstr "Νορβηγικά"
+#~ msgid "Norwegian"
+#~ msgstr "Νορβηγικά"
 
-#: i18n.py:55
-msgid "Polish"
-msgstr "Πολωνικά"
+#~ msgid "Polish"
+#~ msgstr "Πολωνικά"
 
-#: i18n.py:56
-msgid "Portuguese"
-msgstr "Πορτογαλικά"
+#~ msgid "Portuguese"
+#~ msgstr "Πορτογαλικά"
 
-#: i18n.py:57
-msgid "Portuguese - Brazilian"
-msgstr "Πορτογαλικά - Βραζιλίας"
+#~ msgid "Portuguese - Brazilian"
+#~ msgstr "Πορτογαλικά - Βραζιλίας"
 
-#: i18n.py:58
-msgid "Russian"
-msgstr "Ρώσικα"
+#~ msgid "Russian"
+#~ msgstr "Ρώσικα"
 
-#: i18n.py:59
-msgid "Slovak"
-msgstr "Σλοβάκικα"
+#~ msgid "Slovak"
+#~ msgstr "Σλοβάκικα"
 
-#: i18n.py:60
-msgid "Spanish"
-msgstr "Ισπανικά"
+#~ msgid "Spanish"
+#~ msgstr "Ισπανικά"
 
-#: i18n.py:61
-msgid "Swedish"
-msgstr "Σουηδικά"
+#~ msgid "Swedish"
+#~ msgstr "Σουηδικά"
 
-#: i18n.py:62
-msgid "Turkish"
-msgstr "Τούρκικα"
+#~ msgid "Turkish"
+#~ msgstr "Τούρκικα"
