@@ -1,0 +1,276 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-05-27 00:31-0400\n"
+"PO-Revision-Date: 2011-11-26 09:27+0200\n"
+"Last-Translator: Chris <cjl@laptop.org>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: quz\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;\n"
+"X-Generator: Pootle 2.0.5\n"
+
+#  "Encuesta"
+#: activity/activity.info:2
+msgid "Poll"
+msgstr ""
+
+#  "Lección 1"
+#: i18n_misc_strings.py:1
+msgid "Lesson 1"
+msgstr ""
+
+#  "Lección 2"
+#: i18n_misc_strings.py:2
+msgid "Lesson 2"
+msgstr ""
+
+#  "Lección 3"
+#: i18n_misc_strings.py:3
+msgid "Lesson 3"
+msgstr ""
+
+#  "Lección 4"
+#: i18n_misc_strings.py:4
+msgid "Lesson 4"
+msgstr ""
+
+#  "Introducción"
+#: i18n_misc_strings.py:5
+msgid "Introduction"
+msgstr ""
+
+#  "¡VOTA!"
+#: poll.py:360
+msgid "VOTE!"
+msgstr ""
+
+#  "Vista previa de la encuesta"
+#: poll.py:362
+msgid "Poll Preview"
+msgstr ""
+
+#  "Elige una encuesta"
+#: poll.py:410 poll.py:1377
+msgid "Choose a Poll"
+msgstr ""
+
+#  "VOTO"
+#: poll.py:461
+msgid "VOTE"
+msgstr ""
+
+#  "VER RESULTADOS"
+#: poll.py:463
+msgid "SEE RESULTS"
+msgstr ""
+
+#  "BORRAR"
+#: poll.py:471
+msgid "DELETE"
+msgstr "Pichay"
+
+#  "Planes de la lección"
+#: poll.py:498 poll.py:1311
+msgid "Lesson Plans"
+msgstr ""
+
+#  "votos"
+#: poll.py:710
+msgid "votes"
+msgstr ""
+
+#  " votos faltantes"
+#: poll.py:716
+msgid " votes left to collect"
+msgstr ""
+
+#  "Vota"
+#: poll.py:724 poll.py:1241
+msgid "Vote"
+msgstr ""
+
+#  "Editar Encuesta"
+#: poll.py:732
+msgid "Edit Poll"
+msgstr ""
+
+#  "Guardar Encuesta"
+#: poll.py:735
+msgid "Save Poll"
+msgstr ""
+
+#  "Actividad Encuesta"
+#: poll.py:783 poll.py:842 poll.py:1136
+msgid "Poll Activity"
+msgstr ""
+
+#  "Para votar debe primero seleccionar una opción"
+#: poll.py:784
+msgid "To vote you have to select first one option"
+msgstr ""
+
+#  "Elegir una imagen"
+#: poll.py:816 poll.py:821
+msgid "Choose image"
+msgstr "Wankita akllay"
+
+#  "Cambiar imagen"
+#: poll.py:839 poll.py:959
+msgid "Change Image"
+msgstr ""
+
+#  "Su selección no es una imagen"
+#: poll.py:843
+msgid "Your selection is not an image"
+msgstr ""
+
+#  "Construir Encuesta"
+#: poll.py:893 poll.py:1372
+msgid "Build a Poll"
+msgstr ""
+
+#  "Título de la encuesta:"
+#: poll.py:910
+msgid "Poll Title:"
+msgstr ""
+
+#  "Pregunta:"
+#: poll.py:922
+msgid "Question:"
+msgstr "Tapuy:"
+
+#  "Número de votos a recoger:"
+#: poll.py:934
+msgid "Number of votes to collect:"
+msgstr ""
+
+#  "Respuesta"
+#: poll.py:947
+msgid "Answer"
+msgstr ""
+
+#  "Agregar imagen"
+#: poll.py:963
+msgid "Add Image"
+msgstr ""
+
+#  "Paso 1: Vista previa"
+#: poll.py:972
+msgid "Step 1: Preview"
+msgstr ""
+
+#  "Paso 2: Guardar"
+#: poll.py:975
+msgid "Step 2: Save"
+msgstr ""
+
+#  "Configuraciones"
+#: poll.py:1000 poll.py:1382
+msgid "Settings"
+msgstr ""
+
+#  "Mostrar resultados durante la votación"
+#: poll.py:1019
+msgid "Show answers while voting"
+msgstr ""
+
+#  "Marcar última opción votada"
+#: poll.py:1029
+msgid "Remember last vote"
+msgstr ""
+
+#  "Ejecutar sonido al momento de realizar el voto"
+#: poll.py:1039
+msgid "Play a sound when make a vote"
+msgstr ""
+
+#  "Usar imagen en respuesta"
+#: poll.py:1050
+msgid "Use image in answer"
+msgstr ""
+
+#  "Tamaño de la imagen: "
+#: poll.py:1054
+msgid "Image Size: "
+msgstr ""
+
+#  "Guardar"
+#: poll.py:1077
+msgid "Save"
+msgstr ""
+
+#  "Las configuraciones han sido guardadas"
+#: poll.py:1137
+msgid "The settings have been saved"
+msgstr ""
+
+#  "Color Favorito"
+#: poll.py:1172
+msgid "Favorite Color"
+msgstr ""
+
+#  "¿Cuál es tu color favorito?"
+#: poll.py:1174
+msgid "What is your favorite color?"
+msgstr ""
+
+#  "Verde"
+#: poll.py:1175
+msgid "Green"
+msgstr "Q´umer"
+
+#  "Rojo"
+#: poll.py:1175
+msgid "Red"
+msgstr "Puka"
+
+#  "Azul"
+#: poll.py:1175
+msgid "Blue"
+msgstr "Anqas"
+
+#  "Naranja"
+#: poll.py:1176
+msgid "Orange"
+msgstr ""
+
+#  "Ninguno de los anteriores"
+#: poll.py:1176
+msgid "None of the above"
+msgstr ""
+
+#  "Alguien votó en %s"
+#: poll.py:1242
+#, python-format
+msgid "Somebody voted on %s"
+msgstr ""
+
+#  "Cerrar Lecciones"
+#: poll.py:1308
+msgid "Close Lessons"
+msgstr ""
+
+#  "Se unió"
+#: poll.py:1431 poll.py:1457
+msgid "Joined"
+msgstr "huñusqa"
+
+#  "Abandonó"
+#: poll.py:1461
+msgid "Left"
+msgstr ""
+
+#  "Nueva Encuesta"
+#: poll.py:1819 poll.py:1883
+msgid "New Poll"
+msgstr ""
+
+#  "%(author)s ha compartido la encuesta '%(title)s' contigo."
+#: poll.py:1820 poll.py:1884
+#, python-format
+msgid "%(author)s shared a poll '%(title)s' with you."
+msgstr ""
