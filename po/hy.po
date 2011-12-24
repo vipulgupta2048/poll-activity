@@ -27,8 +27,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-05-27 00:31-0400\n"
-"PO-Revision-Date: 2011-12-22 01:56+0200\n"
-"Last-Translator: Chris <cjl@laptop.org>\n"
+"PO-Revision-Date: 2011-12-23 04:55+0200\n"
+"Last-Translator: Jasmine <udea_jasmine@yahoo.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: hy\n"
 "MIME-Version: 1.0\n"
@@ -39,7 +39,7 @@ msgstr ""
 
 #: activity/activity.info:2
 msgid "Poll"
-msgstr "Հարցում"
+msgstr "Հարցախույզ"
 
 #: i18n_misc_strings.py:1
 msgid "Lesson 1"
@@ -67,11 +67,11 @@ msgstr "ՔՎԵԱՐԿԵ՛Լ"
 
 #: poll.py:362
 msgid "Poll Preview"
-msgstr "Հարցման նախնական դիտում"
+msgstr "Հարցախույզի նախնական դիտում"
 
 #: poll.py:410 poll.py:1377
 msgid "Choose a Poll"
-msgstr "Հարցում ընտրել"
+msgstr "Հարցախույզ ընտրել"
 
 #: poll.py:461
 msgid "VOTE"
@@ -95,7 +95,7 @@ msgstr "քվեներ"
 
 #: poll.py:716
 msgid " votes left to collect"
-msgstr " քվեներ, որ դեռ պետք է հավաքվեն"
+msgstr " քվեներ, որ դեռ հավաքման ենթակա են"
 
 #: poll.py:724 poll.py:1241
 msgid "Vote"
@@ -103,19 +103,19 @@ msgstr "Քվեարկել"
 
 #: poll.py:732
 msgid "Edit Poll"
-msgstr "Խմբագրել հարցումը"
+msgstr "Խմբագրել հարցախույզը"
 
 #: poll.py:735
 msgid "Save Poll"
-msgstr "Պահել հարցումը"
+msgstr "Պահել հարցախույզը"
 
 #: poll.py:783 poll.py:842 poll.py:1136
 msgid "Poll Activity"
-msgstr "Հարցման գործողություն"
+msgstr "Հարցախույզ գործունեություն"
 
 #: poll.py:784
 msgid "To vote you have to select first one option"
-msgstr "Քվեարկելու համար` նախևառաջ ընտրեք որևէ տարբերակ"
+msgstr "Քվեարկելու համար նախ ընտրեք որևէ տարբերակ"
 
 #: poll.py:816 poll.py:821
 msgid "Choose image"
@@ -131,11 +131,11 @@ msgstr "Ձեր ընտրածը պատկեր չէ"
 
 #: poll.py:893 poll.py:1372
 msgid "Build a Poll"
-msgstr "Ստեղծել հարցում"
+msgstr "Ստեղծել հարցախույզ"
 
 #: poll.py:910
 msgid "Poll Title:"
-msgstr "Հարցման վերնագիրը."
+msgstr "Հարցախույզի վերնագիրը."
 
 #: poll.py:922
 msgid "Question:"
@@ -155,7 +155,7 @@ msgstr "Պատկեր ավելացնել"
 
 #: poll.py:972
 msgid "Step 1: Preview"
-msgstr "Քայլ 1. Նախազննում"
+msgstr "Քայլ 1. Նախնական տեսք"
 
 #: poll.py:975
 msgid "Step 2: Save"
@@ -195,11 +195,11 @@ msgstr "Չափանիշները պահվել են"
 
 #: poll.py:1172
 msgid "Favorite Color"
-msgstr "Գերադասելի գույնը"
+msgstr "Նախընտրած գույնը"
 
 #: poll.py:1174
 msgid "What is your favorite color?"
-msgstr "Ո՞րն է Ձեր գերադասելի գույնը"
+msgstr "Ո՞րն է Ձեր նախընտրած գույնը"
 
 #: poll.py:1175
 msgid "Green"
@@ -219,7 +219,7 @@ msgstr "Նարնջագույն"
 
 #: poll.py:1176
 msgid "None of the above"
-msgstr "Վերոհիշյալից ոչ մեկը"
+msgstr "Վերոհիշյալներից ոչ մեկը"
 
 #: poll.py:1242
 #, python-format
@@ -236,11 +236,11 @@ msgstr "Միացավ"
 
 #: poll.py:1461
 msgid "Left"
-msgstr "Ձախ"
+msgstr "Լքեց"
 
 #: poll.py:1819 poll.py:1883
 msgid "New Poll"
-msgstr "Նոր հարցում"
+msgstr "Նոր հարցախույզ"
 
 #: poll.py:1820 poll.py:1884
 #, python-format
