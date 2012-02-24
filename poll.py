@@ -60,7 +60,7 @@ from sugar.presence import presenceservice
 from sugar.graphics.objectchooser import ObjectChooser
 from sugar.datastore import datastore
 from sugar import mime
-#from abiword import Canvas as AbiCanvas
+from abiword import Canvas as AbiCanvas
 
 SERVICE = "org.worldwideworkshop.olpc.PollBuilder"
 IFACE = SERVICE
