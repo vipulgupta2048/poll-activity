@@ -60,6 +60,7 @@ from sugar.presence import presenceservice
 from sugar.graphics.objectchooser import ObjectChooser
 from sugar.datastore import datastore
 from sugar import mime
+from sugar import profile
 from abiword import Canvas as AbiCanvas
 
 SERVICE = "org.worldwideworkshop.olpc.PollBuilder"
@@ -467,7 +468,7 @@ class PollBuilder(activity.Activity):
             sized_box = hippo.CanvasBox(
                 orientation=hippo.ORIENTATION_HORIZONTAL)
             poll_row.append(sized_box)
-            if poll.author == self._pservice.get_owner().props.nick:
+            if poll.author == profile.get_nick_name():
                 button = gtk.Button(_('DELETE'))
                 button.connect('clicked', self._delete_poll_button_cb, sha)
                 sized_box.append(hippo.CanvasWidget(widget=theme_button(button)))
@@ -796,8 +797,7 @@ class PollBuilder(activity.Activity):
         """
         # Reset vote data to 0
         self._make_blank_poll()
-        owner = self._pservice.get_owner()
-        self._poll.author = owner.props.nick
+        self._poll.author = profile.get_nick_name()
         self._poll.active = False
         self.set_root(self._build_canvas())
         self.show_all()
