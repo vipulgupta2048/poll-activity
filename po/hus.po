@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-05-27 00:31-0400\n"
-"PO-Revision-Date: 2011-08-19 06:23+0200\n"
+"PO-Revision-Date: 2011-08-29 04:03+0200\n"
 "Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: hus\n"
@@ -48,7 +48,7 @@ msgstr "¡TAKUXTALÁB!"
 
 #: poll.py:362
 msgid "Poll Preview"
-msgstr "ok'ox tsu'bidhom k'al an kwenélkonowixtaláb"
+msgstr "Ok'ox tsu'bidhom k'al an kwenélkonowixtaláb"
 
 #: poll.py:410 poll.py:1377
 msgid "Choose a Poll"
@@ -153,7 +153,7 @@ msgstr "Ka tejwa'médha' in putuntaltok'tsílchik tin aytal an tákwláts"
 
 #: poll.py:1029
 msgid "Remember last vote"
-msgstr "Ka kits'oy axi expidhits an jolat takuxtaláb."
+msgstr "Ka kits'oy axi expidhits an jolat takuxtaláb"
 
 #: poll.py:1039
 msgid "Play a sound when make a vote"

@@ -2,242 +2,255 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#, fuzzy
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-13 11:39+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2010-05-27 00:31-0400\n"
+"PO-Revision-Date: 2011-07-15 04:09+0200\n"
+"Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ne\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.1.1rc4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.1\n"
 
 #: activity/activity.info:2
 msgid "Poll"
-msgstr ""
+msgstr "मतदान"
 
-#: poll.py:280
+#: i18n_misc_strings.py:1
+msgid "Lesson 1"
+msgstr "पाठ १"
+
+#: i18n_misc_strings.py:2
+msgid "Lesson 2"
+msgstr "पाठ २"
+
+#: i18n_misc_strings.py:3
+msgid "Lesson 3"
+msgstr "पाठ ३"
+
+#: i18n_misc_strings.py:4
+msgid "Lesson 4"
+msgstr "पाठ ४"
+
+#: i18n_misc_strings.py:5
+msgid "Introduction"
+msgstr "परिचय"
+
+#: poll.py:360
 msgid "VOTE!"
-msgstr ""
+msgstr "भोट!"
 
-#: poll.py:282
+#: poll.py:362
 msgid "Poll Preview"
-msgstr ""
+msgstr "मतदान हेर"
 
-#: poll.py:316 poll.py:1084
+#: poll.py:410 poll.py:1377
 msgid "Choose a Poll"
-msgstr ""
+msgstr "मतदान छान"
 
-#: poll.py:369
+#: poll.py:461
 msgid "VOTE"
-msgstr ""
+msgstr "भोट"
 
-#: poll.py:371
+#: poll.py:463
 msgid "SEE RESULTS"
-msgstr ""
+msgstr "परिणाम हेर"
 
-#: poll.py:380
+#: poll.py:471
 msgid "DELETE"
-msgstr ""
+msgstr "मेटाऊ"
 
-#: poll.py:407 poll.py:968
+#: poll.py:498 poll.py:1311
 msgid "Lesson Plans"
-msgstr ""
-
-#: poll.py:576
-msgid "votes"
-msgstr ""
-
-#: poll.py:592 poll.py:879
-msgid "Vote"
-msgstr ""
-
-#: poll.py:600
-msgid "Edit Poll"
-msgstr ""
-
-#: poll.py:603
-msgid "Save Poll"
-msgstr ""
-
-#: poll.py:681 poll.py:1079
-msgid "Build a Poll"
-msgstr ""
-
-#: poll.py:699
-msgid "Poll Title:"
-msgstr ""
+msgstr "पाठयोजना"
 
 #: poll.py:710
+msgid "votes"
+msgstr "मतदान"
+
+#: poll.py:716
+msgid " votes left to collect"
+msgstr " सङ्कलन गर्न बाँकी मतदान"
+
+#: poll.py:724 poll.py:1241
+msgid "Vote"
+msgstr "मतदान"
+
+#: poll.py:732
+msgid "Edit Poll"
+msgstr "मतदान सम्पादन गर"
+
+#: poll.py:735
+msgid "Save Poll"
+msgstr "मतदान बचत गर"
+
+#: poll.py:783 poll.py:842 poll.py:1136
+msgid "Poll Activity"
+msgstr "मतदान क्रियाकलाप"
+
+#: poll.py:784
+msgid "To vote you have to select first one option"
+msgstr "मतदान गर्न पहिला एउटा विकल्प छान्नु पर्छ"
+
+#: poll.py:816 poll.py:821
+msgid "Choose image"
+msgstr "चित्र छान"
+
+#: poll.py:839 poll.py:959
+msgid "Change Image"
+msgstr "चित्र परिवर्तन गर"
+
+#: poll.py:843
+msgid "Your selection is not an image"
+msgstr "तिमीले छानेको चित्र होइन"
+
+#: poll.py:893 poll.py:1372
+msgid "Build a Poll"
+msgstr "मतदान बनाऊ"
+
+#: poll.py:910
+msgid "Poll Title:"
+msgstr "मतदानको शीर्षक"
+
+#: poll.py:922
 msgid "Question:"
-msgstr ""
+msgstr "प्रश्नहरु:"
 
-#: poll.py:720
+#: poll.py:934
 msgid "Number of votes to collect:"
-msgstr ""
+msgstr "सङ्कलन गर्नुपर्ने मतदान"
 
-#: poll.py:731
+#: poll.py:947
 msgid "Answer"
-msgstr ""
+msgstr "उत्तर"
 
-#: poll.py:743
+#: poll.py:963
+msgid "Add Image"
+msgstr "चित्र थप"
+
+#: poll.py:972
 msgid "Step 1: Preview"
-msgstr ""
+msgstr "चरण 1: पूर्वावलोकन गर"
 
-#: poll.py:746
+#: poll.py:975
 msgid "Step 2: Save"
-msgstr ""
+msgstr "चरण २: बचत गर"
 
-#: poll.py:810
+#: poll.py:1000 poll.py:1382
+msgid "Settings"
+msgstr "सेटिङहरू"
+
+#: poll.py:1019
+msgid "Show answers while voting"
+msgstr "मतदान गर्दा उत्तर देखाऊ"
+
+#: poll.py:1029
+msgid "Remember last vote"
+msgstr "अन्तिम मतदान याद राख"
+
+#: poll.py:1039
+msgid "Play a sound when make a vote"
+msgstr "मतदान गर्दा आवाज बजाऊ"
+
+#: poll.py:1050
+msgid "Use image in answer"
+msgstr "उत्तरमा चित्रको प्रयोग गर"
+
+#: poll.py:1054
+msgid "Image Size: "
+msgstr "चित्रको आकार "
+
+#: poll.py:1077
+msgid "Save"
+msgstr "बचत गर"
+
+#: poll.py:1137
+msgid "The settings have been saved"
+msgstr "सेटिङहरू बचत गरियो"
+
+#: poll.py:1172
 msgid "Favorite Color"
-msgstr ""
+msgstr "मनपर्ने रङ्ग"
 
-#: poll.py:812
+#: poll.py:1174
 msgid "What is your favorite color?"
-msgstr ""
+msgstr "तिम्रो मनपर्ने रङ्ग के हो?"
 
-#: poll.py:813
+#: poll.py:1175
 msgid "Green"
-msgstr ""
+msgstr "हरियो"
 
-#: poll.py:813
+#: poll.py:1175
 msgid "Red"
-msgstr ""
+msgstr "रातो"
 
-#: poll.py:813
+#: poll.py:1175
 msgid "Blue"
-msgstr ""
+msgstr "निलो"
 
-#: poll.py:814
+#: poll.py:1176
 msgid "Orange"
-msgstr ""
+msgstr "सुन्तला रङ्ग"
 
-#: poll.py:814
+#: poll.py:1176
 msgid "None of the above"
-msgstr ""
+msgstr "माथीको कुनैपनी होइन"
 
-#: poll.py:880
+#: poll.py:1242
 #, python-format
 msgid "Somebody voted on %s"
-msgstr ""
+msgstr "कसैले %s लाई भोट दियो"
 
-#: poll.py:965
+#: poll.py:1308
 msgid "Close Lessons"
-msgstr ""
+msgstr "पाठ छान"
 
-#: poll.py:1133 poll.py:1159
+#: poll.py:1431 poll.py:1457
 msgid "Joined"
-msgstr ""
+msgstr "जोडिएको"
 
-#: poll.py:1163
+#: poll.py:1461
 msgid "Left"
-msgstr ""
+msgstr "बाँया"
 
-#: poll.py:1470 poll.py:1527
+#: poll.py:1819 poll.py:1883
 msgid "New Poll"
-msgstr ""
+msgstr "नयाँ मतदान"
 
-#: poll.py:1471 poll.py:1528
+#: poll.py:1820 poll.py:1884
 #, python-format
 msgid "%(author)s shared a poll '%(title)s' with you."
-msgstr ""
-
-#: i18n.py:39
-msgid "Chinese (simplified)"
-msgstr ""
-
-#: i18n.py:40
-msgid "Chinese (traditional)"
-msgstr ""
-
-#: i18n.py:41
-msgid "Czech"
-msgstr ""
-
-#: i18n.py:42
-msgid "Danish"
-msgstr ""
-
-#: i18n.py:43
-msgid "Dutch"
-msgstr ""
-
-#: i18n.py:44
-msgid "English"
-msgstr ""
-
-#: i18n.py:45
-msgid "English - Great Britain"
-msgstr ""
-
-#: i18n.py:46
-msgid "English - U.S."
-msgstr ""
-
-#: i18n.py:47
-msgid "Finnish"
-msgstr ""
-
-#: i18n.py:48
-msgid "French"
-msgstr ""
-
-#: i18n.py:49
-msgid "German"
-msgstr ""
-
-#: i18n.py:50
-msgid "Hungarian"
-msgstr ""
-
-#: i18n.py:51
-msgid "Italian"
-msgstr ""
-
-#: i18n.py:52
-msgid "Japanese"
-msgstr ""
-
-#: i18n.py:53
-msgid "Korean"
-msgstr ""
-
-#: i18n.py:54
-msgid "Norwegian"
-msgstr ""
-
-#: i18n.py:55
-msgid "Polish"
-msgstr ""
-
-#: i18n.py:56
-msgid "Portuguese"
-msgstr ""
-
-#: i18n.py:57
-msgid "Portuguese - Brazilian"
-msgstr ""
-
-#: i18n.py:58
-msgid "Russian"
-msgstr ""
-
-#: i18n.py:59
-msgid "Slovak"
-msgstr ""
-
-#: i18n.py:60
-msgid "Spanish"
-msgstr ""
-
-#: i18n.py:61
-msgid "Swedish"
-msgstr ""
-
-#: i18n.py:62
-msgid "Turkish"
-msgstr ""
+msgstr "%(author)s ले तिमीसँग '%(title)s'मतदान  सेयर गर्यो"

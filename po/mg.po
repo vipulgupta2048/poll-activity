@@ -2,19 +2,48 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#, fuzzy
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-29 17:36-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2010-05-27 00:31-0400\n"
+"PO-Revision-Date: 2009-05-23 06:30-0400\n"
+"Last-Translator: dina garnier oeliarisoa <dina.garnier.oeliarisoa@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: mg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.1.1rc4\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 1.2.1\n"
 
 #: activity/activity.info:2
 msgid "Poll"
@@ -22,146 +51,206 @@ msgstr ""
 
 #: i18n_misc_strings.py:1
 msgid "Lesson 1"
-msgstr ""
+msgstr "Lesona 1"
 
 #: i18n_misc_strings.py:2
 msgid "Lesson 2"
-msgstr ""
+msgstr "Lesona 2"
 
 #: i18n_misc_strings.py:3
 msgid "Lesson 3"
-msgstr ""
+msgstr "Lesona 3"
 
 #: i18n_misc_strings.py:4
 msgid "Lesson 4"
-msgstr ""
+msgstr "Lesona 4"
 
 #: i18n_misc_strings.py:5
 msgid "Introduction"
-msgstr ""
+msgstr "Fampidirana"
 
-#: poll.py:294
+#: poll.py:360
 msgid "VOTE!"
-msgstr ""
+msgstr "FIDIO!"
 
-#: poll.py:296
+#: poll.py:362
 msgid "Poll Preview"
 msgstr ""
 
-#: poll.py:344 poll.py:1065
+#: poll.py:410 poll.py:1377
 msgid "Choose a Poll"
 msgstr ""
 
-#: poll.py:395
+#: poll.py:461
 msgid "VOTE"
-msgstr ""
+msgstr "FIDIO"
 
-#: poll.py:397
+#: poll.py:463
 msgid "SEE RESULTS"
-msgstr ""
+msgstr "JEREO NY VALINY"
 
-#: poll.py:405
+#: poll.py:471
 msgid "DELETE"
-msgstr ""
+msgstr "FAFAO"
 
-#: poll.py:432 poll.py:999
+#: poll.py:498 poll.py:1311
 msgid "Lesson Plans"
 msgstr ""
 
-#: poll.py:622
+#: poll.py:710
 msgid "votes"
 msgstr ""
 
-#: poll.py:636 poll.py:929
+#: poll.py:716
+msgid " votes left to collect"
+msgstr ""
+
+#: poll.py:724 poll.py:1241
 msgid "Vote"
 msgstr ""
 
-#: poll.py:644
+#: poll.py:732
 msgid "Edit Poll"
 msgstr ""
 
-#: poll.py:647
+#: poll.py:735
 msgid "Save Poll"
 msgstr ""
 
-#: poll.py:725 poll.py:1060
+#: poll.py:783 poll.py:842 poll.py:1136
+msgid "Poll Activity"
+msgstr ""
+
+#: poll.py:784
+msgid "To vote you have to select first one option"
+msgstr ""
+
+#: poll.py:816 poll.py:821
+msgid "Choose image"
+msgstr ""
+
+#: poll.py:839 poll.py:959
+msgid "Change Image"
+msgstr ""
+
+#: poll.py:843
+msgid "Your selection is not an image"
+msgstr ""
+
+#: poll.py:893 poll.py:1372
 msgid "Build a Poll"
 msgstr ""
 
-#: poll.py:742
+#: poll.py:910
 msgid "Poll Title:"
 msgstr ""
 
-#: poll.py:754
+#: poll.py:922
 msgid "Question:"
-msgstr ""
+msgstr "Fanontaniana:"
 
-#: poll.py:766
+#: poll.py:934
 msgid "Number of votes to collect:"
 msgstr ""
 
-#: poll.py:779
+#: poll.py:947
 msgid "Answer"
+msgstr "Valiny"
+
+#: poll.py:963
+msgid "Add Image"
 msgstr ""
 
-#: poll.py:793
+#: poll.py:972
 msgid "Step 1: Preview"
 msgstr ""
 
-#: poll.py:796
+#: poll.py:975
 msgid "Step 2: Save"
 msgstr ""
 
-#: poll.py:860
+#: poll.py:1000 poll.py:1382
+msgid "Settings"
+msgstr ""
+
+#: poll.py:1019
+msgid "Show answers while voting"
+msgstr ""
+
+#: poll.py:1029
+msgid "Remember last vote"
+msgstr ""
+
+#: poll.py:1039
+msgid "Play a sound when make a vote"
+msgstr ""
+
+#: poll.py:1050
+msgid "Use image in answer"
+msgstr ""
+
+#: poll.py:1054
+msgid "Image Size: "
+msgstr ""
+
+#: poll.py:1077
+msgid "Save"
+msgstr ""
+
+#: poll.py:1137
+msgid "The settings have been saved"
+msgstr ""
+
+#: poll.py:1172
 msgid "Favorite Color"
-msgstr ""
+msgstr "Loko tiana indrindra"
 
-#: poll.py:862
+#: poll.py:1174
 msgid "What is your favorite color?"
-msgstr ""
+msgstr "Inona ny loko tianao indrindra?"
 
-#: poll.py:863
+#: poll.py:1175
 msgid "Green"
-msgstr ""
+msgstr "Maitso"
 
-#: poll.py:863
+#: poll.py:1175
 msgid "Red"
-msgstr ""
+msgstr "Mena"
 
-#: poll.py:863
+#: poll.py:1175
 msgid "Blue"
-msgstr ""
+msgstr "Manga"
 
-#: poll.py:864
+#: poll.py:1176
 msgid "Orange"
-msgstr ""
+msgstr "Volomboasary"
 
-#: poll.py:864
+#: poll.py:1176
 msgid "None of the above"
 msgstr ""
 
-#: poll.py:930
+#: poll.py:1242
 #, python-format
 msgid "Somebody voted on %s"
 msgstr ""
 
-#: poll.py:996
+#: poll.py:1308
 msgid "Close Lessons"
-msgstr ""
+msgstr "Hidio ny lesona"
 
-#: poll.py:1114 poll.py:1140
+#: poll.py:1431 poll.py:1457
 msgid "Joined"
 msgstr ""
 
-#: poll.py:1144
+#: poll.py:1461
 msgid "Left"
-msgstr ""
+msgstr "Havia"
 
-#: poll.py:1449 poll.py:1506
+#: poll.py:1819 poll.py:1883
 msgid "New Poll"
 msgstr ""
 
-#: poll.py:1450 poll.py:1507
+#: poll.py:1820 poll.py:1884
 #, python-format
 msgid "%(author)s shared a poll '%(title)s' with you."
 msgstr ""

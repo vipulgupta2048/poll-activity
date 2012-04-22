@@ -2,242 +2,327 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#, fuzzy
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Honey\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-13 11:39+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2010-05-27 00:31-0400\n"
+"PO-Revision-Date: 2009-06-11 07:25-0400\n"
+"Last-Translator: Sohaib Obaidi <ebtihaj_obaidi@yahoo.com>\n"
+"Language-Team: Farsi AF <LL@li.org>\n"
+"Language: fa_AF\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 1.1.1rc4\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 1.2.1\n"
 
 #: activity/activity.info:2
 msgid "Poll"
-msgstr ""
+msgstr "رای دادن"
 
-#: poll.py:280
+#: i18n_misc_strings.py:1
+msgid "Lesson 1"
+msgstr "درس ۱"
+
+#: i18n_misc_strings.py:2
+msgid "Lesson 2"
+msgstr "درس ۲"
+
+#: i18n_misc_strings.py:3
+msgid "Lesson 3"
+msgstr "درس ۳"
+
+#: i18n_misc_strings.py:4
+msgid "Lesson 4"
+msgstr "درس ۴"
+
+#: i18n_misc_strings.py:5
+msgid "Introduction"
+msgstr "مقدمه"
+
+#: poll.py:360
 msgid "VOTE!"
-msgstr ""
+msgstr "رای گیری"
 
-#: poll.py:282
+#: poll.py:362
 msgid "Poll Preview"
-msgstr ""
+msgstr "نمایش رای دادن"
 
-#: poll.py:316 poll.py:1084
+#: poll.py:410 poll.py:1377
 msgid "Choose a Poll"
-msgstr ""
+msgstr "یک رای را انتخاب کن"
 
-#: poll.py:369
+#: poll.py:461
 msgid "VOTE"
-msgstr ""
+msgstr "رای دادن"
 
-#: poll.py:371
+#: poll.py:463
 msgid "SEE RESULTS"
-msgstr ""
+msgstr "نتایج را ببین"
 
-#: poll.py:380
+#: poll.py:471
 msgid "DELETE"
-msgstr ""
+msgstr "حذف"
 
-#: poll.py:407 poll.py:968
+#: poll.py:498 poll.py:1311
 msgid "Lesson Plans"
-msgstr ""
-
-#: poll.py:576
-msgid "votes"
-msgstr ""
-
-#: poll.py:592 poll.py:879
-msgid "Vote"
-msgstr ""
-
-#: poll.py:600
-msgid "Edit Poll"
-msgstr ""
-
-#: poll.py:603
-msgid "Save Poll"
-msgstr ""
-
-#: poll.py:681 poll.py:1079
-msgid "Build a Poll"
-msgstr ""
-
-#: poll.py:699
-msgid "Poll Title:"
-msgstr ""
+msgstr "برنامه های درس"
 
 #: poll.py:710
+msgid "votes"
+msgstr "رای  ها "
+
+#: poll.py:716
+msgid " votes left to collect"
+msgstr ""
+
+#: poll.py:724 poll.py:1241
+msgid "Vote"
+msgstr "رای دادن"
+
+#: poll.py:732
+msgid "Edit Poll"
+msgstr "تنظیم رای"
+
+#: poll.py:735
+msgid "Save Poll"
+msgstr "ثبت رای"
+
+#: poll.py:783 poll.py:842 poll.py:1136
+msgid "Poll Activity"
+msgstr ""
+
+#: poll.py:784
+msgid "To vote you have to select first one option"
+msgstr ""
+
+#: poll.py:816 poll.py:821
+msgid "Choose image"
+msgstr ""
+
+#: poll.py:839 poll.py:959
+msgid "Change Image"
+msgstr ""
+
+#: poll.py:843
+msgid "Your selection is not an image"
+msgstr ""
+
+#: poll.py:893 poll.py:1372
+msgid "Build a Poll"
+msgstr "ساختن یک رای"
+
+#: poll.py:910
+msgid "Poll Title:"
+msgstr "عنوان رای"
+
+#: poll.py:922
 msgid "Question:"
-msgstr ""
+msgstr "سوال"
 
-#: poll.py:720
+#: poll.py:934
 msgid "Number of votes to collect:"
-msgstr ""
+msgstr "تعداد رای برای جمع آوری"
 
-#: poll.py:731
+#: poll.py:947
 msgid "Answer"
+msgstr "جواب"
+
+#: poll.py:963
+msgid "Add Image"
 msgstr ""
 
-#: poll.py:743
+#: poll.py:972
 msgid "Step 1: Preview"
-msgstr ""
+msgstr "مرحله ۱:‌ پیش نمایش"
 
-#: poll.py:746
+#: poll.py:975
 msgid "Step 2: Save"
+msgstr "مرحله دو: ثبت 2: "
+
+#: poll.py:1000 poll.py:1382
+msgid "Settings"
 msgstr ""
 
-#: poll.py:810
+#: poll.py:1019
+msgid "Show answers while voting"
+msgstr ""
+
+#: poll.py:1029
+msgid "Remember last vote"
+msgstr ""
+
+#: poll.py:1039
+msgid "Play a sound when make a vote"
+msgstr ""
+
+#: poll.py:1050
+msgid "Use image in answer"
+msgstr ""
+
+#: poll.py:1054
+msgid "Image Size: "
+msgstr ""
+
+#: poll.py:1077
+msgid "Save"
+msgstr ""
+
+#: poll.py:1137
+msgid "The settings have been saved"
+msgstr ""
+
+#: poll.py:1172
 msgid "Favorite Color"
-msgstr ""
+msgstr "رنگ دلخواه"
 
-#: poll.py:812
+#: poll.py:1174
 msgid "What is your favorite color?"
-msgstr ""
+msgstr "رنگ دلخواه شما کدام است?"
 
-#: poll.py:813
+#: poll.py:1175
 msgid "Green"
-msgstr ""
+msgstr "سبز"
 
-#: poll.py:813
+#: poll.py:1175
 msgid "Red"
-msgstr ""
+msgstr "سرخ"
 
-#: poll.py:813
+#: poll.py:1175
 msgid "Blue"
-msgstr ""
+msgstr "آبی"
 
-#: poll.py:814
+#: poll.py:1176
 msgid "Orange"
-msgstr ""
+msgstr "نارنجی"
 
-#: poll.py:814
+#: poll.py:1176
 msgid "None of the above"
-msgstr ""
+msgstr "هیچ کدام ازبالا"
 
-#: poll.py:880
+#: poll.py:1242
 #, python-format
 msgid "Somebody voted on %s"
-msgstr ""
+msgstr "کسی رای داده است با %s"
 
-#: poll.py:965
+#: poll.py:1308
 msgid "Close Lessons"
-msgstr ""
+msgstr "درست را ختم کنید"
 
-#: poll.py:1133 poll.py:1159
+#: poll.py:1431 poll.py:1457
 msgid "Joined"
-msgstr ""
+msgstr "وصل شد"
 
-#: poll.py:1163
+#: poll.py:1461
 msgid "Left"
-msgstr ""
+msgstr "ترک کرد"
 
-#: poll.py:1470 poll.py:1527
+#: poll.py:1819 poll.py:1883
 msgid "New Poll"
-msgstr ""
+msgstr "رای جدید"
 
-#: poll.py:1471 poll.py:1528
+#: poll.py:1820 poll.py:1884
 #, python-format
 msgid "%(author)s shared a poll '%(title)s' with you."
-msgstr ""
+msgstr "%(author)s رای خود را شریک ساخته  '%(title)s' باشما."
 
-#: i18n.py:39
-msgid "Chinese (simplified)"
-msgstr ""
+#~ msgid "Chinese (simplified)"
+#~ msgstr "چینایی ساده شد"
 
-#: i18n.py:40
-msgid "Chinese (traditional)"
-msgstr ""
+#~ msgid "Chinese (traditional)"
+#~ msgstr "چینایی سنتی"
 
-#: i18n.py:41
-msgid "Czech"
-msgstr ""
+#~ msgid "Czech"
+#~ msgstr "چکوسلواکی"
 
-#: i18n.py:42
-msgid "Danish"
-msgstr ""
+#~ msgid "Danish"
+#~ msgstr "دانمارکی"
 
-#: i18n.py:43
-msgid "Dutch"
-msgstr ""
+#~ msgid "Dutch"
+#~ msgstr "هالندی"
 
-#: i18n.py:44
-msgid "English"
-msgstr ""
+#~ msgid "English"
+#~ msgstr "انگلیسی"
 
-#: i18n.py:45
-msgid "English - Great Britain"
-msgstr ""
+#~ msgid "English - Great Britain"
+#~ msgstr "انگلیسی ـ بریتانیای کبیر"
 
-#: i18n.py:46
-msgid "English - U.S."
-msgstr ""
+#~ msgid "English - U.S."
+#~ msgstr "انگلیسیـ ایالات متحده آمریکا"
 
-#: i18n.py:47
-msgid "Finnish"
-msgstr ""
+#~ msgid "Finnish"
+#~ msgstr "فنلاندی"
 
-#: i18n.py:48
-msgid "French"
-msgstr ""
+#~ msgid "French"
+#~ msgstr "فرانسوی"
 
-#: i18n.py:49
-msgid "German"
-msgstr ""
+#~ msgid "German"
+#~ msgstr "آلمانی"
 
-#: i18n.py:50
-msgid "Hungarian"
-msgstr ""
+#~ msgid "Hungarian"
+#~ msgstr "مجارستانی"
 
-#: i18n.py:51
-msgid "Italian"
-msgstr ""
+#~ msgid "Italian"
+#~ msgstr "ایتالیایی"
 
-#: i18n.py:52
-msgid "Japanese"
-msgstr ""
+#~ msgid "Japanese"
+#~ msgstr "جاپانی"
 
-#: i18n.py:53
-msgid "Korean"
-msgstr ""
+#~ msgid "Korean"
+#~ msgstr "کوریایی"
 
-#: i18n.py:54
-msgid "Norwegian"
-msgstr ""
+#~ msgid "Norwegian"
+#~ msgstr "نروژی"
 
-#: i18n.py:55
-msgid "Polish"
-msgstr ""
+#~ msgid "Polish"
+#~ msgstr "پولندی"
 
-#: i18n.py:56
-msgid "Portuguese"
-msgstr ""
+#~ msgid "Portuguese"
+#~ msgstr "پرتگالی"
 
-#: i18n.py:57
-msgid "Portuguese - Brazilian"
-msgstr ""
+#~ msgid "Portuguese - Brazilian"
+#~ msgstr "پرتگالی-برزیلی"
 
-#: i18n.py:58
-msgid "Russian"
-msgstr ""
+#~ msgid "Russian"
+#~ msgstr "روسی"
 
-#: i18n.py:59
-msgid "Slovak"
-msgstr ""
+#~ msgid "Slovak"
+#~ msgstr "سلواکیایی"
 
-#: i18n.py:60
-msgid "Spanish"
-msgstr ""
+#~ msgid "Spanish"
+#~ msgstr "اسپانیایی"
 
-#: i18n.py:61
-msgid "Swedish"
-msgstr ""
+#~ msgid "Swedish"
+#~ msgstr "سویدنی"
 
-#: i18n.py:62
-msgid "Turkish"
-msgstr ""
+#~ msgid "Turkish"
+#~ msgstr "ترکی"
