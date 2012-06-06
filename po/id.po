@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-05-27 00:31-0400\n"
-"PO-Revision-Date: 2011-04-04 11:40+0200\n"
+"PO-Revision-Date: 2012-05-22 03:00+0200\n"
 "Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: id\n"
@@ -43,7 +43,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Pootle 2.0.1\n"
+"X-Generator: Pootle 2.0.5\n"
 
 #: activity/activity.info:2
 msgid "Poll"
@@ -66,8 +66,9 @@ msgid "Lesson 4"
 msgstr ""
 
 #: i18n_misc_strings.py:5
+#, fuzzy
 msgid "Introduction"
-msgstr ""
+msgstr "Perkenalan"
 
 #: poll.py:360
 msgid "VOTE!"
@@ -90,8 +91,9 @@ msgid "SEE RESULTS"
 msgstr ""
 
 #: poll.py:471
+#, fuzzy
 msgid "DELETE"
-msgstr ""
+msgstr "HAPUS"
 
 #: poll.py:498 poll.py:1311
 msgid "Lesson Plans"
@@ -146,16 +148,18 @@ msgid "Poll Title:"
 msgstr ""
 
 #: poll.py:922
+#, fuzzy
 msgid "Question:"
-msgstr ""
+msgstr "Pertanyaan:"
 
 #: poll.py:934
 msgid "Number of votes to collect:"
 msgstr ""
 
 #: poll.py:947
+#, fuzzy
 msgid "Answer"
-msgstr ""
+msgstr "Jawab"
 
 #: poll.py:963
 msgid "Add Image"
@@ -210,16 +214,19 @@ msgid "What is your favorite color?"
 msgstr ""
 
 #: poll.py:1175
+#, fuzzy
 msgid "Green"
-msgstr ""
+msgstr "Hijau"
 
 #: poll.py:1175
+#, fuzzy
 msgid "Red"
-msgstr ""
+msgstr "Merah"
 
 #: poll.py:1175
+#, fuzzy
 msgid "Blue"
-msgstr ""
+msgstr "Biru"
 
 #: poll.py:1176
 msgid "Orange"
@@ -239,12 +246,14 @@ msgid "Close Lessons"
 msgstr ""
 
 #: poll.py:1431 poll.py:1457
+#, fuzzy
 msgid "Joined"
-msgstr ""
+msgstr "Bergabung"
 
 #: poll.py:1461
+#, fuzzy
 msgid "Left"
-msgstr ""
+msgstr "Kiri"
 
 #: poll.py:1819 poll.py:1883
 msgid "New Poll"
