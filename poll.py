@@ -61,7 +61,9 @@ from sugar.graphics.objectchooser import ObjectChooser
 from sugar.datastore import datastore
 from sugar import mime
 from sugar import profile
-from abiword import Canvas as AbiCanvas
+
+# TODO: comment import of abiword to start the port to Gtk3
+#from abiword import Canvas as AbiCanvas
 
 SERVICE = "org.worldwideworkshop.olpc.PollBuilder"
 IFACE = SERVICE
