@@ -30,7 +30,6 @@ import subprocess
 import time
 import cPickle
 import gtk
-import hippo
 import pango
 import locale
 import logging
@@ -43,6 +42,12 @@ from dbus import Interface
 from dbus.service import method, signal
 from dbus.gobject_service import ExportedGObject
 from sugar.presence.tubeconn import TubeConnection
+
+from sugar.graphics.toolbarbox import ToolbarBox
+from sugar.graphics.toolbarbox import ToolbarButton
+from sugar.graphics.toolbutton import ToolButton
+from sugar.activity.widgets import StopButton
+from sugar.activity.widgets import ActivityToolbarButton
 
 try:
     from hashlib import sha1
@@ -79,34 +84,6 @@ LIGHT_GRAY = '#E2E2E3'
 RED = '#FF0000'
 PAD = 10
 
-COLOR_FG_BUTTONS = (
-    (gtk.STATE_NORMAL,"#CCFF99"),
-    (gtk.STATE_ACTIVE,"#CCFF99"),
-    (gtk.STATE_PRELIGHT,"#CCFF99"),
-    (gtk.STATE_SELECTED,"#CCFF99"),
-    (gtk.STATE_INSENSITIVE,"#CCFF99"),
-    )
-COLOR_BG_BUTTONS = (
-    (gtk.STATE_NORMAL,"#027F01"),
-    (gtk.STATE_ACTIVE,"#014D01"),
-    (gtk.STATE_PRELIGHT,"#016D01"),
-    (gtk.STATE_SELECTED,"#027F01"),
-    (gtk.STATE_INSENSITIVE,"#027F01"),
-    )
-COLOR_BG_RADIOBUTTONS = (
-    (gtk.STATE_NORMAL,LIGHT_GRAY),
-    (gtk.STATE_ACTIVE,LIGHT_GRAY),
-    (gtk.STATE_PRELIGHT,LIGHT_GRAY),
-    (gtk.STATE_SELECTED,LIGHT_GRAY),
-    (gtk.STATE_INSENSITIVE,LIGHT_GRAY),
-    )
-COLOR_FG_RADIOBUTTONS = (
-    (gtk.STATE_NORMAL,DARK_GREEN),
-    (gtk.STATE_ACTIVE,DARK_GREEN),
-    (gtk.STATE_PRELIGHT,DARK_GREEN),
-    (gtk.STATE_SELECTED,DARK_GREEN),
-    (gtk.STATE_INSENSITIVE,DARK_GREEN),
-    )
 
 GRAPH_WIDTH = gtk.gdk.screen_width() / 3
 GRAPH_TEXT_WIDTH = 50
@@ -120,52 +97,6 @@ IMAGE_WIDTH = 100
 IMAGE_THUMBNAIL_HEIGHT = 80
 IMAGE_THUMBNAIL_WIDTH = 80
 
-def theme_button(btn, w=-1, h=-1, highlight=False):
-    """Apply colors to gtk Buttons
-
-    btn is the button
-    w and h are optional width and height for resizing the button
-    highlight is a boolean to override the theme and apply a
-        different color to show "you are here".
-
-    returns the modified button.
-    """
-    for state, color in COLOR_BG_BUTTONS:
-        if highlight:
-            btn.modify_bg(state, gtk.gdk.color_parse("#CCFF99"))
-        else:
-            btn.modify_bg(state, gtk.gdk.color_parse(color))
-    c = btn.get_child()
-    if c is not None:
-        for state, color in COLOR_FG_BUTTONS:
-            if highlight:
-                c.modify_fg(state, gtk.gdk.color_parse(DARK_GREEN))
-            else:
-                c.modify_fg(state, gtk.gdk.color_parse(color))
-    else:
-        for state, color in COLOR_FG_BUTTONS:
-            btn.modify_fg(state, gtk.gdk.color_parse(color))
-    if w>0 or h>0:
-        btn.set_size_request(w, h)
-    return btn
-
-def theme_radiobutton(btn):
-    """Apply colors and font to gtk RadioButtons
-
-    btn -- gtk RadioButton
-
-    returns the modified button.
-    """
-    for state, color in COLOR_BG_RADIOBUTTONS:
-        btn.modify_bg(state, gtk.gdk.color_parse(color))
-    c = btn.get_child()
-    if c is not None:
-        for state, color in COLOR_FG_RADIOBUTTONS:
-            c.modify_fg(state, gtk.gdk.color_parse(color))
-    else:
-        for state, color in COLOR_FG_RADIOBUTTONS:
-            btn.modify_fg(state, gtk.gdk.color_parse(color))
-    return btn
 
 
 class PollBuilder(activity.Activity):
@@ -226,19 +157,52 @@ class PollBuilder(activity.Activity):
         # Lesson plan widget
         self._lessonplan_widget = None
 
-        toolbox = activity.ActivityToolbox(self)
-        self.set_toolbox(toolbox)
-        toolbox.show()
+        toolbar_box = ToolbarBox()
+        activity_button = ActivityToolbarButton(self)
+        toolbar_box.toolbar.insert(activity_button, 0)
+        activity_button.show()
+
+        separator = gtk.SeparatorToolItem()
+        toolbar_box.toolbar.insert(separator, -1)
+
+        choose_button = ToolButton('view-list')
+        choose_button.set_tooltip(_('Choose a Poll'))
+        choose_button.connect('clicked', self.button_select_clicked)
+        toolbar_box.toolbar.insert(choose_button, -1)
+
+        create_button = ToolButton('view-source')
+        create_button.set_tooltip(_('Build a Poll'))
+        create_button.connect('clicked', self.button_new_clicked)
+        toolbar_box.toolbar.insert(create_button, -1)
+
+        settings_button = ToolButton('preferences-system')
+        settings_button.set_tooltip(_('Settings'))
+        settings_button.connect('clicked', self.button_options_clicked)
+        toolbar_box.toolbar.insert(settings_button, -1)
+
+        help_button = ToolButton('toolbar-help')
+        help_button.set_tooltip(_('Lesson Plans'))
+        help_button.connect('clicked', self._button_lessonplan_cb)
+        toolbar_box.toolbar.insert(help_button, -1)
+
+        separator = gtk.SeparatorToolItem()
+        separator.props.draw = False
+        separator.set_expand(True)
+        toolbar_box.toolbar.insert(separator, -1)
+        separator.show()
+
+        toolbar_box.toolbar.insert(StopButton(self), -1)
+
+        self.set_toolbar_box(toolbar_box)
+        toolbar_box.show_all()
 
         # Show poll screen
         # Setup screen
-        self._root = hippo.CanvasBox(orientation = hippo.ORIENTATION_VERTICAL)
-        canvas = hippo.Canvas()
-        canvas.set_root(self._root)
-        self.set_canvas(canvas)
-        self.show_all()
+        self._root = gtk.VBox()
+        self.set_canvas(self._root)
 
         self.set_root(self._select_canvas())
+        self.show_all()
 
         self.poll_session = None  # PollSession
         self.connect('shared', self._shared_cb)
@@ -246,18 +210,19 @@ class PollBuilder(activity.Activity):
 
         self._activity = activity.Activity
 
-    def set_root(self, hippo_widget):
-        self._root.clear()
-        self._root.append(hippo_widget, hippo.PACK_EXPAND)
+    def set_root(self, widget):
+        if self._root.get_children():
+            self._root.remove(self._root.get_children()[0])
+        self._root.add(widget)
 
     def _create_pixbufs(self, images_ds_object_id):
         pixbufs = {}
         for index, ds_object_id in images_ds_object_id.iteritems():
             if not ds_object_id == '':
                 image_file_path = datastore.get(ds_object_id).file_path
-                pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(image_file_path,
-                                                              self._image_size['height'],
-                                                              self._image_size['width'])                
+                pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(
+                    image_file_path, self._image_size['height'],
+                    self._image_size['width'])                
                 pixbufs[int(index)] = pixbuf
             else:
                 pixbufs[int(index)] = ''
@@ -352,47 +317,44 @@ class PollBuilder(activity.Activity):
 
         # pollbuilderbox is centered within canvasbox
         pollbuilderbox = self._canvas_pollbuilder_box()
-        canvasbox.append(pollbuilderbox, hippo.PACK_EXPAND)
-
-        pollbuilderbox.append(self._canvas_topbox())
+        canvasbox.pack_start(pollbuilderbox, True, True, 0)
 
         mainbox = self._canvas_mainbox()
-        pollbuilderbox.append(mainbox, hippo.PACK_EXPAND)
+        pollbuilderbox.pack_start(mainbox, True, True, 0)
 
         if not self._previewing:
-            mainbox.append(self._text_mainbox(_('VOTE!')))
+            mainbox.pack_start(self._text_mainbox(_('VOTE!')))
         else:
-            mainbox.append(self._text_mainbox(_('Poll Preview')))
+            mainbox.pack_start(self._text_mainbox(_('Poll Preview')))
 
-        poll_details_box = hippo.CanvasBox(spacing=8,
+        poll_details_box = gtk.VBox()
+        """
+        spacing=8,
             background_color=style.COLOR_WHITE.get_int(),
             border=4,
             border_color=style.Color(PINK).get_int(),
             padding=PAD*2,
             orientation=hippo.ORIENTATION_VERTICAL)
-        mainbox.append(poll_details_box, hippo.PACK_EXPAND)
+        """
+        mainbox.pack_start(poll_details_box, True, True, 0)
 
-        self.poll_details_box_head = hippo.CanvasBox(
-            orientation=hippo.ORIENTATION_VERTICAL)
-        poll_details_box.append(self.poll_details_box_head)
+        self.poll_details_box_head = gtk.VBox()
+        poll_details_box.pack_start(self.poll_details_box_head)
 
-        self.poll_details_box = hippo.CanvasBox(
-            orientation=hippo.ORIENTATION_VERTICAL)
-        poll_details_scroll = hippo.CanvasScrollbars()
+        self.poll_details_box = gtk.VBox()
+        poll_details_scroll = gtk.ScrolledWindow()
+        """
         poll_details_scroll.set_policy(
             hippo.ORIENTATION_HORIZONTAL, hippo.SCROLLBAR_NEVER)
-        poll_details_scroll.set_root(self.poll_details_box)
-        poll_details_box.append(poll_details_scroll, hippo.PACK_EXPAND)
+        """
+        poll_details_scroll.add_with_viewport(self.poll_details_box)
+        poll_details_box.pack_start(poll_details_scroll, True, True, 0)
 
-        self.poll_details_box_tail = hippo.CanvasBox(
-            orientation=hippo.ORIENTATION_HORIZONTAL)
-        poll_details_box.append(self.poll_details_box_tail)
+        self.poll_details_box_tail = gtk.HBox()
+        poll_details_box.pack_start(self.poll_details_box_tail)
 
         self.current_vote = None
         self.draw_poll_details_box()
-
-        button_box = self._canvas_buttonbox()
-        mainbox.append(button_box, hippo.PACK_END)
 
         return canvasbox
 
@@ -403,34 +365,38 @@ class PollBuilder(activity.Activity):
 
         # pollbuilderbox is centered within canvasbox
         pollbuilderbox = self._canvas_pollbuilder_box()
-        canvasbox.append(pollbuilderbox, hippo.PACK_EXPAND)
-
-        pollbuilderbox.append(self._canvas_topbox())
+        canvasbox.pack_start(pollbuilderbox, True, False, 0)
 
         mainbox = self._canvas_mainbox()
-        pollbuilderbox.append(mainbox, hippo.PACK_EXPAND)
+        pollbuilderbox.pack_start(mainbox, True, False, 0)
 
-        mainbox.append(self._text_mainbox(_('Choose a Poll')))
+        mainbox.pack_start(self._text_mainbox(_('Choose a Poll')))
 
-        poll_details_box = hippo.CanvasBox(spacing=8,
+        poll_details_box = gtk.VBox()
+        """
+        CanvasBox(spacing=8,
             background_color=style.COLOR_WHITE.get_int(),
             border=4,
             border_color=style.Color(PINK).get_int(),  # XXXX
             padding=PAD,
             orientation=hippo.ORIENTATION_VERTICAL)
-        mainbox.append(poll_details_box, hippo.PACK_EXPAND)
+        """
+        mainbox.pack_start(poll_details_box, True, False, 0)
 
         # add scroll window
-        scrolledwindow = hippo.CanvasScrollbars()
+        scrolledwindow = gtk.ScrolledWindow()
+        """
         scrolledwindow.set_policy(
             hippo.ORIENTATION_HORIZONTAL, hippo.SCROLLBAR_NEVER)
+        """
 
-        poll_selector_box = hippo.CanvasBox(
+        poll_selector_box = gtk.VBox()
+        """
             background_color=style.COLOR_WHITE.get_int(),
             orientation=hippo.ORIENTATION_VERTICAL)
-        scrolledwindow.set_root(poll_selector_box)
-        poll_details_box.append(scrolledwindow,
-                                hippo.PACK_EXPAND)
+        """
+        scrolledwindow.add_with_viewport(poll_selector_box)
+        poll_details_box.pack_start(scrolledwindow, True, True, 0)
 
         row_number = 0
         for poll in self._polls:
@@ -440,46 +406,42 @@ class PollBuilder(activity.Activity):
             else:
                 row_bgcolor=style.COLOR_SELECTION_GREY.get_int()
             row_number += 1
-            poll_row = hippo.CanvasBox(
+            poll_row = gtk.HBox()
+            """
                 padding_top=4, padding_bottom=4,
                 spacing=PAD,
                 background_color=row_bgcolor,
                 orientation=hippo.ORIENTATION_HORIZONTAL)
-            poll_selector_box.append(poll_row)
+            """
+            poll_selector_box.pack_start(poll_row)
 
-            sized_box = hippo.CanvasBox(
-                orientation=hippo.ORIENTATION_HORIZONTAL)
-            poll_row.append(sized_box, hippo.PACK_EXPAND)
-            title = hippo.CanvasText(
-                text=poll.title+' ('+poll.author+')',
+            sized_box = gtk.HBox()
+            poll_row.pack_start(sized_box, True, False, 0)
+            title = gtk.Label(poll.title+' ('+poll.author+')')
+            """,
                 size_mode=hippo.CANVAS_SIZE_ELLIPSIZE_END,
                 xalign=hippo.ALIGNMENT_START,
                 color=style.Color(DARK_GREEN).get_int())
-            sized_box.append(title, hippo.PACK_EXPAND)
+            """
+            sized_box.pack_start(title, True, False, 0)
 
-            sized_box = hippo.CanvasBox(
-                orientation=hippo.ORIENTATION_HORIZONTAL)
-            poll_row.append(sized_box)
+            sized_box = gtk.HBox()
+            poll_row.pack_start(sized_box)
             if poll.active:
                 button = gtk.Button(_('VOTE'))
             else:
                 button = gtk.Button(_('SEE RESULTS'))
             button.connect('clicked', self._select_poll_button_cb, sha)
-            sized_box.append(hippo.CanvasWidget(widget=theme_button(button)))
+            sized_box.pack_start(button)
 
-            sized_box = hippo.CanvasBox(
-                orientation=hippo.ORIENTATION_HORIZONTAL)
-            poll_row.append(sized_box)
+            sized_box = gtk.HBox()
+            poll_row.pack_start(sized_box)
             if poll.author == profile.get_nick_name():
                 button = gtk.Button(_('DELETE'))
                 button.connect('clicked', self._delete_poll_button_cb, sha)
-                sized_box.append(hippo.CanvasWidget(widget=theme_button(button)))
-            poll_row.append(hippo.CanvasText(
-                text=poll.createdate.strftime('%d/%m/%y'),
-                color=style.Color(DARK_GREEN).get_int()))
-
-        button_box = self._canvas_buttonbox(button_to_highlight=2)
-        mainbox.append(button_box, hippo.PACK_END)
+                sized_box.pack_start(button)
+            poll_row.pack_start(gtk.Label(
+                poll.createdate.strftime('%d/%m/%y')))
 
         return canvasbox
 
@@ -491,30 +453,27 @@ class PollBuilder(activity.Activity):
 
         # pollbuilderbox is centered within canvasbox
         pollbuilderbox = self._canvas_pollbuilder_box()
-        canvasbox.append(pollbuilderbox, hippo.PACK_EXPAND)
-
-        pollbuilderbox.append(self._canvas_topbox(lesson_return=previous_view))
+        canvasbox.pack_start(pollbuilderbox, True, False, 0)
 
         mainbox = self._canvas_mainbox()
-        pollbuilderbox.append(mainbox, hippo.PACK_EXPAND)
+        pollbuilderbox.pack_start(mainbox, True, False, 0)
 
-        mainbox.append(self._text_mainbox(_('Lesson Plans')))
+        mainbox.pack_start(self._text_mainbox(_('Lesson Plans')))
 
-        poll_details_box = hippo.CanvasBox(spacing=8,
+        poll_details_box = gtk.VBox()
+        """
+        (spacing=8,
             background_color=style.COLOR_WHITE.get_int(),
             border=4,
             border_color=style.Color(PINK).get_int(),
             padding=PAD,
             orientation=hippo.ORIENTATION_VERTICAL)
-        mainbox.append(poll_details_box, hippo.PACK_EXPAND)
+        """
+        mainbox.pack_end(poll_details_box)
 
         lessonplan = LessonPlanWidget(self._basepath)
         self._lessonplan_widget = lessonplan
-        poll_details_box.append(hippo.CanvasWidget(widget=lessonplan),
-                                hippo.PACK_EXPAND)
-
-        button_box = self._canvas_buttonbox()
-        mainbox.append(button_box, hippo.PACK_END)
+        poll_details_box.pack_start(lessonplan)
 
         return canvasbox
 
@@ -582,48 +541,54 @@ class PollBuilder(activity.Activity):
 
         votes_total = self._poll.vote_count
 
-        title = hippo.CanvasText(
-            text=self._poll.title,
+        title = gtk.Label(self._poll.title)
+        """
+        ,
             xalign=hippo.ALIGNMENT_START,
             color=style.Color(DARK_GREEN).get_int())
         title.props.size_mode = 'wrap-word'
-        self.poll_details_box_head.append(title)
-        question = hippo.CanvasText(
-            text=self._poll.question,
+        """
+        self.poll_details_box_head.pack_start(title)
+        question = gtk.Label(self._poll.question)
+        """        
+        ,
             xalign=hippo.ALIGNMENT_START,
             color=style.Color(DARK_GREEN).get_int())
         question.props.size_mode = 'wrap-word'
-        self.poll_details_box_head.append(question)
+        """
+        self.poll_details_box_head.pack_start(question)
 
-        answer_box = hippo.CanvasBox(
-            orientation=hippo.ORIENTATION_VERTICAL)
+        answer_box = gtk.VBox()
 
-        answer_box = hippo.CanvasBox(spacing=8,
+        answer_box = gtk.VBox()
+        """
+        spacing=8,
             background_color=style.COLOR_WHITE.get_int(),
             padding=PAD,
             orientation=hippo.ORIENTATION_VERTICAL)
-        poll_details_box.append(answer_box, hippo.PACK_EXPAND)
+        """
+        poll_details_box.pack_end(answer_box)
 
         group = gtk.RadioButton()  # required for radio button group
 
         for choice in range(self._poll.number_of_options):
             self._logger.debug(self._poll.options[choice])
 
-            answer_row = hippo.CanvasBox(spacing=8,
-                    orientation=hippo.ORIENTATION_HORIZONTAL)
+            answer_row = gtk.HBox()
+            #spacing=8,
 
-            radio_box = hippo.CanvasBox(
+            radio_box = gtk.HBox()
+            """
                     box_width = RADIO_SIZE + RADIO_SIZE/2,
                     box_height = RADIO_SIZE,
                     orientation = hippo.ORIENTATION_HORIZONTAL)
-            answer_row.append(radio_box)
+            """
+            answer_row.pack_start(radio_box)
 
             if self._poll.active:
                 button = gtk.RadioButton(group, '')
                 button.connect('toggled', self.vote_choice_radio_button, choice)
-                radio_box.append(hippo.CanvasWidget(
-                        widget = theme_radiobutton(button)),
-                        hippo.PACK_EXPAND)
+                radio_box.pack_start(button, True, False, 0)
                 if choice == self.current_vote:
                     button.set_active(True)
 
@@ -631,52 +596,56 @@ class PollBuilder(activity.Activity):
                 hbox = gtk.HBox()
                 hbox.add(self._load_image(self._poll.images[choice]))
                 hbox.show()
-                answer_row.append(hippo.CanvasWidget(widget = hbox))
+                answer_row.pack_start(hbox)
 
-            answer_row.append(hippo.CanvasText(
-                    text = self._poll.options[choice],
+            answer_row.pack_start(gtk.Label(self._poll.options[choice]), True,
+                                        False, 0)
+            """
                     color = style.Color(DARK_GREEN).get_int(),
                     xalign=hippo.ALIGNMENT_START,
                     size_mode = 'wrap-word'),
                     hippo.PACK_EXPAND)
+            """
 
             if self._view_answer \
                 or not self._poll.active:
                     if votes_total > 0:
                         self._logger.debug(str(self._poll.data[choice] * 1.0 / votes_total))
 
-                        graph_box = hippo.CanvasBox(
-                                box_width = GRAPH_WIDTH,
-                                orientation = hippo.ORIENTATION_HORIZONTAL)
-                        answer_row.append(graph_box)
+                        graph_box = gtk.HBox()
+                        #        box_width = GRAPH_WIDTH,
+                        answer_row.pack_start(graph_box)
 
-                        graph_box.append(hippo.CanvasText(
-                                text=justify(self._poll.data, choice),
+                        graph_box.pack_start(gtk.Label(
+                            justify(self._poll.data, choice)))
+                        """
                                 xalign=hippo.ALIGNMENT_END,
                                 padding_right = 2,
                                 color=style.Color(DARK_GREEN).get_int(),
                                 box_width = GRAPH_TEXT_WIDTH))
+                        """
 
-
-                        graph_box.append(hippo.CanvasBox(
-                                orientation=hippo.ORIENTATION_HORIZONTAL,
+                        graph_box.pack_start(gtk.HBox())
+                        """
                                 background_color=style.Color(PINK).get_int(),
                                 box_width = int(float(self._poll.data[choice]) *
                                     (GRAPH_WIDTH - GRAPH_TEXT_WIDTH*2) / votes_total)))
-
-                        graph_box.append(hippo.CanvasText(
-                                text=str(self._poll.data[choice] * 100 / votes_total)+'%',
+                        """
+                        graph_box.pack_start(gtk.Label(str(self._poll.data[choice] * 100 / votes_total)+'%'))
+                        """
                                 xalign=hippo.ALIGNMENT_START,
                                 padding_left = 2,
                                 color=style.Color(DARK_GREEN).get_int(),
                                 box_width = GRAPH_TEXT_WIDTH))
-
-            answer_box.append(answer_row)
+                        """
+            answer_box.pack_start(answer_row)
 
         if self._view_answer \
             or not self._poll.active:
             # Line above total
-            line_box = hippo.CanvasBox(
+            line_box = gtk.HBox()
+            """
+                hippo.CanvasBox(
                 xalign=hippo.ALIGNMENT_END,
                 spacing=8,
                 box_height=4,
@@ -688,57 +657,64 @@ class PollBuilder(activity.Activity):
                 box_width = GRAPH_WIDTH - GRAPH_TEXT_WIDTH*2,
                 orientation=hippo.ORIENTATION_HORIZONTAL)
             line_box.append(line)
-            answer_box.append(line_box)
+            """
+            answer_box.pack_start(line_box)
 
         # total votes
-        totals_box = hippo.CanvasBox(
+        totals_box = gtk.HBox()
+        """
+            .CanvasBox(
             xalign=hippo.ALIGNMENT_END,
             box_width = GRAPH_WIDTH,
             spacing=8,
             padding_left = GRAPH_TEXT_WIDTH,
             padding_right = GRAPH_TEXT_WIDTH,
             orientation=hippo.ORIENTATION_HORIZONTAL)
-        answer_box.append(totals_box)
+        """
+        answer_box.pack_start(totals_box)
 
-        spacer = hippo.CanvasBox(
-            box_width=100, orientation=hippo.ORIENTATION_VERTICAL)
+        spacer = gtk.HBox()
 
-        spacer.append(hippo.CanvasText(
-            text=str(votes_total),
+        spacer.pack_start(gtk.Label(str(votes_total)))
+        """,
             xalign=hippo.ALIGNMENT_END,
             color=style.Color(DARK_GREEN).get_int()))
-        totals_box.append(spacer)
+        """
+        totals_box.pack_start(spacer)
 
-        totals_box.append(hippo.CanvasText(
-            text=' '+_('votes'),
+        totals_box.pack_start(gtk.Label(' '+_('votes')))
+        """
+        ,
             xalign=hippo.ALIGNMENT_START,
             color=style.Color(DARK_GREEN).get_int()))
+        """
         if votes_total < self._poll.maxvoters:
-            totals_box.append(hippo.CanvasText(
-                text=' ('+str(self._poll.maxvoters-votes_total)+
-                     _(' votes left to collect') + ')',
-                color=style.Color(DARK_GREEN).get_int()))
+            totals_box.pack_start(gtk.Label(
+                ' ('+str(self._poll.maxvoters-votes_total)+
+                     _(' votes left to collect') + ')'))
 
         # Button area
         if self._poll.active and not self._previewing:
-            button_box = hippo.CanvasBox(spacing=8,
+            button_box = gtk.HBox()
+            """(spacing=8,
                 padding = 8,
-                orientation=hippo.ORIENTATION_HORIZONTAL)
+            """
             button = gtk.Button(_("Vote"))
             button.connect('clicked', self._button_vote_cb)
-            button_box.append(hippo.CanvasWidget(widget=theme_button(button)))
-            self.poll_details_box_tail.append(button_box)
+            button_box.pack_start(button)
+            self.poll_details_box_tail.pack_start(button_box)
         elif self._previewing:
-            button_box = hippo.CanvasBox(spacing=8,
+            button_box = gtk.HBox()
+            """(spacing=8,
                 padding = 8,
-                orientation=hippo.ORIENTATION_HORIZONTAL)
+            """
             button = gtk.Button(_("Edit Poll"))
             button.connect('clicked', self.button_edit_clicked)
-            button_box.append(hippo.CanvasWidget(widget=theme_button(button)))
+            button_box.pack_start(button)
             button = gtk.Button(_("Save Poll"))
             button.connect('clicked', self._button_save_cb)
-            button_box.append(hippo.CanvasWidget(widget=theme_button(button)))
-            self.poll_details_box_tail.append(button_box)
+            button_box.pack_start(button)
+            self.poll_details_box_tail.pack_start(button_box)
 
     def vote_choice_radio_button(self, widget, data=None):
         """Track which radio button has been selected
@@ -864,7 +840,7 @@ class PollBuilder(activity.Activity):
         chl = parent_box.get_children()
         if len(chl) == 4:
             parent_box.remove(chl[len(chl)-1])
-        parent_box.append(hippo.CanvasWidget(widget = hbox))
+        parent_box.pack_start(hbox)
 
     def _already_loaded_image_in_answer(self, answer_number):
         if not self._poll.images_ds_objects[int(answer_number)] == {}: 
@@ -885,68 +861,68 @@ class PollBuilder(activity.Activity):
 
         # pollbuilderbox is centered within canvasbox
         pollbuilderbox = self._canvas_pollbuilder_box()
-        canvasbox.append(pollbuilderbox, hippo.PACK_EXPAND)
+        canvasbox.pack_start(pollbuilderbox, True, False, 0)
 
-        pollbuilderbox.append(self._canvas_topbox())
         mainbox = self._canvas_mainbox()
 
-        pollbuilderbox.append(mainbox, hippo.PACK_EXPAND)
+        pollbuilderbox.pack_start(mainbox, True, False, 0)
 
-        mainbox.append(self._text_mainbox(_('Build a Poll')))
+        mainbox.pack_start(self._text_mainbox(_('Build a Poll')))
 
-        poll_details_box = hippo.CanvasBox(spacing=8,
-            background_color=style.COLOR_WHITE.get_int(),
+        poll_details_box = gtk.VBox()
+        """
             border=4,
             border_color=style.Color(PINK).get_int(),
             padding=PAD,
-            orientation=hippo.ORIENTATION_VERTICAL)
-        mainbox.append(poll_details_box, hippo.PACK_EXPAND)
+        """
+        mainbox.pack_start(poll_details_box, True, False, 0)
 
-        buildbox = hippo.CanvasBox(spacing=8,
+        buildbox = gtk.VBox()
+        """(spacing=8,
             #xalign=hippo.ALIGNMENT_CENTER,
-            orientation=hippo.ORIENTATION_VERTICAL)
-        poll_details_box.append(buildbox, hippo.PACK_EXPAND)
+        """
+        poll_details_box.pack_start(buildbox, True, False, 0)
 
-        hbox = hippo.CanvasBox(spacing=8,
-            orientation=hippo.ORIENTATION_HORIZONTAL)
-        hbox.append(self._text_mainbox(_('Poll Title:'),
+        hbox = gtk.HBox()
+        #(spacing=8,
+        hbox.pack_start(self._text_mainbox(_('Poll Title:'),
                                        warn='title' in highlight))
         entrybox = gtk.Entry()
         entrybox.set_text(self._poll.title)
-        entrybox.modify_bg(gtk.STATE_INSENSITIVE,
-                style.COLOR_WHITE.get_gdk_color())
+        #entrybox.modify_bg(gtk.STATE_INSENSITIVE,
+        #        style.COLOR_WHITE.get_gdk_color())
         entrybox.connect('changed', self._entry_activate_cb, 'title')
-        hbox.append(hippo.CanvasWidget(widget=entrybox), hippo.PACK_EXPAND)
-        buildbox.append(hbox, hippo.PACK_EXPAND)
+        hbox.pack_start(entrybox, True, False, 0)
+        buildbox.pack_start(hbox, True, False, 0)
 
-        hbox = hippo.CanvasBox(spacing=8,
-            orientation=hippo.ORIENTATION_HORIZONTAL)
-        hbox.append(self._text_mainbox(_('Question:'),
+        hbox = gtk.HBox()
+        #(spacing=8,
+        hbox.pack_start(self._text_mainbox(_('Question:'),
                                        warn='question' in highlight))
         entrybox = gtk.Entry()
         entrybox.set_text(self._poll.question)
         entrybox.modify_bg(gtk.STATE_INSENSITIVE,
                 style.COLOR_WHITE.get_gdk_color())
         entrybox.connect('changed', self._entry_activate_cb, 'question')
-        hbox.append(hippo.CanvasWidget(widget=entrybox), hippo.PACK_EXPAND)
-        buildbox.append(hbox, hippo.PACK_EXPAND)
+        hbox.pack_start(entrybox, True, False, 0)
+        buildbox.pack_start(hbox, True, False, 0)
 
-        hbox = hippo.CanvasBox(spacing=8,
-            orientation=hippo.ORIENTATION_HORIZONTAL)
-        hbox.append(self._text_mainbox(_('Number of votes to collect:'),
+        hbox = gtk.HBox()
+        #spacing=8,
+        hbox.pack_start(self._text_mainbox(_('Number of votes to collect:'),
                                        warn='maxvoters' in highlight))
         entrybox = gtk.Entry()
         entrybox.set_text(str(self._poll.maxvoters))
         entrybox.modify_bg(gtk.STATE_INSENSITIVE,
                 style.COLOR_WHITE.get_gdk_color())
         entrybox.connect('changed', self._entry_activate_cb, 'maxvoters')
-        hbox.append(hippo.CanvasWidget(widget=entrybox))
-        buildbox.append(hbox)
+        hbox.pack_start(entrybox)
+        buildbox.pack_start(hbox)
 
         for choice in self._poll.options.keys():
-            hbox = hippo.CanvasBox(spacing=8,
-                orientation=hippo.ORIENTATION_HORIZONTAL)
-            hbox.append(self._text_mainbox(_('Answer') + ' ' + str(choice+1) +
+            hbox = gtk.HBox()
+            #spacing=8,
+            hbox.pack_start(self._text_mainbox(_('Answer') + ' ' + str(choice+1) +
                                            ':',
                                            warn=str(choice) in highlight))
             entrybox = gtk.Entry()
@@ -954,34 +930,31 @@ class PollBuilder(activity.Activity):
             entrybox.modify_bg(gtk.STATE_INSENSITIVE,
                     style.COLOR_WHITE.get_gdk_color())
             entrybox.connect('changed', self._entry_activate_cb, str(choice))
-            hbox.append(hippo.CanvasWidget(widget=entrybox), hippo.PACK_EXPAND)
+            hbox.pack_start(entrybox, True, False, 0)
 
             if self._use_image:
                 if self._already_loaded_image_in_answer(choice):
                     button = gtk.Button(_("Change Image"))
-                    hbox.append(hippo.CanvasWidget(widget=theme_button(button)))
+                    hbox.pack_start(button, True, False, 0)
                     self._show_image_thumbnail(hbox, choice)
                 else:
                     button = gtk.Button(_("Add Image"))
-                    hbox.append(hippo.CanvasWidget(widget=theme_button(button)))
+                    hbox.pack_start(button)
                 button.connect('clicked', self._button_choose_image_cb, str(choice), hbox)
 
-            buildbox.append(hbox, hippo.PACK_EXPAND)
+            buildbox.pack_start(hbox, True, False, 0)
 
         # PREVIEW & SAVE buttons
-        hbox = hippo.CanvasBox(spacing=8,
-            orientation=hippo.ORIENTATION_HORIZONTAL)
+        hbox = gtk.HBox()
+        #spacing=8,
         button = gtk.Button(_("Step 1: Preview"))
         button.connect('clicked', self._button_preview_cb)
-        hbox.append(hippo.CanvasWidget(widget=theme_button(button)))
+        hbox.pack_start(button)
         button = gtk.Button(_("Step 2: Save"))
         button.connect('clicked', self._button_save_cb)
-        hbox.append(hippo.CanvasWidget(widget=theme_button(button)))
+        hbox.pack_start(button)
 
-        buildbox.append(hbox)
-
-        button_box = self._canvas_buttonbox(button_to_highlight=1)
-        mainbox.append(button_box, hippo.PACK_END)
+        buildbox.pack_start(hbox)
 
         return canvasbox
 
@@ -992,98 +965,96 @@ class PollBuilder(activity.Activity):
 
         # optionsbox is centered within canvasbox
         optionsbox = self._canvas_pollbuilder_box()
-        canvasbox.append(optionsbox, hippo.PACK_EXPAND)
+        canvasbox.pack_start(optionsbox)
 
-        optionsbox.append(self._canvas_topbox())
         mainbox = self._canvas_mainbox()
 
-        optionsbox.append(mainbox, hippo.PACK_EXPAND)
+        optionsbox.pack_start(mainbox, True, False, 0)
 
-        mainbox.append(self._text_mainbox(_('Settings')))
+        mainbox.pack_start(self._text_mainbox(_('Settings')))
 
-        options_details_box = hippo.CanvasBox(spacing=8,
+        options_details_box = gtk.VBox()
+        """
+            spacing=8,
             background_color=style.COLOR_WHITE.get_int(),
             border=4,
             border_color=style.Color(PINK).get_int(),
             padding=PAD,
-            orientation=hippo.ORIENTATION_VERTICAL)
-        mainbox.append(options_details_box, hippo.PACK_EXPAND)
+        """
+        mainbox.pack_start(options_details_box, True, False, 0)
 
         #options widgets
         options_widgets = []
 
-        hbox = hippo.CanvasBox(spacing=5,
-            orientation=hippo.ORIENTATION_HORIZONTAL)
+        hbox = gtk.HBox()
+        #spacing=5,
+
         viewResultCB= gtk.CheckButton(label='')
         viewResultCB.set_active(self._view_answer)
         viewResultCB.connect('toggled', self._view_result_checkbox_cb)
-        hbox.append(hippo.CanvasWidget(widget=viewResultCB))
-        hbox.append(self._text_mainbox(_('Show answers while voting')))
+        hbox.pack_start(viewResultCB)
+        hbox.pack_start(self._text_mainbox(_('Show answers while voting')))
 
-        options_details_box.append(hbox)
+        options_details_box.pack_start(hbox)
 
-        hbox = hippo.CanvasBox(spacing=5,
-            orientation=hippo.ORIENTATION_HORIZONTAL)
+        hbox = gtk.HBox()
+        #(spacing=5,
         rememberVoteCB= gtk.CheckButton(label='')
         rememberVoteCB.set_active(self._remember_last_vote)
         rememberVoteCB.connect('toggled', self._remember_last_vote_checkbox_cb)
-        hbox.append(hippo.CanvasWidget(widget=rememberVoteCB))
-        hbox.append(self._text_mainbox(_('Remember last vote')))
+        hbox.pack_start(rememberVoteCB)
+        hbox.pack_start(self._text_mainbox(_('Remember last vote')))
 
-        options_details_box.append(hbox)
+        options_details_box.pack_start(hbox)
 
-        hbox = hippo.CanvasBox(spacing=5,
-            orientation=hippo.ORIENTATION_HORIZONTAL)
+        hbox = gtk.HBox()
+        #(spacing=5,
         playVoteSoundCB= gtk.CheckButton(label='')
         playVoteSoundCB.set_active(self._play_vote_sound)
         playVoteSoundCB.connect('toggled', self._play_vote_sound_checkbox_cb)
-        hbox.append(hippo.CanvasWidget(widget=playVoteSoundCB))
-        hbox.append(self._text_mainbox(_('Play a sound when make a vote')))
+        hbox.pack_start(playVoteSoundCB)
+        hbox.pack_start(self._text_mainbox(_('Play a sound when make a vote')))
 
-        options_details_box.append(hbox)
+        options_details_box.pack_start(hbox)
 
-        vbox = hippo.CanvasBox(spacing=0,
-                               orientation=hippo.ORIENTATION_VERTICAL)
-        hbox = hippo.CanvasBox(spacing=5,
-                               orientation=hippo.ORIENTATION_HORIZONTAL)
+        vbox = gtk.VBox()
+        hbox = gtk.HBox()
+        #spacing=5,
         useImageCB= gtk.CheckButton(label='')
         useImageCB.set_active(self._use_image)
-        hbox.append(hippo.CanvasWidget(widget=useImageCB))
-        hbox.append(self._text_mainbox(_('Use image in answer')))
-        vbox.append(hbox)
-        hbox2 = hippo.CanvasBox(spacing=5,
-                                orientation=hippo.ORIENTATION_HORIZONTAL)
-        hbox2.append(self._text_mainbox(_('Image Size: ')))
+        hbox.pack_start(useImageCB)
+        hbox.pack_start(self._text_mainbox(_('Use image in answer')))
+        vbox.pack_start(hbox)
+        hbox2 = gtk.HBox()
+        #(spacing=5,
+        hbox2.pack_start(self._text_mainbox(_('Image Size: ')))
         entrybox = gtk.Entry(max=3)
         entrybox.modify_bg(gtk.STATE_INSENSITIVE,
                            style.COLOR_WHITE.get_gdk_color())
         entrybox.set_text(str(self._image_size['height']))
         entrybox.connect('changed', self._entry_image_size_cb, 'height')
-        hbox2.append(hippo.CanvasWidget(widget=entrybox))
-        hbox2.append(self._text_mainbox('x'))
+        hbox2.pack_start(entrybox)
+        hbox2.pack_start(self._text_mainbox('x'))
         entrybox = gtk.Entry(max=3)
         entrybox.modify_bg(gtk.STATE_INSENSITIVE,
                            style.COLOR_WHITE.get_gdk_color())
         entrybox.set_text(str(self._image_size['width']))
         entrybox.connect('changed', self._entry_image_size_cb, 'width')
-        hbox2.append(hippo.CanvasWidget(widget=entrybox))
+        hbox2.pack_start(entrybox)
         useImageCB.connect('toggled', self._use_image_checkbox_cb, vbox, hbox2)
         if self._use_image:
-            vbox.append(hbox2)
+            vbox.pack_start(hbox2)
 
-        options_details_box.append(vbox)
+        options_details_box.pack_start(vbox)
 
-        hbox = hippo.CanvasBox(spacing=8,
-            orientation=hippo.ORIENTATION_HORIZONTAL)
+        hbox = gtk.HBox()
+        #spacing=8,
         # SAVE button
         button = gtk.Button(_("Save"))
         button.connect('clicked', self._button_save_options_cb)
-        hbox.append(hippo.CanvasWidget(widget=theme_button(button)))
+        hbox.pack_start(button)
 
-        options_details_box.append(hbox, hippo.PACK_END)
-
-        button_box = self._canvas_buttonbox(button_to_highlight=3)
-        mainbox.append(button_box, hippo.PACK_END)
+        options_details_box.pack_end(hbox)
 
         return canvasbox
 
@@ -1256,10 +1227,11 @@ class PollBuilder(activity.Activity):
 
         Called from _poll_canvas, _select_canvas, _build_canvas
         """
-        pollbuilderbox = hippo.CanvasBox(
+        pollbuilderbox = gtk.VBox()
+        """(
             border=4,
             border_color=style.Color(GRAY).get_int(),
-            orientation=hippo.ORIENTATION_VERTICAL)
+        """
         return pollbuilderbox
 
     def _canvas_root(self):
@@ -1267,44 +1239,22 @@ class PollBuilder(activity.Activity):
 
         Called from _poll_canvas, _select_canvas, _build_canvas
         """
-        canvasbox = hippo.CanvasBox(
-            background_color=style.COLOR_SELECTION_GREY.get_int(),
-            orientation=hippo.ORIENTATION_VERTICAL)
+        canvasbox = gtk.VBox()
         return canvasbox
-
-    def _canvas_topbox(self, lesson_return=None):
-        """Render topbox.
-
-        lesson_return is the view we want to return to from
-        lesson plan if the lesson plan button is clicked.
-        """
-        topbox = hippo.CanvasBox(
-            background_color=style.Color(LIGHT_GREEN).get_int(),
-            orientation=hippo.ORIENTATION_HORIZONTAL)
-        topbox.append(hippo.CanvasWidget(widget=self._logo()))
-        lessonplanbox = self._canvas_lessonplanbox(lesson_return)
-        topbox.append(lessonplanbox, hippo.PACK_EXPAND)
-        return topbox
-
-    def _logo(self):
-        logoimage = gtk.Image()
-        logoimage.set_from_file(os.path.join(
-            self._basepath,
-            'GameLogoCharacter.png'))
-        return logoimage
 
     def _canvas_lessonplanbox(self, lesson_return=None):
         """Render the lessonplanbox.
 
         disconnect_lp True does not connect the button.
         """
-        lessonplanbox = hippo.CanvasBox(
+        lessonplanbox = gtk.VBox()
+        """
             background_color=style.Color(LIGHT_GREEN).get_int(),
             border_top=4, border_left=4, border_right=4,
             border_color=style.Color(YELLOW).get_int(),
             padding_top=12, padding_bottom=12,
             padding_left=30, padding_right=30,
-            orientation=hippo.ORIENTATION_VERTICAL)
+        """
         if lesson_return:
             highlight = True
             button = gtk.Button(_("Close Lessons"))
@@ -1315,8 +1265,8 @@ class PollBuilder(activity.Activity):
             button.connect('clicked', self._button_closelessonplan_cb, lesson_return)
         else:
             button.connect('clicked', self._button_lessonplan_cb)
-        lessonplanbox.append(hippo.CanvasWidget(widget=theme_button(
-            button, highlight=highlight)))
+        lessonplanbox.pack_start(button)
+        #, highlight=highlight)))
         return lessonplanbox
 
     def _button_lessonplan_cb(self, button):
@@ -1342,13 +1292,14 @@ class PollBuilder(activity.Activity):
         self._lessonplan_widget = None
 
     def _canvas_mainbox(self):
-        mainbox = hippo.CanvasBox(spacing=4,
+        mainbox = gtk.VBox()
+        """
             background_color=style.Color(LIGHT_GREEN).get_int(),
             border=4,
             border_color=style.Color(YELLOW).get_int(),
             padding_top=PAD, padding_left=40, padding_right=40,
             padding_bottom=PAD,
-            orientation=hippo.ORIENTATION_VERTICAL)
+        """
         return mainbox
 
     def _text_mainbox(self, text, warn=False):
@@ -1361,32 +1312,10 @@ class PollBuilder(activity.Activity):
             text = text + '???'
         else:
             text_color = DARK_GREEN
-        return hippo.CanvasText(
-            text=text,
-            xalign=hippo.ALIGNMENT_START,
-            color=style.Color(text_color).get_int())
+        return gtk.Label(text)
+        #    xalign=hippo.ALIGNMENT_START,
+        #   color=style.Color(text_color).get_int())
 
-    def _canvas_buttonbox(self, button_to_highlight=None):
-        button_box = hippo.CanvasBox(
-            spacing=8,
-            padding=8,
-            orientation=hippo.ORIENTATION_HORIZONTAL)
-        button = gtk.Button(_("Build a Poll"))
-        button.connect('clicked', self.button_new_clicked)
-        button_box.append(hippo.CanvasWidget(
-            widget=theme_button(button,
-                               highlight=(button_to_highlight==1))))
-        button = gtk.Button(_("Choose a Poll"))
-        button.connect('clicked', self.button_select_clicked)
-        button_box.append(hippo.CanvasWidget(
-            widget=theme_button(button,
-                               highlight=(button_to_highlight==2))))
-        button = gtk.Button(_("Settings"))
-        button.connect('clicked', self.button_options_clicked)
-        button_box.append(hippo.CanvasWidget(
-            widget=theme_button(button,
-                               highlight=(button_to_highlight==3))))
-        return button_box
 
     def _shared_cb(self, activity):
         """Callback for completion of sharing this activity."""
