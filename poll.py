@@ -213,7 +213,7 @@ class PollBuilder(activity.Activity):
     def set_root(self, widget):
         if self._root.get_children():
             self._root.remove(self._root.get_children()[0])
-        self._root.add(widget)
+        self._root.pack_start(widget, True, True, 0)
 
     def _create_pixbufs(self, images_ds_object_id):
         pixbufs = {}
@@ -313,11 +313,15 @@ class PollBuilder(activity.Activity):
     def _poll_canvas(self):
         """Show the poll canvas where children vote on an existing poll."""
         self._current_view = 'poll'
-        canvasbox = self._canvas_root()
+        canvasbox = gtk.VBox()
 
         # pollbuilderbox is centered within canvasbox
         pollbuilderbox = self._canvas_pollbuilder_box()
-        canvasbox.pack_start(pollbuilderbox, True, True, 0)
+
+        alignment = gtk.Alignment(0.5, 0, 1, 0)
+        alignment.add(pollbuilderbox)
+        canvasbox.pack_start(alignment)
+        #canvasbox.pack_start(pollbuilderbox, True, True, 0)
 
         mainbox = self._canvas_mainbox()
         pollbuilderbox.pack_start(mainbox, True, True, 0)
@@ -339,7 +343,7 @@ class PollBuilder(activity.Activity):
         mainbox.pack_start(poll_details_box, True, True, 0)
 
         self.poll_details_box_head = gtk.VBox()
-        poll_details_box.pack_start(self.poll_details_box_head)
+        poll_details_box.pack_start(self.poll_details_box_head, False, False, 0)
 
         self.poll_details_box = gtk.VBox()
         poll_details_scroll = gtk.ScrolledWindow()
@@ -351,7 +355,7 @@ class PollBuilder(activity.Activity):
         poll_details_box.pack_start(poll_details_scroll, True, True, 0)
 
         self.poll_details_box_tail = gtk.HBox()
-        poll_details_box.pack_start(self.poll_details_box_tail)
+        poll_details_box.pack_start(self.poll_details_box_tail, False, False, 0)
 
         self.current_vote = None
         self.draw_poll_details_box()
@@ -361,16 +365,17 @@ class PollBuilder(activity.Activity):
     def _select_canvas(self):
         """Show the select canvas where children choose an existing poll."""
         self._current_view = 'select'
-        canvasbox = self._canvas_root()
+        canvasbox = gtk.VBox()
 
         # pollbuilderbox is centered within canvasbox
         pollbuilderbox = self._canvas_pollbuilder_box()
-        canvasbox.pack_start(pollbuilderbox, True, False, 0)
+        canvasbox.pack_start(pollbuilderbox, True, True, 0)
 
         mainbox = self._canvas_mainbox()
-        pollbuilderbox.pack_start(mainbox, True, False, 0)
+        pollbuilderbox.pack_start(mainbox, True, True, 0)
 
-        mainbox.pack_start(self._text_mainbox(_('Choose a Poll')))
+        mainbox.pack_start(self._text_mainbox(_('Choose a Poll')), False,
+            False, 0)
 
         poll_details_box = gtk.VBox()
         """
@@ -381,7 +386,7 @@ class PollBuilder(activity.Activity):
             padding=PAD,
             orientation=hippo.ORIENTATION_VERTICAL)
         """
-        mainbox.pack_start(poll_details_box, True, False, 0)
+        mainbox.pack_start(poll_details_box, True, True, 0)
 
         # add scroll window
         scrolledwindow = gtk.ScrolledWindow()
@@ -413,7 +418,7 @@ class PollBuilder(activity.Activity):
                 background_color=row_bgcolor,
                 orientation=hippo.ORIENTATION_HORIZONTAL)
             """
-            poll_selector_box.pack_start(poll_row)
+            poll_selector_box.pack_start(poll_row, False, False, 0)
 
             sized_box = gtk.HBox()
             poll_row.pack_start(sized_box, True, False, 0)
@@ -449,7 +454,7 @@ class PollBuilder(activity.Activity):
         """Show the select canvas where children choose an existing poll."""
         previous_view = self._current_view
         self._current_view = 'lessonplan'
-        canvasbox = self._canvas_root()
+        canvasbox = gtk.VBox()
 
         # pollbuilderbox is centered within canvasbox
         pollbuilderbox = self._canvas_pollbuilder_box()
@@ -535,9 +540,9 @@ class PollBuilder(activity.Activity):
         self.poll_details_box should be already defined on the canvas.
         """
         poll_details_box = self.poll_details_box
-        poll_details_box.remove_all()
-        self.poll_details_box_head.remove_all()
-        self.poll_details_box_tail.remove_all()
+        #poll_details_box.remove_all()
+        #self.poll_details_box_head.remove_all()
+        #self.poll_details_box_tail.remove_all()
 
         votes_total = self._poll.vote_count
 
@@ -857,64 +862,58 @@ class PollBuilder(activity.Activity):
         highlight is a list of strings denoting items failing validation.
         """
         self._current_view = 'build'
-        canvasbox = self._canvas_root()
+        canvasbox = gtk.VBox()
 
         # pollbuilderbox is centered within canvasbox
         pollbuilderbox = self._canvas_pollbuilder_box()
-        canvasbox.pack_start(pollbuilderbox, True, False, 0)
+        alignment = gtk.Alignment(0.5, 0, 0, 0)
+        alignment.add(pollbuilderbox)
+        canvasbox.pack_start(alignment)
 
         mainbox = self._canvas_mainbox()
 
-        pollbuilderbox.pack_start(mainbox, True, False, 0)
+        pollbuilderbox.pack_start(mainbox, True, True, 0)
 
-        mainbox.pack_start(self._text_mainbox(_('Build a Poll')))
+        mainbox.pack_start(self._text_mainbox(_('Build a Poll')), False,
+            False, 0)
 
         poll_details_box = gtk.VBox()
         """
             border=4,
-            border_color=style.Color(PINK).get_int(),
             padding=PAD,
         """
-        mainbox.pack_start(poll_details_box, True, False, 0)
+        mainbox.pack_start(poll_details_box, True, True, 0)
 
         buildbox = gtk.VBox()
+        buildbox.set_homogeneous(False)
         """(spacing=8,
             #xalign=hippo.ALIGNMENT_CENTER,
         """
-        poll_details_box.pack_start(buildbox, True, False, 0)
+        poll_details_box.pack_start(buildbox, True, True, 0)
 
         hbox = gtk.HBox()
         #(spacing=8,
-        hbox.pack_start(self._text_mainbox(_('Poll Title:'),
-                                       warn='title' in highlight))
+        hbox.pack_start(gtk.Label(_('Poll Title:')))
         entrybox = gtk.Entry()
         entrybox.set_text(self._poll.title)
-        #entrybox.modify_bg(gtk.STATE_INSENSITIVE,
-        #        style.COLOR_WHITE.get_gdk_color())
         entrybox.connect('changed', self._entry_activate_cb, 'title')
         hbox.pack_start(entrybox, True, False, 0)
         buildbox.pack_start(hbox, True, False, 0)
 
         hbox = gtk.HBox()
         #(spacing=8,
-        hbox.pack_start(self._text_mainbox(_('Question:'),
-                                       warn='question' in highlight))
+        hbox.pack_start(gtk.Label(_('Question:')))
         entrybox = gtk.Entry()
         entrybox.set_text(self._poll.question)
-        entrybox.modify_bg(gtk.STATE_INSENSITIVE,
-                style.COLOR_WHITE.get_gdk_color())
         entrybox.connect('changed', self._entry_activate_cb, 'question')
         hbox.pack_start(entrybox, True, False, 0)
         buildbox.pack_start(hbox, True, False, 0)
 
         hbox = gtk.HBox()
         #spacing=8,
-        hbox.pack_start(self._text_mainbox(_('Number of votes to collect:'),
-                                       warn='maxvoters' in highlight))
+        hbox.pack_start(gtk.Label(_('Number of votes to collect:')))
         entrybox = gtk.Entry()
         entrybox.set_text(str(self._poll.maxvoters))
-        entrybox.modify_bg(gtk.STATE_INSENSITIVE,
-                style.COLOR_WHITE.get_gdk_color())
         entrybox.connect('changed', self._entry_activate_cb, 'maxvoters')
         hbox.pack_start(entrybox)
         buildbox.pack_start(hbox)
@@ -922,13 +921,10 @@ class PollBuilder(activity.Activity):
         for choice in self._poll.options.keys():
             hbox = gtk.HBox()
             #spacing=8,
-            hbox.pack_start(self._text_mainbox(_('Answer') + ' ' + str(choice+1) +
-                                           ':',
-                                           warn=str(choice) in highlight))
+            hbox.pack_start(gtk.Label(_('Answer') + ' ' + str(choice+1) +
+                                           ':'))
             entrybox = gtk.Entry()
             entrybox.set_text(self._poll.options[choice])
-            entrybox.modify_bg(gtk.STATE_INSENSITIVE,
-                    style.COLOR_WHITE.get_gdk_color())
             entrybox.connect('changed', self._entry_activate_cb, str(choice))
             hbox.pack_start(entrybox, True, False, 0)
 
@@ -956,16 +952,20 @@ class PollBuilder(activity.Activity):
 
         buildbox.pack_start(hbox)
 
+        buildbox.pack_end(gtk.HBox(), True, True, 0)
+
         return canvasbox
 
     def _options_canvas(self, editing=False, highlight=[]):
         """Show the options canvas."""
         self._current_view = 'options'
-        canvasbox = self._canvas_root()
-
+        canvasbox = gtk.VBox()
+        alignment = gtk.Alignment(0.5, 0, 0, 0)
         # optionsbox is centered within canvasbox
         optionsbox = self._canvas_pollbuilder_box()
-        canvasbox.pack_start(optionsbox)
+
+        alignment.add(optionsbox)
+        canvasbox.pack_start(alignment)
 
         mainbox = self._canvas_mainbox()
 
@@ -993,7 +993,7 @@ class PollBuilder(activity.Activity):
         viewResultCB.set_active(self._view_answer)
         viewResultCB.connect('toggled', self._view_result_checkbox_cb)
         hbox.pack_start(viewResultCB)
-        hbox.pack_start(self._text_mainbox(_('Show answers while voting')))
+        hbox.pack_start(gtk.Label(_('Show answers while voting')))
 
         options_details_box.pack_start(hbox)
 
@@ -1003,7 +1003,7 @@ class PollBuilder(activity.Activity):
         rememberVoteCB.set_active(self._remember_last_vote)
         rememberVoteCB.connect('toggled', self._remember_last_vote_checkbox_cb)
         hbox.pack_start(rememberVoteCB)
-        hbox.pack_start(self._text_mainbox(_('Remember last vote')))
+        hbox.pack_start(gtk.Label(_('Remember last vote')))
 
         options_details_box.pack_start(hbox)
 
@@ -1013,7 +1013,7 @@ class PollBuilder(activity.Activity):
         playVoteSoundCB.set_active(self._play_vote_sound)
         playVoteSoundCB.connect('toggled', self._play_vote_sound_checkbox_cb)
         hbox.pack_start(playVoteSoundCB)
-        hbox.pack_start(self._text_mainbox(_('Play a sound when make a vote')))
+        hbox.pack_start(gtk.Label(_('Play a sound when make a vote')))
 
         options_details_box.pack_start(hbox)
 
@@ -1023,18 +1023,18 @@ class PollBuilder(activity.Activity):
         useImageCB= gtk.CheckButton(label='')
         useImageCB.set_active(self._use_image)
         hbox.pack_start(useImageCB)
-        hbox.pack_start(self._text_mainbox(_('Use image in answer')))
+        hbox.pack_start(gtk.Label(_('Use image in answer')))
         vbox.pack_start(hbox)
         hbox2 = gtk.HBox()
         #(spacing=5,
-        hbox2.pack_start(self._text_mainbox(_('Image Size: ')))
+        hbox2.pack_start(gtk.Label(_('Image Size: ')))
         entrybox = gtk.Entry(max=3)
         entrybox.modify_bg(gtk.STATE_INSENSITIVE,
                            style.COLOR_WHITE.get_gdk_color())
         entrybox.set_text(str(self._image_size['height']))
         entrybox.connect('changed', self._entry_image_size_cb, 'height')
         hbox2.pack_start(entrybox)
-        hbox2.pack_start(self._text_mainbox('x'))
+        hbox2.pack_start(gtk.Label('x'))
         entrybox = gtk.Entry(max=3)
         entrybox.modify_bg(gtk.STATE_INSENSITIVE,
                            style.COLOR_WHITE.get_gdk_color())
@@ -1234,14 +1234,6 @@ class PollBuilder(activity.Activity):
         """
         return pollbuilderbox
 
-    def _canvas_root(self):
-        """CanvasBox definition for main canvas.
-
-        Called from _poll_canvas, _select_canvas, _build_canvas
-        """
-        canvasbox = gtk.VBox()
-        return canvasbox
-
     def _canvas_lessonplanbox(self, lesson_return=None):
         """Render the lessonplanbox.
 
@@ -1307,12 +1299,19 @@ class PollBuilder(activity.Activity):
 
         warn=True makes the text color RED and appends ???.
         """
+        title_box = gtk.VBox()
+        label = gtk.Label()
+        #label.margin = 30
+        label.set_markup('<big><b>%s</b></big>' % text)
+        title_box.add(label)
+        """
         if warn:
             text_color = RED
             text = text + '???'
         else:
             text_color = DARK_GREEN
-        return gtk.Label(text)
+        """
+        return title_box
         #    xalign=hippo.ALIGNMENT_START,
         #   color=style.Color(text_color).get_int())
 
