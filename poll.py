@@ -27,10 +27,8 @@ gobject.threads_init()
 
 import os
 import subprocess
-import time
 import cPickle
 import gtk
-import pango
 import locale
 import logging
 import base64
@@ -38,13 +36,11 @@ from datetime import date
 from gettext import gettext as _
 import telepathy
 import telepathy.client
-from dbus import Interface
 from dbus.service import method, signal
 from dbus.gobject_service import ExportedGObject
 from sugar.presence.tubeconn import TubeConnection
 
 from sugar.graphics.toolbarbox import ToolbarBox
-from sugar.graphics.toolbarbox import ToolbarButton
 from sugar.graphics.toolbutton import ToolButton
 from sugar.activity.widgets import StopButton
 from sugar.activity.widgets import ActivityToolbarButton
@@ -98,7 +94,6 @@ IMAGE_THUMBNAIL_HEIGHT = 80
 IMAGE_THUMBNAIL_WIDTH = 80
 
 
-
 class PollBuilder(activity.Activity):
     """Sugar activity for polls
 
@@ -145,14 +140,15 @@ class PollBuilder(activity.Activity):
         #This property allows remember in the radio button options the last vote
         self._remember_last_vote = REMEMBER_LAST_VOTE
 
-        #This property allows play a sound when click in the button to make a vote
+        #This property allows play a sound when click in
+        #the button to make a vote
         self._play_vote_sound = PLAY_VOTE_SOUND
 
         #This property allows use image in answer
         self._use_image = USE_IMAGE_IN_ANSWER
 
         #This property has the image size
-        self._image_size = {'height':IMAGE_HEIGHT,'width':IMAGE_WIDTH}
+        self._image_size = {'height': IMAGE_HEIGHT, 'width': IMAGE_WIDTH}
 
         # Lesson plan widget
         self._lessonplan_widget = None
@@ -222,7 +218,7 @@ class PollBuilder(activity.Activity):
                 image_file_path = datastore.get(ds_object_id).file_path
                 pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(
                     image_file_path, self._image_size['height'],
-                    self._image_size['width'])                
+                    self._image_size['width'])
                 pixbufs[int(index)] = pixbuf
             else:
                 pixbufs[int(index)] = ''
@@ -231,10 +227,11 @@ class PollBuilder(activity.Activity):
     def _get_images_ds_objects(self, images_ds_object_id):
         images_ds_objects = {}
         for index, ds_object_id in images_ds_object_id.iteritems():
-            images_ds_objects[int(index)] = {} 
+            images_ds_objects[int(index)] = {}
             if not ds_object_id == '':
                 images_ds_objects[int(index)]['id'] = ds_object_id
-                images_ds_objects[int(index)]['file_path'] = datastore.get(ds_object_id).file_path
+                images_ds_objects[int(index)]['file_path'] = \
+                datastore.get(ds_object_id).file_path
         return images_ds_objects
 
     def read_file(self, file_path):
@@ -253,7 +250,7 @@ class PollBuilder(activity.Activity):
         self._remember_last_vote = activity_settings['remember_last_vote']
         self._play_vote_sound = activity_settings['play_vote_sound']
         self._use_image = activity_settings['use_image']
-        self._image_size = cPickle.load(f)  
+        self._image_size = cPickle.load(f)
         for p in range(num_polls):
             title = cPickle.load(f)
             author = cPickle.load(f)
@@ -265,7 +262,7 @@ class PollBuilder(activity.Activity):
             options = cPickle.load(f)
             data = cPickle.load(f)
             votes = cPickle.load(f)
-            images_ds_objects_id = cPickle.load(f)            
+            images_ds_objects_id = cPickle.load(f)
             images = self._create_pixbufs(images_ds_objects_id)
             images_ds_object = self._get_images_ds_objects(images_ds_objects_id)
             poll = Poll(self, title, author, active,
@@ -282,8 +279,10 @@ class PollBuilder(activity.Activity):
         which provides the file_path.
         """
         s = cPickle.dumps(len(self._polls))
-        activity_settings = {'view_answer':self._view_answer, 'remember_last_vote':self._remember_last_vote,
-                             'play_vote_sound':self._play_vote_sound, 'use_image':self._use_image}
+        activity_settings = {'view_answer': self._view_answer,
+            'remember_last_vote': self._remember_last_vote,
+            'play_vote_sound': self._play_vote_sound,
+            'use_image': self._use_image}
         s += cPickle.dumps(activity_settings)
         s += cPickle.dumps(self._image_size)
         for poll in self._polls:
@@ -407,9 +406,9 @@ class PollBuilder(activity.Activity):
         for poll in self._polls:
             sha = poll.sha
             if row_number % 2:
-                row_bgcolor=style.COLOR_WHITE.get_int()
+                row_bgcolor = style.COLOR_WHITE.get_int()
             else:
-                row_bgcolor=style.COLOR_SELECTION_GREY.get_int()
+                row_bgcolor = style.COLOR_SELECTION_GREY.get_int()
             row_number += 1
             poll_row = gtk.HBox()
             """
@@ -422,7 +421,7 @@ class PollBuilder(activity.Activity):
 
             sized_box = gtk.HBox()
             poll_row.pack_start(sized_box, True, False, 0)
-            title = gtk.Label(poll.title+' ('+poll.author+')')
+            title = gtk.Label(poll.title + ' (' + poll.author + ')')
             """,
                 size_mode=hippo.CANVAS_SIZE_ELLIPSIZE_END,
                 xalign=hippo.ALIGNMENT_START,
@@ -555,7 +554,7 @@ class PollBuilder(activity.Activity):
         """
         self.poll_details_box_head.pack_start(title)
         question = gtk.Label(self._poll.question)
-        """        
+        """
         ,
             xalign=hippo.ALIGNMENT_START,
             color=style.Color(DARK_GREEN).get_int())
@@ -615,7 +614,8 @@ class PollBuilder(activity.Activity):
             if self._view_answer \
                 or not self._poll.active:
                     if votes_total > 0:
-                        self._logger.debug(str(self._poll.data[choice] * 1.0 / votes_total))
+                        self._logger.debug(str(self._poll.data[choice
+                        ] * 1.0 / votes_total))
 
                         graph_box = gtk.HBox()
                         #        box_width = GRAPH_WIDTH,
@@ -636,7 +636,8 @@ class PollBuilder(activity.Activity):
                                 box_width = int(float(self._poll.data[choice]) *
                                     (GRAPH_WIDTH - GRAPH_TEXT_WIDTH*2) / votes_total)))
                         """
-                        graph_box.pack_start(gtk.Label(str(self._poll.data[choice] * 100 / votes_total)+'%'))
+                        graph_box.pack_start(gtk.Label(str(self._poll.data[
+                            choice] * 100 / votes_total) + '%'))
                         """
                                 xalign=hippo.ALIGNMENT_START,
                                 padding_left = 2,
@@ -687,7 +688,7 @@ class PollBuilder(activity.Activity):
         """
         totals_box.pack_start(spacer)
 
-        totals_box.pack_start(gtk.Label(' '+_('votes')))
+        totals_box.pack_start(gtk.Label(' ' + _('votes')))
         """
         ,
             xalign=hippo.ALIGNMENT_START,
@@ -695,7 +696,7 @@ class PollBuilder(activity.Activity):
         """
         if votes_total < self._poll.maxvoters:
             totals_box.pack_start(gtk.Label(
-                ' ('+str(self._poll.maxvoters-votes_total)+
+                ' (' + str(self._poll.maxvoters - votes_total) +
                      _(' votes left to collect') + ')'))
 
         # Button area
@@ -746,7 +747,7 @@ class PollBuilder(activity.Activity):
                 self._logger.debug(
                     'Hit the max voters, ignoring this vote.')
                 return
-            self._logger.debug('Voted '+str(self.current_vote))
+            self._logger.debug('Voted ' + str(self.current_vote))
             self._has_voted = True
             try:
                 self._poll.register_vote(self.current_vote, self.nick_sha1)
@@ -756,7 +757,7 @@ class PollBuilder(activity.Activity):
             except ValueError:
                 self._logger.debug('Local vote failed: '
                     'poll closed.')
-            self._logger.debug('Results: '+str(self._poll.data))
+            self._logger.debug('Results: ' + str(self._poll.data))
             if self._play_vote_sound:
                 self._play_vote_button_sound()
             if not self._remember_last_vote:
@@ -798,7 +799,7 @@ class PollBuilder(activity.Activity):
         if  hasattr(mime, 'GENERIC_TYPE_IMAGE'):
             chooser = ObjectChooser(_('Choose image'), self,
                                     gtk.DIALOG_MODAL |
-                                    gtk.DIALOG_DESTROY_WITH_PARENT, \
+                                    gtk.DIALOG_DESTROY_WITH_PARENT,
                                     what_filter=mime.GENERIC_TYPE_IMAGE)
         else:
             chooser = ObjectChooser(_('Choose image'), self,
@@ -807,17 +808,21 @@ class PollBuilder(activity.Activity):
         try:
             result = chooser.run()
             if result == gtk.RESPONSE_ACCEPT:
-                logging.debug('ObjectChooser: %r' % chooser.get_selected_object())
+                logging.debug('ObjectChooser: %r' %
+                chooser.get_selected_object())
                 jobject = chooser.get_selected_object()
-                images_mime_types = mime.get_generic_type(mime.GENERIC_TYPE_IMAGE).mime_types
+                images_mime_types = mime.get_generic_type(
+                    mime.GENERIC_TYPE_IMAGE).mime_types
                 if jobject and jobject.file_path and \
                    jobject.metadata.get('mime_type') in images_mime_types:
-                    pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(jobject.file_path, 
-                                                                  self._image_size['height'],
-                                                                  self._image_size['width'])                    
+                    pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(
+                        jobject.file_path, self._image_size['height'],
+                        self._image_size['width'])
                     self._poll.images[int(data)] = pixbuf
-                    self._poll.images_ds_objects[int(data)]['id'] = jobject.object_id
-                    self._poll.images_ds_objects[int(data)]['file_path'] = jobject.file_path 
+                    self._poll.images_ds_objects[int(data)]['id'] = \
+                    jobject.object_id
+                    self._poll.images_ds_objects[int(data)]['file_path'] = \
+                    jobject.file_path
                     self._show_image_thumbnail(data2, data)
                     button.set_label(_('Change Image'))
                 else:
@@ -833,10 +838,11 @@ class PollBuilder(activity.Activity):
 
     def _show_image_thumbnail(self, parent_box, answer_number):
         hbox = gtk.HBox()
-        image_file_path = self._poll.images_ds_objects[int(answer_number)]['file_path']
-        pixbuf_thumbnail = gtk.gdk.pixbuf_new_from_file_at_size(image_file_path, 
-                                                                IMAGE_THUMBNAIL_HEIGHT,
-                                                                IMAGE_THUMBNAIL_WIDTH)
+        image_file_path = self._poll.images_ds_objects[int(answer_number)][
+            'file_path']
+        pixbuf_thumbnail = gtk.gdk.pixbuf_new_from_file_at_size(image_file_path,
+            IMAGE_THUMBNAIL_HEIGHT,
+            IMAGE_THUMBNAIL_WIDTH)
         image = gtk.Image()
         image.set_from_pixbuf(pixbuf_thumbnail)
         image.show()
@@ -844,11 +850,11 @@ class PollBuilder(activity.Activity):
         hbox.show()
         chl = parent_box.get_children()
         if len(chl) == 4:
-            parent_box.remove(chl[len(chl)-1])
+            parent_box.remove(chl[len(chl) - 1])
         parent_box.pack_start(hbox)
 
     def _already_loaded_image_in_answer(self, answer_number):
-        if not self._poll.images_ds_objects[int(answer_number)] == {}: 
+        if not self._poll.images_ds_objects[int(answer_number)] == {}:
             return True
         else:
             return False
@@ -921,8 +927,8 @@ class PollBuilder(activity.Activity):
         for choice in self._poll.options.keys():
             hbox = gtk.HBox()
             #spacing=8,
-            hbox.pack_start(gtk.Label(_('Answer') + ' ' + str(choice+1) +
-                                           ':'))
+            hbox.pack_start(gtk.Label(_('Answer') + ' ' + str(choice + 1) +
+            ':'))
             entrybox = gtk.Entry()
             entrybox.set_text(self._poll.options[choice])
             entrybox.connect('changed', self._entry_activate_cb, str(choice))
@@ -936,7 +942,8 @@ class PollBuilder(activity.Activity):
                 else:
                     button = gtk.Button(_("Add Image"))
                     hbox.pack_start(button)
-                button.connect('clicked', self._button_choose_image_cb, str(choice), hbox)
+                button.connect('clicked', self._button_choose_image_cb,
+                str(choice), hbox)
 
             buildbox.pack_start(hbox, True, False, 0)
 
@@ -989,7 +996,7 @@ class PollBuilder(activity.Activity):
         hbox = gtk.HBox()
         #spacing=5,
 
-        viewResultCB= gtk.CheckButton(label='')
+        viewResultCB = gtk.CheckButton(label='')
         viewResultCB.set_active(self._view_answer)
         viewResultCB.connect('toggled', self._view_result_checkbox_cb)
         hbox.pack_start(viewResultCB)
@@ -999,7 +1006,7 @@ class PollBuilder(activity.Activity):
 
         hbox = gtk.HBox()
         #(spacing=5,
-        rememberVoteCB= gtk.CheckButton(label='')
+        rememberVoteCB = gtk.CheckButton(label='')
         rememberVoteCB.set_active(self._remember_last_vote)
         rememberVoteCB.connect('toggled', self._remember_last_vote_checkbox_cb)
         hbox.pack_start(rememberVoteCB)
@@ -1009,7 +1016,7 @@ class PollBuilder(activity.Activity):
 
         hbox = gtk.HBox()
         #(spacing=5,
-        playVoteSoundCB= gtk.CheckButton(label='')
+        playVoteSoundCB = gtk.CheckButton(label='')
         playVoteSoundCB.set_active(self._play_vote_sound)
         playVoteSoundCB.connect('toggled', self._play_vote_sound_checkbox_cb)
         hbox.pack_start(playVoteSoundCB)
@@ -1020,7 +1027,7 @@ class PollBuilder(activity.Activity):
         vbox = gtk.VBox()
         hbox = gtk.HBox()
         #spacing=5,
-        useImageCB= gtk.CheckButton(label='')
+        useImageCB = gtk.CheckButton(label='')
         useImageCB.set_active(self._use_image)
         hbox.pack_start(useImageCB)
         hbox.pack_start(gtk.Label(_('Use image in answer')))
@@ -1116,11 +1123,11 @@ class PollBuilder(activity.Activity):
         text = entrycontrol.props.text
         if data:
             if text:
-                if data=='title':
+                if data == 'title':
                     self._poll.title = text
-                elif data=='question':
+                elif data == 'question':
                     self._poll.question = text
-                elif data=='maxvoters':
+                elif data == 'maxvoters':
                     try:
                         self._poll.maxvoters = int(text)
                     except ValueError:
@@ -1145,8 +1152,11 @@ class PollBuilder(activity.Activity):
             activity=self, title=self.nick + ' ' + _('Favorite Color'),
             author=self.nick, active=True,
             question=_('What is your favorite color?'),
-            options = {0: _('Green'), 1: _('Red'), 2: _('Blue'),
-                3: _('Orange'), 4: _('None of the above')})
+            options={0: ('Green'),
+                        1: ('Red'),
+                        2: ('Blue'),
+                        3: _('Orange'),
+                        4: _('None of the above')})
         self.current_vote = None
         self._polls.add(self._poll)
 
@@ -1196,7 +1206,7 @@ class PollBuilder(activity.Activity):
 
     def get_my_polls(self):
         """Return list of Polls for all polls I created."""
-        return [poll for poll in self._polls if poll.author==self.nick]
+        return [poll for poll in self._polls if poll.author == self.nick]
 
     def vote_on_poll(self, author, title, choice, votersha):
         """Register a vote on a poll from the mesh.
@@ -1254,7 +1264,8 @@ class PollBuilder(activity.Activity):
             highlight = False
             button = gtk.Button(_("Lesson Plans"))
         if lesson_return:
-            button.connect('clicked', self._button_closelessonplan_cb, lesson_return)
+            button.connect('clicked', self._button_closelessonplan_cb,
+                lesson_return)
         else:
             button.connect('clicked', self._button_lessonplan_cb)
         lessonplanbox.pack_start(button)
@@ -1314,7 +1325,6 @@ class PollBuilder(activity.Activity):
         return title_box
         #    xalign=hippo.ALIGNMENT_START,
         #   color=style.Color(text_color).get_int())
-
 
     def _shared_cb(self, activity):
         """Callback for completion of sharing this activity."""
@@ -1380,14 +1390,16 @@ class PollBuilder(activity.Activity):
 
             tube_conn = TubeConnection(self.conn,
                 self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES],
-                id, group_iface=self.text_chan[telepathy.CHANNEL_INTERFACE_GROUP])
-            self.poll_session = PollSession(tube_conn, self.initiating, self._get_buddy, self)
+                id,
+                group_iface=self.text_chan[telepathy.CHANNEL_INTERFACE_GROUP])
+            self.poll_session = PollSession(tube_conn, self.initiating,
+                self._get_buddy, self)
 
-    def _buddy_joined_cb (self, activity, buddy):
+    def _buddy_joined_cb(self, activity, buddy):
         self.alert(buddy.props.nick, _('Joined'))
         self._logger.debug('Buddy %s joined' % buddy.props.nick)
 
-    def _buddy_left_cb (self, activity, buddy):
+    def _buddy_left_cb(self, activity, buddy):
         self.alert(buddy.props.nick, _('Left'))
         self._logger.debug('Buddy %s left' % buddy.props.nick)
 
@@ -1396,11 +1408,13 @@ class PollBuilder(activity.Activity):
         self._logger.debug('Trying to find owner of handle %u...', cs_handle)
         group = self.text_chan[telepathy.CHANNEL_INTERFACE_GROUP]
         my_csh = group.GetSelfHandle()
+        SIGNAL_TELEPATHY = telepathy.CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES
         self._logger.debug('My handle in that group is %u', my_csh)
         if my_csh == cs_handle:
             handle = self.conn.GetSelfHandle()
-            self._logger.debug('CS handle %u belongs to me, %u', cs_handle, handle)
-        elif group.GetGroupFlags() & telepathy.CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES:
+            self._logger.debug('CS handle %u belongs to me, %u', cs_handle,
+                handle)
+        elif group.GetGroupFlags() & SIGNAL_TELEPATHY:
             handle = group.GetHandleOwners([cs_handle])[0]
             self._logger.debug('CS handle %u belongs to %u', cs_handle, handle)
         else:
@@ -1428,8 +1442,9 @@ class Poll:
         self.number_of_options = number_of_options
         self.options = (options or {0: '', 1: '', 2: '', 3: '', 4: ''})
         self.images = (images or {0: '', 1: '', 2: '', 3: '', 4: ''})
-        self.images_ds_objects = (images_ds_objects or {0: {}, 1: {}, 2: {}, 3: {}, 4: {}})
-        self.data = (data or {0:0, 1:0, 2:0, 3:0, 4:0})
+        self.images_ds_objects = (images_ds_objects or {0: {}, 1: {}, 2: {},
+            3: {}, 4: {}})
+        self.data = (data or {0: 0, 1: 0, 2: 0, 3: 0, 4: 0})
         self.votes = (votes or {})
         self._logger = logging.getLogger('poll-activity.Poll')
         self._logger.debug('Creating Poll(%s by %s)' % (title, author))
@@ -1525,7 +1540,7 @@ class Poll:
                 raise OverflowError, 'Poll reached maxvoters'
         else:
             raise ValueError, 'Poll closed'
-    
+
     def _pixbuf_save_cb(self, buf, data):
         data[0] += buf
         return True
@@ -1534,13 +1549,14 @@ class Poll:
         data = [""]
         pixbuf.save_to_callback(self._pixbuf_save_cb, "png", {}, data)
         return str(data[0])
-    
+
     def broadcast_on_mesh(self):
         if self.activity.poll_session:
             images_buf = {}
-            for img_number, img_pixbuf in self.images.iteritems():                
+            for img_number, img_pixbuf in self.images.iteritems():
                 if not img_pixbuf == '':
-                    images_buf[img_number] = base64.b64encode(self.get_buffer(img_pixbuf))
+                    images_buf[img_number] = base64.b64encode(
+                        self.get_buffer(img_pixbuf))
                 else:
                     images_buf[img_number] = img_pixbuf
             # We are shared so we can broadcast this poll
@@ -1636,7 +1652,8 @@ class PollSession(ExportedGObject):
 
     @signal(dbus_interface=IFACE, signature='ssuuusua{us}a{uu}a{su}a{us}')
     def UpdatedPoll(self, title, author, active, createdate, maxvoters,
-                   question, number_of_options, options, data, votes, images_buf):
+                   question, number_of_options, options, data, votes,
+                   images_buf):
         """Broadcast a new poll to the mesh."""
 
     def hello_cb(self, sender=None):
@@ -1655,14 +1672,16 @@ class PollSession(ExportedGObject):
             images_buf = {}
             for img_number, img_pixbuf in poll.images.iteritems():
                 if not img_pixbuf == '':
-                    images_buf[img_number] = base64.b64encode(poll.get_buffer(img_pixbuf))
+                    images_buf[img_number] = base64.b64encode(
+                        poll.get_buffer(img_pixbuf))
                 else:
                     images_buf[img_number] = img_pixbuf
             self.tube.get_object(sender, PATH).UpdatePoll(
                 poll.title, poll.author, int(poll.active),
                 poll.createdate.toordinal(),
                 poll.maxvoters, poll.question, poll.number_of_options,
-                poll.options, poll.data, poll.votes, images_buf, dbus_interface=IFACE)
+                poll.options, poll.data, poll.votes, images_buf,
+                dbus_interface=IFACE)
         # Ask for other's polls back
         self.HelloBack(sender)
 
@@ -1688,14 +1707,16 @@ class PollSession(ExportedGObject):
             images_buf = {}
             for img_number, img_pixbuf in poll.images.iteritems():
                 if not img_pixbuf == '':
-                    images_buf[img_number] = base64.b64encode(poll.get_buffer(img_pixbuf))
+                    images_buf[img_number] = base64.b64encode(
+                        poll.get_buffer(img_pixbuf))
                 else:
                     images_buf[img_number] = img_pixbuf
             self.tube.get_object(sender, PATH).UpdatePoll(
                 poll.title, poll.author, int(poll.active),
                 poll.createdate.toordinal(),
                 poll.maxvoters, poll.question, poll.number_of_options,
-                poll.options, poll.data, poll.votes, images_buf, dbus_interface=IFACE)
+                poll.options, poll.data, poll.votes, images_buf,
+                dbus_interface=IFACE)
 
     def get_pixbuf(self, img_encode_buf):
         decode_img_buf = base64.b64decode(img_encode_buf)
@@ -1738,7 +1759,7 @@ class PollSession(ExportedGObject):
             votes[str(key)] = int(value)
         images = {}
         for key in images_buf_d:
-            if not images_buf_d[key] == '': 
+            if not images_buf_d[key] == '':
                 images[int(key)] = self.get_pixbuf(images_buf_d[key])
             else:
                 images[int(key)] = ''
@@ -1773,7 +1794,7 @@ class PollSession(ExportedGObject):
     @method(dbus_interface=IFACE, in_signature='ssuuusua{us}a{uu}a{su}a{us}',
             out_signature='')
     def UpdatePoll(self, title, author, active, createdate, maxvoters,
-                   question, number_of_options, options_d, data_d, votes_d, 
+                   question, number_of_options, options_d, data_d, votes_d,
                    images_buf_d):
         """To be called on the incoming buddy by the other participants
         to inform you of their polls and state."""
@@ -1821,15 +1842,17 @@ class PollSession(ExportedGObject):
         for poll in self.activity.get_my_polls():
             images_buf = {}
             for img_number, img_pixbuf in poll.images.iteritems():
-                if not img_pixbuf == '': 
-                    images_buf[img_number] = base64.b64encode(poll.get_buffer(img_pixbuf))
+                if not img_pixbuf == '':
+                    images_buf[img_number] = base64.b64encode(
+                        poll.get_buffer(img_pixbuf))
                 else:
                     images_buf[img_number] = img_pixbuf
             self.tube.get_object(sender, PATH).UpdatePoll(
                 poll.title, poll.author, int(poll.active),
                 poll.createdate.toordinal(),
                 poll.maxvoters, poll.question, poll.number_of_options,
-                poll.options, poll.data, poll.votes, images_buf, dbus_interface=IFACE)
+                poll.options, poll.data, poll.votes, images_buf,
+                dbus_interface=IFACE)
 
 
 def justify(textdict, choice):
@@ -1850,7 +1873,7 @@ def justify(textdict, choice):
 
 
 class LessonPlanWidget (gtk.Notebook):
-    def __init__ (self, basepath):
+    def __init__(self, basepath):
         """Create a Notebook widget for displaying lesson plans in tabs.
 
         basepath -- string, path of directory containing lesson plans.
@@ -1864,7 +1887,7 @@ class LessonPlanWidget (gtk.Notebook):
             self._load_lesson(os.path.join(basepath, 'lessons', lesson),
                               _(lesson))
 
-    def _load_lesson (self, path, name):
+    def _load_lesson(self, path, name):
         """Load the lesson content from a .abw, taking l10n into account.
 
         path -- string, path of lesson plan file, e.g. lessons/Introduction
@@ -1874,7 +1897,7 @@ class LessonPlanWidget (gtk.Notebook):
         canvas = AbiCanvas()
         canvas.show()
         files = map(lambda x: os.path.join(path, '%s.abw' % x),
-                    ('_'+code.lower(), '_'+code.split('_')[0].lower(),
+                    ('_' + code.lower(), '_' + code.split('_')[0].lower(),
                      'default'))
         files = filter(lambda x: os.path.exists(x), files)
         canvas.load_file('file://%s' % files[0], '')
