@@ -346,6 +346,7 @@ class PollBuilder(activity.Activity):
 
         self.poll_details_box = gtk.VBox()
         poll_details_scroll = gtk.ScrolledWindow()
+        poll_details_scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_NEVER)
         """
         poll_details_scroll.set_policy(
             hippo.ORIENTATION_HORIZONTAL, hippo.SCROLLBAR_NEVER)
@@ -389,6 +390,8 @@ class PollBuilder(activity.Activity):
 
         # add scroll window
         scrolledwindow = gtk.ScrolledWindow()
+        scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_NEVER)
+
         """
         scrolledwindow.set_policy(
             hippo.ORIENTATION_HORIZONTAL, hippo.SCROLLBAR_NEVER)
