@@ -45,18 +45,12 @@ from sugar.graphics.toolbutton import ToolButton
 from sugar.activity.widgets import StopButton
 from sugar.activity.widgets import ActivityToolbarButton
 
-try:
-    from hashlib import sha1
-except ImportError:
-    # Python < 2.5
-    from sha import new as sha1
+from hashlib import sha1
 
 from sugar.activity import activity
 from sugar.graphics import style
-try:
-    from sugar.graphics.alert import NotifyAlert
-except:
-    pass  # FIXME remove this once compatibility with Trial 3 not required
+from sugar.graphics.alert import NotifyAlert
+
 from sugar.presence import presenceservice
 from sugar.graphics.objectchooser import ObjectChooser
 from sugar.datastore import datastore
@@ -293,12 +287,7 @@ class PollBuilder(activity.Activity):
 
     def alert(self, title, text=None):
         """Show an alert above the activity."""
-        # FIXME: remove try/except once compatibility with Trial 3 is
-        #        no longer required
-        try:
-            alert = NotifyAlert(timeout=10)
-        except NameError:
-            return
+        alert = NotifyAlert(timeout=10)
         alert.props.title = title
         alert.props.msg = text
         self.add_alert(alert)
