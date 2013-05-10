@@ -331,14 +331,6 @@ class PollBuilder(activity.Activity):
             mainbox.pack_start(self._text_mainbox(_('Poll Preview')))
 
         poll_details_box = gtk.VBox()
-        """
-        spacing=8,
-            background_color=style.COLOR_WHITE.get_int(),
-            border=4,
-            border_color=style.Color(PINK).get_int(),
-            padding=PAD*2,
-            orientation=hippo.ORIENTATION_VERTICAL)
-        """
         mainbox.pack_start(poll_details_box, True, True, 0)
 
         self.poll_details_box_head = gtk.VBox()
@@ -347,10 +339,6 @@ class PollBuilder(activity.Activity):
         self.poll_details_box = gtk.VBox()
         poll_details_scroll = gtk.ScrolledWindow()
         poll_details_scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_NEVER)
-        """
-        poll_details_scroll.set_policy(
-            hippo.ORIENTATION_HORIZONTAL, hippo.SCROLLBAR_NEVER)
-        """
         poll_details_scroll.add_with_viewport(self.poll_details_box)
         poll_details_box.pack_start(poll_details_scroll, True, True, 0)
 
@@ -378,30 +366,13 @@ class PollBuilder(activity.Activity):
             False, 0)
 
         poll_details_box = gtk.VBox()
-        """
-        CanvasBox(spacing=8,
-            background_color=style.COLOR_WHITE.get_int(),
-            border=4,
-            border_color=style.Color(PINK).get_int(),  # XXXX
-            padding=PAD,
-            orientation=hippo.ORIENTATION_VERTICAL)
-        """
         mainbox.pack_start(poll_details_box, True, True, 0)
 
         # add scroll window
         scrolledwindow = gtk.ScrolledWindow()
         scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_NEVER)
 
-        """
-        scrolledwindow.set_policy(
-            hippo.ORIENTATION_HORIZONTAL, hippo.SCROLLBAR_NEVER)
-        """
-
         poll_selector_box = gtk.VBox()
-        """
-            background_color=style.COLOR_WHITE.get_int(),
-            orientation=hippo.ORIENTATION_VERTICAL)
-        """
         scrolledwindow.add_with_viewport(poll_selector_box)
         poll_details_box.pack_start(scrolledwindow, True, True, 0)
 
@@ -414,22 +385,11 @@ class PollBuilder(activity.Activity):
                 row_bgcolor = style.COLOR_SELECTION_GREY.get_int()
             row_number += 1
             poll_row = gtk.HBox()
-            """
-                padding_top=4, padding_bottom=4,
-                spacing=PAD,
-                background_color=row_bgcolor,
-                orientation=hippo.ORIENTATION_HORIZONTAL)
-            """
             poll_selector_box.pack_start(poll_row, False, False, 0)
 
             sized_box = gtk.HBox()
             poll_row.pack_start(sized_box, True, False, 0)
             title = gtk.Label(poll.title + ' (' + poll.author + ')')
-            """,
-                size_mode=hippo.CANVAS_SIZE_ELLIPSIZE_END,
-                xalign=hippo.ALIGNMENT_START,
-                color=style.Color(DARK_GREEN).get_int())
-            """
             sized_box.pack_start(title, True, False, 0)
 
             sized_box = gtk.HBox()
@@ -468,14 +428,6 @@ class PollBuilder(activity.Activity):
         mainbox.pack_start(self._text_mainbox(_('Lesson Plans')))
 
         poll_details_box = gtk.VBox()
-        """
-        (spacing=8,
-            background_color=style.COLOR_WHITE.get_int(),
-            border=4,
-            border_color=style.Color(PINK).get_int(),
-            padding=PAD,
-            orientation=hippo.ORIENTATION_VERTICAL)
-        """
         mainbox.pack_end(poll_details_box)
 
         lessonplan = LessonPlanWidget(self._basepath)
@@ -549,31 +501,13 @@ class PollBuilder(activity.Activity):
         votes_total = self._poll.vote_count
 
         title = gtk.Label(self._poll.title)
-        """
-        ,
-            xalign=hippo.ALIGNMENT_START,
-            color=style.Color(DARK_GREEN).get_int())
-        title.props.size_mode = 'wrap-word'
-        """
         self.poll_details_box_head.pack_start(title)
         question = gtk.Label(self._poll.question)
-        """
-        ,
-            xalign=hippo.ALIGNMENT_START,
-            color=style.Color(DARK_GREEN).get_int())
-        question.props.size_mode = 'wrap-word'
-        """
         self.poll_details_box_head.pack_start(question)
 
         answer_box = gtk.VBox()
 
         answer_box = gtk.VBox()
-        """
-        spacing=8,
-            background_color=style.COLOR_WHITE.get_int(),
-            padding=PAD,
-            orientation=hippo.ORIENTATION_VERTICAL)
-        """
         poll_details_box.pack_end(answer_box)
 
         group = gtk.RadioButton()  # required for radio button group
@@ -585,11 +519,6 @@ class PollBuilder(activity.Activity):
             #spacing=8,
 
             radio_box = gtk.HBox()
-            """
-                    box_width = RADIO_SIZE + RADIO_SIZE/2,
-                    box_height = RADIO_SIZE,
-                    orientation = hippo.ORIENTATION_HORIZONTAL)
-            """
             answer_row.pack_start(radio_box)
 
             if self._poll.active:
@@ -607,12 +536,6 @@ class PollBuilder(activity.Activity):
 
             answer_row.pack_start(gtk.Label(self._poll.options[choice]), True,
                                         False, 0)
-            """
-                    color = style.Color(DARK_GREEN).get_int(),
-                    xalign=hippo.ALIGNMENT_START,
-                    size_mode = 'wrap-word'),
-                    hippo.PACK_EXPAND)
-            """
 
             if self._view_answer \
                 or not self._poll.active:
@@ -621,82 +544,32 @@ class PollBuilder(activity.Activity):
                         ] * 1.0 / votes_total))
 
                         graph_box = gtk.HBox()
-                        #        box_width = GRAPH_WIDTH,
                         answer_row.pack_start(graph_box)
 
                         graph_box.pack_start(gtk.Label(
                             justify(self._poll.data, choice)))
-                        """
-                                xalign=hippo.ALIGNMENT_END,
-                                padding_right = 2,
-                                color=style.Color(DARK_GREEN).get_int(),
-                                box_width = GRAPH_TEXT_WIDTH))
-                        """
 
                         graph_box.pack_start(gtk.HBox())
-                        """
-                                background_color=style.Color(PINK).get_int(),
-                                box_width = int(float(self._poll.data[choice]) *
-                                    (GRAPH_WIDTH - GRAPH_TEXT_WIDTH*2) / votes_total)))
-                        """
                         graph_box.pack_start(gtk.Label(str(self._poll.data[
                             choice] * 100 / votes_total) + '%'))
-                        """
-                                xalign=hippo.ALIGNMENT_START,
-                                padding_left = 2,
-                                color=style.Color(DARK_GREEN).get_int(),
-                                box_width = GRAPH_TEXT_WIDTH))
-                        """
             answer_box.pack_start(answer_row)
 
         if self._view_answer \
             or not self._poll.active:
             # Line above total
             line_box = gtk.HBox()
-            """
-                hippo.CanvasBox(
-                xalign=hippo.ALIGNMENT_END,
-                spacing=8,
-                box_height=4,
-                padding_left = GRAPH_TEXT_WIDTH,
-                padding_right = GRAPH_TEXT_WIDTH,
-                orientation=hippo.ORIENTATION_HORIZONTAL)
-            line = hippo.CanvasBox(
-                background_color=style.Color(DARK_GREEN).get_int(),
-                box_width = GRAPH_WIDTH - GRAPH_TEXT_WIDTH*2,
-                orientation=hippo.ORIENTATION_HORIZONTAL)
-            line_box.append(line)
-            """
             answer_box.pack_start(line_box)
 
         # total votes
         totals_box = gtk.HBox()
-        """
-            .CanvasBox(
-            xalign=hippo.ALIGNMENT_END,
-            box_width = GRAPH_WIDTH,
-            spacing=8,
-            padding_left = GRAPH_TEXT_WIDTH,
-            padding_right = GRAPH_TEXT_WIDTH,
-            orientation=hippo.ORIENTATION_HORIZONTAL)
-        """
         answer_box.pack_start(totals_box)
 
         spacer = gtk.HBox()
 
         spacer.pack_start(gtk.Label(str(votes_total)))
-        """,
-            xalign=hippo.ALIGNMENT_END,
-            color=style.Color(DARK_GREEN).get_int()))
-        """
         totals_box.pack_start(spacer)
 
         totals_box.pack_start(gtk.Label(' ' + _('votes')))
-        """
-        ,
-            xalign=hippo.ALIGNMENT_START,
-            color=style.Color(DARK_GREEN).get_int()))
-        """
         if votes_total < self._poll.maxvoters:
             totals_box.pack_start(gtk.Label(
                 ' (' + str(self._poll.maxvoters - votes_total) +
@@ -705,18 +578,12 @@ class PollBuilder(activity.Activity):
         # Button area
         if self._poll.active and not self._previewing:
             button_box = gtk.HBox()
-            """(spacing=8,
-                padding = 8,
-            """
             button = gtk.Button(_("Vote"))
             button.connect('clicked', self._button_vote_cb)
             button_box.pack_start(button)
             self.poll_details_box_tail.pack_start(button_box)
         elif self._previewing:
             button_box = gtk.HBox()
-            """(spacing=8,
-                padding = 8,
-            """
             button = gtk.Button(_("Edit Poll"))
             button.connect('clicked', self.button_edit_clicked)
             button_box.pack_start(button)
@@ -887,21 +754,13 @@ class PollBuilder(activity.Activity):
             False, 0)
 
         poll_details_box = gtk.VBox()
-        """
-            border=4,
-            padding=PAD,
-        """
         mainbox.pack_start(poll_details_box, True, True, 0)
 
         buildbox = gtk.VBox()
         buildbox.set_homogeneous(False)
-        """(spacing=8,
-            #xalign=hippo.ALIGNMENT_CENTER,
-        """
         poll_details_box.pack_start(buildbox, True, True, 0)
 
         hbox = gtk.HBox()
-        #(spacing=8,
         hbox.pack_start(gtk.Label(_('Poll Title:')))
         entrybox = gtk.Entry()
         entrybox.set_text(self._poll.title)
@@ -910,7 +769,6 @@ class PollBuilder(activity.Activity):
         buildbox.pack_start(hbox, True, False, 0)
 
         hbox = gtk.HBox()
-        #(spacing=8,
         hbox.pack_start(gtk.Label(_('Question:')))
         entrybox = gtk.Entry()
         entrybox.set_text(self._poll.question)
@@ -919,7 +777,6 @@ class PollBuilder(activity.Activity):
         buildbox.pack_start(hbox, True, False, 0)
 
         hbox = gtk.HBox()
-        #spacing=8,
         hbox.pack_start(gtk.Label(_('Number of votes to collect:')))
         entrybox = gtk.Entry()
         entrybox.set_text(str(self._poll.maxvoters))
@@ -929,7 +786,6 @@ class PollBuilder(activity.Activity):
 
         for choice in self._poll.options.keys():
             hbox = gtk.HBox()
-            #spacing=8,
             hbox.pack_start(gtk.Label(_('Answer') + ' ' + str(choice + 1) +
             ':'))
             entrybox = gtk.Entry()
@@ -952,7 +808,6 @@ class PollBuilder(activity.Activity):
 
         # PREVIEW & SAVE buttons
         hbox = gtk.HBox()
-        #spacing=8,
         button = gtk.Button(_("Step 1: Preview"))
         button.connect('clicked', self._button_preview_cb)
         hbox.pack_start(button)
@@ -984,20 +839,12 @@ class PollBuilder(activity.Activity):
         mainbox.pack_start(self._text_mainbox(_('Settings')))
 
         options_details_box = gtk.VBox()
-        """
-            spacing=8,
-            background_color=style.COLOR_WHITE.get_int(),
-            border=4,
-            border_color=style.Color(PINK).get_int(),
-            padding=PAD,
-        """
         mainbox.pack_start(options_details_box, True, False, 0)
 
         #options widgets
         options_widgets = []
 
         hbox = gtk.HBox()
-        #spacing=5,
 
         viewResultCB = gtk.CheckButton(label='')
         viewResultCB.set_active(self._view_answer)
@@ -1008,7 +855,6 @@ class PollBuilder(activity.Activity):
         options_details_box.pack_start(hbox)
 
         hbox = gtk.HBox()
-        #(spacing=5,
         rememberVoteCB = gtk.CheckButton(label='')
         rememberVoteCB.set_active(self._remember_last_vote)
         rememberVoteCB.connect('toggled', self._remember_last_vote_checkbox_cb)
@@ -1018,7 +864,6 @@ class PollBuilder(activity.Activity):
         options_details_box.pack_start(hbox)
 
         hbox = gtk.HBox()
-        #(spacing=5,
         playVoteSoundCB = gtk.CheckButton(label='')
         playVoteSoundCB.set_active(self._play_vote_sound)
         playVoteSoundCB.connect('toggled', self._play_vote_sound_checkbox_cb)
@@ -1029,14 +874,12 @@ class PollBuilder(activity.Activity):
 
         vbox = gtk.VBox()
         hbox = gtk.HBox()
-        #spacing=5,
         useImageCB = gtk.CheckButton(label='')
         useImageCB.set_active(self._use_image)
         hbox.pack_start(useImageCB)
         hbox.pack_start(gtk.Label(_('Use image in answer')))
         vbox.pack_start(hbox)
         hbox2 = gtk.HBox()
-        #(spacing=5,
         hbox2.pack_start(gtk.Label(_('Image Size: ')))
         entrybox = gtk.Entry(max=3)
         entrybox.modify_bg(gtk.STATE_INSENSITIVE,
@@ -1058,7 +901,6 @@ class PollBuilder(activity.Activity):
         options_details_box.pack_start(vbox)
 
         hbox = gtk.HBox()
-        #spacing=8,
         # SAVE button
         button = gtk.Button(_("Save"))
         button.connect('clicked', self._button_save_options_cb)
@@ -1241,10 +1083,6 @@ class PollBuilder(activity.Activity):
         Called from _poll_canvas, _select_canvas, _build_canvas
         """
         pollbuilderbox = gtk.VBox()
-        """(
-            border=4,
-            border_color=style.Color(GRAY).get_int(),
-        """
         return pollbuilderbox
 
     def _canvas_lessonplanbox(self, lesson_return=None):
@@ -1253,13 +1091,7 @@ class PollBuilder(activity.Activity):
         disconnect_lp True does not connect the button.
         """
         lessonplanbox = gtk.VBox()
-        """
-            background_color=style.Color(LIGHT_GREEN).get_int(),
-            border_top=4, border_left=4, border_right=4,
-            border_color=style.Color(YELLOW).get_int(),
-            padding_top=12, padding_bottom=12,
-            padding_left=30, padding_right=30,
-        """
+
         if lesson_return:
             highlight = True
             button = gtk.Button(_("Close Lessons"))
@@ -1299,13 +1131,6 @@ class PollBuilder(activity.Activity):
 
     def _canvas_mainbox(self):
         mainbox = gtk.VBox()
-        """
-            background_color=style.Color(LIGHT_GREEN).get_int(),
-            border=4,
-            border_color=style.Color(YELLOW).get_int(),
-            padding_top=PAD, padding_left=40, padding_right=40,
-            padding_bottom=PAD,
-        """
         return mainbox
 
     def _text_mainbox(self, text, warn=False):
@@ -1315,19 +1140,9 @@ class PollBuilder(activity.Activity):
         """
         title_box = gtk.VBox()
         label = gtk.Label()
-        #label.margin = 30
         label.set_markup('<big><b>%s</b></big>' % text)
         title_box.add(label)
-        """
-        if warn:
-            text_color = RED
-            text = text + '???'
-        else:
-            text_color = DARK_GREEN
-        """
         return title_box
-        #    xalign=hippo.ALIGNMENT_START,
-        #   color=style.Color(text_color).get_int())
 
     def _shared_cb(self, activity):
         """Callback for completion of sharing this activity."""
