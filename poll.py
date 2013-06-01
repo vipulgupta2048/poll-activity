@@ -22,13 +22,15 @@
 #
 
 # init gthreads before using abiword
-import gobject
-gobject.threads_init()
+from gi.repository import GObject
+from gi.repository import Gtk
+from gi.repository import Gdk
+
+GObject.threads_init()
 
 import os
 import subprocess
 import cPickle
-import gtk
 import locale
 import logging
 import base64
@@ -38,24 +40,24 @@ import telepathy
 import telepathy.client
 from dbus.service import method, signal
 from dbus.gobject_service import ExportedGObject
-from sugar.presence.tubeconn import TubeConnection
+from sugar3.presence.tubeconn import TubeConnection
 
-from sugar.graphics.toolbarbox import ToolbarBox
-from sugar.graphics.toolbutton import ToolButton
-from sugar.activity.widgets import StopButton
-from sugar.activity.widgets import ActivityToolbarButton
+from sugar3.graphics.toolbarbox import ToolbarBox
+from sugar3.graphics.toolbutton import ToolButton
+from sugar3.activity.widgets import StopButton
+from sugar3.activity.widgets import ActivityToolbarButton
 
 from hashlib import sha1
 
-from sugar.activity import activity
-from sugar.graphics import style
-from sugar.graphics.alert import NotifyAlert
+from sugar3.activity import activity
+from sugar3.graphics import style
+from sugar3.graphics.alert import NotifyAlert
 
-from sugar.presence import presenceservice
-from sugar.graphics.objectchooser import ObjectChooser
-from sugar.datastore import datastore
-from sugar import mime
-from sugar import profile
+from sugar3.presence import presenceservice
+from sugar3.graphics.objectchooser import ObjectChooser
+from sugar3.datastore import datastore
+from sugar3 import mime
+from sugar3 import profile
 
 # TODO: comment import of abiword to start the port to Gtk3
 #from abiword import Canvas as AbiCanvas
@@ -75,7 +77,7 @@ RED = '#FF0000'
 PAD = 10
 
 
-GRAPH_WIDTH = gtk.gdk.screen_width() / 3
+GRAPH_WIDTH = Gdk.Screen.width() / 3
 GRAPH_TEXT_WIDTH = 50
 RADIO_SIZE = 32
 VIEW_ANSWER = True
@@ -153,7 +155,7 @@ class PollBuilder(activity.Activity):
         toolbar_box.toolbar.insert(activity_button, 0)
         activity_button.show()
 
-        separator = gtk.SeparatorToolItem()
+        separator = Gtk.SeparatorToolItem()
         toolbar_box.toolbar.insert(separator, -1)
 
         choose_button = ToolButton('view-list')
@@ -176,7 +178,7 @@ class PollBuilder(activity.Activity):
         help_button.connect('clicked', self._button_lessonplan_cb)
         toolbar_box.toolbar.insert(help_button, -1)
 
-        separator = gtk.SeparatorToolItem()
+        separator = Gtk.SeparatorToolItem()
         separator.props.draw = False
         separator.set_expand(True)
         toolbar_box.toolbar.insert(separator, -1)
@@ -189,7 +191,7 @@ class PollBuilder(activity.Activity):
 
         # Show poll screen
         # Setup screen
-        self._root = gtk.VBox()
+        self._root = Gtk.VBox()
         self.set_canvas(self._root)
 
         self.set_root(self._select_canvas())
@@ -211,7 +213,7 @@ class PollBuilder(activity.Activity):
         for index, ds_object_id in images_ds_object_id.iteritems():
             if not ds_object_id == '':
                 image_file_path = datastore.get(ds_object_id).file_path
-                pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(
+                pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(
                     image_file_path, self._image_size['height'],
                     self._image_size['width'])
                 pixbufs[int(index)] = pixbuf
@@ -232,7 +234,7 @@ class PollBuilder(activity.Activity):
     def read_file(self, file_path):
         """Implement reading from journal
 
-        This is called within sugar.activity.Activity code
+        This is called within sugar3.activity.Activity code
         which provides file_path.
         """
         self._logger.debug('Reading file from datastore via Journal: %s' %
@@ -271,7 +273,7 @@ class PollBuilder(activity.Activity):
     def write_file(self, file_path):
         """Implement writing to the journal
 
-        This is called within sugar.activity.Activity code
+        This is called within sugar3.activity.Activity code
         which provides the file_path.
         """
         s = cPickle.dumps(len(self._polls))
@@ -303,38 +305,40 @@ class PollBuilder(activity.Activity):
     def _poll_canvas(self):
         """Show the poll canvas where children vote on an existing poll."""
         self._current_view = 'poll'
-        canvasbox = gtk.VBox()
+        canvasbox = Gtk.VBox()
 
         # pollbuilderbox is centered within canvasbox
         pollbuilderbox = self._canvas_pollbuilder_box()
 
-        alignment = gtk.Alignment(0.5, 0, 1, 0)
+        alignment = Gtk.Alignment.new(0.5, 0, 1, 0)
         alignment.add(pollbuilderbox)
-        canvasbox.pack_start(alignment)
+        canvasbox.pack_start(alignment, True, True, 0)
         #canvasbox.pack_start(pollbuilderbox, True, True, 0)
 
         mainbox = self._canvas_mainbox()
         pollbuilderbox.pack_start(mainbox, True, True, 0)
 
         if not self._previewing:
-            mainbox.pack_start(self._text_mainbox(_('VOTE!')))
+            mainbox.pack_start(self._text_mainbox(_('VOTE!')), True, True, 0)
         else:
-            mainbox.pack_start(self._text_mainbox(_('Poll Preview')))
+            mainbox.pack_start(self._text_mainbox(_('Poll Preview')), True,
+                               True, 0)
 
-        poll_details_box = gtk.VBox()
+        poll_details_box = Gtk.VBox()
         mainbox.pack_start(poll_details_box, True, True, 0)
 
-        self.poll_details_box_head = gtk.VBox()
+        self.poll_details_box_head = Gtk.VBox()
         poll_details_box.pack_start(self.poll_details_box_head, False, False,
                                     0)
 
-        self.poll_details_box = gtk.VBox()
-        poll_details_scroll = gtk.ScrolledWindow()
-        poll_details_scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_NEVER)
+        self.poll_details_box = Gtk.VBox()
+        poll_details_scroll = Gtk.ScrolledWindow()
+        poll_details_scroll.set_policy(Gtk.PolicyType.AUTOMATIC,
+                                       Gtk.PolicyType.NEVER)
         poll_details_scroll.add_with_viewport(self.poll_details_box)
         poll_details_box.pack_start(poll_details_scroll, True, True, 0)
 
-        self.poll_details_box_tail = gtk.HBox()
+        self.poll_details_box_tail = Gtk.HBox()
         poll_details_box.pack_start(self.poll_details_box_tail, False, False,
                                     0)
 
@@ -346,7 +350,7 @@ class PollBuilder(activity.Activity):
     def _select_canvas(self):
         """Show the select canvas where children choose an existing poll."""
         self._current_view = 'select'
-        canvasbox = gtk.VBox()
+        canvasbox = Gtk.VBox()
 
         # pollbuilderbox is centered within canvasbox
         pollbuilderbox = self._canvas_pollbuilder_box()
@@ -358,14 +362,15 @@ class PollBuilder(activity.Activity):
         mainbox.pack_start(self._text_mainbox(_('Choose a Poll')), False,
                            False, 0)
 
-        poll_details_box = gtk.VBox()
+        poll_details_box = Gtk.VBox()
         mainbox.pack_start(poll_details_box, True, True, 0)
 
         # add scroll window
-        scrolledwindow = gtk.ScrolledWindow()
-        scrolledwindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_NEVER)
+        scrolledwindow = Gtk.ScrolledWindow()
+        scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC,
+                                  Gtk.PolicyType.NEVER)
 
-        poll_selector_box = gtk.VBox()
+        poll_selector_box = Gtk.VBox()
         scrolledwindow.add_with_viewport(poll_selector_box)
         poll_details_box.pack_start(scrolledwindow, True, True, 0)
 
@@ -377,31 +382,31 @@ class PollBuilder(activity.Activity):
             else:
                 row_bgcolor = style.COLOR_SELECTION_GREY.get_int()
             row_number += 1
-            poll_row = gtk.HBox()
+            poll_row = Gtk.HBox()
             poll_selector_box.pack_start(poll_row, False, False, 0)
 
-            sized_box = gtk.HBox()
+            sized_box = Gtk.HBox()
             poll_row.pack_start(sized_box, True, False, 0)
-            title = gtk.Label(poll.title + ' (' + poll.author + ')')
+            title = Gtk.Label(label=poll.title + ' (' + poll.author + ')')
             sized_box.pack_start(title, True, False, 0)
 
-            sized_box = gtk.HBox()
-            poll_row.pack_start(sized_box)
+            sized_box = Gtk.HBox()
+            poll_row.pack_start(sized_box, True, True, 0)
             if poll.active:
-                button = gtk.Button(_('VOTE'))
+                button = Gtk.Button(_('VOTE'))
             else:
-                button = gtk.Button(_('SEE RESULTS'))
+                button = Gtk.Button(_('SEE RESULTS'))
             button.connect('clicked', self._select_poll_button_cb, sha)
-            sized_box.pack_start(button)
+            sized_box.pack_start(button, True, True, 0)
 
-            sized_box = gtk.HBox()
-            poll_row.pack_start(sized_box)
+            sized_box = Gtk.HBox()
+            poll_row.pack_start(sized_box, True, True, 0)
             if poll.author == profile.get_nick_name():
-                button = gtk.Button(_('DELETE'))
+                button = Gtk.Button(_('DELETE'))
                 button.connect('clicked', self._delete_poll_button_cb, sha)
-                sized_box.pack_start(button)
-            poll_row.pack_start(gtk.Label(
-                poll.createdate.strftime('%d/%m/%y')))
+                sized_box.pack_start(button, True, True, 0)
+            poll_row.pack_start(Gtk.Label(
+                poll.createdate.strftime('%d/%m/%y')), True, True, 0)
 
         return canvasbox
 
@@ -409,7 +414,7 @@ class PollBuilder(activity.Activity):
         """Show the select canvas where children choose an existing poll."""
         previous_view = self._current_view
         self._current_view = 'lessonplan'
-        canvasbox = gtk.VBox()
+        canvasbox = Gtk.VBox()
 
         # pollbuilderbox is centered within canvasbox
         pollbuilderbox = self._canvas_pollbuilder_box()
@@ -418,14 +423,15 @@ class PollBuilder(activity.Activity):
         mainbox = self._canvas_mainbox()
         pollbuilderbox.pack_start(mainbox, True, False, 0)
 
-        mainbox.pack_start(self._text_mainbox(_('Lesson Plans')))
+        mainbox.pack_start(self._text_mainbox(_('Lesson Plans')), True, True,
+                           0)
 
-        poll_details_box = gtk.VBox()
-        mainbox.pack_end(poll_details_box)
+        poll_details_box = Gtk.VBox()
+        mainbox.pack_end(poll_details_box, True, True, 0)
 
         lessonplan = LessonPlanWidget(self._basepath)
         self._lessonplan_widget = lessonplan
-        poll_details_box.pack_start(lessonplan)
+        poll_details_box.pack_start(lessonplan, True, True, 0)
 
         return canvasbox
 
@@ -473,7 +479,7 @@ class PollBuilder(activity.Activity):
 
         """
         if not pixbuf == '':
-            image = gtk.Image()
+            image = Gtk.Image()
             image.set_from_pixbuf(pixbuf)
             image.show()
             return image
@@ -493,96 +499,94 @@ class PollBuilder(activity.Activity):
 
         votes_total = self._poll.vote_count
 
-        title = gtk.Label(self._poll.title)
-        self.poll_details_box_head.pack_start(title)
-        question = gtk.Label(self._poll.question)
-        self.poll_details_box_head.pack_start(question)
+        title = Gtk.Label(label=self._poll.title)
+        self.poll_details_box_head.pack_start(title, True, True, 10)
+        question = Gtk.Label(label=self._poll.question)
+        self.poll_details_box_head.pack_start(question, True, True, 10)
 
-        answer_box = gtk.VBox()
+        answer_box = Gtk.VBox()
 
-        answer_box = gtk.VBox()
-        poll_details_box.pack_end(answer_box)
+        answer_box = Gtk.VBox()
+        poll_details_box.pack_end(answer_box, True, True, 10)
 
-        group = gtk.RadioButton()  # required for radio button group
+        group = Gtk.RadioButton()  # required for radio button group
 
         for choice in range(self._poll.number_of_options):
             self._logger.debug(self._poll.options[choice])
 
-            answer_row = gtk.HBox()
-            #spacing=8,
-
-            radio_box = gtk.HBox()
-            answer_row.pack_start(radio_box)
+            answer_row = Gtk.HBox()
 
             if self._poll.active:
-                button = gtk.RadioButton(group, '')
+                button = Gtk.RadioButton(group, self._poll.options[choice])
                 button.connect('toggled', self.vote_choice_radio_button,
                                choice)
-                radio_box.pack_start(button, True, False, 0)
+                answer_box.pack_start(button, True, False, 10)
                 if choice == self.current_vote:
                     button.set_active(True)
 
             if not self._poll.images[int(choice)] == '':
-                hbox = gtk.HBox()
+                hbox = Gtk.HBox()
                 hbox.add(self._load_image(self._poll.images[choice]))
                 hbox.show()
-                answer_row.pack_start(hbox)
+                answer_row.pack_start(hbox, True, True, 10)
 
-            answer_row.pack_start(gtk.Label(self._poll.options[choice]), True,
-                                  False, 0)
+            if not self._poll.active:
+                answer_row.pack_start(Gtk.Label(self._poll.options[choice]),
+                                      True, False, 10)
 
             if self._view_answer or not self._poll.active:
                 if votes_total > 0:
                     self._logger.debug(str(self._poll.data[choice] * 1.0 /
                                            votes_total))
 
-                    graph_box = gtk.HBox()
-                    answer_row.pack_start(graph_box)
+                    graph_box = Gtk.HBox()
+                    answer_row.pack_start(graph_box, True, True, 10)
 
-                    graph_box.pack_start(gtk.Label(
+                    graph_box.pack_start(Gtk.Label(
                         justify(self._poll.data, choice)))
 
-                    graph_box.pack_start(gtk.HBox())
-                    graph_box.pack_start(gtk.Label(str(self._poll.data[
-                        choice] * 100 / votes_total) + '%'))
-            answer_box.pack_start(answer_row)
+                    graph_box.pack_start(Gtk.HBox(), True, True, 10)
+                    graph_box.pack_start(Gtk.Label(str(self._poll.data[
+                        choice] * 100 / votes_total) + '%'), True, True, 10)
+            answer_box.pack_start(answer_row, True, True, 0)
 
         if self._view_answer or not self._poll.active:
             # Line above total
-            line_box = gtk.HBox()
-            answer_box.pack_start(line_box)
+            line_box = Gtk.HBox()
+            answer_box.pack_start(line_box, True, True, 10)
 
         # total votes
-        totals_box = gtk.HBox()
-        answer_box.pack_start(totals_box)
+        totals_box = Gtk.HBox()
+        answer_box.pack_start(totals_box, True, True, 10)
 
-        spacer = gtk.HBox()
+        spacer = Gtk.HBox()
 
-        spacer.pack_start(gtk.Label(str(votes_total)))
-        totals_box.pack_start(spacer)
+        spacer.pack_start(Gtk.Label(str(votes_total)), True, True, 10)
+        totals_box.pack_start(spacer, True, True, 10)
 
-        totals_box.pack_start(gtk.Label(' ' + _('votes')))
+        totals_box.pack_start(Gtk.Label(' ' + _('votes')), True, True, 10)
         if votes_total < self._poll.maxvoters:
-            totals_box.pack_start(gtk.Label(
-                ' (' + str(self._poll.maxvoters - votes_total) +
-                _(' votes left to collect') + ')'))
+            totals_box.pack_start(
+                Gtk.Label(_('(%d votes left to collect)') %
+                          (self._poll.maxvoters - votes_total)), True, True,
+                10)
 
         # Button area
         if self._poll.active and not self._previewing:
-            button_box = gtk.HBox()
-            button = gtk.Button(_("Vote"))
+            button_box = Gtk.HBox()
+            button = Gtk.Button(_("Vote"))
             button.connect('clicked', self._button_vote_cb)
-            button_box.pack_start(button)
-            self.poll_details_box_tail.pack_start(button_box)
+            button_box.pack_start(button, True, False, 10)
+            self.poll_details_box_tail.pack_start(button_box, True, True, 10)
         elif self._previewing:
-            button_box = gtk.HBox()
-            button = gtk.Button(_("Edit Poll"))
+            button_box = Gtk.HBox()
+            button = Gtk.Button(_("Edit Poll"))
             button.connect('clicked', self.button_edit_clicked)
-            button_box.pack_start(button)
-            button = gtk.Button(_("Save Poll"))
+            button_box.pack_start(button, True, True, 0)
+            button = Gtk.Button(_("Save Poll"))
             button.connect('clicked', self._button_save_cb)
-            button_box.pack_start(button)
-            self.poll_details_box_tail.pack_start(button_box)
+            button_box.pack_start(button, True, True, 0)
+            self.poll_details_box_tail.pack_start(button_box, True, True, 0)
 
     def vote_choice_radio_button(self, widget, data=None):
         """Track which radio button has been selected
@@ -659,16 +663,16 @@ class PollBuilder(activity.Activity):
     def _button_choose_image_cb(self, button, data=None, data2=None):
         if hasattr(mime, 'GENERIC_TYPE_IMAGE'):
             chooser = ObjectChooser(_('Choose image'), self,
-                                    gtk.DIALOG_MODAL |
-                                    gtk.DIALOG_DESTROY_WITH_PARENT,
+                                    Gtk.DialogFlags.MODAL |
+                                    Gtk.DialogFlags.DESTROY_WITH_PARENT,
                                     what_filter=mime.GENERIC_TYPE_IMAGE)
         else:
             chooser = ObjectChooser(_('Choose image'), self,
-                                    gtk.DIALOG_MODAL |
-                                    gtk.DIALOG_DESTROY_WITH_PARENT)
+                                    Gtk.DialogFlags.MODAL |
+                                    Gtk.DialogFlags.DESTROY_WITH_PARENT)
         try:
             result = chooser.run()
-            if result == gtk.RESPONSE_ACCEPT:
+            if result == Gtk.ResponseType.ACCEPT:
                 logging.debug('ObjectChooser: %r' %
                               chooser.get_selected_object())
                 jobject = chooser.get_selected_object()
@@ -676,7 +680,7 @@ class PollBuilder(activity.Activity):
                     mime.GENERIC_TYPE_IMAGE).mime_types
                 if jobject and jobject.file_path and \
                    jobject.metadata.get('mime_type') in images_mime_types:
-                    pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(
+                    pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(
                         jobject.file_path, self._image_size['height'],
                         self._image_size['width'])
                     self._poll.images[int(data)] = pixbuf
@@ -698,12 +702,12 @@ class PollBuilder(activity.Activity):
             del chooser
 
     def _show_image_thumbnail(self, parent_box, answer_number):
-        hbox = gtk.HBox()
+        hbox = Gtk.HBox()
         image_file_path = self._poll.images_ds_objects[int(answer_number)][
             'file_path']
-        pixbuf_thumbnail = gtk.gdk.pixbuf_new_from_file_at_size(
+        pixbuf_thumbnail = GdkPixbuf.Pixbuf.new_from_file_at_size(
             image_file_path, IMAGE_THUMBNAIL_HEIGHT, IMAGE_THUMBNAIL_WIDTH)
-        image = gtk.Image()
+        image = Gtk.Image()
         image.set_from_pixbuf(pixbuf_thumbnail)
         image.show()
         hbox.add(image)
@@ -711,7 +715,7 @@ class PollBuilder(activity.Activity):
         chl = parent_box.get_children()
         if len(chl) == 4:
             parent_box.remove(chl[len(chl) - 1])
-        parent_box.pack_start(hbox)
+        parent_box.pack_start(hbox, True, True, 0)
 
     def _already_loaded_image_in_answer(self, answer_number):
         if not self._poll.images_ds_objects[int(answer_number)] == {}:
@@ -728,175 +732,163 @@ class PollBuilder(activity.Activity):
         highlight is a list of strings denoting items failing validation.
         """
         self._current_view = 'build'
-        canvasbox = gtk.VBox()
+        canvasbox = Gtk.VBox()
 
         # pollbuilderbox is centered within canvasbox
         pollbuilderbox = self._canvas_pollbuilder_box()
-        alignment = gtk.Alignment(0.5, 0, 0, 0)
+        alignment = Gtk.Alignment.new(0.5, 0, 0, 0)
         alignment.add(pollbuilderbox)
-        canvasbox.pack_start(alignment)
+        canvasbox.pack_start(alignment, True, True, 0)
 
         mainbox = self._canvas_mainbox()
 
         pollbuilderbox.pack_start(mainbox, True, True, 0)
 
         mainbox.pack_start(self._text_mainbox(_('Build a Poll')), False,
-                           False, 0)
+                           False, 10)
 
-        poll_details_box = gtk.VBox()
-        mainbox.pack_start(poll_details_box, True, True, 0)
+        poll_details_box = Gtk.VBox()
+        mainbox.pack_start(poll_details_box, True, True, 10)
 
-        buildbox = gtk.VBox()
+        buildbox = Gtk.VBox()
         buildbox.set_homogeneous(False)
-        poll_details_box.pack_start(buildbox, True, True, 0)
+        poll_details_box.pack_start(buildbox, True, True, 10)
 
-        hbox = gtk.HBox()
-        hbox.pack_start(gtk.Label(_('Poll Title:')))
-        entrybox = gtk.Entry()
+        hbox = Gtk.HBox()
+        hbox.pack_start(Gtk.Label(_('Poll Title:')), True, True, 10)
+        entrybox = Gtk.Entry()
         entrybox.set_text(self._poll.title)
         entrybox.connect('changed', self._entry_activate_cb, 'title')
-        hbox.pack_start(entrybox, True, False, 0)
-        buildbox.pack_start(hbox, True, False, 0)
+        hbox.pack_start(entrybox, True, False, 10)
+        buildbox.pack_start(hbox, True, False, 10)
 
-        hbox = gtk.HBox()
-        hbox.pack_start(gtk.Label(_('Question:')))
-        entrybox = gtk.Entry()
+        hbox = Gtk.HBox()
+        hbox.pack_start(Gtk.Label(_('Question:')), True, True, 10)
+        entrybox = Gtk.Entry()
         entrybox.set_text(self._poll.question)
         entrybox.connect('changed', self._entry_activate_cb, 'question')
-        hbox.pack_start(entrybox, True, False, 0)
-        buildbox.pack_start(hbox, True, False, 0)
+        hbox.pack_start(entrybox, True, False, 10)
+        buildbox.pack_start(hbox, True, False, 10)
 
-        hbox = gtk.HBox()
-        hbox.pack_start(gtk.Label(_('Number of votes to collect:')))
-        entrybox = gtk.Entry()
+        hbox = Gtk.HBox()
+        hbox.pack_start(Gtk.Label(_('Number of votes to collect:')), True,
+                        True, 10)
+        entrybox = Gtk.Entry()
         entrybox.set_text(str(self._poll.maxvoters))
         entrybox.connect('changed', self._entry_activate_cb, 'maxvoters')
-        hbox.pack_start(entrybox)
-        buildbox.pack_start(hbox)
+        hbox.pack_start(entrybox, True, True, 10)
+        buildbox.pack_start(hbox, True, True, 10)
 
         for choice in self._poll.options.keys():
-            hbox = gtk.HBox()
-            hbox.pack_start(gtk.Label(_('Answer') + ' ' + str(choice + 1) +
-                            ':'))
-            entrybox = gtk.Entry()
+            hbox = Gtk.HBox()
+            hbox.pack_start(Gtk.Label(_('Answer' + ' ' + str(choice + 1) +
+                            ':')), True, True, 10)
+            entrybox = Gtk.Entry()
             entrybox.set_text(self._poll.options[choice])
             entrybox.connect('changed', self._entry_activate_cb, str(choice))
-            hbox.pack_start(entrybox, True, False, 0)
+            hbox.pack_start(entrybox, True, False, 10)
 
             if self._use_image:
                 if self._already_loaded_image_in_answer(choice):
-                    button = gtk.Button(_("Change Image"))
-                    hbox.pack_start(button, True, False, 0)
+                    button = Gtk.Button(_("Change Image"))
+                    hbox.pack_start(button, True, False, 10)
                     self._show_image_thumbnail(hbox, choice)
                 else:
-                    button = gtk.Button(_("Add Image"))
-                    hbox.pack_start(button)
+                    button = Gtk.Button(_("Add Image"))
+                    hbox.pack_start(button, True, True, 10)
                 button.connect('clicked', self._button_choose_image_cb,
                                str(choice), hbox)
 
-            buildbox.pack_start(hbox, True, False, 0)
+            buildbox.pack_start(hbox, True, False, 10)
 
         # PREVIEW & SAVE buttons
-        hbox = gtk.HBox()
-        button = gtk.Button(_("Step 1: Preview"))
+        hbox = Gtk.HBox()
+        button = Gtk.Button(_("Step 1: Preview"))
         button.connect('clicked', self._button_preview_cb)
-        hbox.pack_start(button)
-        button = gtk.Button(_("Step 2: Save"))
+        hbox.pack_start(button, True, True, 10)
+        button = Gtk.Button(_("Step 2: Save"))
         button.connect('clicked', self._button_save_cb)
-        hbox.pack_start(button)
+        hbox.pack_start(button, True, True, 10)
 
-        buildbox.pack_start(hbox)
+        buildbox.pack_start(hbox, True, True, 10)
 
-        buildbox.pack_end(gtk.HBox(), True, True, 0)
+        buildbox.pack_end(Gtk.HBox(), True, True, 10)
 
         return canvasbox
 
     def _options_canvas(self, editing=False, highlight=[]):
         """Show the options canvas."""
         self._current_view = 'options'
-        canvasbox = gtk.VBox()
-        alignment = gtk.Alignment(0.5, 0, 0, 0)
+        canvasbox = Gtk.VBox()
+        alignment = Gtk.Alignment.new(0.5, 0, 0, 0)
         # optionsbox is centered within canvasbox
         optionsbox = self._canvas_pollbuilder_box()
 
         alignment.add(optionsbox)
-        canvasbox.pack_start(alignment)
+        canvasbox.pack_start(alignment, True, True, 0)
 
         mainbox = self._canvas_mainbox()
 
         optionsbox.pack_start(mainbox, True, False, 0)
 
-        mainbox.pack_start(self._text_mainbox(_('Settings')))
+        mainbox.pack_start(self._text_mainbox(_('Settings')), True, True, 10)
 
-        options_details_box = gtk.VBox()
-        mainbox.pack_start(options_details_box, True, False, 0)
+        options_details_box = Gtk.VBox()
+        mainbox.pack_start(options_details_box, True, False, 10)
 
         #options widgets
         options_widgets = []
 
-        hbox = gtk.HBox()
-
-        viewResultCB = gtk.CheckButton(label='')
+        viewResultCB = Gtk.CheckButton(label=_('Show answers while voting'))
         viewResultCB.set_active(self._view_answer)
         viewResultCB.connect('toggled', self._view_result_checkbox_cb)
-        hbox.pack_start(viewResultCB)
-        hbox.pack_start(gtk.Label(_('Show answers while voting')))
+        options_details_box.pack_start(viewResultCB, True, True, 10)
 
-        options_details_box.pack_start(hbox)
-
-        hbox = gtk.HBox()
-        rememberVoteCB = gtk.CheckButton(label='')
+        rememberVoteCB = Gtk.CheckButton(label=_('Remember last vote'))
         rememberVoteCB.set_active(self._remember_last_vote)
         rememberVoteCB.connect('toggled', self._remember_last_vote_checkbox_cb)
-        hbox.pack_start(rememberVoteCB)
-        hbox.pack_start(gtk.Label(_('Remember last vote')))
+        options_details_box.pack_start(rememberVoteCB, True, True, 10)
 
-        options_details_box.pack_start(hbox)
-
-        hbox = gtk.HBox()
-        playVoteSoundCB = gtk.CheckButton(label='')
+        playVoteSoundCB = Gtk.CheckButton(
+            label=_('Play a sound when make a vote'))
         playVoteSoundCB.set_active(self._play_vote_sound)
         playVoteSoundCB.connect('toggled', self._play_vote_sound_checkbox_cb)
-        hbox.pack_start(playVoteSoundCB)
-        hbox.pack_start(gtk.Label(_('Play a sound when make a vote')))
+        options_details_box.pack_start(playVoteSoundCB, True, True, 10)
 
-        options_details_box.pack_start(hbox)
-
-        vbox = gtk.VBox()
-        hbox = gtk.HBox()
-        useImageCB = gtk.CheckButton(label='')
+        vbox = Gtk.VBox()
+        useImageCB = Gtk.CheckButton(
+            label=_('Use image in answer'))
         useImageCB.set_active(self._use_image)
-        hbox.pack_start(useImageCB)
-        hbox.pack_start(gtk.Label(_('Use image in answer')))
-        vbox.pack_start(hbox)
-        hbox2 = gtk.HBox()
-        hbox2.pack_start(gtk.Label(_('Image Size: ')))
-        entrybox = gtk.Entry(max=3)
-        entrybox.modify_bg(gtk.STATE_INSENSITIVE,
+        options_details_box.pack_start(useImageCB, True, True, 10)
+
+        hbox2 = Gtk.HBox()
+        hbox2.pack_start(Gtk.Label(_('Image Size: ')), True, True, 10)
+        entrybox = Gtk.Entry(max_length=3)
+        entrybox.modify_bg(Gtk.StateType.INSENSITIVE,
                            style.COLOR_WHITE.get_gdk_color())
         entrybox.set_text(str(self._image_size['height']))
         entrybox.connect('changed', self._entry_image_size_cb, 'height')
-        hbox2.pack_start(entrybox)
-        hbox2.pack_start(gtk.Label('x'))
-        entrybox = gtk.Entry(max=3)
-        entrybox.modify_bg(gtk.STATE_INSENSITIVE,
+        hbox2.pack_start(entrybox, True, True, 10)
+        hbox2.pack_start(Gtk.Label('x'), True, True, 10)
+        entrybox = Gtk.Entry(max_length=3)
+        entrybox.modify_bg(Gtk.StateType.INSENSITIVE,
                            style.COLOR_WHITE.get_gdk_color())
         entrybox.set_text(str(self._image_size['width']))
         entrybox.connect('changed', self._entry_image_size_cb, 'width')
-        hbox2.pack_start(entrybox)
+        hbox2.pack_start(entrybox, True, True, 10)
         useImageCB.connect('toggled', self._use_image_checkbox_cb, vbox, hbox2)
         if self._use_image:
-            vbox.pack_start(hbox2)
+            vbox.pack_start(hbox2, True, True, 10)
 
-        options_details_box.pack_start(vbox)
+        options_details_box.pack_start(vbox, True, True, 0)
 
-        hbox = gtk.HBox()
+        hbox = Gtk.HBox()
         # SAVE button
-        button = gtk.Button(_("Save"))
+        button = Gtk.Button(_("Save"))
         button.connect('clicked', self._button_save_options_cb)
-        hbox.pack_start(button)
+        hbox.pack_start(button, True, True, 10)
 
-        options_details_box.pack_end(hbox)
+        options_details_box.pack_end(hbox, True, True, 10)
 
         return canvasbox
 
@@ -912,7 +904,7 @@ class PollBuilder(activity.Activity):
     def _use_image_checkbox_cb(self, checkbox, data=None, data2=None):
         self._use_image = checkbox.get_active()
         if checkbox.get_active():
-            data.append(data2)
+            data.add(data2)
         else:
             data.remove(data2)
 
@@ -1072,7 +1064,7 @@ class PollBuilder(activity.Activity):
 
         Called from _poll_canvas, _select_canvas, _build_canvas
         """
-        pollbuilderbox = gtk.VBox()
+        pollbuilderbox = Gtk.VBox()
         return pollbuilderbox
 
     def _canvas_lessonplanbox(self, lesson_return=None):
@@ -1080,20 +1072,20 @@ class PollBuilder(activity.Activity):
 
         disconnect_lp True does not connect the button.
         """
-        lessonplanbox = gtk.VBox()
+        lessonplanbox = Gtk.VBox()
 
         if lesson_return:
             highlight = True
-            button = gtk.Button(_("Close Lessons"))
+            button = Gtk.Button(_("Close Lessons"))
         else:
             highlight = False
-            button = gtk.Button(_("Lesson Plans"))
+            button = Gtk.Button(_("Lesson Plans"))
         if lesson_return:
             button.connect('clicked', self._button_closelessonplan_cb,
                            lesson_return)
         else:
             button.connect('clicked', self._button_lessonplan_cb)
-        lessonplanbox.pack_start(button)
+        lessonplanbox.pack_start(button, True, True, 0)
         #, highlight=highlight)))
         return lessonplanbox
 
@@ -1120,7 +1112,7 @@ class PollBuilder(activity.Activity):
         self._lessonplan_widget = None
 
     def _canvas_mainbox(self):
-        mainbox = gtk.VBox()
+        mainbox = Gtk.VBox()
         return mainbox
 
     def _text_mainbox(self, text, warn=False):
@@ -1128,8 +1120,8 @@ class PollBuilder(activity.Activity):
 
         warn=True makes the text color RED and appends ???.
         """
-        title_box = gtk.VBox()
-        label = gtk.Label()
+        title_box = Gtk.VBox()
+        label = Gtk.Label()
         label.set_markup('<big><b>%s</b></big>' % text)
         title_box.add(label)
         return title_box
@@ -1386,7 +1378,7 @@ class PollSession(ExportedGObject):
         tube -- TubeConnection
         is_initiator -- boolean, True = we are sharing, False = we are joining
         get_buddy -- function
-        activity -- PollBuilder (sugar.activity.Activity)
+        activity -- PollBuilder (sugar3.activity.Activity)
         """
         super(PollSession, self).__init__(tube, PATH)
         self._logger = logging.getLogger('poll-activity.PollSession')
@@ -1534,7 +1526,7 @@ class PollSession(ExportedGObject):
 
     def get_pixbuf(self, img_encode_buf):
         decode_img_buf = base64.b64decode(img_encode_buf)
-        loader = gtk.gdk.PixbufLoader()
+        loader = GdkPixbuf.PixbufLoader()
         loader.write(decode_img_buf)
         loader.close()
         pixbuf = loader.get_pixbuf()
@@ -1686,7 +1678,7 @@ def justify(textdict, choice):
     return value.rjust(max_len)
 
 
-class LessonPlanWidget (gtk.Notebook):
+class LessonPlanWidget (Gtk.Notebook):
     def __init__(self, basepath):
         """Create a Notebook widget for displaying lesson plans in tabs.
 
@@ -1718,4 +1710,4 @@ class LessonPlanWidget (gtk.Notebook):
         canvas.view_online_layout()
         canvas.zoom_width()
         canvas.set_show_margin(False)
-        self.append_page(canvas, gtk.Label(name))
+        self.append_page(canvas, Gtk.Label(label=name))
