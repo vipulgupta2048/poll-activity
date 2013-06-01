@@ -131,7 +131,8 @@ class PollBuilder(activity.Activity):
         #This property allows result viewing while voting
         self._view_answer = VIEW_ANSWER
 
-        #This property allows remember in the radio button options the last vote
+        #This property allows remember in the radio button options
+        #the last vote
         self._remember_last_vote = REMEMBER_LAST_VOTE
 
         #This property allows play a sound when click in
@@ -225,7 +226,7 @@ class PollBuilder(activity.Activity):
             if not ds_object_id == '':
                 images_ds_objects[int(index)]['id'] = ds_object_id
                 images_ds_objects[int(index)]['file_path'] = \
-                datastore.get(ds_object_id).file_path
+                    datastore.get(ds_object_id).file_path
         return images_ds_objects
 
     def read_file(self, file_path):
@@ -258,7 +259,8 @@ class PollBuilder(activity.Activity):
             votes = cPickle.load(f)
             images_ds_objects_id = cPickle.load(f)
             images = self._create_pixbufs(images_ds_objects_id)
-            images_ds_object = self._get_images_ds_objects(images_ds_objects_id)
+            images_ds_object = self._get_images_ds_objects(
+                images_ds_objects_id)
             poll = Poll(self, title, author, active,
                         date.fromordinal(int(createdate_i)),
                         maxvoters, question, number_of_options, options,
@@ -274,9 +276,9 @@ class PollBuilder(activity.Activity):
         """
         s = cPickle.dumps(len(self._polls))
         activity_settings = {'view_answer': self._view_answer,
-            'remember_last_vote': self._remember_last_vote,
-            'play_vote_sound': self._play_vote_sound,
-            'use_image': self._use_image}
+                             'remember_last_vote': self._remember_last_vote,
+                             'play_vote_sound': self._play_vote_sound,
+                             'use_image': self._use_image}
         s += cPickle.dumps(activity_settings)
         s += cPickle.dumps(self._image_size)
         for poll in self._polls:
@@ -323,7 +325,8 @@ class PollBuilder(activity.Activity):
         mainbox.pack_start(poll_details_box, True, True, 0)
 
         self.poll_details_box_head = gtk.VBox()
-        poll_details_box.pack_start(self.poll_details_box_head, False, False, 0)
+        poll_details_box.pack_start(self.poll_details_box_head, False, False,
+                                    0)
 
         self.poll_details_box = gtk.VBox()
         poll_details_scroll = gtk.ScrolledWindow()
@@ -332,7 +335,8 @@ class PollBuilder(activity.Activity):
         poll_details_box.pack_start(poll_details_scroll, True, True, 0)
 
         self.poll_details_box_tail = gtk.HBox()
-        poll_details_box.pack_start(self.poll_details_box_tail, False, False, 0)
+        poll_details_box.pack_start(self.poll_details_box_tail, False, False,
+                                    0)
 
         self.current_vote = None
         self.draw_poll_details_box()
@@ -352,7 +356,7 @@ class PollBuilder(activity.Activity):
         pollbuilderbox.pack_start(mainbox, True, True, 0)
 
         mainbox.pack_start(self._text_mainbox(_('Choose a Poll')), False,
-            False, 0)
+                           False, 0)
 
         poll_details_box = gtk.VBox()
         mainbox.pack_start(poll_details_box, True, True, 0)
@@ -512,7 +516,8 @@ class PollBuilder(activity.Activity):
 
             if self._poll.active:
                 button = gtk.RadioButton(group, '')
-                button.connect('toggled', self.vote_choice_radio_button, choice)
+                button.connect('toggled', self.vote_choice_radio_button,
+                               choice)
                 radio_box.pack_start(button, True, False, 0)
                 if choice == self.current_vote:
                     button.set_active(True)
@@ -524,27 +529,25 @@ class PollBuilder(activity.Activity):
                 answer_row.pack_start(hbox)
 
             answer_row.pack_start(gtk.Label(self._poll.options[choice]), True,
-                                        False, 0)
+                                  False, 0)
 
-            if self._view_answer \
-                or not self._poll.active:
-                    if votes_total > 0:
-                        self._logger.debug(str(self._poll.data[choice
-                        ] * 1.0 / votes_total))
+            if self._view_answer or not self._poll.active:
+                if votes_total > 0:
+                    self._logger.debug(str(self._poll.data[choice] * 1.0 /
+                                           votes_total))
 
-                        graph_box = gtk.HBox()
-                        answer_row.pack_start(graph_box)
+                    graph_box = gtk.HBox()
+                    answer_row.pack_start(graph_box)
 
-                        graph_box.pack_start(gtk.Label(
-                            justify(self._poll.data, choice)))
+                    graph_box.pack_start(gtk.Label(
+                        justify(self._poll.data, choice)))
 
-                        graph_box.pack_start(gtk.HBox())
-                        graph_box.pack_start(gtk.Label(str(self._poll.data[
-                            choice] * 100 / votes_total) + '%'))
+                    graph_box.pack_start(gtk.HBox())
+                    graph_box.pack_start(gtk.Label(str(self._poll.data[
+                        choice] * 100 / votes_total) + '%'))
             answer_box.pack_start(answer_row)
 
-        if self._view_answer \
-            or not self._poll.active:
+        if self._view_answer or not self._poll.active:
             # Line above total
             line_box = gtk.HBox()
             answer_box.pack_start(line_box)
@@ -562,7 +565,7 @@ class PollBuilder(activity.Activity):
         if votes_total < self._poll.maxvoters:
             totals_box.pack_start(gtk.Label(
                 ' (' + str(self._poll.maxvoters - votes_total) +
-                     _(' votes left to collect') + ')'))
+                _(' votes left to collect') + ')'))
 
         # Button area
         if self._poll.active and not self._previewing:
@@ -612,10 +615,9 @@ class PollBuilder(activity.Activity):
                 self._poll.register_vote(self.current_vote, self.nick_sha1)
             except OverflowError:
                 self._logger.debug('Local vote failed: '
-                    'maximum votes already registered.')
+                                   'maximum votes already registered.')
             except ValueError:
-                self._logger.debug('Local vote failed: '
-                    'poll closed.')
+                self._logger.debug('Local vote failed: poll closed.')
             self._logger.debug('Results: ' + str(self._poll.data))
             if self._play_vote_sound:
                 self._play_vote_button_sound()
@@ -655,7 +657,7 @@ class PollBuilder(activity.Activity):
         self.show_all()
 
     def _button_choose_image_cb(self, button, data=None, data2=None):
-        if  hasattr(mime, 'GENERIC_TYPE_IMAGE'):
+        if hasattr(mime, 'GENERIC_TYPE_IMAGE'):
             chooser = ObjectChooser(_('Choose image'), self,
                                     gtk.DIALOG_MODAL |
                                     gtk.DIALOG_DESTROY_WITH_PARENT,
@@ -668,7 +670,7 @@ class PollBuilder(activity.Activity):
             result = chooser.run()
             if result == gtk.RESPONSE_ACCEPT:
                 logging.debug('ObjectChooser: %r' %
-                chooser.get_selected_object())
+                              chooser.get_selected_object())
                 jobject = chooser.get_selected_object()
                 images_mime_types = mime.get_generic_type(
                     mime.GENERIC_TYPE_IMAGE).mime_types
@@ -679,9 +681,9 @@ class PollBuilder(activity.Activity):
                         self._image_size['width'])
                     self._poll.images[int(data)] = pixbuf
                     self._poll.images_ds_objects[int(data)]['id'] = \
-                    jobject.object_id
+                        jobject.object_id
                     self._poll.images_ds_objects[int(data)]['file_path'] = \
-                    jobject.file_path
+                        jobject.file_path
                     self._show_image_thumbnail(data2, data)
                     button.set_label(_('Change Image'))
                 else:
@@ -699,9 +701,8 @@ class PollBuilder(activity.Activity):
         hbox = gtk.HBox()
         image_file_path = self._poll.images_ds_objects[int(answer_number)][
             'file_path']
-        pixbuf_thumbnail = gtk.gdk.pixbuf_new_from_file_at_size(image_file_path,
-            IMAGE_THUMBNAIL_HEIGHT,
-            IMAGE_THUMBNAIL_WIDTH)
+        pixbuf_thumbnail = gtk.gdk.pixbuf_new_from_file_at_size(
+            image_file_path, IMAGE_THUMBNAIL_HEIGHT, IMAGE_THUMBNAIL_WIDTH)
         image = gtk.Image()
         image.set_from_pixbuf(pixbuf_thumbnail)
         image.show()
@@ -740,7 +741,7 @@ class PollBuilder(activity.Activity):
         pollbuilderbox.pack_start(mainbox, True, True, 0)
 
         mainbox.pack_start(self._text_mainbox(_('Build a Poll')), False,
-            False, 0)
+                           False, 0)
 
         poll_details_box = gtk.VBox()
         mainbox.pack_start(poll_details_box, True, True, 0)
@@ -776,7 +777,7 @@ class PollBuilder(activity.Activity):
         for choice in self._poll.options.keys():
             hbox = gtk.HBox()
             hbox.pack_start(gtk.Label(_('Answer') + ' ' + str(choice + 1) +
-            ':'))
+                            ':'))
             entrybox = gtk.Entry()
             entrybox.set_text(self._poll.options[choice])
             entrybox.connect('changed', self._entry_activate_cb, str(choice))
@@ -791,7 +792,7 @@ class PollBuilder(activity.Activity):
                     button = gtk.Button(_("Add Image"))
                     hbox.pack_start(button)
                 button.connect('clicked', self._button_choose_image_cb,
-                str(choice), hbox)
+                               str(choice), hbox)
 
             buildbox.pack_start(hbox, True, False, 0)
 
@@ -987,10 +988,10 @@ class PollBuilder(activity.Activity):
             author=self.nick, active=True,
             question=_('What is your favorite color?'),
             options={0: ('Green'),
-                        1: ('Red'),
-                        2: ('Blue'),
-                        3: _('Orange'),
-                        4: _('None of the above')})
+                     1: ('Red'),
+                     2: ('Blue'),
+                     3: _('Orange'),
+                     4: _('None of the above')})
         self.current_vote = None
         self._polls.add(self._poll)
 
@@ -1059,12 +1060,12 @@ class PollBuilder(activity.Activity):
                                _('Somebody voted on %s') % title)
                 except OverflowError:
                     self._logger.debug('Ignored mesh vote %u from %s:'
-                        ' poll reached maximum votes.',
-                        choice, votersha)
+                                       ' poll reached maximum votes.',
+                                       choice, votersha)
                 except ValueError:
                     self._logger.debug('Ignored mesh vote %u from %s:'
-                        ' poll closed.',
-                        choice, votersha)
+                                       ' poll closed.',
+                                       choice, votersha)
 
     def _canvas_pollbuilder_box(self):
         """CanvasBox definition for pollbuilderbox.
@@ -1089,7 +1090,7 @@ class PollBuilder(activity.Activity):
             button = gtk.Button(_("Lesson Plans"))
         if lesson_return:
             button.connect('clicked', self._button_closelessonplan_cb,
-                lesson_return)
+                           lesson_return)
         else:
             button.connect('clicked', self._button_lessonplan_cb)
         lessonplanbox.pack_start(button)
@@ -1187,20 +1188,21 @@ class PollBuilder(activity.Activity):
     def _new_tube_cb(self, id, initiator, type, service, params, state):
         """Callback for when we have a Tube."""
         self._logger.debug('New tube: ID=%d initator=%d type=%d service=%s '
-                     'params=%r state=%d', id, initiator, type, service,
-                     params, state)
+                           'params=%r state=%d', id, initiator, type, service,
+                           params, state)
 
-        if (type == telepathy.TUBE_TYPE_DBUS and
-            service == SERVICE):
+        if (type == telepathy.TUBE_TYPE_DBUS and service == SERVICE):
             if state == telepathy.TUBE_STATE_LOCAL_PENDING:
-                self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].AcceptDBusTube(id)
+                self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].AcceptDBusTube(
+                    id)
 
-            tube_conn = TubeConnection(self.conn,
+            tube_conn = TubeConnection(
+                self.conn,
                 self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES],
                 id,
                 group_iface=self.text_chan[telepathy.CHANNEL_INTERFACE_GROUP])
             self.poll_session = PollSession(tube_conn, self.initiating,
-                self._get_buddy, self)
+                                            self._get_buddy, self)
 
     def _buddy_joined_cb(self, activity, buddy):
         self.alert(buddy.props.nick, _('Joined'))
@@ -1215,12 +1217,13 @@ class PollBuilder(activity.Activity):
         self._logger.debug('Trying to find owner of handle %u...', cs_handle)
         group = self.text_chan[telepathy.CHANNEL_INTERFACE_GROUP]
         my_csh = group.GetSelfHandle()
-        SIGNAL_TELEPATHY = telepathy.CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES
+        SIGNAL_TELEPATHY = \
+            telepathy.CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES
         self._logger.debug('My handle in that group is %u', my_csh)
         if my_csh == cs_handle:
             handle = self.conn.GetSelfHandle()
             self._logger.debug('CS handle %u belongs to me, %u', cs_handle,
-                handle)
+                               handle)
         elif group.GetGroupFlags() & SIGNAL_TELEPATHY:
             handle = group.GetHandleOwners([cs_handle])[0]
             self._logger.debug('CS handle %u belongs to %u', cs_handle, handle)
@@ -1250,7 +1253,7 @@ class Poll:
         self.options = (options or {0: '', 1: '', 2: '', 3: '', 4: ''})
         self.images = (images or {0: '', 1: '', 2: '', 3: '', 4: ''})
         self.images_ds_objects = (images_ds_objects or {0: {}, 1: {}, 2: {},
-            3: {}, 4: {}})
+                                                        3: {}, 4: {}})
         self.data = (data or {0: 0, 1: 0, 2: 0, 3: 0, 4: 0})
         self.votes = (votes or {})
         self._logger = logging.getLogger('poll-activity.Poll')
@@ -1344,9 +1347,9 @@ class Poll:
                         self.activity.poll_session.Vote(
                             self.author, self.title, choice, votersha)
             else:
-                raise OverflowError, 'Poll reached maxvoters'
+                raise OverflowError('Poll reached maxvoters')
         else:
-            raise ValueError, 'Poll closed'
+            raise ValueError('Poll closed')
 
     def _pixbuf_save_cb(self, buf, data):
         data[0] += buf
@@ -1424,13 +1427,17 @@ class PollSession(ExportedGObject):
                 self._logger.debug('Joining, sending Hello')
                 self.Hello()
             self.tube.add_signal_receiver(self.hello_cb, 'Hello', IFACE,
-                path=PATH, sender_keyword='sender')
+                                          path=PATH,
+                                          sender_keyword='sender')
             self.tube.add_signal_receiver(self.vote_cb, 'Vote', IFACE,
-                path=PATH, sender_keyword='sender')
+                                          path=PATH,
+                                          sender_keyword='sender')
             self.tube.add_signal_receiver(self.helloback_cb, 'HelloBack',
-                IFACE, path=PATH, sender_keyword='sender')
-            self.tube.add_signal_receiver(self.updatedpoll_cb,
-                'UpdatedPoll', IFACE, path=PATH, sender_keyword='sender')
+                                          IFACE, path=PATH,
+                                          sender_keyword='sender')
+            self.tube.add_signal_receiver(self.updatedpoll_cb, 'UpdatedPoll',
+                                          IFACE, path=PATH,
+                                          sender_keyword='sender')
             self.my_bus_name = self.tube.get_unique_name()
             self.entered = True
 
@@ -1459,8 +1466,8 @@ class PollSession(ExportedGObject):
 
     @signal(dbus_interface=IFACE, signature='ssuuusua{us}a{uu}a{su}a{us}')
     def UpdatedPoll(self, title, author, active, createdate, maxvoters,
-                   question, number_of_options, options, data, votes,
-                   images_buf):
+                    question, number_of_options, options, data, votes,
+                    images_buf):
         """Broadcast a new poll to the mesh."""
 
     def hello_cb(self, sender=None):
