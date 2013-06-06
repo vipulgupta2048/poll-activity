@@ -194,14 +194,11 @@ class PollBuilder(activity.Activity):
         self._root = Gtk.VBox()
         self.set_canvas(self._root)
 
-        self.set_root(self._select_canvas())
         self.show_all()
 
         self.poll_session = None  # PollSession
         self.connect('shared', self._shared_cb)
         self.connect('joined', self._joined_cb)
-
-        self._activity = activity.Activity
 
     def set_root(self, widget):
         if self._root.get_children():
@@ -269,6 +266,9 @@ class PollBuilder(activity.Activity):
                         data, votes, images, images_ds_object)
             self._polls.add(poll)
         f.close()
+
+        self.set_root(self._select_canvas())
+        self.show_all()
 
     def write_file(self, file_path):
         """Implement writing to the journal
@@ -354,16 +354,16 @@ class PollBuilder(activity.Activity):
 
         # pollbuilderbox is centered within canvasbox
         pollbuilderbox = self._canvas_pollbuilder_box()
-        canvasbox.pack_start(pollbuilderbox, True, True, 0)
+        canvasbox.pack_start(pollbuilderbox, True, True, 10)
 
         mainbox = self._canvas_mainbox()
-        pollbuilderbox.pack_start(mainbox, True, True, 0)
+        pollbuilderbox.pack_start(mainbox, True, True, 10)
 
         mainbox.pack_start(self._text_mainbox(_('Choose a Poll')), False,
                            False, 0)
 
         poll_details_box = Gtk.VBox()
-        mainbox.pack_start(poll_details_box, True, True, 0)
+        mainbox.pack_start(poll_details_box, True, True, 10)
 
         # add scroll window
         scrolledwindow = Gtk.ScrolledWindow()
@@ -372,7 +372,7 @@ class PollBuilder(activity.Activity):
 
         poll_selector_box = Gtk.VBox()
         scrolledwindow.add_with_viewport(poll_selector_box)
-        poll_details_box.pack_start(scrolledwindow, True, True, 0)
+        poll_details_box.pack_start(scrolledwindow, True, True, 10)
 
         row_number = 0
         for poll in self._polls:
@@ -383,30 +383,27 @@ class PollBuilder(activity.Activity):
                 row_bgcolor = style.COLOR_SELECTION_GREY.get_int()
             row_number += 1
             poll_row = Gtk.HBox()
-            poll_selector_box.pack_start(poll_row, False, False, 0)
+            poll_selector_box.pack_start(poll_row, False, False, 10)
 
-            sized_box = Gtk.HBox()
-            poll_row.pack_start(sized_box, True, False, 0)
             title = Gtk.Label(label=poll.title + ' (' + poll.author + ')')
-            sized_box.pack_start(title, True, False, 0)
+            align = Gtk.Alignment.new(0, 0.5, 0, 0)
+            align.add(title)
+            poll_row.pack_start(align, True, True, 10)
 
-            sized_box = Gtk.HBox()
-            poll_row.pack_start(sized_box, True, True, 0)
             if poll.active:
                 button = Gtk.Button(_('VOTE'))
             else:
                 button = Gtk.Button(_('SEE RESULTS'))
             button.connect('clicked', self._select_poll_button_cb, sha)
-            sized_box.pack_start(button, True, True, 0)
+            poll_row.pack_start(button, False, False, 10)
 
-            sized_box = Gtk.HBox()
-            poll_row.pack_start(sized_box, True, True, 0)
             if poll.author == profile.get_nick_name():
                 button = Gtk.Button(_('DELETE'))
                 button.connect('clicked', self._delete_poll_button_cb, sha)
-                sized_box.pack_start(button, True, True, 0)
+                poll_row.pack_start(button, False, False, 10)
+
             poll_row.pack_start(Gtk.Label(
-                poll.createdate.strftime('%d/%m/%y')), True, True, 0)
+                poll.createdate.strftime('%d/%m/%y')), False, False, 10)
 
         return canvasbox
 
