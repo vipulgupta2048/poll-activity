@@ -509,7 +509,7 @@ class PollBuilder(activity.Activity):
         answer_box = Gtk.VBox()
         poll_details_box.pack_end(answer_box, True, True, 10)
 
-        group = Gtk.RadioButton()  # required for radio button group
+        group = Gtk.RadioButton()
 
         for choice in range(self._poll.number_of_options):
             self._logger.debug(self._poll.options[choice])
@@ -517,7 +517,8 @@ class PollBuilder(activity.Activity):
             answer_row = Gtk.HBox()
 
             if self._poll.active:
-                button = Gtk.RadioButton(group, self._poll.options[choice])
+                button = Gtk.RadioButton.new_with_label_from_widget(
+                    group, self._poll.options[choice])
                 button.connect('toggled', self.vote_choice_radio_button,
                                choice)
                 answer_box.pack_start(button, True, False, 10)
@@ -543,7 +544,7 @@ class PollBuilder(activity.Activity):
                     answer_row.pack_start(graph_box, True, True, 10)
 
                     graph_box.pack_start(Gtk.Label(
-                        justify(self._poll.data, choice)))
+                        justify(self._poll.data, choice)), True, True, 10)
 
                     graph_box.pack_start(Gtk.HBox(), True, True, 10)
                     graph_box.pack_start(Gtk.Label(str(self._poll.data[
