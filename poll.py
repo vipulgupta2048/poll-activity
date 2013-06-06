@@ -308,14 +308,14 @@ class PollBuilder(activity.Activity):
         canvasbox = Gtk.VBox()
 
         # pollbuilderbox is centered within canvasbox
-        pollbuilderbox = self._canvas_pollbuilder_box()
+        pollbuilderbox = Gtk.VBox()
 
         alignment = Gtk.Alignment.new(0.5, 0, 1, 0)
         alignment.add(pollbuilderbox)
         canvasbox.pack_start(alignment, True, True, 0)
         #canvasbox.pack_start(pollbuilderbox, True, True, 0)
 
-        mainbox = self._canvas_mainbox()
+        mainbox = Gtk.VBox()
         pollbuilderbox.pack_start(mainbox, True, True, 0)
 
         if not self._previewing:
@@ -353,10 +353,10 @@ class PollBuilder(activity.Activity):
         canvasbox = Gtk.VBox()
 
         # pollbuilderbox is centered within canvasbox
-        pollbuilderbox = self._canvas_pollbuilder_box()
+        pollbuilderbox = Gtk.VBox()
         canvasbox.pack_start(pollbuilderbox, True, True, 10)
 
-        mainbox = self._canvas_mainbox()
+        mainbox = Gtk.VBox()
         pollbuilderbox.pack_start(mainbox, True, True, 10)
 
         mainbox.pack_start(self._text_mainbox(_('Choose a Poll')), False,
@@ -414,10 +414,10 @@ class PollBuilder(activity.Activity):
         canvasbox = Gtk.VBox()
 
         # pollbuilderbox is centered within canvasbox
-        pollbuilderbox = self._canvas_pollbuilder_box()
+        pollbuilderbox = Gtk.VBox()
         canvasbox.pack_start(pollbuilderbox, True, False, 0)
 
-        mainbox = self._canvas_mainbox()
+        mainbox = Gtk.VBox()
         pollbuilderbox.pack_start(mainbox, True, False, 0)
 
         mainbox.pack_start(self._text_mainbox(_('Lesson Plans')), True, True,
@@ -732,59 +732,48 @@ class PollBuilder(activity.Activity):
         self._current_view = 'build'
         canvasbox = Gtk.VBox()
 
-        # pollbuilderbox is centered within canvasbox
-        pollbuilderbox = self._canvas_pollbuilder_box()
-        alignment = Gtk.Alignment.new(0.5, 0, 0, 0)
-        alignment.add(pollbuilderbox)
-        canvasbox.pack_start(alignment, True, True, 0)
-
-        mainbox = self._canvas_mainbox()
-
-        pollbuilderbox.pack_start(mainbox, True, True, 0)
-
-        mainbox.pack_start(self._text_mainbox(_('Build a Poll')), False,
+        canvasbox.pack_start(self._text_mainbox(_('Build a Poll')), False,
                            False, 10)
 
         poll_details_box = Gtk.VBox()
-        mainbox.pack_start(poll_details_box, True, True, 10)
+        canvasbox.pack_start(poll_details_box, False, False, 10)
 
         buildbox = Gtk.VBox()
-        buildbox.set_homogeneous(False)
-        poll_details_box.pack_start(buildbox, True, True, 10)
+        poll_details_box.pack_start(buildbox, False, False, 10)
 
         hbox = Gtk.HBox()
-        hbox.pack_start(Gtk.Label(_('Poll Title:')), True, True, 10)
+        hbox.pack_start(Gtk.Label(_('Poll Title:')), False, False, 10)
         entrybox = Gtk.Entry()
         entrybox.set_text(self._poll.title)
         entrybox.connect('changed', self._entry_activate_cb, 'title')
-        hbox.pack_start(entrybox, True, False, 10)
-        buildbox.pack_start(hbox, True, False, 10)
+        hbox.pack_start(entrybox, True, True, 10)
+        buildbox.pack_start(hbox, False, False, 10)
 
         hbox = Gtk.HBox()
-        hbox.pack_start(Gtk.Label(_('Question:')), True, True, 10)
+        hbox.pack_start(Gtk.Label(_('Question:')), False, False, 10)
         entrybox = Gtk.Entry()
         entrybox.set_text(self._poll.question)
         entrybox.connect('changed', self._entry_activate_cb, 'question')
-        hbox.pack_start(entrybox, True, False, 10)
-        buildbox.pack_start(hbox, True, False, 10)
+        hbox.pack_start(entrybox, True, True, 10)
+        buildbox.pack_start(hbox, False, False, 10)
 
         hbox = Gtk.HBox()
-        hbox.pack_start(Gtk.Label(_('Number of votes to collect:')), True,
-                        True, 10)
+        hbox.pack_start(Gtk.Label(_('Number of votes to collect:')), False,
+                        False, 10)
         entrybox = Gtk.Entry()
         entrybox.set_text(str(self._poll.maxvoters))
         entrybox.connect('changed', self._entry_activate_cb, 'maxvoters')
         hbox.pack_start(entrybox, True, True, 10)
-        buildbox.pack_start(hbox, True, True, 10)
+        buildbox.pack_start(hbox, False, False, 10)
 
         for choice in self._poll.options.keys():
             hbox = Gtk.HBox()
-            hbox.pack_start(Gtk.Label(_('Answer' + ' ' + str(choice + 1) +
-                            ':')), True, True, 10)
+            hbox.pack_start(Gtk.Label(_('Answer %d:') % (choice + 1)), False,
+                            False, 10)
             entrybox = Gtk.Entry()
             entrybox.set_text(self._poll.options[choice])
             entrybox.connect('changed', self._entry_activate_cb, str(choice))
-            hbox.pack_start(entrybox, True, False, 10)
+            hbox.pack_start(entrybox, True, True, 10)
 
             if self._use_image:
                 if self._already_loaded_image_in_answer(choice):
@@ -793,11 +782,11 @@ class PollBuilder(activity.Activity):
                     self._show_image_thumbnail(hbox, choice)
                 else:
                     button = Gtk.Button(_("Add Image"))
-                    hbox.pack_start(button, True, True, 10)
+                    hbox.pack_start(button, True, False, 10)
                 button.connect('clicked', self._button_choose_image_cb,
                                str(choice), hbox)
 
-            buildbox.pack_start(hbox, True, False, 10)
+            buildbox.pack_start(hbox, False, False, 10)
 
         # PREVIEW & SAVE buttons
         hbox = Gtk.HBox()
@@ -808,9 +797,7 @@ class PollBuilder(activity.Activity):
         button.connect('clicked', self._button_save_cb)
         hbox.pack_start(button, True, True, 10)
 
-        buildbox.pack_start(hbox, True, True, 10)
-
-        buildbox.pack_end(Gtk.HBox(), True, True, 10)
+        buildbox.pack_start(hbox, False, False, 10)
 
         return canvasbox
 
@@ -820,12 +807,12 @@ class PollBuilder(activity.Activity):
         canvasbox = Gtk.VBox()
         alignment = Gtk.Alignment.new(0.5, 0, 0, 0)
         # optionsbox is centered within canvasbox
-        optionsbox = self._canvas_pollbuilder_box()
+        optionsbox = Gtk.VBox()
 
         alignment.add(optionsbox)
         canvasbox.pack_start(alignment, True, True, 0)
 
-        mainbox = self._canvas_mainbox()
+        mainbox = Gtk.VBox()
 
         optionsbox.pack_start(mainbox, True, False, 0)
 
@@ -1057,14 +1044,6 @@ class PollBuilder(activity.Activity):
                                        ' poll closed.',
                                        choice, votersha)
 
-    def _canvas_pollbuilder_box(self):
-        """CanvasBox definition for pollbuilderbox.
-
-        Called from _poll_canvas, _select_canvas, _build_canvas
-        """
-        pollbuilderbox = Gtk.VBox()
-        return pollbuilderbox
-
     def _canvas_lessonplanbox(self, lesson_return=None):
         """Render the lessonplanbox.
 
@@ -1108,10 +1087,6 @@ class PollBuilder(activity.Activity):
         self.show_all()
         del self._lessonplan_widget
         self._lessonplan_widget = None
-
-    def _canvas_mainbox(self):
-        mainbox = Gtk.VBox()
-        return mainbox
 
     def _text_mainbox(self, text, warn=False):
         """Main text style.
