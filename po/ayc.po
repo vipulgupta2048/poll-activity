@@ -6,227 +6,232 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-27 00:31-0400\n"
-"PO-Revision-Date: 2011-11-26 05:07+0200\n"
+"POT-Creation-Date: 2013-06-08 00:33-0400\n"
+"PO-Revision-Date: 2013-06-17 19:23+0200\n"
 "Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: aym\n"
+"Language: ayc\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.0.5\n"
 
-#: activity/activity.info:2
+#. TRANS: "name" option from activity.info file
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
 msgid "Poll"
-msgstr ""
+msgstr "Yatxatäwi"
 
 #: i18n_misc_strings.py:1
 msgid "Lesson 1"
-msgstr ""
+msgstr "1 Yatiña"
 
 #: i18n_misc_strings.py:2
 msgid "Lesson 2"
-msgstr ""
+msgstr "2 Yatiña"
 
 #: i18n_misc_strings.py:3
 msgid "Lesson 3"
-msgstr ""
+msgstr "3 Yatiña"
 
 #: i18n_misc_strings.py:4
 msgid "Lesson 4"
-msgstr ""
+msgstr "4 Yatiña"
 
 #: i18n_misc_strings.py:5
 msgid "Introduction"
-msgstr ""
+msgstr "Nayraqata arunaka"
 
-#: poll.py:360
-msgid "VOTE!"
-msgstr ""
-
-#: poll.py:362
-msgid "Poll Preview"
-msgstr ""
-
-#: poll.py:410 poll.py:1377
+#: poll.py:162 poll.py:362
 msgid "Choose a Poll"
-msgstr ""
+msgstr "Maya yatxatäwi ajllma"
 
-#: poll.py:461
-msgid "VOTE"
-msgstr ""
+#: poll.py:167 poll.py:735
+msgid "Build a Poll"
+msgstr "Yatxatäwi wakichaña"
 
-#: poll.py:463
-msgid "SEE RESULTS"
-msgstr ""
+#: poll.py:172 poll.py:819
+msgid "Settings"
+msgstr "Wakichäwinaka"
 
-#: poll.py:471
-msgid "DELETE"
-msgstr ""
-
-#: poll.py:498 poll.py:1311
+#: poll.py:177 poll.py:423 poll.py:1059
 msgid "Lesson Plans"
-msgstr ""
+msgstr "Yatiña wakichäwinaka"
 
-#: poll.py:710
+#: poll.py:322
+msgid "VOTE!"
+msgstr "¡JAQTMA!"
+
+#: poll.py:324
+msgid "Poll Preview"
+msgstr "Yatxatäwitaki wakichata uñjäwi"
+
+#: poll.py:394
+msgid "VOTE"
+msgstr "JAQTÄWI"
+
+#: poll.py:396
+msgid "SEE RESULTS"
+msgstr "JAQTÄWINAKANA ATIPSURI UÑJAÑA"
+
+#: poll.py:401
+msgid "DELETE"
+msgstr "CHHAQTAYAMA"
+
+#: poll.py:565
 msgid "votes"
-msgstr ""
+msgstr "Jaqtanaka"
 
-#: poll.py:716
-msgid " votes left to collect"
-msgstr ""
+#: poll.py:568
+#, python-format
+#, python-format,
+msgid "(%d votes left to collect)"
+msgstr "(%d jani jaqtatanaka)"
 
-#: poll.py:724 poll.py:1241
+#: poll.py:575 poll.py:1036
 msgid "Vote"
-msgstr ""
+msgstr "Jaqtma"
 
-#: poll.py:732
+#: poll.py:581
 msgid "Edit Poll"
-msgstr ""
+msgstr "Yatxatäwi chiqachaña"
 
-#: poll.py:735
+#: poll.py:584
 msgid "Save Poll"
-msgstr ""
+msgstr "Yatxatäwi imaña"
 
-#: poll.py:783 poll.py:842 poll.py:1136
+#: poll.py:631 poll.py:693 poll.py:928
 msgid "Poll Activity"
-msgstr ""
+msgstr "Yatxatäwi luräwi"
+
+#: poll.py:632
+msgid "To vote you have to select first one option"
+msgstr "Jaqtañatakixa nayraqata maya wakichäwi chhijllañapawa"
+
+#: poll.py:663 poll.py:668
+msgid "Choose image"
+msgstr "Maya uñjasïwi jajlliña"
+
+#: poll.py:690 poll.py:780
+msgid "Change Image"
+msgstr "Uñjasïwi jaquña"
+
+#: poll.py:694
+msgid "Your selection is not an image"
+msgstr "Jajllitamaxa janiwa maya uñjasïwikiti"
+
+#: poll.py:745
+msgid "Poll Title:"
+msgstr "Yatxatäwi P'iqinchiri Suti:"
+
+#: poll.py:753
+msgid "Question:"
+msgstr "Jiskht'äwi:"
+
+#: poll.py:761
+msgid "Number of votes to collect:"
+msgstr "Jaqtäwinaka apthapiña jakhu chimpu:"
+
+#: poll.py:771
+#, python-format
+msgid "Answer %d:"
+msgstr "Kutsuyäwi %d:"
 
 #: poll.py:784
-msgid "To vote you have to select first one option"
-msgstr ""
-
-#: poll.py:816 poll.py:821
-msgid "Choose image"
-msgstr ""
-
-#: poll.py:839 poll.py:959
-msgid "Change Image"
-msgstr ""
-
-#: poll.py:843
-msgid "Your selection is not an image"
-msgstr ""
-
-#: poll.py:893 poll.py:1372
-msgid "Build a Poll"
-msgstr ""
-
-#: poll.py:910
-msgid "Poll Title:"
-msgstr ""
-
-#: poll.py:922
-msgid "Question:"
-msgstr ""
-
-#: poll.py:934
-msgid "Number of votes to collect:"
-msgstr ""
-
-#: poll.py:947
-msgid "Answer"
-msgstr ""
-
-#: poll.py:963
 msgid "Add Image"
-msgstr ""
+msgstr "Uñjasïwi yapxataña"
 
-#: poll.py:972
+#: poll.py:793
 msgid "Step 1: Preview"
-msgstr ""
+msgstr "1 sara: Nayrïri uñjäwi"
 
-#: poll.py:975
+#: poll.py:796
 msgid "Step 2: Save"
-msgstr ""
+msgstr "2 sara: Imaña"
 
-#: poll.py:1000 poll.py:1382
-msgid "Settings"
-msgstr ""
-
-#: poll.py:1019
+#: poll.py:827
 msgid "Show answers while voting"
-msgstr ""
+msgstr "Jaqtäwina atipsüwinaka uñachayaña"
 
-#: poll.py:1029
+#: poll.py:832
 msgid "Remember last vote"
-msgstr ""
+msgstr "Qhipa jaqtäwi wakichata chimpuña"
 
-#: poll.py:1039
+#: poll.py:838
 msgid "Play a sound when make a vote"
-msgstr ""
+msgstr "Jaqtäwi apaskipana sijiqi qhantayaña"
 
-#: poll.py:1050
+#: poll.py:845
 msgid "Use image in answer"
-msgstr ""
+msgstr "Uñjasïwi kuttayäwitaki apanaqaña"
 
-#: poll.py:1054
+#: poll.py:850
 msgid "Image Size: "
-msgstr ""
+msgstr "Uñjasïwina tañapa: "
 
 #  "Guardar"
-#: poll.py:1077
+#: poll.py:872
 msgid "Save"
 msgstr "Imaña"
 
-#: poll.py:1137
+#: poll.py:929
 msgid "The settings have been saved"
-msgstr ""
+msgstr "Wakichäwinakaxa imatäxiwa"
 
-#: poll.py:1172
+#: poll.py:964
 msgid "Favorite Color"
-msgstr ""
+msgstr "Munata sami"
 
-#: poll.py:1174
+#: poll.py:966
 msgid "What is your favorite color?"
-msgstr ""
+msgstr "¿Kawkïrisa munata samimaxa?"
 
-#: poll.py:1175
-msgid "Green"
-msgstr ""
-
-#  "Rojo"
-#: poll.py:1175
-msgid "Red"
-msgstr "Wila"
-
-#  "Azul"
-#: poll.py:1175
-msgid "Blue"
-msgstr "Larama"
-
-#: poll.py:1176
+#: poll.py:970
 msgid "Orange"
-msgstr ""
+msgstr "Misik'u q'illu"
 
-#: poll.py:1176
+#: poll.py:971
 msgid "None of the above"
-msgstr ""
+msgstr "Janiwa maynïkisa"
 
-#: poll.py:1242
+#: poll.py:1037
 #, python-format
 msgid "Somebody voted on %s"
-msgstr ""
+msgstr "Khiticha ukana jaqtawi %s"
 
-#: poll.py:1308
+#: poll.py:1056
 msgid "Close Lessons"
-msgstr ""
+msgstr "Yatiñanaka jiwayaña"
 
 #  "Se unió"
-#: poll.py:1431 poll.py:1457
+#: poll.py:1144 poll.py:1173
 msgid "Joined"
 msgstr "Lip'tapiwa"
 
-#: poll.py:1461
+#: poll.py:1177
 msgid "Left"
-msgstr ""
+msgstr "Jaytjawiwa"
 
-#: poll.py:1819 poll.py:1883
+#: poll.py:1549 poll.py:1613
 msgid "New Poll"
-msgstr ""
+msgstr "Machaqa yatxatäwi"
 
-#: poll.py:1820 poll.py:1884
+#: poll.py:1550 poll.py:1614
 #, python-format
 msgid "%(author)s shared a poll '%(title)s' with you."
-msgstr ""
+msgstr "%(author)s yatxatäwi uñachayawiwa '%(title)s' jumampi."
+
+#~ msgid "Answer"
+#~ msgstr "Kuttayäwi"
+
+#~ msgid "Green"
+#~ msgstr "Ch'uxña"
+
+#  "Rojo"
+#~ msgid "Red"
+#~ msgstr "Wila"
+
+#  "Azul"
+#~ msgid "Blue"
+#~ msgstr "Larama"
