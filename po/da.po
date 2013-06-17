@@ -6,18 +6,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-27 00:31-0400\n"
-"PO-Revision-Date: 2011-04-29 07:21+0200\n"
-"Last-Translator: Chris <cjl@laptop.org>\n"
+"POT-Creation-Date: 2013-06-08 00:33-0400\n"
+"PO-Revision-Date: 2013-06-17 18:01+0200\n"
+"Last-Translator: Aputsiaq Niels <aj@isit.gl>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.1\n"
+"X-Generator: Pootle 2.0.5\n"
 
-#: activity/activity.info:2
+#. TRANS: "name" option from activity.info file
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
 msgid "Poll"
 msgstr "Meningsmåling"
 
@@ -41,188 +43,191 @@ msgstr "Lektion 4"
 msgid "Introduction"
 msgstr "Introduktion"
 
-#: poll.py:360
-msgid "VOTE!"
-msgstr "STEM!"
-
-#: poll.py:362
-msgid "Poll Preview"
-msgstr "Forhåndvisning af meningsmåling"
-
-#: poll.py:410 poll.py:1377
+#: poll.py:162 poll.py:362
 msgid "Choose a Poll"
 msgstr "Vælg en meningsmåling"
 
-#: poll.py:461
-msgid "VOTE"
-msgstr "STEM"
-
-#: poll.py:463
-msgid "SEE RESULTS"
-msgstr "SE RESULTATER"
-
-#: poll.py:471
-msgid "DELETE"
-msgstr "SLET"
-
-#: poll.py:498 poll.py:1311
-msgid "Lesson Plans"
-msgstr "Læringsplaner"
-
-#: poll.py:710
-msgid "votes"
-msgstr "stemmer"
-
-#: poll.py:716
-msgid " votes left to collect"
-msgstr " stemmer som mangler at blive indsamlet"
-
-#: poll.py:724 poll.py:1241
-msgid "Vote"
-msgstr "Stem"
-
-#: poll.py:732
-msgid "Edit Poll"
-msgstr "Redigér meningsmåling"
-
-#: poll.py:735
-msgid "Save Poll"
-msgstr "Gem meningsmåling"
-
-#: poll.py:783 poll.py:842 poll.py:1136
-msgid "Poll Activity"
-msgstr "Meningsmåling-aktivitet"
-
-#: poll.py:784
-msgid "To vote you have to select first one option"
-msgstr "For at stemme skal du først vælge en valgmulighed"
-
-#: poll.py:816 poll.py:821
-msgid "Choose image"
-msgstr "Vælg billede"
-
-#: poll.py:839 poll.py:959
-msgid "Change Image"
-msgstr "Skift billede"
-
-#: poll.py:843
-msgid "Your selection is not an image"
-msgstr "Din markering er ikke et billede"
-
-#: poll.py:893 poll.py:1372
+#: poll.py:167 poll.py:735
 msgid "Build a Poll"
 msgstr "Opbyg en meningsmåling"
 
-#: poll.py:910
-msgid "Poll Title:"
-msgstr "Titel på meningsmåling:"
-
-#: poll.py:922
-msgid "Question:"
-msgstr "Spørgsmål:"
-
-#: poll.py:934
-msgid "Number of votes to collect:"
-msgstr "Antal af stemmer som skal indsamles:"
-
-#: poll.py:947
-msgid "Answer"
-msgstr "Svar"
-
-#: poll.py:963
-msgid "Add Image"
-msgstr "Tilføj billede"
-
-#: poll.py:972
-msgid "Step 1: Preview"
-msgstr "Trin 1: Forhåndsvisning"
-
-#: poll.py:975
-msgid "Step 2: Save"
-msgstr "Trin 2: Gem"
-
-#: poll.py:1000 poll.py:1382
+#: poll.py:172 poll.py:819
 msgid "Settings"
 msgstr "Indstillinger"
 
-#: poll.py:1019
+#: poll.py:177 poll.py:423 poll.py:1059
+msgid "Lesson Plans"
+msgstr "Læringsplaner"
+
+#: poll.py:322
+msgid "VOTE!"
+msgstr "STEM!"
+
+#: poll.py:324
+msgid "Poll Preview"
+msgstr "Forhåndvisning af meningsmåling"
+
+#: poll.py:394
+msgid "VOTE"
+msgstr "STEM"
+
+#: poll.py:396
+msgid "SEE RESULTS"
+msgstr "SE RESULTATER"
+
+#: poll.py:401
+msgid "DELETE"
+msgstr "SLET"
+
+#: poll.py:565
+msgid "votes"
+msgstr "stemmer"
+
+#: poll.py:568
+#, python-format
+#, python-format, 
+msgid "(%d votes left to collect)"
+msgstr "(%d stemmer som mangler at blive indsamlet)"
+
+#: poll.py:575 poll.py:1036
+msgid "Vote"
+msgstr "Stem"
+
+#: poll.py:581
+msgid "Edit Poll"
+msgstr "Redigér meningsmåling"
+
+#: poll.py:584
+msgid "Save Poll"
+msgstr "Gem meningsmåling"
+
+#: poll.py:631 poll.py:693 poll.py:928
+msgid "Poll Activity"
+msgstr "Meningsmåling-aktivitet"
+
+#: poll.py:632
+msgid "To vote you have to select first one option"
+msgstr "For at stemme skal du først vælge en valgmulighed"
+
+#: poll.py:663 poll.py:668
+msgid "Choose image"
+msgstr "Vælg billede"
+
+#: poll.py:690 poll.py:780
+msgid "Change Image"
+msgstr "Skift billede"
+
+#: poll.py:694
+msgid "Your selection is not an image"
+msgstr "Din markering er ikke et billede"
+
+#: poll.py:745
+msgid "Poll Title:"
+msgstr "Titel på meningsmåling:"
+
+#: poll.py:753
+msgid "Question:"
+msgstr "Spørgsmål:"
+
+#: poll.py:761
+msgid "Number of votes to collect:"
+msgstr "Antal af stemmer som skal indsamles:"
+
+#: poll.py:771
+#, python-format
+msgid "Answer %d:"
+msgstr "Svar: %d:"
+
+#: poll.py:784
+msgid "Add Image"
+msgstr "Tilføj billede"
+
+#: poll.py:793
+msgid "Step 1: Preview"
+msgstr "Trin 1: Forhåndsvisning"
+
+#: poll.py:796
+msgid "Step 2: Save"
+msgstr "Trin 2: Gem"
+
+#: poll.py:827
 msgid "Show answers while voting"
 msgstr "Vis svar mens der stemmes"
 
-#: poll.py:1029
+#: poll.py:832
 msgid "Remember last vote"
 msgstr "Husk seneste stemme"
 
-#: poll.py:1039
+#: poll.py:838
 msgid "Play a sound when make a vote"
 msgstr "Afspil en lyd når en stemme foretages"
 
-#: poll.py:1050
+#: poll.py:845
 msgid "Use image in answer"
 msgstr "Brug billede i svar"
 
-#: poll.py:1054
+#: poll.py:850
 msgid "Image Size: "
 msgstr "Størrelse på billede: "
 
-#: poll.py:1077
+#: poll.py:872
 msgid "Save"
 msgstr "Gem"
 
-#: poll.py:1137
+#: poll.py:929
 msgid "The settings have been saved"
 msgstr "Indstillingerne er blevet gemt"
 
-#: poll.py:1172
+#: poll.py:964
 msgid "Favorite Color"
 msgstr "Yndlingsfarve"
 
-#: poll.py:1174
+#: poll.py:966
 msgid "What is your favorite color?"
 msgstr "Hvad er din yndlingsfarve?"
 
-#: poll.py:1175
-msgid "Green"
-msgstr "Grøn"
-
-#: poll.py:1175
-msgid "Red"
-msgstr "Rød"
-
-#: poll.py:1175
-msgid "Blue"
-msgstr "Blå"
-
-#: poll.py:1176
+#: poll.py:970
 msgid "Orange"
 msgstr "Orange"
 
-#: poll.py:1176
+#: poll.py:971
 msgid "None of the above"
 msgstr "Ingen af de nævnte ovenfor"
 
-#: poll.py:1242
+#: poll.py:1037
 #, python-format
 msgid "Somebody voted on %s"
 msgstr "Der var én som stemte på %s"
 
-#: poll.py:1308
+#: poll.py:1056
 msgid "Close Lessons"
 msgstr "Luk lektioner"
 
-#: poll.py:1431 poll.py:1457
+#: poll.py:1144 poll.py:1173
 msgid "Joined"
 msgstr "Sluttet sig til"
 
-#: poll.py:1461
+#: poll.py:1177
 msgid "Left"
 msgstr "Forlod stedet"
 
-#: poll.py:1819 poll.py:1883
+#: poll.py:1549 poll.py:1613
 msgid "New Poll"
 msgstr "Ny meningsmåling"
 
-#: poll.py:1820 poll.py:1884
+#: poll.py:1550 poll.py:1614
 #, python-format
 msgid "%(author)s shared a poll '%(title)s' with you."
 msgstr "%(author)s delte en meningsmåling '%(title)s' med dig."
+
+#~ msgid "Answer"
+#~ msgstr "Svar"
+
+#~ msgid "Green"
+#~ msgstr "Grøn"
+
+#~ msgid "Red"
+#~ msgstr "Rød"
+
+#~ msgid "Blue"
+#~ msgstr "Blå"
