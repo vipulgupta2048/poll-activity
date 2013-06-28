@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-27 00:31-0400\n"
+"POT-Creation-Date: 2013-06-08 00:33-0400\n"
 "PO-Revision-Date: 2012-07-10 23:10+0200\n"
 "Last-Translator: ing.arturo.lara <ing.arturo.lara@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,9 @@ msgstr ""
 "X-Generator: Pootle 2.0.5\n"
 
 # Encuesta = Konowixtaláb
-#: activity/activity.info:2
+#. TRANS: "name" option from activity.info file
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
 msgid "Poll"
 msgstr "Kwenélkonowixtaláb"
 
@@ -42,190 +44,193 @@ msgstr "Ajumtaláb 4"
 msgid "Introduction"
 msgstr "Otsentaláb"
 
-#: poll.py:360
-msgid "VOTE!"
-msgstr "¡TAKUXTALÁB!"
-
-#: poll.py:362
-msgid "Poll Preview"
-msgstr "Ok'ox tsu'bidhom k'al an kwenélkonowixtaláb"
-
-#: poll.py:410 poll.py:1377
+#: poll.py:162 poll.py:362
 msgid "Choose a Poll"
 msgstr "Ka takuy jun i kwenélkonowixtaláb"
 
-#: poll.py:461
-msgid "VOTE"
-msgstr "TAKUXTALÁB"
+#: poll.py:167 poll.py:735
+msgid "Build a Poll"
+msgstr "Ts'ejka' an kwenélkonowixtaláb"
 
-#: poll.py:463
-msgid "SEE RESULTS"
-msgstr "MET'A' IN PUTUNTAL"
+#: poll.py:172 poll.py:819
+msgid "Settings"
+msgstr "T'ojojoxtalábchik"
 
-#: poll.py:471
-msgid "DELETE"
-msgstr "PAKUW"
-
-#: poll.py:498 poll.py:1311
+#: poll.py:177 poll.py:423 poll.py:1059
 msgid "Lesson Plans"
 msgstr "Tsalápnadh dhuchlab k'al an ajumtaláb"
 
-#: poll.py:710
+#: poll.py:322
+msgid "VOTE!"
+msgstr "¡TAKUXTALÁB!"
+
+#: poll.py:324
+msgid "Poll Preview"
+msgstr "Ok'ox tsu'bidhom k'al an kwenélkonowixtaláb"
+
+#: poll.py:394
+msgid "VOTE"
+msgstr "TAKUXTALÁB"
+
+#: poll.py:396
+msgid "SEE RESULTS"
+msgstr "MET'A' IN PUTUNTAL"
+
+#: poll.py:401
+msgid "DELETE"
+msgstr "PAKUW"
+
+#: poll.py:565
 msgid "votes"
 msgstr "takuxtalábchik"
 
-#: poll.py:716
-msgid " votes left to collect"
+#: poll.py:568
+#, python-format
+#, python-format, fuzzy
+msgid "(%d votes left to collect)"
 msgstr " takuxtalábchik ta k'watab abal ka tamkuy"
 
-#: poll.py:724 poll.py:1241
+#: poll.py:575 poll.py:1036
 msgid "Vote"
 msgstr "Takuxtaláb"
 
-#: poll.py:732
+#: poll.py:581
 msgid "Edit Poll"
 msgstr "Jalk'uy an kwenélkonowixtaláb"
 
-#: poll.py:735
+#: poll.py:584
 msgid "Save Poll"
 msgstr "Dhaya' an kwenélkonowixtaláb"
 
-#: poll.py:783 poll.py:842 poll.py:1136
+#: poll.py:631 poll.py:693 poll.py:928
 msgid "Poll Activity"
 msgstr "T'ojláb Konowixtaláb"
 
 # Opción = jolataláb
-#: poll.py:784
+#: poll.py:632
 msgid "To vote you have to select first one option"
 msgstr "Abal kit takwláts in yejenchal okóx ka takuy jun i jolataláb"
 
-#: poll.py:816 poll.py:821
+#: poll.py:663 poll.py:668
 msgid "Choose image"
 msgstr "Ka takuy jun i t'iplab"
 
-#: poll.py:839 poll.py:959
+#: poll.py:690 poll.py:780
 msgid "Change Image"
 msgstr "Jaluw an t'iplab"
 
-#: poll.py:843
+#: poll.py:694
 msgid "Your selection is not an image"
 msgstr "Axi a tkwyámal yab pél jun i t'iplab"
 
-#: poll.py:893 poll.py:1372
-msgid "Build a Poll"
-msgstr "Ts'ejka' an kwenélkonowixtaláb"
-
-#: poll.py:910
+#: poll.py:745
 msgid "Poll Title:"
 msgstr "Ok'bijíl an kwenélkonowixtaláb:"
 
-#: poll.py:922
+#: poll.py:753
 msgid "Question:"
 msgstr "Konowixtaláb:"
 
-#: poll.py:934
+#: poll.py:761
 msgid "Number of votes to collect:"
 msgstr "Ajixtal an takuxtaláb axi penáb:"
 
-#: poll.py:947
-msgid "Answer"
-msgstr "Tok'tsíl"
+#: poll.py:771
+#, python-format
+msgid "Answer %d:"
+msgstr ""
 
-#: poll.py:963
+#: poll.py:784
 msgid "Add Image"
 msgstr "Punk'uy an t'iplab"
 
-#: poll.py:972
+#: poll.py:793
 msgid "Step 1: Preview"
 msgstr "Xakab 1: Ok'oxtsu'bidhom"
 
-#: poll.py:975
+#: poll.py:796
 msgid "Step 2: Save"
 msgstr "Xakab 2: Dhaya'"
 
-#: poll.py:1000 poll.py:1382
-msgid "Settings"
-msgstr "T'ojojoxtalábchik"
-
-#: poll.py:1019
+#: poll.py:827
 msgid "Show answers while voting"
 msgstr "Ka tejwa'médha' in putuntaltok'tsílchik tin aytal an tákwláts"
 
-#: poll.py:1029
+#: poll.py:832
 msgid "Remember last vote"
 msgstr "Ka kits'oy axi expidhits an jolat takuxtaláb"
 
-#: poll.py:1039
+#: poll.py:838
 msgid "Play a sound when make a vote"
 msgstr "Ka kaldha' an janidhtaláb tam ka t'aja' an takwláts"
 
-#: poll.py:1050
+#: poll.py:845
 msgid "Use image in answer"
 msgstr "Ka eyendha an t'iplab ti tok'tsixtaláb"
 
-#: poll.py:1054
+#: poll.py:850
 msgid "Image Size: "
 msgstr "Puwél an típlab: "
 
-#: poll.py:1077
+#: poll.py:872
 msgid "Save"
 msgstr "Dhaya'"
 
-#: poll.py:1137
+#: poll.py:929
 msgid "The settings have been saved"
 msgstr "An t'ojojodhtalábchik jilk'onits dhayach"
 
-#: poll.py:1172
+#: poll.py:964
 msgid "Favorite Color"
 msgstr "Mukuxtaláb axi u lej kulbetnál"
 
-#: poll.py:1174
+#: poll.py:966
 msgid "What is your favorite color?"
 msgstr "¿Jawa'xe' an mukuxtaláb axi a lej kulbetnál?"
 
-#: poll.py:1175
-msgid "Green"
-msgstr "Yaxu'"
-
-#: poll.py:1175
-msgid "Red"
-msgstr "Tsakni'"
-
-#: poll.py:1175
-msgid "Blue"
-msgstr "Tok'i'"
-
 # Naranja (color)=Ts'o'atmanu'; Naranja (fruta)=lanáx
-#: poll.py:1176
+#: poll.py:970
 msgid "Orange"
 msgstr "Ts'o'atmanu'"
 
-#: poll.py:1176
+#: poll.py:971
 msgid "None of the above"
 msgstr "Ma ni jún axi wat'enekits"
 
-#: poll.py:1242
+#: poll.py:1037
 #, python-format
 msgid "Somebody voted on %s"
 msgstr "Junjita' takwláts ti %s"
 
-#: poll.py:1308
+#: poll.py:1056
 msgid "Close Lessons"
 msgstr "Mapuy an Ajumtalábchik"
 
-#: poll.py:1431 poll.py:1457
+#: poll.py:1144 poll.py:1173
 msgid "Joined"
 msgstr "Junkunits"
 
-#: poll.py:1461
+#: poll.py:1177
 msgid "Left"
 msgstr "Jilka'its"
 
-#: poll.py:1819 poll.py:1883
+#: poll.py:1549 poll.py:1613
 msgid "New Poll"
 msgstr "Ít kwenélkonowixtaláb"
 
-#: poll.py:1820 poll.py:1884
+#: poll.py:1550 poll.py:1614
 #, python-format
 msgid "%(author)s shared a poll '%(title)s' with you."
 msgstr "%(author)s in dheynámal an kwenélkonowixtaláb '%(title)s' k'al tatá'."
+
+#~ msgid "Answer"
+#~ msgstr "Tok'tsíl"
+
+#~ msgid "Green"
+#~ msgstr "Yaxu'"
+
+#~ msgid "Red"
+#~ msgstr "Tsakni'"
+
+#~ msgid "Blue"
+#~ msgstr "Tok'i'"

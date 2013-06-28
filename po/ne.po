@@ -34,7 +34,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-27 00:31-0400\n"
+"POT-Creation-Date: 2013-06-08 00:33-0400\n"
 "PO-Revision-Date: 2011-07-15 04:09+0200\n"
 "Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,7 +45,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.0.1\n"
 
-#: activity/activity.info:2
+#. TRANS: "name" option from activity.info file
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
 msgid "Poll"
 msgstr "मतदान"
 
@@ -69,188 +71,191 @@ msgstr "पाठ ४"
 msgid "Introduction"
 msgstr "परिचय"
 
-#: poll.py:360
-msgid "VOTE!"
-msgstr "भोट!"
-
-#: poll.py:362
-msgid "Poll Preview"
-msgstr "मतदान हेर"
-
-#: poll.py:410 poll.py:1377
+#: poll.py:162 poll.py:362
 msgid "Choose a Poll"
 msgstr "मतदान छान"
 
-#: poll.py:461
-msgid "VOTE"
-msgstr "भोट"
-
-#: poll.py:463
-msgid "SEE RESULTS"
-msgstr "परिणाम हेर"
-
-#: poll.py:471
-msgid "DELETE"
-msgstr "मेटाऊ"
-
-#: poll.py:498 poll.py:1311
-msgid "Lesson Plans"
-msgstr "पाठयोजना"
-
-#: poll.py:710
-msgid "votes"
-msgstr "मतदान"
-
-#: poll.py:716
-msgid " votes left to collect"
-msgstr " सङ्कलन गर्न बाँकी मतदान"
-
-#: poll.py:724 poll.py:1241
-msgid "Vote"
-msgstr "मतदान"
-
-#: poll.py:732
-msgid "Edit Poll"
-msgstr "मतदान सम्पादन गर"
-
-#: poll.py:735
-msgid "Save Poll"
-msgstr "मतदान बचत गर"
-
-#: poll.py:783 poll.py:842 poll.py:1136
-msgid "Poll Activity"
-msgstr "मतदान क्रियाकलाप"
-
-#: poll.py:784
-msgid "To vote you have to select first one option"
-msgstr "मतदान गर्न पहिला एउटा विकल्प छान्नु पर्छ"
-
-#: poll.py:816 poll.py:821
-msgid "Choose image"
-msgstr "चित्र छान"
-
-#: poll.py:839 poll.py:959
-msgid "Change Image"
-msgstr "चित्र परिवर्तन गर"
-
-#: poll.py:843
-msgid "Your selection is not an image"
-msgstr "तिमीले छानेको चित्र होइन"
-
-#: poll.py:893 poll.py:1372
+#: poll.py:167 poll.py:735
 msgid "Build a Poll"
 msgstr "मतदान बनाऊ"
 
-#: poll.py:910
-msgid "Poll Title:"
-msgstr "मतदानको शीर्षक"
-
-#: poll.py:922
-msgid "Question:"
-msgstr "प्रश्नहरु:"
-
-#: poll.py:934
-msgid "Number of votes to collect:"
-msgstr "सङ्कलन गर्नुपर्ने मतदान"
-
-#: poll.py:947
-msgid "Answer"
-msgstr "उत्तर"
-
-#: poll.py:963
-msgid "Add Image"
-msgstr "चित्र थप"
-
-#: poll.py:972
-msgid "Step 1: Preview"
-msgstr "चरण 1: पूर्वावलोकन गर"
-
-#: poll.py:975
-msgid "Step 2: Save"
-msgstr "चरण २: बचत गर"
-
-#: poll.py:1000 poll.py:1382
+#: poll.py:172 poll.py:819
 msgid "Settings"
 msgstr "सेटिङहरू"
 
-#: poll.py:1019
+#: poll.py:177 poll.py:423 poll.py:1059
+msgid "Lesson Plans"
+msgstr "पाठयोजना"
+
+#: poll.py:322
+msgid "VOTE!"
+msgstr "भोट!"
+
+#: poll.py:324
+msgid "Poll Preview"
+msgstr "मतदान हेर"
+
+#: poll.py:394
+msgid "VOTE"
+msgstr "भोट"
+
+#: poll.py:396
+msgid "SEE RESULTS"
+msgstr "परिणाम हेर"
+
+#: poll.py:401
+msgid "DELETE"
+msgstr "मेटाऊ"
+
+#: poll.py:565
+msgid "votes"
+msgstr "मतदान"
+
+#: poll.py:568
+#, python-format
+#, python-format, fuzzy
+msgid "(%d votes left to collect)"
+msgstr " सङ्कलन गर्न बाँकी मतदान"
+
+#: poll.py:575 poll.py:1036
+msgid "Vote"
+msgstr "मतदान"
+
+#: poll.py:581
+msgid "Edit Poll"
+msgstr "मतदान सम्पादन गर"
+
+#: poll.py:584
+msgid "Save Poll"
+msgstr "मतदान बचत गर"
+
+#: poll.py:631 poll.py:693 poll.py:928
+msgid "Poll Activity"
+msgstr "मतदान क्रियाकलाप"
+
+#: poll.py:632
+msgid "To vote you have to select first one option"
+msgstr "मतदान गर्न पहिला एउटा विकल्प छान्नु पर्छ"
+
+#: poll.py:663 poll.py:668
+msgid "Choose image"
+msgstr "चित्र छान"
+
+#: poll.py:690 poll.py:780
+msgid "Change Image"
+msgstr "चित्र परिवर्तन गर"
+
+#: poll.py:694
+msgid "Your selection is not an image"
+msgstr "तिमीले छानेको चित्र होइन"
+
+#: poll.py:745
+msgid "Poll Title:"
+msgstr "मतदानको शीर्षक"
+
+#: poll.py:753
+msgid "Question:"
+msgstr "प्रश्नहरु:"
+
+#: poll.py:761
+msgid "Number of votes to collect:"
+msgstr "सङ्कलन गर्नुपर्ने मतदान"
+
+#: poll.py:771
+#, python-format
+msgid "Answer %d:"
+msgstr ""
+
+#: poll.py:784
+msgid "Add Image"
+msgstr "चित्र थप"
+
+#: poll.py:793
+msgid "Step 1: Preview"
+msgstr "चरण 1: पूर्वावलोकन गर"
+
+#: poll.py:796
+msgid "Step 2: Save"
+msgstr "चरण २: बचत गर"
+
+#: poll.py:827
 msgid "Show answers while voting"
 msgstr "मतदान गर्दा उत्तर देखाऊ"
 
-#: poll.py:1029
+#: poll.py:832
 msgid "Remember last vote"
 msgstr "अन्तिम मतदान याद राख"
 
-#: poll.py:1039
+#: poll.py:838
 msgid "Play a sound when make a vote"
 msgstr "मतदान गर्दा आवाज बजाऊ"
 
-#: poll.py:1050
+#: poll.py:845
 msgid "Use image in answer"
 msgstr "उत्तरमा चित्रको प्रयोग गर"
 
-#: poll.py:1054
+#: poll.py:850
 msgid "Image Size: "
 msgstr "चित्रको आकार "
 
-#: poll.py:1077
+#: poll.py:872
 msgid "Save"
 msgstr "बचत गर"
 
-#: poll.py:1137
+#: poll.py:929
 msgid "The settings have been saved"
 msgstr "सेटिङहरू बचत गरियो"
 
-#: poll.py:1172
+#: poll.py:964
 msgid "Favorite Color"
 msgstr "मनपर्ने रङ्ग"
 
-#: poll.py:1174
+#: poll.py:966
 msgid "What is your favorite color?"
 msgstr "तिम्रो मनपर्ने रङ्ग के हो?"
 
-#: poll.py:1175
-msgid "Green"
-msgstr "हरियो"
-
-#: poll.py:1175
-msgid "Red"
-msgstr "रातो"
-
-#: poll.py:1175
-msgid "Blue"
-msgstr "निलो"
-
-#: poll.py:1176
+#: poll.py:970
 msgid "Orange"
 msgstr "सुन्तला रङ्ग"
 
-#: poll.py:1176
+#: poll.py:971
 msgid "None of the above"
 msgstr "माथीको कुनैपनी होइन"
 
-#: poll.py:1242
+#: poll.py:1037
 #, python-format
 msgid "Somebody voted on %s"
 msgstr "कसैले %s लाई भोट दियो"
 
-#: poll.py:1308
+#: poll.py:1056
 msgid "Close Lessons"
 msgstr "पाठ छान"
 
-#: poll.py:1431 poll.py:1457
+#: poll.py:1144 poll.py:1173
 msgid "Joined"
 msgstr "जोडिएको"
 
-#: poll.py:1461
+#: poll.py:1177
 msgid "Left"
 msgstr "बाँया"
 
-#: poll.py:1819 poll.py:1883
+#: poll.py:1549 poll.py:1613
 msgid "New Poll"
 msgstr "नयाँ मतदान"
 
-#: poll.py:1820 poll.py:1884
+#: poll.py:1550 poll.py:1614
 #, python-format
 msgid "%(author)s shared a poll '%(title)s' with you."
 msgstr "%(author)s ले तिमीसँग '%(title)s'मतदान  सेयर गर्यो"
+
+#~ msgid "Answer"
+#~ msgstr "उत्तर"
+
+#~ msgid "Green"
+#~ msgstr "हरियो"
+
+#~ msgid "Red"
+#~ msgstr "रातो"
+
+#~ msgid "Blue"
+#~ msgstr "निलो"

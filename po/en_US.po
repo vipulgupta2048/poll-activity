@@ -109,7 +109,7 @@ msgstr "votes"
 
 #: poll.py:568
 #, python-format
-#, python-format, 
+#, python-format,
 msgid "(%d votes left to collect)"
 msgstr "(%d votes left to collect)"
 

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-27 00:31-0400\n"
+"POT-Creation-Date: 2013-06-08 00:33-0400\n"
 "PO-Revision-Date: 2010-02-19 18:23+0300\n"
 "Last-Translator: Khaled Hosny <khaledhosny@eglug.org>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
@@ -23,7 +23,9 @@ msgstr ""
 "X-Generator: Virtaal 0.5.2\n"
 "X-Poedit-Language: Arabic\n"
 
-#: activity/activity.info:2
+#. TRANS: "name" option from activity.info file
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
 msgid "Poll"
 msgstr "استطلاع"
 
@@ -47,191 +49,193 @@ msgstr "درس 4"
 msgid "Introduction"
 msgstr "مقدمة"
 
-#: poll.py:360
-msgid "VOTE!"
-msgstr "صوّت"
-
-#: poll.py:362
-msgid "Poll Preview"
-msgstr "معاينة الاستطلاع"
-
-#: poll.py:410 poll.py:1377
+#: poll.py:162 poll.py:362
 msgid "Choose a Poll"
 msgstr "اختر استطلاعا"
 
-#: poll.py:461
-msgid "VOTE"
-msgstr "صوت"
-
-#: poll.py:463
-msgid "SEE RESULTS"
-msgstr "أظهر النتائج"
-
-#: poll.py:471
-msgid "DELETE"
-msgstr "احذف"
-
-#: poll.py:498 poll.py:1311
-msgid "Lesson Plans"
-msgstr "جدول الدروس"
-
-#: poll.py:710
-msgid "votes"
-msgstr "الأصوات"
-
-#: poll.py:716
-msgid " votes left to collect"
-msgstr ""
-
-#: poll.py:724 poll.py:1241
-msgid "Vote"
-msgstr "صوت"
-
-#: poll.py:732
-msgid "Edit Poll"
-msgstr "حرر الاستطلاع"
-
-#: poll.py:735
-msgid "Save Poll"
-msgstr "احفظ الاستطلاع"
-
-#: poll.py:783 poll.py:842 poll.py:1136
-msgid "Poll Activity"
-msgstr ""
-
-#: poll.py:784
-msgid "To vote you have to select first one option"
-msgstr ""
-
-#: poll.py:816 poll.py:821
-msgid "Choose image"
-msgstr ""
-
-#: poll.py:839 poll.py:959
-msgid "Change Image"
-msgstr ""
-
-#: poll.py:843
-msgid "Your selection is not an image"
-msgstr ""
-
-#: poll.py:893 poll.py:1372
+#: poll.py:167 poll.py:735
 msgid "Build a Poll"
 msgstr "أنشئ استطلاعا"
 
-#: poll.py:910
-msgid "Poll Title:"
-msgstr "عنوان الاستطلاع:"
-
-#: poll.py:922
-msgid "Question:"
-msgstr "سؤال:"
-
-#: poll.py:934
-msgid "Number of votes to collect:"
-msgstr "عدد الأصوات المجموعة:"
-
-#: poll.py:947
-msgid "Answer"
-msgstr "جواب"
-
-#: poll.py:963
-msgid "Add Image"
-msgstr ""
-
-#: poll.py:972
-msgid "Step 1: Preview"
-msgstr "خطوة 1: عاين"
-
-#: poll.py:975
-msgid "Step 2: Save"
-msgstr "خطوة 2: احفظ"
-
-#: poll.py:1000 poll.py:1382
+#: poll.py:172 poll.py:819
 msgid "Settings"
 msgstr ""
 
-#: poll.py:1019
+#: poll.py:177 poll.py:423 poll.py:1059
+msgid "Lesson Plans"
+msgstr "جدول الدروس"
+
+#: poll.py:322
+msgid "VOTE!"
+msgstr "صوّت"
+
+#: poll.py:324
+msgid "Poll Preview"
+msgstr "معاينة الاستطلاع"
+
+#: poll.py:394
+msgid "VOTE"
+msgstr "صوت"
+
+#: poll.py:396
+msgid "SEE RESULTS"
+msgstr "أظهر النتائج"
+
+#: poll.py:401
+msgid "DELETE"
+msgstr "احذف"
+
+#: poll.py:565
+msgid "votes"
+msgstr "الأصوات"
+
+#: poll.py:568
+#, python-format
+msgid "(%d votes left to collect)"
+msgstr ""
+
+#: poll.py:575 poll.py:1036
+msgid "Vote"
+msgstr "صوت"
+
+#: poll.py:581
+msgid "Edit Poll"
+msgstr "حرر الاستطلاع"
+
+#: poll.py:584
+msgid "Save Poll"
+msgstr "احفظ الاستطلاع"
+
+#: poll.py:631 poll.py:693 poll.py:928
+msgid "Poll Activity"
+msgstr ""
+
+#: poll.py:632
+msgid "To vote you have to select first one option"
+msgstr ""
+
+#: poll.py:663 poll.py:668
+msgid "Choose image"
+msgstr ""
+
+#: poll.py:690 poll.py:780
+msgid "Change Image"
+msgstr ""
+
+#: poll.py:694
+msgid "Your selection is not an image"
+msgstr ""
+
+#: poll.py:745
+msgid "Poll Title:"
+msgstr "عنوان الاستطلاع:"
+
+#: poll.py:753
+msgid "Question:"
+msgstr "سؤال:"
+
+#: poll.py:761
+msgid "Number of votes to collect:"
+msgstr "عدد الأصوات المجموعة:"
+
+#: poll.py:771
+#, python-format
+msgid "Answer %d:"
+msgstr ""
+
+#: poll.py:784
+msgid "Add Image"
+msgstr ""
+
+#: poll.py:793
+msgid "Step 1: Preview"
+msgstr "خطوة 1: عاين"
+
+#: poll.py:796
+msgid "Step 2: Save"
+msgstr "خطوة 2: احفظ"
+
+#: poll.py:827
 msgid "Show answers while voting"
 msgstr ""
 
-#: poll.py:1029
+#: poll.py:832
 msgid "Remember last vote"
 msgstr ""
 
-#: poll.py:1039
+#: poll.py:838
 msgid "Play a sound when make a vote"
 msgstr ""
 
-#: poll.py:1050
+#: poll.py:845
 msgid "Use image in answer"
 msgstr ""
 
-#: poll.py:1054
+#: poll.py:850
 msgid "Image Size: "
 msgstr ""
 
-#: poll.py:1077
+#: poll.py:872
 msgid "Save"
 msgstr ""
 
-#: poll.py:1137
+#: poll.py:929
 msgid "The settings have been saved"
 msgstr ""
 
-#: poll.py:1172
+#: poll.py:964
 msgid "Favorite Color"
 msgstr "اللون المفضل"
 
-#: poll.py:1174
+#: poll.py:966
 msgid "What is your favorite color?"
 msgstr "ماهو لونك المفضل؟"
 
-#: poll.py:1175
-msgid "Green"
-msgstr "أخضر"
-
-#: poll.py:1175
-msgid "Red"
-msgstr "أحمر"
-
-#: poll.py:1175
-msgid "Blue"
-msgstr "أزرق"
-
-#: poll.py:1176
+#: poll.py:970
 msgid "Orange"
 msgstr "برتقالي"
 
-#: poll.py:1176
+#: poll.py:971
 msgid "None of the above"
 msgstr "لون آخر"
 
-#: poll.py:1242
+#: poll.py:1037
 #, python-format
 msgid "Somebody voted on %s"
 msgstr "صوّت أحدهم على %s"
 
-#: poll.py:1308
+#: poll.py:1056
 msgid "Close Lessons"
 msgstr "أغلق الدروس"
 
-#: poll.py:1431 poll.py:1457
+#: poll.py:1144 poll.py:1173
 msgid "Joined"
 msgstr "انضم"
 
-#: poll.py:1461
+#: poll.py:1177
 msgid "Left"
 msgstr "غادر"
 
-#: poll.py:1819 poll.py:1883
+#: poll.py:1549 poll.py:1613
 msgid "New Poll"
 msgstr "استطلاع جديد"
 
-#: poll.py:1820 poll.py:1884
+#: poll.py:1550 poll.py:1614
 #, python-format
 msgid "%(author)s shared a poll '%(title)s' with you."
 msgstr "شارك %(author)s استطلاعا '%(title)s' معك."
+
+#~ msgid "Answer"
+#~ msgstr "جواب"
+
+#~ msgid "Green"
+#~ msgstr "أخضر"
+
+#~ msgid "Red"
+#~ msgstr "أحمر"
+
+#~ msgid "Blue"
+#~ msgstr "أزرق"
 
 #~ msgid "Chinese (simplified)"
 #~ msgstr "صينية(مبسطة)"

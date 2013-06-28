@@ -85,7 +85,7 @@ msgstr "stemmer"
 
 #: poll.py:568
 #, python-format
-#, python-format, 
+#, python-format,
 msgid "(%d votes left to collect)"
 msgstr "(%d stemmer som mangler at blive indsamlet)"
 

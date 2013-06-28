@@ -34,7 +34,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-27 00:31-0400\n"
+"POT-Creation-Date: 2013-06-08 00:33-0400\n"
 "PO-Revision-Date: 2012-03-09 11:26+0200\n"
 "Last-Translator: Meechai <malaku38@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,7 +45,9 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.0.5\n"
 
-#: activity/activity.info:2
+#. TRANS: "name" option from activity.info file
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
 msgid "Poll"
 msgstr "ผลสำรวจ"
 
@@ -69,188 +71,191 @@ msgstr "บทที่ 4"
 msgid "Introduction"
 msgstr "คำนำ"
 
-#: poll.py:360
-msgid "VOTE!"
-msgstr "ลงคะแนน!"
-
-#: poll.py:362
-msgid "Poll Preview"
-msgstr "ดูแบบสำรวจ"
-
-#: poll.py:410 poll.py:1377
+#: poll.py:162 poll.py:362
 msgid "Choose a Poll"
 msgstr "เลือกผลสำรวจ"
 
-#: poll.py:461
-msgid "VOTE"
-msgstr "ลงคะแนน"
-
-#: poll.py:463
-msgid "SEE RESULTS"
-msgstr "ดู ผลลัพธ์"
-
-#: poll.py:471
-msgid "DELETE"
-msgstr "ลบ"
-
-#: poll.py:498 poll.py:1311
-msgid "Lesson Plans"
-msgstr "บทเรียน"
-
-#: poll.py:710
-msgid "votes"
-msgstr "คะแนนโหวต"
-
-#: poll.py:716
-msgid " votes left to collect"
-msgstr " คะแนนที่เหลือในการเก็บรวบรวม"
-
-#: poll.py:724 poll.py:1241
-msgid "Vote"
-msgstr "ออกเสียง"
-
-#: poll.py:732
-msgid "Edit Poll"
-msgstr "แก้ไขแบบสำรวจ"
-
-#: poll.py:735
-msgid "Save Poll"
-msgstr "บันทึกแบบสำรวจ"
-
-#: poll.py:783 poll.py:842 poll.py:1136
-msgid "Poll Activity"
-msgstr "กิจกรรม สำรวจความคิดเห็น"
-
-#: poll.py:784
-msgid "To vote you have to select first one option"
-msgstr "การโหวตลงคะแนน คุณต้องเลือกเพียงหนึ่งตัวเลือก"
-
-#: poll.py:816 poll.py:821
-msgid "Choose image"
-msgstr "เลือกรูปภาพ"
-
-#: poll.py:839 poll.py:959
-msgid "Change Image"
-msgstr "เปลี่ยนรูปภาพ"
-
-#: poll.py:843
-msgid "Your selection is not an image"
-msgstr "ตัวเลือกของคุณไม่ใช่รูปภาพ"
-
-#: poll.py:893 poll.py:1372
+#: poll.py:167 poll.py:735
 msgid "Build a Poll"
 msgstr "สร้างแบบสำรวจ"
 
-#: poll.py:910
-msgid "Poll Title:"
-msgstr "ชื่อแบบสำรวจ:"
-
-#: poll.py:922
-msgid "Question:"
-msgstr "คำถาม:"
-
-#: poll.py:934
-msgid "Number of votes to collect:"
-msgstr "จำนวนคะแนนเสียงที่เก็บรวบรวม:"
-
-#: poll.py:947
-msgid "Answer"
-msgstr "คำตอบ"
-
-#: poll.py:963
-msgid "Add Image"
-msgstr "เพิ่ม รูปภาพ"
-
-#: poll.py:972
-msgid "Step 1: Preview"
-msgstr "ขั้นตอนแรก : แสดงตัวอย่าง"
-
-#: poll.py:975
-msgid "Step 2: Save"
-msgstr "ขั้นตอน 2 บันทึก"
-
-#: poll.py:1000 poll.py:1382
+#: poll.py:172 poll.py:819
 msgid "Settings"
 msgstr "ตั้งค่า"
 
-#: poll.py:1019
+#: poll.py:177 poll.py:423 poll.py:1059
+msgid "Lesson Plans"
+msgstr "บทเรียน"
+
+#: poll.py:322
+msgid "VOTE!"
+msgstr "ลงคะแนน!"
+
+#: poll.py:324
+msgid "Poll Preview"
+msgstr "ดูแบบสำรวจ"
+
+#: poll.py:394
+msgid "VOTE"
+msgstr "ลงคะแนน"
+
+#: poll.py:396
+msgid "SEE RESULTS"
+msgstr "ดู ผลลัพธ์"
+
+#: poll.py:401
+msgid "DELETE"
+msgstr "ลบ"
+
+#: poll.py:565
+msgid "votes"
+msgstr "คะแนนโหวต"
+
+#: poll.py:568
+#, python-format
+#, python-format, fuzzy
+msgid "(%d votes left to collect)"
+msgstr " คะแนนที่เหลือในการเก็บรวบรวม"
+
+#: poll.py:575 poll.py:1036
+msgid "Vote"
+msgstr "ออกเสียง"
+
+#: poll.py:581
+msgid "Edit Poll"
+msgstr "แก้ไขแบบสำรวจ"
+
+#: poll.py:584
+msgid "Save Poll"
+msgstr "บันทึกแบบสำรวจ"
+
+#: poll.py:631 poll.py:693 poll.py:928
+msgid "Poll Activity"
+msgstr "กิจกรรม สำรวจความคิดเห็น"
+
+#: poll.py:632
+msgid "To vote you have to select first one option"
+msgstr "การโหวตลงคะแนน คุณต้องเลือกเพียงหนึ่งตัวเลือก"
+
+#: poll.py:663 poll.py:668
+msgid "Choose image"
+msgstr "เลือกรูปภาพ"
+
+#: poll.py:690 poll.py:780
+msgid "Change Image"
+msgstr "เปลี่ยนรูปภาพ"
+
+#: poll.py:694
+msgid "Your selection is not an image"
+msgstr "ตัวเลือกของคุณไม่ใช่รูปภาพ"
+
+#: poll.py:745
+msgid "Poll Title:"
+msgstr "ชื่อแบบสำรวจ:"
+
+#: poll.py:753
+msgid "Question:"
+msgstr "คำถาม:"
+
+#: poll.py:761
+msgid "Number of votes to collect:"
+msgstr "จำนวนคะแนนเสียงที่เก็บรวบรวม:"
+
+#: poll.py:771
+#, python-format
+msgid "Answer %d:"
+msgstr ""
+
+#: poll.py:784
+msgid "Add Image"
+msgstr "เพิ่ม รูปภาพ"
+
+#: poll.py:793
+msgid "Step 1: Preview"
+msgstr "ขั้นตอนแรก : แสดงตัวอย่าง"
+
+#: poll.py:796
+msgid "Step 2: Save"
+msgstr "ขั้นตอน 2 บันทึก"
+
+#: poll.py:827
 msgid "Show answers while voting"
 msgstr "แสดงคำตอบในขณะที่กำลังลงคะแนนเสียง"
 
-#: poll.py:1029
+#: poll.py:832
 msgid "Remember last vote"
 msgstr "จดจำการลงคะแนนล่าสุด"
 
-#: poll.py:1039
+#: poll.py:838
 msgid "Play a sound when make a vote"
 msgstr "เล่นเสียงเมื่อทำการลงคะแนน"
 
-#: poll.py:1050
+#: poll.py:845
 msgid "Use image in answer"
 msgstr "ใช้ภาพในคำตอบ"
 
-#: poll.py:1054
+#: poll.py:850
 msgid "Image Size: "
 msgstr "ขนาดของภาพ: "
 
-#: poll.py:1077
+#: poll.py:872
 msgid "Save"
 msgstr "บันทึก"
 
-#: poll.py:1137
+#: poll.py:929
 msgid "The settings have been saved"
 msgstr "การตั้งค่าได้ถูกบันทักแล้ว"
 
-#: poll.py:1172
+#: poll.py:964
 msgid "Favorite Color"
 msgstr "สีโปรด"
 
-#: poll.py:1174
+#: poll.py:966
 msgid "What is your favorite color?"
 msgstr "สี่โปรดของคุณคือสีอะไร"
 
-#: poll.py:1175
-msgid "Green"
-msgstr "สีเขียว"
-
-#: poll.py:1175
-msgid "Red"
-msgstr "สีแดง"
-
-#: poll.py:1175
-msgid "Blue"
-msgstr "สีน้ำเงิน"
-
-#: poll.py:1176
+#: poll.py:970
 msgid "Orange"
 msgstr "สีส้ม"
 
-#: poll.py:1176
+#: poll.py:971
 msgid "None of the above"
 msgstr "ไม่มีให้เลือก"
 
-#: poll.py:1242
+#: poll.py:1037
 #, python-format
 msgid "Somebody voted on %s"
 msgstr "ใครบางคนลงคะแนน %s"
 
-#: poll.py:1308
+#: poll.py:1056
 msgid "Close Lessons"
 msgstr "ปิดบทเรียน"
 
-#: poll.py:1431 poll.py:1457
+#: poll.py:1144 poll.py:1173
 msgid "Joined"
 msgstr "เข้าร่วม"
 
-#: poll.py:1461
+#: poll.py:1177
 msgid "Left"
 msgstr "ซ้าย"
 
-#: poll.py:1819 poll.py:1883
+#: poll.py:1549 poll.py:1613
 msgid "New Poll"
 msgstr "ผลสำรวจใหม่"
 
-#: poll.py:1820 poll.py:1884
+#: poll.py:1550 poll.py:1614
 #, python-format
 msgid "%(author)s shared a poll '%(title)s' with you."
 msgstr "%(author)s แบ่งปันแบบสำรวจ '%(title)s' ให้กับคุณ"
+
+#~ msgid "Answer"
+#~ msgstr "คำตอบ"
+
+#~ msgid "Green"
+#~ msgstr "สีเขียว"
+
+#~ msgid "Red"
+#~ msgstr "สีแดง"
+
+#~ msgid "Blue"
+#~ msgstr "สีน้ำเงิน"

@@ -38,7 +38,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-27 00:31-0400\n"
+"POT-Creation-Date: 2013-06-08 00:33-0400\n"
 "PO-Revision-Date: 2010-07-04 13:10+0200\n"
 "Last-Translator: Yannis <kiolalis@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,7 +49,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.0.3\n"
 
-#: activity/activity.info:2
+#. TRANS: "name" option from activity.info file
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
 msgid "Poll"
 msgstr "Ψηφοφορία"
 
@@ -73,191 +75,194 @@ msgstr "Μάθημα 4"
 msgid "Introduction"
 msgstr "Εισαγωγή"
 
-#: poll.py:360
-msgid "VOTE!"
-msgstr "ΨΗΦΙΣΕ!"
-
-#: poll.py:362
-msgid "Poll Preview"
-msgstr "Προεπισκόπηση ψηφοφορίας"
-
-#: poll.py:410 poll.py:1377
+#: poll.py:162 poll.py:362
 msgid "Choose a Poll"
 msgstr "Διάλεξε ψηφοφορία"
 
-#: poll.py:461
-msgid "VOTE"
-msgstr "ΨΗΦΙΣΕ"
-
-#: poll.py:463
-msgid "SEE RESULTS"
-msgstr "ΔΕΣ ΑΠΟΤΕΛΕΣΜΑΤΑ"
-
-#: poll.py:471
-msgid "DELETE"
-msgstr "ΔΙΑΓΡΑΦΗ"
-
-#: poll.py:498 poll.py:1311
-msgid "Lesson Plans"
-msgstr "Σχέδια μαθημάτων"
-
-#: poll.py:710
-msgid "votes"
-msgstr "ψήφοι"
-
-#: poll.py:716
-msgid " votes left to collect"
-msgstr " ψήφοι απέμειναν για να συλλεχθούν"
-
-#: poll.py:724 poll.py:1241
-msgid "Vote"
-msgstr "Ψήφος"
-
-#: poll.py:732
-msgid "Edit Poll"
-msgstr "Επεξεργασία ψηφοφορίας"
-
-#: poll.py:735
-msgid "Save Poll"
-msgstr "Αποθήκευση ψηφοφορίας"
-
-#: poll.py:783 poll.py:842 poll.py:1136
-msgid "Poll Activity"
-msgstr "Δραστηριότητα ψηφοφορίας"
-
-#: poll.py:784
-msgid "To vote you have to select first one option"
-msgstr "Για να ψηφίσετε πρέπει να κάνετε πρώτα μια επιλογή"
-
-#: poll.py:816 poll.py:821
-msgid "Choose image"
-msgstr "Επιλογή εικόνας"
-
-#: poll.py:839 poll.py:959
-msgid "Change Image"
-msgstr "Αλλαγή εικόνας"
-
-#: poll.py:843
-msgid "Your selection is not an image"
-msgstr "Η επιλογή σας δεν είναι μια εικόνα"
-
-#: poll.py:893 poll.py:1372
+#: poll.py:167 poll.py:735
 msgid "Build a Poll"
 msgstr "Δημιουργία ψηφοφορίας"
 
-#: poll.py:910
-msgid "Poll Title:"
-msgstr "Τίτλος ψηφοφορίας:"
-
-#: poll.py:922
-msgid "Question:"
-msgstr "Ερώτηση:"
-
-#: poll.py:934
-msgid "Number of votes to collect:"
-msgstr "Αριθμός ψήφων που θα μαζευτούν:"
-
-#: poll.py:947
-msgid "Answer"
-msgstr "Απάντηση"
-
-#: poll.py:963
-msgid "Add Image"
-msgstr "Προσθήκη εικόνας"
-
-#: poll.py:972
-msgid "Step 1: Preview"
-msgstr "Βήμα 1: Προεπισκόπηση"
-
-#: poll.py:975
-msgid "Step 2: Save"
-msgstr "Βήμα 2: Αποθήκευση"
-
-#: poll.py:1000 poll.py:1382
+#: poll.py:172 poll.py:819
 msgid "Settings"
 msgstr "Ρυθμίσεις"
 
-#: poll.py:1019
+#: poll.py:177 poll.py:423 poll.py:1059
+msgid "Lesson Plans"
+msgstr "Σχέδια μαθημάτων"
+
+#: poll.py:322
+msgid "VOTE!"
+msgstr "ΨΗΦΙΣΕ!"
+
+#: poll.py:324
+msgid "Poll Preview"
+msgstr "Προεπισκόπηση ψηφοφορίας"
+
+#: poll.py:394
+msgid "VOTE"
+msgstr "ΨΗΦΙΣΕ"
+
+#: poll.py:396
+msgid "SEE RESULTS"
+msgstr "ΔΕΣ ΑΠΟΤΕΛΕΣΜΑΤΑ"
+
+#: poll.py:401
+msgid "DELETE"
+msgstr "ΔΙΑΓΡΑΦΗ"
+
+#: poll.py:565
+msgid "votes"
+msgstr "ψήφοι"
+
+#: poll.py:568
+#, python-format
+#, python-format, fuzzy
+msgid "(%d votes left to collect)"
+msgstr " ψήφοι απέμειναν για να συλλεχθούν"
+
+#: poll.py:575 poll.py:1036
+msgid "Vote"
+msgstr "Ψήφος"
+
+#: poll.py:581
+msgid "Edit Poll"
+msgstr "Επεξεργασία ψηφοφορίας"
+
+#: poll.py:584
+msgid "Save Poll"
+msgstr "Αποθήκευση ψηφοφορίας"
+
+#: poll.py:631 poll.py:693 poll.py:928
+msgid "Poll Activity"
+msgstr "Δραστηριότητα ψηφοφορίας"
+
+#: poll.py:632
+msgid "To vote you have to select first one option"
+msgstr "Για να ψηφίσετε πρέπει να κάνετε πρώτα μια επιλογή"
+
+#: poll.py:663 poll.py:668
+msgid "Choose image"
+msgstr "Επιλογή εικόνας"
+
+#: poll.py:690 poll.py:780
+msgid "Change Image"
+msgstr "Αλλαγή εικόνας"
+
+#: poll.py:694
+msgid "Your selection is not an image"
+msgstr "Η επιλογή σας δεν είναι μια εικόνα"
+
+#: poll.py:745
+msgid "Poll Title:"
+msgstr "Τίτλος ψηφοφορίας:"
+
+#: poll.py:753
+msgid "Question:"
+msgstr "Ερώτηση:"
+
+#: poll.py:761
+msgid "Number of votes to collect:"
+msgstr "Αριθμός ψήφων που θα μαζευτούν:"
+
+#: poll.py:771
+#, python-format
+msgid "Answer %d:"
+msgstr ""
+
+#: poll.py:784
+msgid "Add Image"
+msgstr "Προσθήκη εικόνας"
+
+#: poll.py:793
+msgid "Step 1: Preview"
+msgstr "Βήμα 1: Προεπισκόπηση"
+
+#: poll.py:796
+msgid "Step 2: Save"
+msgstr "Βήμα 2: Αποθήκευση"
+
+#: poll.py:827
 msgid "Show answers while voting"
 msgstr "Εμφάνιση απαντήσεων ενώ ψηφίζετε"
 
-#: poll.py:1029
+#: poll.py:832
 msgid "Remember last vote"
 msgstr "Συγκράτηση στη μνήμη της τελευταίας ψήφου"
 
-#: poll.py:1039
+#: poll.py:838
 msgid "Play a sound when make a vote"
 msgstr "Αναπαραγωγή ενός ήχου κατά την καταχώρηση μιας ψήφου"
 
-#: poll.py:1050
+#: poll.py:845
 msgid "Use image in answer"
 msgstr "Χρήση εικόνας στην απάντηση"
 
-#: poll.py:1054
+#: poll.py:850
 msgid "Image Size: "
 msgstr "Μέγεθος εικόνας: "
 
-#: poll.py:1077
+#: poll.py:872
 msgid "Save"
 msgstr "Αποθήκευση"
 
-#: poll.py:1137
+#: poll.py:929
 msgid "The settings have been saved"
 msgstr "Οι ρυθμίσεις έχουν αποθηκευτεί"
 
-#: poll.py:1172
+#: poll.py:964
 msgid "Favorite Color"
 msgstr "Αγαπημένο Χρώμα"
 
-#: poll.py:1174
+#: poll.py:966
 msgid "What is your favorite color?"
 msgstr "Ποιο είναι το αγαπημένο σου χρώμα;"
 
-#: poll.py:1175
-msgid "Green"
-msgstr "Πράσινο"
-
-#: poll.py:1175
-msgid "Red"
-msgstr "Κόκκινο"
-
-#: poll.py:1175
-msgid "Blue"
-msgstr "Μπλε"
-
-#: poll.py:1176
+#: poll.py:970
 msgid "Orange"
 msgstr "Πορτοκαλί"
 
-#: poll.py:1176
+#: poll.py:971
 msgid "None of the above"
 msgstr "Κανένα από τα παραπάνω"
 
-#: poll.py:1242
+#: poll.py:1037
 #, python-format
 msgid "Somebody voted on %s"
 msgstr "Κάποιος ψήφισε για %s"
 
-#: poll.py:1308
+#: poll.py:1056
 msgid "Close Lessons"
 msgstr "Κλείσε τα Μαθήματα"
 
-#: poll.py:1431 poll.py:1457
+#: poll.py:1144 poll.py:1173
 msgid "Joined"
 msgstr "Εισήλθε"
 
-#: poll.py:1461
+#: poll.py:1177
 msgid "Left"
 msgstr "Αριστερά"
 
-#: poll.py:1819 poll.py:1883
+#: poll.py:1549 poll.py:1613
 msgid "New Poll"
 msgstr "Νέα Ψηφοφορία"
 
-#: poll.py:1820 poll.py:1884
+#: poll.py:1550 poll.py:1614
 #, python-format
 msgid "%(author)s shared a poll '%(title)s' with you."
 msgstr "Ο/Η %(author)s μοιράστηκε μαζί σου τη ψηφοφορία '%(title)s'."
+
+#~ msgid "Answer"
+#~ msgstr "Απάντηση"
+
+#~ msgid "Green"
+#~ msgstr "Πράσινο"
+
+#~ msgid "Red"
+#~ msgstr "Κόκκινο"
+
+#~ msgid "Blue"
+#~ msgstr "Μπλε"
 
 #~ msgid "Chinese (simplified)"
 #~ msgstr "Κινέζικα (απλοποιημένα)"
