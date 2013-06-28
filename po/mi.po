@@ -1,0 +1,219 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-06-08 00:33-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.7.0\n"
+
+#. TRANS: "name" option from activity.info file
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
+msgid "Poll"
+msgstr ""
+
+#: i18n_misc_strings.py:1
+msgid "Lesson 1"
+msgstr ""
+
+#: i18n_misc_strings.py:2
+msgid "Lesson 2"
+msgstr ""
+
+#: i18n_misc_strings.py:3
+msgid "Lesson 3"
+msgstr ""
+
+#: i18n_misc_strings.py:4
+msgid "Lesson 4"
+msgstr ""
+
+#: i18n_misc_strings.py:5
+msgid "Introduction"
+msgstr ""
+
+#: poll.py:162 poll.py:362
+msgid "Choose a Poll"
+msgstr ""
+
+#: poll.py:167 poll.py:735
+msgid "Build a Poll"
+msgstr ""
+
+#: poll.py:172 poll.py:819
+msgid "Settings"
+msgstr ""
+
+#: poll.py:177 poll.py:423 poll.py:1059
+msgid "Lesson Plans"
+msgstr ""
+
+#: poll.py:322
+msgid "VOTE!"
+msgstr ""
+
+#: poll.py:324
+msgid "Poll Preview"
+msgstr ""
+
+#: poll.py:394
+msgid "VOTE"
+msgstr ""
+
+#: poll.py:396
+msgid "SEE RESULTS"
+msgstr ""
+
+#: poll.py:401
+msgid "DELETE"
+msgstr ""
+
+#: poll.py:565
+msgid "votes"
+msgstr ""
+
+#: poll.py:568
+#, python-format
+msgid "(%d votes left to collect)"
+msgstr ""
+
+#: poll.py:575 poll.py:1036
+msgid "Vote"
+msgstr ""
+
+#: poll.py:581
+msgid "Edit Poll"
+msgstr ""
+
+#: poll.py:584
+msgid "Save Poll"
+msgstr ""
+
+#: poll.py:631 poll.py:693 poll.py:928
+msgid "Poll Activity"
+msgstr ""
+
+#: poll.py:632
+msgid "To vote you have to select first one option"
+msgstr ""
+
+#: poll.py:663 poll.py:668
+msgid "Choose image"
+msgstr ""
+
+#: poll.py:690 poll.py:780
+msgid "Change Image"
+msgstr ""
+
+#: poll.py:694
+msgid "Your selection is not an image"
+msgstr ""
+
+#: poll.py:745
+msgid "Poll Title:"
+msgstr ""
+
+#: poll.py:753
+msgid "Question:"
+msgstr ""
+
+#: poll.py:761
+msgid "Number of votes to collect:"
+msgstr ""
+
+#: poll.py:771
+#, python-format
+msgid "Answer %d:"
+msgstr ""
+
+#: poll.py:784
+msgid "Add Image"
+msgstr ""
+
+#: poll.py:793
+msgid "Step 1: Preview"
+msgstr ""
+
+#: poll.py:796
+msgid "Step 2: Save"
+msgstr ""
+
+#: poll.py:827
+msgid "Show answers while voting"
+msgstr ""
+
+#: poll.py:832
+msgid "Remember last vote"
+msgstr ""
+
+#: poll.py:838
+msgid "Play a sound when make a vote"
+msgstr ""
+
+#: poll.py:845
+msgid "Use image in answer"
+msgstr ""
+
+#: poll.py:850
+msgid "Image Size: "
+msgstr ""
+
+#: poll.py:872
+msgid "Save"
+msgstr ""
+
+#: poll.py:929
+msgid "The settings have been saved"
+msgstr ""
+
+#: poll.py:964
+msgid "Favorite Color"
+msgstr ""
+
+#: poll.py:966
+msgid "What is your favorite color?"
+msgstr ""
+
+#: poll.py:970
+msgid "Orange"
+msgstr ""
+
+#: poll.py:971
+msgid "None of the above"
+msgstr ""
+
+#: poll.py:1037
+#, python-format
+msgid "Somebody voted on %s"
+msgstr ""
+
+#: poll.py:1056
+msgid "Close Lessons"
+msgstr ""
+
+#: poll.py:1144 poll.py:1173
+msgid "Joined"
+msgstr ""
+
+#: poll.py:1177
+msgid "Left"
+msgstr ""
+
+#: poll.py:1549 poll.py:1613
+msgid "New Poll"
+msgstr ""
+
+#: poll.py:1550 poll.py:1614
+#, python-format
+msgid "%(author)s shared a poll '%(title)s' with you."
+msgstr ""
