@@ -58,9 +58,7 @@ from sugar3.graphics.objectchooser import ObjectChooser
 from sugar3.datastore import datastore
 from sugar3 import mime
 from sugar3 import profile
-
-# TODO: comment import of abiword to start the port to Gtk3
-#from abiword import Canvas as AbiCanvas
+from gi.repository import Abi
 
 SERVICE = "org.worldwideworkshop.olpc.PollBuilder"
 IFACE = SERVICE
@@ -1673,7 +1671,7 @@ class LessonPlanWidget (Gtk.Notebook):
         lesson -- string, name of lesson
         """
         code, encoding = locale.getdefaultlocale()
-        canvas = AbiCanvas()
+        canvas = Abi.Widget()
         canvas.show()
         files = map(lambda x: os.path.join(path, '%s.abw' % x),
                     ('_' + code.lower(), '_' + code.split('_')[0].lower(),
