@@ -34,22 +34,26 @@ import cPickle
 import locale
 import logging
 import base64
-from datetime import date
+
+#from hashlib import sha1
+#from datetime import date
 from gettext import gettext as _
+'''
 import telepathy
 import telepathy.client
+
 from dbus.service import method, signal
 from dbus.gobject_service import ExportedGObject
-from sugar3.presence.tubeconn import TubeConnection
+
+from sugar3.presence.tubeconn import TubeConnection'''
 
 from sugar3.graphics.toolbarbox import ToolbarBox
 from sugar3.graphics.toolbutton import ToolButton
 from sugar3.activity.widgets import StopButton
 from sugar3.activity.widgets import ActivityToolbarButton
 
-from hashlib import sha1
-
 from sugar3.activity import activity
+'''
 from sugar3.graphics import style
 from sugar3.graphics.alert import NotifyAlert
 
@@ -59,7 +63,8 @@ from sugar3.datastore import datastore
 from sugar3 import mime
 from sugar3 import profile
 from gi.repository import Abi
-
+'''
+'''
 SERVICE = "org.worldwideworkshop.olpc.PollBuilder"
 IFACE = SERVICE
 PATH = "/org/worldwideworkshop/olpc/PollBuilder"
@@ -85,7 +90,7 @@ IMAGE_HEIGHT = 100
 IMAGE_WIDTH = 100
 IMAGE_THUMBNAIL_HEIGHT = 80
 IMAGE_THUMBNAIL_WIDTH = 80
-
+'''
 class PollBuilder(activity.Activity):
     """
     Sugar activity for polls
@@ -102,7 +107,7 @@ class PollBuilder(activity.Activity):
     def __init__(self, handle):
 
         activity.Activity.__init__(self, handle)
-
+        '''
         self._logger = logging.getLogger('poll-activity')
         self._logger.debug('Starting Poll activity')
 
@@ -147,18 +152,19 @@ class PollBuilder(activity.Activity):
 
         # Lesson plan widget
         self._lessonplan_widget = None
-
+        '''
         self.set_toolbar_box(self.get_toolbar())
 
-        # Show poll screen
-        # Setup screen
         self._root = Gtk.VBox()
         self.set_canvas(self._root)
+
+        #self.set_root(self._select_canvas())
+
         self.show_all()
 
         self.poll_session = None  # PollSession
-        self.connect('shared', self._shared_cb)
-        self.connect('joined', self._joined_cb)
+        #self.connect('shared', self._shared_cb)
+        #self.connect('joined', self._joined_cb)
 
     def get_toolbar(self):
 
@@ -172,22 +178,22 @@ class PollBuilder(activity.Activity):
 
         choose_button = ToolButton('view-list')
         choose_button.set_tooltip(_('Choose a Poll'))
-        choose_button.connect('clicked', self.button_select_clicked)
+        #choose_button.connect('clicked', self.button_select_clicked)
         toolbar_box.toolbar.insert(choose_button, -1)
 
         create_button = ToolButton('view-source')
         create_button.set_tooltip(_('Build a Poll'))
-        create_button.connect('clicked', self.button_new_clicked)
+        #create_button.connect('clicked', self.button_new_clicked)
         toolbar_box.toolbar.insert(create_button, -1)
 
         settings_button = ToolButton('preferences-system')
         settings_button.set_tooltip(_('Settings'))
-        settings_button.connect('clicked', self.button_options_clicked)
+        #settings_button.connect('clicked', self.button_options_clicked)
         toolbar_box.toolbar.insert(settings_button, -1)
 
         help_button = ToolButton('toolbar-help')
         help_button.set_tooltip(_('Lesson Plans'))
-        help_button.connect('clicked', self._button_lessonplan_cb)
+        #help_button.connect('clicked', self._button_lessonplan_cb)
         toolbar_box.toolbar.insert(help_button, -1)
 
         separator = Gtk.SeparatorToolItem()
@@ -201,14 +207,14 @@ class PollBuilder(activity.Activity):
         toolbar_box.show_all()
 
         return toolbar_box
-
+    '''
     def set_root(self, widget):
 
         if self._root.get_children():
             self._root.remove(self._root.get_children()[0])
 
-        self._root.pack_start(widget, True, True, 0)
-
+        self._root.pack_start(widget, True, True, 0)'''
+    '''
     def _create_pixbufs(self, images_ds_object_id):
 
         pixbufs = {}
@@ -224,8 +230,8 @@ class PollBuilder(activity.Activity):
             else:
                 pixbufs[int(index)] = ''
 
-        return pixbufs
-
+        return pixbufs'''
+    '''
     def _get_images_ds_objects(self, images_ds_object_id):
 
         images_ds_objects = {}
@@ -238,8 +244,8 @@ class PollBuilder(activity.Activity):
                 images_ds_objects[int(index)]['file_path'] = \
                     datastore.get(ds_object_id).file_path
 
-        return images_ds_objects
-
+        return images_ds_objects'''
+    '''
     def read_file(self, file_path):
         """
         Implement reading from journal
@@ -289,8 +295,8 @@ class PollBuilder(activity.Activity):
         f.close()
 
         self.set_root(self._select_canvas())
-        self.show_all()
-
+        self.show_all()'''
+    '''
     def write_file(self, file_path):
         """
         Implement writing to the journal
@@ -315,8 +321,8 @@ class PollBuilder(activity.Activity):
 
         f = open(file_path, 'w')
         f.write(s)
-        f.close()
-
+        f.close()'''
+    '''
     def alert(self, title, text=None):
         """
         Show an alert above the activity.
@@ -327,15 +333,15 @@ class PollBuilder(activity.Activity):
         alert.props.msg = text
         self.add_alert(alert)
         alert.connect('response', self._alert_cancel_cb)
-        alert.show()
-
+        alert.show()'''
+    '''
     def _alert_cancel_cb(self, alert, response_id):
         """
         Callback for alert events
         """
 
-        self.remove_alert(alert)
-
+        self.remove_alert(alert)'''
+    '''
     def _poll_canvas(self):
         """
         Show the poll canvas where children vote on an existing poll.
@@ -386,8 +392,8 @@ class PollBuilder(activity.Activity):
         self.current_vote = None
         self.draw_poll_details_box()
 
-        return canvasbox
-
+        return canvasbox'''
+    '''
     def _select_canvas(self):
         """
         Show the select canvas where children choose an existing poll.
@@ -456,8 +462,8 @@ class PollBuilder(activity.Activity):
             poll_row.pack_start(Gtk.Label(
                 poll.createdate.strftime('%d/%m/%y')), False, False, 10)
 
-        return canvasbox
-
+        return canvasbox'''
+    '''
     def _lessonplan_canvas(self):
         """
         Show the select canvas where children choose an existing poll.
@@ -483,8 +489,8 @@ class PollBuilder(activity.Activity):
         self._lessonplan_widget = lessonplan
         poll_details_box.pack_start(lessonplan, True, True, 0)
 
-        return canvasbox
-
+        return canvasbox'''
+    '''
     def _select_poll_button_cb(self, button, sha=None):
         """
         A VOTE or SEE RESULTS button was clicked.
@@ -497,8 +503,8 @@ class PollBuilder(activity.Activity):
         self._switch_to_poll(sha)
         self._has_voted = False
         self.set_root(self._poll_canvas())
-        self.show_all()
-
+        self.show_all()'''
+    '''
     def _delete_poll_button_cb(self, button, sha=None):
         """
         A DELETE button was clicked.
@@ -510,8 +516,8 @@ class PollBuilder(activity.Activity):
 
         self.delete_poll(sha)
         self.set_root(self._select_canvas())
-        self.show_all()
-
+        self.show_all()'''
+    '''
     def delete_poll(self, sha=None, poll=None):
         """
         Delete a poll, either by passing sha or the actual poll object.
@@ -532,8 +538,8 @@ class PollBuilder(activity.Activity):
 
             for poll in self._polls.copy():
                 if poll.sha == sha:
-                    self._polls.remove(poll)
-
+                    self._polls.remove(poll)'''
+    '''
     def _load_image(self, pixbuf):
         """
         Load an image.
@@ -549,7 +555,8 @@ class PollBuilder(activity.Activity):
         else:
             logging.exception("Image error")
             return ''
-
+        '''
+    '''
     def draw_poll_details_box(self):
         """
         (Re)draw the poll details box
@@ -658,7 +665,8 @@ class PollBuilder(activity.Activity):
             button.connect('clicked', self._button_save_cb)
             button_box.pack_start(button, True, True, 0)
             self.poll_details_box_tail.pack_start(button_box, True, True, 0)
-
+    '''
+    '''
     def vote_choice_radio_button(self, widget, data=None):
         """
         Track which radio button has been selected
@@ -667,16 +675,16 @@ class PollBuilder(activity.Activity):
         data contains the choice (0 - 4) selected.
         """
 
-        self.current_vote = data
-
+        self.current_vote = data'''
+    '''
     def _play_vote_button_sound(self):
 
         try:
             subprocess.Popen("aplay extras/vote-sound.wav", shell=True)
 
         except (OSError, ValueError), e:
-            logging.exception(e)
-
+            logging.exception(e)'''
+    '''
     def _button_vote_cb(self, button):
         """
         Register a vote
@@ -719,16 +727,16 @@ class PollBuilder(activity.Activity):
             alert.props.msg = _('To vote you have to select first one option')
             self.add_alert(alert)
             alert.connect('response', self._alert_cancel_cb)
-            alert.show()
-
+            alert.show()'''
+    '''
     def button_select_clicked(self, button):
         """
         Show Choose a Poll canvas
         """
 
         self.set_root(self._select_canvas())
-        self.show_all()
-
+        self.show_all()'''
+    '''
     def button_new_clicked(self, button):
         """
         Show Build a Poll canvas.
@@ -739,21 +747,21 @@ class PollBuilder(activity.Activity):
         self._poll.author = profile.get_nick_name()
         self._poll.active = False
         self.set_root(self._build_canvas())
-        self.show_all()
-
+        self.show_all()'''
+    '''
     def button_edit_clicked(self, button):
         """
         Go back from preview to edit
         """
 
         self.set_root(self._build_canvas())
-        self.show_all()
-
+        self.show_all()'''
+    '''
     def button_options_clicked(self, button):
 
         self.set_root(self._options_canvas())
-        self.show_all()
-
+        self.show_all()'''
+    '''
     def _button_choose_image_cb(self, button, data=None, data2=None):
 
         if hasattr(mime, 'GENERIC_TYPE_IMAGE'):
@@ -806,8 +814,8 @@ class PollBuilder(activity.Activity):
                     alert.show()
         finally:
             chooser.destroy()
-            del chooser
-
+            del chooser'''
+    '''
     def _show_image_thumbnail(self, parent_box, answer_number):
 
         hbox = Gtk.HBox()
@@ -829,16 +837,16 @@ class PollBuilder(activity.Activity):
         if len(chl) == 4:
             parent_box.remove(chl[len(chl) - 1])
 
-        parent_box.pack_start(hbox, True, True, 0)
-
+        parent_box.pack_start(hbox, True, True, 0)'''
+    '''
     def _already_loaded_image_in_answer(self, answer_number):
 
         if not self._poll.images_ds_objects[int(answer_number)] == {}:
             return True
 
         else:
-            return False
-
+            return False'''
+    '''
     def _build_canvas(self, editing=False, highlight=[]):
         """
         Show the canvas to set up a new poll.
@@ -923,8 +931,8 @@ class PollBuilder(activity.Activity):
 
         buildbox.pack_start(hbox, False, False, 10)
 
-        return canvasbox
-
+        return canvasbox'''
+    '''
     def _options_canvas(self, editing=False, highlight=[]):
         """
         Show the options canvas.
@@ -1006,8 +1014,8 @@ class PollBuilder(activity.Activity):
 
         options_details_box.pack_end(hbox, True, True, 10)
 
-        return canvasbox
-
+        return canvasbox'''
+    '''
     def _view_result_checkbox_cb(self, checkbox, data=None):
         self._view_answer = checkbox.get_active()
 
@@ -1025,8 +1033,8 @@ class PollBuilder(activity.Activity):
             data.add(data2)
 
         else:
-            data.remove(data2)
-
+            data.remove(data2)'''
+    '''
     def _button_preview_cb(self, button, data=None):
         """
         Preview button clicked.
@@ -1045,8 +1053,8 @@ class PollBuilder(activity.Activity):
         self._previewing = True
         self.set_root(self._poll_canvas())
 
-        self.show_all()
-
+        self.show_all()'''
+    '''
     def _button_save_cb(self, button, data=None):
         """
         Save button clicked.
@@ -1066,8 +1074,8 @@ class PollBuilder(activity.Activity):
         self._polls.add(self._poll)
         self._poll.broadcast_on_mesh()
         self.set_root(self._poll_canvas())
-        self.show_all()
-
+        self.show_all()'''
+    '''
     def _button_save_options_cb(self, button, data=None):
 
         alert = NotifyAlert(timeout=3)
@@ -1075,8 +1083,8 @@ class PollBuilder(activity.Activity):
         alert.props.msg = _('The settings have been saved')
         self.add_alert(alert)
         alert.connect('response', self._alert_cancel_cb)
-        alert.show()
-
+        alert.show()'''
+    '''
     def _entry_activate_cb(self, entrycontrol, data=None):
 
         text = entrycontrol.props.text
@@ -1097,24 +1105,24 @@ class PollBuilder(activity.Activity):
                         self._poll.maxvoters = 0  # invalid, will be trapped
 
                 else:
-                    self._poll.options[int(data)] = text
-
+                    self._poll.options[int(data)] = text'''
+    '''
     def _entry_image_size_cb(self, entrycontrol, data=None):
 
         text = entrycontrol.props.text
 
         if data:
             if text:
-                self._image_size[data] = int(text)
-
+                self._image_size[data] = int(text)'''
+    '''
     def _make_blank_poll(self):
         """
         Initialize the poll state.
         """
 
         self._poll = Poll(activity=self)
-        self.current_vote = None
-
+        self.current_vote = None'''
+    '''
     def _make_default_poll(self):
         """
         A hardcoded poll for first time launch.
@@ -1131,8 +1139,8 @@ class PollBuilder(activity.Activity):
                      4: _('None of the above')})
 
         self.current_vote = None
-        self._polls.add(self._poll)
-
+        self._polls.add(self._poll)'''
+    '''
     def _validate(self):
 
         failed_items = []
@@ -1170,8 +1178,8 @@ class PollBuilder(activity.Activity):
         else:
             self._poll.number_of_options = 5
 
-        return failed_items
-
+        return failed_items'''
+    '''
     def _get_sha(self):
         """
         Return a sha1 hash of something about this poll.
@@ -1181,8 +1189,8 @@ class PollBuilder(activity.Activity):
         It will probably be used for the mesh networking too.
         """
 
-        return self._poll.sha
-
+        return self._poll.sha'''
+    '''
     def _switch_to_poll(self, sha):
         """
         Set self._poll to the specified poll with sha
@@ -1192,8 +1200,8 @@ class PollBuilder(activity.Activity):
 
         for poll in self._polls:
             if poll.sha == sha:
-                self._poll = poll
-
+                self._poll = poll'''
+    '''
     def get_my_polls(self):
         """
         Return list of Polls for all polls I created.
@@ -1227,8 +1235,8 @@ class PollBuilder(activity.Activity):
                 except ValueError:
                     self._logger.debug('Ignored mesh vote %u from %s:'
                         ' poll closed.',
-                        choice, votersha)
-
+                        choice, votersha)'''
+    '''
     def _canvas_lessonplanbox(self, lesson_return=None):
         """
         Render the lessonplanbox.
@@ -1255,8 +1263,8 @@ class PollBuilder(activity.Activity):
 
         lessonplanbox.pack_start(button, True, True, 0)
         #, highlight=highlight)))
-        return lessonplanbox
-
+        return lessonplanbox'''
+    '''
     def _button_lessonplan_cb(self, button):
         """
         Lesson Plan button clicked.
@@ -1264,8 +1272,8 @@ class PollBuilder(activity.Activity):
 
         self._logger.debug('%s -> Lesson Plan' % self._current_view)
         self.set_root(self._lessonplan_canvas())
-        self.show_all()
-
+        self.show_all()'''
+    '''
     def _button_closelessonplan_cb(self, button, lesson_return):
         """
         Lesson Plan button clicked in Lesson Plan view.
@@ -1287,8 +1295,8 @@ class PollBuilder(activity.Activity):
         self.show_all()
 
         del self._lessonplan_widget
-        self._lessonplan_widget = None
-
+        self._lessonplan_widget = None'''
+    '''
     def _text_mainbox(self, text, warn=False):
         """
         Main text style.
@@ -1301,8 +1309,8 @@ class PollBuilder(activity.Activity):
         label.set_markup('<big><b>%s</b></big>' % text)
         title_box.add(label)
 
-        return title_box
-
+        return title_box'''
+    '''
     def _shared_cb(self, activity):
         """
         Callback for completion of sharing this activity.
@@ -1315,8 +1323,8 @@ class PollBuilder(activity.Activity):
         self._logger.debug('This is my activity: making a tube...')
 
         id = self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].OfferDBusTube(
-            SERVICE, {})
-
+            SERVICE, {})'''
+    '''
     def _sharing_setup(self):
         """
         Setup my Tubes channel.
@@ -1336,8 +1344,8 @@ class PollBuilder(activity.Activity):
             'NewTube', self._new_tube_cb)
 
         self._shared_activity.connect('buddy-joined', self._buddy_joined_cb)
-        self._shared_activity.connect('buddy-left', self._buddy_left_cb)
-
+        self._shared_activity.connect('buddy-left', self._buddy_left_cb)'''
+    '''
     def _list_tubes_reply_cb(self, tubes):
 
         for tube_info in tubes:
@@ -1362,8 +1370,8 @@ class PollBuilder(activity.Activity):
         self._logger.debug('This is not my activity: waiting for a tube...')
         self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].ListTubes(
             reply_handler=self._list_tubes_reply_cb,
-            error_handler=self._list_tubes_error_cb)
-
+            error_handler=self._list_tubes_error_cb)'''
+    '''
     def _new_tube_cb(self, id, initiator, type, service, params, state):
         """
         Callback for when we have a Tube.
@@ -1385,8 +1393,8 @@ class PollBuilder(activity.Activity):
                 group_iface=self.text_chan[telepathy.CHANNEL_INTERFACE_GROUP])
 
             self.poll_session = PollSession(tube_conn, self.initiating,
-                self._get_buddy, self)
-
+                self._get_buddy, self)'''
+    '''
     def _buddy_joined_cb(self, activity, buddy):
 
         self.alert(buddy.props.nick, _('Joined'))
@@ -1395,8 +1403,8 @@ class PollBuilder(activity.Activity):
     def _buddy_left_cb(self, activity, buddy):
 
         self.alert(buddy.props.nick, _('Left'))
-        self._logger.debug('Buddy %s left' % buddy.props.nick)
-
+        self._logger.debug('Buddy %s left' % buddy.props.nick)'''
+    '''
     def _get_buddy(self, cs_handle):
         """
         Get a Buddy from a channel specific handle.
@@ -1424,8 +1432,8 @@ class PollBuilder(activity.Activity):
             assert handle != 0
 
         return self.pservice.get_buddy_by_telepathy_handle(
-            self.conn.service_name, self.conn.object_path, handle)
-
+            self.conn.service_name, self.conn.object_path, handle)'''
+'''
 class Poll():
     """
     Represent the data of one poll.
@@ -1609,8 +1617,8 @@ class Poll():
                 self.title, self.author, self.active,
                 self.createdate.toordinal(),
                 self.maxvoters, self.question, self.number_of_options,
-                self.options, self.data, self.votes, images_buf)
-
+                self.options, self.data, self.votes, images_buf)'''
+'''
 class PollSession(ExportedGObject):
     """
     The bit that talks over the TUBES!!!
@@ -1997,8 +2005,8 @@ class PollSession(ExportedGObject):
                 poll.createdate.toordinal(),
                 poll.maxvoters, poll.question, poll.number_of_options,
                 poll.options, poll.data, poll.votes, images_buf,
-                dbus_interface=IFACE)
-
+                dbus_interface=IFACE)'''
+'''
 def justify(textdict, choice):
     """
     Take a {} of numbers, and right justify the chosen item.
@@ -2017,18 +2025,18 @@ def justify(textdict, choice):
             max_len = len(str(num))
 
     value = str(textdict[choice])
-    return value.rjust(max_len)
-
+    return value.rjust(max_len)'''
+'''
 class LessonPlanWidget(Gtk.Notebook):
+    """
+    Create a Notebook widget for displaying lesson plans in tabs.
+
+    basepath -- string, path of directory containing lesson plans.
+    """
 
     def __init__(self, basepath):
-        """
-        Create a Notebook widget for displaying lesson plans in tabs.
-
-        basepath -- string, path of directory containing lesson plans.
-        """
-
         super(LessonPlanWidget, self).__init__()
+
         lessons = filter(
             lambda x: os.path.isdir(os.path.join(basepath,
             'lessons', x)),
@@ -2063,4 +2071,4 @@ class LessonPlanWidget(Gtk.Notebook):
         canvas.view_online_layout()
         canvas.zoom_width()
         canvas.set_show_margin(False)
-        self.append_page(canvas, Gtk.Label(label=name))
+        self.append_page(canvas, Gtk.Label(label=name))'''
