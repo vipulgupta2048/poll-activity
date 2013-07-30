@@ -107,10 +107,12 @@ class PollBuilder(activity.Activity):
     def __init__(self, handle):
 
         activity.Activity.__init__(self, handle)
-        '''
-        self._logger = logging.getLogger('poll-activity')
-        self._logger.debug('Starting Poll activity')
 
+        #self._logger = logging.getLogger('poll-activity')
+        #self._logger.debug('Starting Poll activity')
+
+        self._polls = []
+        '''
         # get the Presence Service
         self.pservice = presenceservice.get_instance()
         self.initiating = False
@@ -124,8 +126,6 @@ class PollBuilder(activity.Activity):
         self._basepath = activity.get_bundle_path()
         #os.chdir(self._basepath)  # required for i18n.py to work
 
-        # setup example poll
-        self._polls = set()
         # Removed default polls since it creates too much noise
         # when shared with many on the mesh
         #self._make_default_poll()
@@ -155,10 +155,10 @@ class PollBuilder(activity.Activity):
         '''
         self.set_toolbar_box(self.get_toolbar())
 
-        self._root = Gtk.VBox()
-        self.set_canvas(self._root)
+        #self._root = Gtk.VBox()
+        #self.set_canvas(self._root)
 
-        #self.set_root(self._select_canvas())
+        self.set_canvas(self._select_canvas())
 
         self.show_all()
 
@@ -207,6 +207,72 @@ class PollBuilder(activity.Activity):
         toolbar_box.show_all()
 
         return toolbar_box
+
+    def _select_canvas(self):
+        """
+        Show the select canvas where children choose an existing poll.
+        """
+
+        #self._current_view = 'select'
+
+        mainbox = Gtk.VBox()
+
+        label = Gtk.Label()
+        label.set_markup('<big><b>%s</b></big>' % _('Choose a Poll'))
+        mainbox.pack_start(label, False, False, 0)
+
+        poll_selector_box = Gtk.VBox()
+
+        scroll = Gtk.ScrolledWindow()
+
+        scroll.set_policy(
+            Gtk.PolicyType.AUTOMATIC,
+            Gtk.PolicyType.NEVER)
+
+        scroll.add_with_viewport(poll_selector_box)
+
+        mainbox.pack_start(scroll, True, True, 10)
+
+        row_number = 0
+
+        for poll in self._polls:
+            sha = poll.sha
+
+            if row_number % 2:
+                row_bgcolor = style.COLOR_WHITE.get_int()
+
+            else:
+                row_bgcolor = style.COLOR_SELECTION_GREY.get_int()
+
+            row_number += 1
+
+            poll_row = Gtk.HBox()
+            poll_selector_box.pack_start(poll_row, False, False, 10)
+
+            title = Gtk.Label(label=poll.title + ' (' + poll.author + ')')
+            align = Gtk.Alignment.new(0, 0.5, 0, 0)
+            align.add(title)
+            poll_row.pack_start(align, True, True, 10)
+
+            if poll.active:
+                button = Gtk.Button(_('VOTE'))
+
+            else:
+                button = Gtk.Button(_('SEE RESULTS'))
+
+            button.connect('clicked', self._select_poll_button_cb, sha)
+            poll_row.pack_start(button, False, False, 10)
+
+            if poll.author == profile.get_nick_name():
+                button = Gtk.Button(_('DELETE'))
+                button.connect('clicked', self._delete_poll_button_cb, sha)
+                poll_row.pack_start(button, False, False, 10)
+
+            poll_row.pack_start(Gtk.Label(
+                poll.createdate.strftime('%d/%m/%y')), False, False, 10)
+
+        return mainbox
+
     '''
     def set_root(self, widget):
 
@@ -393,76 +459,7 @@ class PollBuilder(activity.Activity):
         self.draw_poll_details_box()
 
         return canvasbox'''
-    '''
-    def _select_canvas(self):
-        """
-        Show the select canvas where children choose an existing poll.
-        """
 
-        self._current_view = 'select'
-        canvasbox = Gtk.VBox()
-
-        # pollbuilderbox is centered within canvasbox
-        pollbuilderbox = Gtk.VBox()
-        canvasbox.pack_start(pollbuilderbox, True, True, 10)
-
-        mainbox = Gtk.VBox()
-        pollbuilderbox.pack_start(mainbox, True, True, 10)
-
-        mainbox.pack_start(self._text_mainbox(_('Choose a Poll')), False, False, 0)
-
-        poll_details_box = Gtk.VBox()
-        mainbox.pack_start(poll_details_box, True, True, 10)
-
-        # add scroll window
-        scrolledwindow = Gtk.ScrolledWindow()
-
-        scrolledwindow.set_policy(
-            Gtk.PolicyType.AUTOMATIC,
-            Gtk.PolicyType.NEVER)
-
-        poll_selector_box = Gtk.VBox()
-        scrolledwindow.add_with_viewport(poll_selector_box)
-        poll_details_box.pack_start(scrolledwindow, True, True, 10)
-
-        row_number = 0
-
-        for poll in self._polls:
-            sha = poll.sha
-
-            if row_number % 2:
-                row_bgcolor = style.COLOR_WHITE.get_int()
-
-            else:
-                row_bgcolor = style.COLOR_SELECTION_GREY.get_int()
-
-            row_number += 1
-            poll_row = Gtk.HBox()
-            poll_selector_box.pack_start(poll_row, False, False, 10)
-
-            title = Gtk.Label(label=poll.title + ' (' + poll.author + ')')
-            align = Gtk.Alignment.new(0, 0.5, 0, 0)
-            align.add(title)
-            poll_row.pack_start(align, True, True, 10)
-
-            if poll.active:
-                button = Gtk.Button(_('VOTE'))
-
-            else:
-                button = Gtk.Button(_('SEE RESULTS'))
-
-            button.connect('clicked', self._select_poll_button_cb, sha)
-            poll_row.pack_start(button, False, False, 10)
-
-            if poll.author == profile.get_nick_name():
-                button = Gtk.Button(_('DELETE'))
-                button.connect('clicked', self._delete_poll_button_cb, sha)
-                poll_row.pack_start(button, False, False, 10)
-
-            poll_row.pack_start(Gtk.Label(
-                poll.createdate.strftime('%d/%m/%y')), False, False, 10)
-
-        return canvasbox'''
     '''
     def _lessonplan_canvas(self):
         """
