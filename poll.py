@@ -36,7 +36,7 @@ import logging
 import base64
 
 #from hashlib import sha1
-#from datetime import date
+from datetime import date
 from gettext import gettext as _
 '''
 import telepathy
@@ -60,10 +60,10 @@ from sugar3.graphics.alert import NotifyAlert
 from sugar3.presence import presenceservice
 from sugar3.graphics.objectchooser import ObjectChooser
 from sugar3.datastore import datastore
-from sugar3 import mime
+from sugar3 import mime'''
 from sugar3 import profile
-from gi.repository import Abi
-'''
+#from gi.repository import Abi
+
 '''
 SERVICE = "org.worldwideworkshop.olpc.PollBuilder"
 IFACE = SERVICE
@@ -183,7 +183,7 @@ class PollBuilder(activity.Activity):
 
         create_button = ToolButton('view-source')
         create_button.set_tooltip(_('Build a Poll'))
-        #create_button.connect('clicked', self.button_new_clicked)
+        create_button.connect('clicked', self.__button_new_clicked)
         toolbar_box.toolbar.insert(create_button, -1)
 
         settings_button = ToolButton('preferences-system')
@@ -271,6 +271,8 @@ class PollBuilder(activity.Activity):
             poll_row.pack_start(Gtk.Label(
                 poll.createdate.strftime('%d/%m/%y')), False, False, 10)
 
+        mainbox.show_all()
+
         return mainbox
 
     '''
@@ -323,7 +325,7 @@ class PollBuilder(activity.Activity):
         self._logger.debug('Reading file from datastore via Journal: %s' %
             file_path)
 
-        self._polls = set()
+        self._polls = []
 
         f = open(file_path, 'r')
         num_polls = cPickle.load(f)
@@ -352,16 +354,16 @@ class PollBuilder(activity.Activity):
                 images_ds_objects_id)
 
             poll = Poll(self, title, author, active,
-                        date.fromordinal(int(createdate_i)),
-                        maxvoters, question, number_of_options, options,
-                        data, votes, images, images_ds_object)
+                date.fromordinal(int(createdate_i)),
+                maxvoters, question, number_of_options, options,
+                data, votes, images, images_ds_object)
 
-            self._polls.add(poll)
+            self._polls.append(poll)
 
         f.close()
 
-        self.set_root(self._select_canvas())
-        self.show_all()'''
+        self.set_canvas(self._select_canvas())'''
+
     '''
     def write_file(self, file_path):
         """
@@ -733,18 +735,22 @@ class PollBuilder(activity.Activity):
 
         self.set_root(self._select_canvas())
         self.show_all()'''
-    '''
-    def button_new_clicked(self, button):
+
+    def __button_new_clicked(self, button):
         """
         Show Build a Poll canvas.
         """
 
         # Reset vote data to 0
-        self._make_blank_poll()
-        self._poll.author = profile.get_nick_name()
-        self._poll.active = False
-        self.set_root(self._build_canvas())
-        self.show_all()'''
+        self._poll = Poll(
+            activity=self,
+            author = profile.get_nick_name(),
+            active = False)
+
+        #self.current_vote = None
+
+        self.set_canvas(self.__build_canvas())
+
     '''
     def button_edit_clicked(self, button):
         """
@@ -843,8 +849,8 @@ class PollBuilder(activity.Activity):
 
         else:
             return False'''
-    '''
-    def _build_canvas(self, editing=False, highlight=[]):
+
+    def __build_canvas(self, editing=False, highlight=[]):
         """
         Show the canvas to set up a new poll.
 
@@ -854,54 +860,47 @@ class PollBuilder(activity.Activity):
         highlight is a list of strings denoting items failing validation.
         """
 
-        self._current_view = 'build'
+        #self._current_view = 'build'
         canvasbox = Gtk.VBox()
 
-        canvasbox.pack_start(self._text_mainbox(_('Build a Poll')),
-            False, False, 10)
-
-        poll_details_box = Gtk.VBox()
-        canvasbox.pack_start(poll_details_box, False, False, 10)
-
-        buildbox = Gtk.VBox()
-        poll_details_box.pack_start(buildbox, False, False, 10)
+        label = Gtk.Label()
+        label.set_markup('<big><b>%s</b></big>' % _('Build a Poll'))
+        canvasbox.pack_start(label, False, False, 10)
 
         hbox = Gtk.HBox()
         hbox.pack_start(Gtk.Label(_('Poll Title:')), False, False, 10)
         entrybox = Gtk.Entry()
         entrybox.set_text(self._poll.title)
-        entrybox.connect('changed', self._entry_activate_cb, 'title')
+        #entrybox.connect('changed', self._entry_activate_cb, 'title')
         hbox.pack_start(entrybox, True, True, 10)
-        buildbox.pack_start(hbox, False, False, 10)
+        canvasbox.pack_start(hbox, False, False, 10)
 
         hbox = Gtk.HBox()
         hbox.pack_start(Gtk.Label(_('Question:')), False, False, 10)
         entrybox = Gtk.Entry()
         entrybox.set_text(self._poll.question)
-        entrybox.connect('changed', self._entry_activate_cb, 'question')
+        #entrybox.connect('changed', self._entry_activate_cb, 'question')
         hbox.pack_start(entrybox, True, True, 10)
-        buildbox.pack_start(hbox, False, False, 10)
+        canvasbox.pack_start(hbox, False, False, 10)
 
         hbox = Gtk.HBox()
         hbox.pack_start(Gtk.Label(_('Number of votes to collect:')),
             False, False, 10)
-
         entrybox = Gtk.Entry()
         entrybox.set_text(str(self._poll.maxvoters))
-        entrybox.connect('changed', self._entry_activate_cb, 'maxvoters')
+        #entrybox.connect('changed', self._entry_activate_cb, 'maxvoters')
         hbox.pack_start(entrybox, True, True, 10)
-        buildbox.pack_start(hbox, False, False, 10)
+        canvasbox.pack_start(hbox, False, False, 10)
 
         for choice in self._poll.options.keys():
             hbox = Gtk.HBox()
             hbox.pack_start(Gtk.Label(_('Answer %d:') % (choice + 1)),
                 False, False, 10)
-
             entrybox = Gtk.Entry()
             entrybox.set_text(self._poll.options[choice])
-            entrybox.connect('changed', self._entry_activate_cb, str(choice))
+            #entrybox.connect('changed', self._entry_activate_cb, str(choice))
             hbox.pack_start(entrybox, True, True, 10)
-
+            '''
             if self._use_image:
                 if self._already_loaded_image_in_answer(choice):
                     button = Gtk.Button(_("Change Image"))
@@ -913,22 +912,24 @@ class PollBuilder(activity.Activity):
                     hbox.pack_start(button, True, False, 10)
 
                 button.connect('clicked', self._button_choose_image_cb,
-                    str(choice), hbox)
+                    str(choice), hbox)'''
 
-            buildbox.pack_start(hbox, False, False, 10)
+            canvasbox.pack_start(hbox, False, False, 10)
 
         # PREVIEW & SAVE buttons
         hbox = Gtk.HBox()
         button = Gtk.Button(_("Step 1: Preview"))
-        button.connect('clicked', self._button_preview_cb)
+        #button.connect('clicked', self._button_preview_cb)
         hbox.pack_start(button, True, True, 10)
         button = Gtk.Button(_("Step 2: Save"))
-        button.connect('clicked', self._button_save_cb)
+        #button.connect('clicked', self._button_save_cb)
         hbox.pack_start(button, True, True, 10)
 
-        buildbox.pack_start(hbox, False, False, 10)
+        canvasbox.pack_start(hbox, False, False, 10)
 
-        return canvasbox'''
+        canvasbox.show_all()
+
+        return canvasbox
     '''
     def _options_canvas(self, editing=False, highlight=[]):
         """
@@ -1430,7 +1431,7 @@ class PollBuilder(activity.Activity):
 
         return self.pservice.get_buddy_by_telepathy_handle(
             self.conn.service_name, self.conn.object_path, handle)'''
-'''
+
 class Poll():
     """
     Represent the data of one poll.
@@ -1458,9 +1459,10 @@ class Poll():
 
         self.data = (data or {0: 0, 1: 0, 2: 0, 3: 0, 4: 0})
         self.votes = (votes or {})
-        self._logger = logging.getLogger('poll-activity.Poll')
-        self._logger.debug('Creating Poll(%s by %s)' % (title, author))
 
+        #self._logger = logging.getLogger('poll-activity.Poll')
+        #self._logger.debug('Creating Poll(%s by %s)' % (title, author))
+    '''
     def dump(self):
         """
         Dump a pickled version for the journal.
@@ -1614,7 +1616,8 @@ class Poll():
                 self.title, self.author, self.active,
                 self.createdate.toordinal(),
                 self.maxvoters, self.question, self.number_of_options,
-                self.options, self.data, self.votes, images_buf)'''
+                self.options, self.data, self.votes, images_buf)
+'''
 '''
 class PollSession(ExportedGObject):
     """
