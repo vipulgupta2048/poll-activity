@@ -48,39 +48,22 @@ class NewPollCanvas(Gtk.Box):
         label.set_markup('<big><b>%s</b></big>' % _('Build a Poll'))
         self.pack_start(label, False, False, 10)
 
-        hbox = Gtk.HBox()
-        hbox.pack_start(Gtk.Label(_('Poll Title:')), False, False, 10)
-        entrybox = Gtk.Entry()
-        entrybox.set_text(poll.title)
-        #entrybox.connect('changed', self._entry_activate_cb, 'title')
-        hbox.pack_start(entrybox, True, True, 10)
-        self.pack_start(hbox, False, False, 10)
+        self.pack_start(ItemNewPoll(
+            _('Poll Title:'), poll.title),
+            False, False, 10) #entrybox.connect('changed', self._entry_activate_cb, 'title')
 
-        hbox = Gtk.HBox()
-        hbox.pack_start(Gtk.Label(_('Question:')), False, False, 10)
-        entrybox = Gtk.Entry()
-        entrybox.set_text(poll.question)
-        #entrybox.connect('changed', self._entry_activate_cb, 'question')
-        hbox.pack_start(entrybox, True, True, 10)
-        self.pack_start(hbox, False, False, 10)
+        self.pack_start(ItemNewPoll(
+            _('Question:'), poll.question),
+            False, False, 10) #entrybox.connect('changed', self._entry_activate_cb, 'question')
 
-        hbox = Gtk.HBox()
-        hbox.pack_start(Gtk.Label(_('Number of votes to collect:')),
-            False, False, 10)
-        entrybox = Gtk.Entry()
-        entrybox.set_text(str(poll.maxvoters))
-        #entrybox.connect('changed', self._entry_activate_cb, 'maxvoters')
-        hbox.pack_start(entrybox, True, True, 10)
-        self.pack_start(hbox, False, False, 10)
+        self.pack_start(ItemNewPoll(
+            _('Number of votes to collect:'), str(poll.maxvoters)),
+            False, False, 10) #entrybox.connect('changed', self._entry_activate_cb, 'maxvoters')
 
         for choice in poll.options.keys():
-            hbox = Gtk.HBox()
-            hbox.pack_start(Gtk.Label(_('Answer %d:') % (choice + 1)),
-                False, False, 10)
-            entrybox = Gtk.Entry()
-            entrybox.set_text(poll.options[choice])
-            #entrybox.connect('changed', self._entry_activate_cb, str(choice))
-            hbox.pack_start(entrybox, True, True, 10)
+            self.pack_start(ItemNewPoll(
+                _('Answer %d:'), poll.options[choice]),
+                False, False, 10) #entrybox.connect('changed', self._entry_activate_cb, str(choice))
             '''
             if self._use_image:
                 if self._already_loaded_image_in_answer(choice):
@@ -95,13 +78,13 @@ class NewPollCanvas(Gtk.Box):
                 button.connect('clicked', self._button_choose_image_cb,
                     str(choice), hbox)'''
 
-            self.pack_start(hbox, False, False, 10)
-
         # PREVIEW & SAVE buttons
         hbox = Gtk.HBox()
+
         button = Gtk.Button(_("Step 1: Preview"))
-        #button.connect('clicked', self._button_preview_cb)
+        button.connect('clicked', self._button_preview_cb)
         hbox.pack_start(button, True, True, 10)
+
         button = Gtk.Button(_("Step 2: Save"))
         button.connect('clicked', self.__button_save_cb)
         hbox.pack_start(button, True, True, 10)
@@ -119,6 +102,9 @@ class NewPollCanvas(Gtk.Box):
         failed_items = self.__validate()
 
         if failed_items:
+            # FIXME: El parámetro highlight nunca se utilizó, la idea era
+            # resaltar el texto en las etiquetas para aquellas opciones no
+            # validadas de una encuesta.
             #self.set_root(self._build_canvas(highlight=failed_items))
             #self.show_all()
             return
@@ -132,7 +118,6 @@ class NewPollCanvas(Gtk.Box):
         self.set_root(self._poll_canvas())
         self.show_all()'''
 
-    '''
     def __button_preview_cb(self, button, data=None):
         """
         Preview button clicked.
@@ -142,10 +127,14 @@ class NewPollCanvas(Gtk.Box):
         failed_items = self._validate()
 
         if failed_items:
-            self.set_root(self._build_canvas(highlight=failed_items))
-            self.show_all()
+            # FIXME: El parámetro highlight nunca se utilizó, la idea era
+            # resaltar el texto en las etiquetas para aquellas opciones no
+            # validadas de una encuesta.
+            #self.set_root(self._build_canvas(highlight=failed_items))
+            #self.show_all()
             return
 
+        ''' Vienen de poll.py
         # Data OK
         self._poll.active = True  # Show radio buttons
         self._previewing = True
@@ -191,3 +180,18 @@ class NewPollCanvas(Gtk.Box):
             self._poll.number_of_options = 5
 
         return failed_items
+
+class ItemNewPoll(Gtk.Box):
+
+    def __init__(self, label_text, entry_text):
+
+        Gtk.Box.__init__(self, orientation = Gtk.Orientation.HORIZONTAL)
+
+        entrybox = Gtk.Entry()
+        entrybox.set_text(entry_text)
+        #entrybox.connect('changed', self._entry_activate_cb, 'title')
+
+        self.pack_start(Gtk.Label(label_text), False, False, 10)
+        self.pack_start(entrybox, True, True, 10)
+
+        self.show_all()
