@@ -28,6 +28,9 @@ class NewPollCanvas(Gtk.Box):
 
     def __init__(self, poll, editing=False, highlight=[]):
 
+        # FIXME: El parámetro highlight nunca se utilizó, la idea era
+        # resaltar el texto en las etiquetas para aquellas opciones no
+        # validadas de una encuesta.
         Gtk.Box.__init__(self, orientation = Gtk.Orientation.VERTICAL)
 
         """
@@ -100,9 +103,91 @@ class NewPollCanvas(Gtk.Box):
         #button.connect('clicked', self._button_preview_cb)
         hbox.pack_start(button, True, True, 10)
         button = Gtk.Button(_("Step 2: Save"))
-        #button.connect('clicked', self._button_save_cb)
+        button.connect('clicked', self.__button_save_cb)
         hbox.pack_start(button, True, True, 10)
 
         self.pack_start(hbox, False, False, 10)
 
         self.show_all()
+
+    def __button_save_cb(self, button, data=None):
+        """
+        Save button clicked.
+        """
+
+        ### Validate data
+        failed_items = self.__validate()
+
+        if failed_items:
+            #self.set_root(self._build_canvas(highlight=failed_items))
+            #self.show_all()
+            return
+
+        ''' Vienen de poll.py
+        # Data OK
+        self._previewing = False
+        self._poll.active = True
+        self._polls.add(self._poll)
+        self._poll.broadcast_on_mesh()
+        self.set_root(self._poll_canvas())
+        self.show_all()'''
+
+    '''
+    def __button_preview_cb(self, button, data=None):
+        """
+        Preview button clicked.
+        """
+
+        # Validate data
+        failed_items = self._validate()
+
+        if failed_items:
+            self.set_root(self._build_canvas(highlight=failed_items))
+            self.show_all()
+            return
+
+        # Data OK
+        self._poll.active = True  # Show radio buttons
+        self._previewing = True
+        self.set_root(self._poll_canvas())
+
+        self.show_all()'''
+
+    def __validate(self):
+
+        failed_items = []
+
+        if self._poll.title == '':
+            failed_items.append('title')
+
+        if self._poll.question == '':
+            failed_items.append('question')
+
+        if self._poll.maxvoters == 0:
+            failed_items.append('maxvoters')
+
+        if self._poll.options[0] == '':
+            failed_items.append('0')
+
+        if self._poll.options[1] == '':
+            failed_items.append('1')
+
+        if self._poll.options[3] != '' and self._poll.options[2] == '':
+            failed_items.append('2')
+
+        if self._poll.options[4] != '' and self._poll.options[3] == '':
+            failed_items.append('3')
+
+        if self._poll.options[2] == '':
+            self._poll.number_of_options = 2
+
+        elif self._poll.options[3] == '':
+            self._poll.number_of_options = 3
+
+        elif self._poll.options[4] == '':
+            self._poll.number_of_options = 4
+
+        else:
+            self._poll.number_of_options = 5
+
+        return failed_items

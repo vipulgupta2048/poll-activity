@@ -853,87 +853,6 @@ class PollBuilder(activity.Activity):
         else:
             return False'''
     '''
-    def __build_canvas(self, editing=False, highlight=[]):
-        """
-        Show the canvas to set up a new poll.
-
-        editing is False to start a new poll, or
-        True to edit the current poll
-
-        highlight is a list of strings denoting items failing validation.
-        """
-
-        #self._current_view = 'build'
-        canvasbox = Gtk.VBox()
-
-        label = Gtk.Label()
-        label.set_markup('<big><b>%s</b></big>' % _('Build a Poll'))
-        canvasbox.pack_start(label, False, False, 10)
-
-        hbox = Gtk.HBox()
-        hbox.pack_start(Gtk.Label(_('Poll Title:')), False, False, 10)
-        entrybox = Gtk.Entry()
-        entrybox.set_text(self._poll.title)
-        #entrybox.connect('changed', self._entry_activate_cb, 'title')
-        hbox.pack_start(entrybox, True, True, 10)
-        canvasbox.pack_start(hbox, False, False, 10)
-
-        hbox = Gtk.HBox()
-        hbox.pack_start(Gtk.Label(_('Question:')), False, False, 10)
-        entrybox = Gtk.Entry()
-        entrybox.set_text(self._poll.question)
-        #entrybox.connect('changed', self._entry_activate_cb, 'question')
-        hbox.pack_start(entrybox, True, True, 10)
-        canvasbox.pack_start(hbox, False, False, 10)
-
-        hbox = Gtk.HBox()
-        hbox.pack_start(Gtk.Label(_('Number of votes to collect:')),
-            False, False, 10)
-        entrybox = Gtk.Entry()
-        entrybox.set_text(str(self._poll.maxvoters))
-        #entrybox.connect('changed', self._entry_activate_cb, 'maxvoters')
-        hbox.pack_start(entrybox, True, True, 10)
-        canvasbox.pack_start(hbox, False, False, 10)
-
-        for choice in self._poll.options.keys():
-            hbox = Gtk.HBox()
-            hbox.pack_start(Gtk.Label(_('Answer %d:') % (choice + 1)),
-                False, False, 10)
-            entrybox = Gtk.Entry()
-            entrybox.set_text(self._poll.options[choice])
-            #entrybox.connect('changed', self._entry_activate_cb, str(choice))
-            hbox.pack_start(entrybox, True, True, 10)
-            """
-            if self._use_image:
-                if self._already_loaded_image_in_answer(choice):
-                    button = Gtk.Button(_("Change Image"))
-                    hbox.pack_start(button, True, False, 10)
-                    self._show_image_thumbnail(hbox, choice)
-
-                else:
-                    button = Gtk.Button(_("Add Image"))
-                    hbox.pack_start(button, True, False, 10)
-
-                button.connect('clicked', self._button_choose_image_cb,
-                    str(choice), hbox)"""
-
-            canvasbox.pack_start(hbox, False, False, 10)
-
-        # PREVIEW & SAVE buttons
-        hbox = Gtk.HBox()
-        button = Gtk.Button(_("Step 1: Preview"))
-        #button.connect('clicked', self._button_preview_cb)
-        hbox.pack_start(button, True, True, 10)
-        button = Gtk.Button(_("Step 2: Save"))
-        #button.connect('clicked', self._button_save_cb)
-        hbox.pack_start(button, True, True, 10)
-
-        canvasbox.pack_start(hbox, False, False, 10)
-
-        canvasbox.show_all()
-
-        return canvasbox'''
-    '''
     def _options_canvas(self, editing=False, highlight=[]):
         """
         Show the options canvas.
@@ -1035,47 +954,10 @@ class PollBuilder(activity.Activity):
 
         else:
             data.remove(data2)'''
-    '''
-    def _button_preview_cb(self, button, data=None):
-        """
-        Preview button clicked.
-        """
 
-        # Validate data
-        failed_items = self._validate()
-
-        if failed_items:
-            self.set_root(self._build_canvas(highlight=failed_items))
-            self.show_all()
-            return
-
-        # Data OK
-        self._poll.active = True  # Show radio buttons
-        self._previewing = True
-        self.set_root(self._poll_canvas())
-
-        self.show_all()'''
     '''
     def _button_save_cb(self, button, data=None):
-        """
-        Save button clicked.
-        """
-
-        # Validate data
-        failed_items = self._validate()
-
-        if failed_items:
-            self.set_root(self._build_canvas(highlight=failed_items))
-            self.show_all()
-            return
-
-        # Data OK
-        self._previewing = False
-        self._poll.active = True
-        self._polls.add(self._poll)
-        self._poll.broadcast_on_mesh()
-        self.set_root(self._poll_canvas())
-        self.show_all()'''
+        movido a NewPollCanvas'''
     '''
     def _button_save_options_cb(self, button, data=None):
 
@@ -1141,45 +1023,7 @@ class PollBuilder(activity.Activity):
 
         self.current_vote = None
         self._polls.add(self._poll)'''
-    '''
-    def _validate(self):
 
-        failed_items = []
-
-        if self._poll.title == '':
-            failed_items.append('title')
-
-        if self._poll.question == '':
-            failed_items.append('question')
-
-        if self._poll.maxvoters == 0:
-            failed_items.append('maxvoters')
-
-        if self._poll.options[0] == '':
-            failed_items.append('0')
-
-        if self._poll.options[1] == '':
-            failed_items.append('1')
-
-        if self._poll.options[3] != '' and self._poll.options[2] == '':
-            failed_items.append('2')
-
-        if self._poll.options[4] != '' and self._poll.options[3] == '':
-            failed_items.append('3')
-
-        if self._poll.options[2] == '':
-            self._poll.number_of_options = 2
-
-        elif self._poll.options[3] == '':
-            self._poll.number_of_options = 3
-
-        elif self._poll.options[4] == '':
-            self._poll.number_of_options = 4
-
-        else:
-            self._poll.number_of_options = 5
-
-        return failed_items'''
     '''
     def _get_sha(self):
         """
