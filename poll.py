@@ -91,6 +91,9 @@ IMAGE_WIDTH = 100
 IMAGE_THUMBNAIL_HEIGHT = 80
 IMAGE_THUMBNAIL_WIDTH = 80
 '''
+
+from Widgets import NewPollCanvas
+
 class PollBuilder(activity.Activity):
     """
     Sugar activity for polls
@@ -749,7 +752,7 @@ class PollBuilder(activity.Activity):
 
         #self.current_vote = None
 
-        self.set_canvas(self.__build_canvas())
+        self.set_canvas(NewPollCanvas(self._poll))
 
     '''
     def button_edit_clicked(self, button):
@@ -849,7 +852,7 @@ class PollBuilder(activity.Activity):
 
         else:
             return False'''
-
+    '''
     def __build_canvas(self, editing=False, highlight=[]):
         """
         Show the canvas to set up a new poll.
@@ -900,7 +903,7 @@ class PollBuilder(activity.Activity):
             entrybox.set_text(self._poll.options[choice])
             #entrybox.connect('changed', self._entry_activate_cb, str(choice))
             hbox.pack_start(entrybox, True, True, 10)
-            '''
+            """
             if self._use_image:
                 if self._already_loaded_image_in_answer(choice):
                     button = Gtk.Button(_("Change Image"))
@@ -912,7 +915,7 @@ class PollBuilder(activity.Activity):
                     hbox.pack_start(button, True, False, 10)
 
                 button.connect('clicked', self._button_choose_image_cb,
-                    str(choice), hbox)'''
+                    str(choice), hbox)"""
 
             canvasbox.pack_start(hbox, False, False, 10)
 
@@ -929,7 +932,7 @@ class PollBuilder(activity.Activity):
 
         canvasbox.show_all()
 
-        return canvasbox
+        return canvasbox'''
     '''
     def _options_canvas(self, editing=False, highlight=[]):
         """
