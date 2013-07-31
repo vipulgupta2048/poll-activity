@@ -24,23 +24,66 @@ from gettext import gettext as _
 
 from gi.repository import Gtk
 
+from sugar3.graphics.toolbarbox import ToolbarBox
+from sugar3.graphics.toolbutton import ToolButton
+from sugar3.activity.widgets import StopButton
+from sugar3.activity.widgets import ActivityToolbarButton
+
+class Toolbar(ToolbarBox):
+
+    def __init__(self):
+
+        ToolbarBox.__init__(self)
+
+        toolbar_box = ToolbarBox()
+        activity_button = ActivityToolbarButton(self)
+        self.toolbar.insert(activity_button, 0)
+        activity_button.show()
+
+        separator = Gtk.SeparatorToolItem()
+        self.toolbar.insert(separator, -1)
+
+        self.choose_button = ToolButton('view-list')
+        self.choose_button.set_tooltip(_('Choose a Poll'))
+        self.toolbar.insert(self.choose_button, -1)
+
+        self.create_button = ToolButton('view-source')
+        self.create_button.set_tooltip(_('Build a Poll'))
+        self.toolbar.insert(self.create_button, -1)
+
+        self.settings_button = ToolButton('preferences-system')
+        self.settings_button.set_tooltip(_('Settings'))
+        self.toolbar.insert(self.settings_button, -1)
+
+        self.help_button = ToolButton('toolbar-help')
+        self.help_button.set_tooltip(_('Lesson Plans'))
+        self.toolbar.insert(self.help_button, -1)
+
+        separator = Gtk.SeparatorToolItem()
+        separator.props.draw = False
+        separator.set_expand(True)
+        self.toolbar.insert(separator, -1)
+        separator.show()
+
+        self.toolbar.insert(StopButton(self), -1)
+
+        self.show_all()
+
 class NewPollCanvas(Gtk.Box):
+    """
+    widgets to set up a new poll or editing existing poll.
+        editing is False to start a new poll.
+        editing is True to edit the current poll.
+
+    highlight is a list of strings denoting items failing validation.
+    """
 
     def __init__(self, poll, editing=False, highlight=[]):
 
         # FIXME: El parámetro highlight nunca se utilizó, la idea era
         # resaltar el texto en las etiquetas para aquellas opciones no
-        # validadas de una encuesta.
+        # validadas en la encuesta.
         Gtk.Box.__init__(self, orientation = Gtk.Orientation.VERTICAL)
-
-        """
-        Show the canvas to set up a new poll.
-
-        editing is False to start a new poll, or
-        True to edit the current poll
-
-        highlight is a list of strings denoting items failing validation.
-        """
 
         #self._current_view = 'build'
 
@@ -104,7 +147,7 @@ class NewPollCanvas(Gtk.Box):
         if failed_items:
             # FIXME: El parámetro highlight nunca se utilizó, la idea era
             # resaltar el texto en las etiquetas para aquellas opciones no
-            # validadas de una encuesta.
+            # validadas en la encuesta.
             #self.set_root(self._build_canvas(highlight=failed_items))
             #self.show_all()
             return
@@ -129,7 +172,7 @@ class NewPollCanvas(Gtk.Box):
         if failed_items:
             # FIXME: El parámetro highlight nunca se utilizó, la idea era
             # resaltar el texto en las etiquetas para aquellas opciones no
-            # validadas de una encuesta.
+            # validadas en la encuesta.
             #self.set_root(self._build_canvas(highlight=failed_items))
             #self.show_all()
             return
@@ -180,6 +223,27 @@ class NewPollCanvas(Gtk.Box):
             self._poll.number_of_options = 5
 
         return failed_items
+
+    def _entry_activate_cb(self, entry, data=None):
+
+        text = entry.get_text()
+
+        if text and data:
+            if data == 'title':
+                self._poll.title = text
+
+            elif data == 'question':
+                self._poll.question = text
+
+            elif data == 'maxvoters':
+                try:
+                    self._poll.maxvoters = int(text)
+
+                except ValueError:
+                    self._poll.maxvoters = 0 # invalid, will be trapped
+
+            else:
+                self._poll.options[int(data)] = text
 
 class ItemNewPoll(Gtk.Box):
 

@@ -47,11 +47,6 @@ from dbus.gobject_service import ExportedGObject
 
 from sugar3.presence.tubeconn import TubeConnection'''
 
-from sugar3.graphics.toolbarbox import ToolbarBox
-from sugar3.graphics.toolbutton import ToolButton
-from sugar3.activity.widgets import StopButton
-from sugar3.activity.widgets import ActivityToolbarButton
-
 from sugar3.activity import activity
 '''
 from sugar3.graphics import style
@@ -93,6 +88,7 @@ IMAGE_THUMBNAIL_WIDTH = 80
 '''
 
 from Widgets import NewPollCanvas
+from Widgets import Toolbar
 
 class PollBuilder(activity.Activity):
     """
@@ -156,10 +152,12 @@ class PollBuilder(activity.Activity):
         # Lesson plan widget
         self._lessonplan_widget = None
         '''
-        self.set_toolbar_box(self.get_toolbar())
-
-        #self._root = Gtk.VBox()
-        #self.set_canvas(self._root)
+        toolbar = Toolbar()
+        toolbar.create_button.connect('clicked', self.__button_new_clicked)
+        # choose_button.connect('clicked', self.button_select_clicked)
+        # settings_button.connect('clicked', self.button_options_clicked)
+        # help_button.connect('clicked', self._button_lessonplan_cb)
+        self.set_toolbar_box(toolbar)
 
         self.set_canvas(self._select_canvas())
 
@@ -168,48 +166,6 @@ class PollBuilder(activity.Activity):
         self.poll_session = None  # PollSession
         #self.connect('shared', self._shared_cb)
         #self.connect('joined', self._joined_cb)
-
-    def get_toolbar(self):
-
-        toolbar_box = ToolbarBox()
-        activity_button = ActivityToolbarButton(self)
-        toolbar_box.toolbar.insert(activity_button, 0)
-        activity_button.show()
-
-        separator = Gtk.SeparatorToolItem()
-        toolbar_box.toolbar.insert(separator, -1)
-
-        choose_button = ToolButton('view-list')
-        choose_button.set_tooltip(_('Choose a Poll'))
-        #choose_button.connect('clicked', self.button_select_clicked)
-        toolbar_box.toolbar.insert(choose_button, -1)
-
-        create_button = ToolButton('view-source')
-        create_button.set_tooltip(_('Build a Poll'))
-        create_button.connect('clicked', self.__button_new_clicked)
-        toolbar_box.toolbar.insert(create_button, -1)
-
-        settings_button = ToolButton('preferences-system')
-        settings_button.set_tooltip(_('Settings'))
-        #settings_button.connect('clicked', self.button_options_clicked)
-        toolbar_box.toolbar.insert(settings_button, -1)
-
-        help_button = ToolButton('toolbar-help')
-        help_button.set_tooltip(_('Lesson Plans'))
-        #help_button.connect('clicked', self._button_lessonplan_cb)
-        toolbar_box.toolbar.insert(help_button, -1)
-
-        separator = Gtk.SeparatorToolItem()
-        separator.props.draw = False
-        separator.set_expand(True)
-        toolbar_box.toolbar.insert(separator, -1)
-        separator.show()
-
-        toolbar_box.toolbar.insert(StopButton(self), -1)
-
-        toolbar_box.show_all()
-
-        return toolbar_box
 
     def _select_canvas(self):
         """
@@ -967,28 +923,7 @@ class PollBuilder(activity.Activity):
         self.add_alert(alert)
         alert.connect('response', self._alert_cancel_cb)
         alert.show()'''
-    '''
-    def _entry_activate_cb(self, entrycontrol, data=None):
 
-        text = entrycontrol.props.text
-
-        if data:
-            if text:
-                if data == 'title':
-                    self._poll.title = text
-
-                elif data == 'question':
-                    self._poll.question = text
-
-                elif data == 'maxvoters':
-                    try:
-                        self._poll.maxvoters = int(text)
-
-                    except ValueError:
-                        self._poll.maxvoters = 0  # invalid, will be trapped
-
-                else:
-                    self._poll.options[int(data)] = text'''
     '''
     def _entry_image_size_cb(self, entrycontrol, data=None):
 
