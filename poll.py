@@ -111,6 +111,8 @@ class PollBuilder(activity.Activity):
         #self._logger.debug('Starting Poll activity')
 
         self._polls = []
+        self.current_vote = None
+
         '''
         # get the Presence Service
         self.pservice = presenceservice.get_instance()
@@ -368,7 +370,7 @@ class PollBuilder(activity.Activity):
         """
 
         self.remove_alert(alert)'''
-    '''
+
     def _poll_canvas(self):
         """
         Show the poll canvas where children vote on an existing poll.
@@ -419,7 +421,7 @@ class PollBuilder(activity.Activity):
         self.current_vote = None
         self.draw_poll_details_box()
 
-        return canvasbox'''
+        return canvasbox
 
     '''
     def _lessonplan_canvas(self):
@@ -514,7 +516,7 @@ class PollBuilder(activity.Activity):
             logging.exception("Image error")
             return ''
         '''
-    '''
+
     def draw_poll_details_box(self):
         """
         (Re)draw the poll details box
@@ -623,7 +625,6 @@ class PollBuilder(activity.Activity):
             button.connect('clicked', self._button_save_cb)
             button_box.pack_start(button, True, True, 0)
             self.poll_details_box_tail.pack_start(button_box, True, True, 0)
-    '''
     '''
     def vote_choice_radio_button(self, widget, data=None):
         """

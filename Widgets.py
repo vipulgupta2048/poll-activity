@@ -93,22 +93,22 @@ class NewPollCanvas(Gtk.Box):
         label.set_markup('<big><b>%s</b></big>' % _('Build a poll'))
         self.pack_start(label, False, False, 10)
 
-        self.pack_start(ItemNewPoll(
-            _('poll Title:'), self._poll.title),
-            False, False, 10) #entrybox.connect('changed', self._entry_activate_cb, 'title')
+        item_poll = ItemNewPoll(_('poll Title:'), self._poll.title)
+        item_poll.entry.connect('changed', self.__entry_activate_cb, 'title')
+        self.pack_start(item_poll, False, False, 10)
 
-        self.pack_start(ItemNewPoll(
-            _('Question:'), self._poll.question),
-            False, False, 10) #entrybox.connect('changed', self._entry_activate_cb, 'question')
+        item_poll = ItemNewPoll(_('Question:'), self._poll.question)
+        item_poll.entry.connect('changed', self.__entry_activate_cb, 'question')
+        self.pack_start(item_poll, False, False, 10)
 
-        self.pack_start(ItemNewPoll(
-            _('Number of votes to collect:'), str(self._poll.maxvoters)),
-            False, False, 10) #entrybox.connect('changed', self._entry_activate_cb, 'maxvoters')
+        item_poll = ItemNewPoll(_('Number of votes to collect:'), str(self._poll.maxvoters))
+        item_poll.entry.connect('changed', self.__entry_activate_cb, 'maxvoters')
+        self.pack_start(item_poll, False, False, 10)
 
         for choice in self._poll.options.keys():
-            self.pack_start(ItemNewPoll(
-                _('Answer %d:'), self._poll.options[choice]),
-                False, False, 10) #entrybox.connect('changed', self._entry_activate_cb, str(choice))
+            item_poll = ItemNewPoll(_('Answer %d:'), self._poll.options[choice])
+            item_poll.entry.connect('changed', self.__entry_activate_cb, str(choice))
+            self.pack_start(item_poll, False, False, 10)
             '''
             if self._use_image:
                 if self._already_loaded_image_in_answer(choice):
@@ -147,6 +147,7 @@ class NewPollCanvas(Gtk.Box):
         failed_items = self.__validate()
 
         if failed_items:
+            print "*** failed_items:", failed_items
             # FIXME: El parámetro highlight nunca se utilizó, la idea era
             # resaltar el texto en las etiquetas para aquellas opciones no
             # validadas en la encuesta.
@@ -154,14 +155,15 @@ class NewPollCanvas(Gtk.Box):
             #self.show_all()
             return
 
-        ''' Vienen de poll.py
+        # Vienen de poll.py
         # Data OK
-        self._previewing = False
+        #self._previewing = False
         self._poll.active = True
-        self._polls.add(self._poll)
-        self._poll.broadcast_on_mesh()
-        self.set_root(self._poll_canvas())
-        self.show_all()'''
+        #self._polls.add(self._poll)
+        #self._poll.broadcast_on_mesh()
+        #self.set_root(self._poll_canvas())
+        #self.get_toplevel().set_canvas(self.get_toplevel()._poll_canvas())
+        #self.show_all()
 
     def __button_preview_cb(self, button, data=None):
         """
@@ -172,6 +174,7 @@ class NewPollCanvas(Gtk.Box):
         failed_items = self.__validate()
 
         if failed_items:
+            print "*** failed_items:", failed_items
             # FIXME: El parámetro highlight nunca se utilizó, la idea era
             # resaltar el texto en las etiquetas para aquellas opciones no
             # validadas en la encuesta.
@@ -179,13 +182,12 @@ class NewPollCanvas(Gtk.Box):
             #self.show_all()
             return
 
-        ''' Vienen de poll.py
+        # Vienen de poll.py
         # Data OK
         self._poll.active = True  # Show radio buttons
-        self._previewing = True
-        self.set_root(self._poll_canvas())
-
-        self.show_all()'''
+        #self._previewing = True
+        #self.set_root(self._poll_canvas())
+        #self.show_all()
 
     def __validate(self):
 
@@ -225,12 +227,12 @@ class NewPollCanvas(Gtk.Box):
             self._poll.number_of_options = 5
 
         return failed_items
-    '''
-    def _entry_activate_cb(self, entry, data=None):
+
+    def __entry_activate_cb(self, entry, data):
 
         text = entry.get_text()
 
-        if text and data:
+        if text:
             if data == 'title':
                 self._poll.title = text
 
@@ -245,7 +247,7 @@ class NewPollCanvas(Gtk.Box):
                     self._poll.maxvoters = 0 # invalid, will be trapped
 
             else:
-                self._poll.options[int(data)] = text'''
+                self._poll.options[int(data)] = text
 
 class ItemNewPoll(Gtk.Box):
 
@@ -253,11 +255,10 @@ class ItemNewPoll(Gtk.Box):
 
         Gtk.Box.__init__(self, orientation = Gtk.Orientation.HORIZONTAL)
 
-        entrybox = Gtk.Entry()
-        entrybox.set_text(entry_text)
-        #entrybox.connect('changed', self._entry_activate_cb, 'title')
+        self.entry = Gtk.Entry()
+        self.entry.set_text(entry_text)
 
         self.pack_start(Gtk.Label(label_text), False, False, 10)
-        self.pack_start(entrybox, True, True, 10)
+        self.pack_start(self.entry, True, True, 10)
 
         self.show_all()
