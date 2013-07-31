@@ -31,12 +31,12 @@ from sugar3.activity.widgets import ActivityToolbarButton
 
 class Toolbar(ToolbarBox):
 
-    def __init__(self):
+    def __init__(self, activity):
 
         ToolbarBox.__init__(self)
 
         toolbar_box = ToolbarBox()
-        activity_button = ActivityToolbarButton(self)
+        activity_button = ActivityToolbarButton(activity)
         self.toolbar.insert(activity_button, 0)
         activity_button.show()
 
@@ -65,7 +65,7 @@ class Toolbar(ToolbarBox):
         self.toolbar.insert(separator, -1)
         separator.show()
 
-        self.toolbar.insert(StopButton(self), -1)
+        self.toolbar.insert(StopButton(activity), -1)
 
         self.show_all()
 
@@ -85,27 +85,29 @@ class NewPollCanvas(Gtk.Box):
         # validadas en la encuesta.
         Gtk.Box.__init__(self, orientation = Gtk.Orientation.VERTICAL)
 
+        self._poll = poll
+
         #self._current_view = 'build'
 
         label = Gtk.Label()
-        label.set_markup('<big><b>%s</b></big>' % _('Build a Poll'))
+        label.set_markup('<big><b>%s</b></big>' % _('Build a poll'))
         self.pack_start(label, False, False, 10)
 
         self.pack_start(ItemNewPoll(
-            _('Poll Title:'), poll.title),
+            _('poll Title:'), self._poll.title),
             False, False, 10) #entrybox.connect('changed', self._entry_activate_cb, 'title')
 
         self.pack_start(ItemNewPoll(
-            _('Question:'), poll.question),
+            _('Question:'), self._poll.question),
             False, False, 10) #entrybox.connect('changed', self._entry_activate_cb, 'question')
 
         self.pack_start(ItemNewPoll(
-            _('Number of votes to collect:'), str(poll.maxvoters)),
+            _('Number of votes to collect:'), str(self._poll.maxvoters)),
             False, False, 10) #entrybox.connect('changed', self._entry_activate_cb, 'maxvoters')
 
-        for choice in poll.options.keys():
+        for choice in self._poll.options.keys():
             self.pack_start(ItemNewPoll(
-                _('Answer %d:'), poll.options[choice]),
+                _('Answer %d:'), self._poll.options[choice]),
                 False, False, 10) #entrybox.connect('changed', self._entry_activate_cb, str(choice))
             '''
             if self._use_image:
@@ -125,7 +127,7 @@ class NewPollCanvas(Gtk.Box):
         hbox = Gtk.HBox()
 
         button = Gtk.Button(_("Step 1: Preview"))
-        button.connect('clicked', self._button_preview_cb)
+        button.connect('clicked', self.__button_preview_cb)
         hbox.pack_start(button, True, True, 10)
 
         button = Gtk.Button(_("Step 2: Save"))
@@ -167,7 +169,7 @@ class NewPollCanvas(Gtk.Box):
         """
 
         # Validate data
-        failed_items = self._validate()
+        failed_items = self.__validate()
 
         if failed_items:
             # FIXME: El parámetro highlight nunca se utilizó, la idea era
@@ -223,7 +225,7 @@ class NewPollCanvas(Gtk.Box):
             self._poll.number_of_options = 5
 
         return failed_items
-
+    '''
     def _entry_activate_cb(self, entry, data=None):
 
         text = entry.get_text()
@@ -243,7 +245,7 @@ class NewPollCanvas(Gtk.Box):
                     self._poll.maxvoters = 0 # invalid, will be trapped
 
             else:
-                self._poll.options[int(data)] = text
+                self._poll.options[int(data)] = text'''
 
 class ItemNewPoll(Gtk.Box):
 

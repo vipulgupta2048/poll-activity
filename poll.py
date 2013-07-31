@@ -152,7 +152,7 @@ class PollBuilder(activity.Activity):
         # Lesson plan widget
         self._lessonplan_widget = None
         '''
-        toolbar = Toolbar()
+        toolbar = Toolbar(self)
         toolbar.create_button.connect('clicked', self.__button_new_clicked)
         # choose_button.connect('clicked', self.button_select_clicked)
         # settings_button.connect('clicked', self.button_options_clicked)
