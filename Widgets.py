@@ -24,8 +24,10 @@ from gettext import gettext as _
 from gi.repository import Gtk
 from gi.repository import GdkPixbuf
 
-from sugar3.graphics.alert import NotifyAlert
 from sugar3 import mime
+from sugar3 import profile
+from sugar3.graphics import style
+from sugar3.graphics.alert import NotifyAlert
 from sugar3.graphics.objectchooser import ObjectChooser
 
 from sugar3.graphics.toolbarbox import ToolbarBox
@@ -464,3 +466,67 @@ class OptionsCanvas(Gtk.Box):
         self.poll_activity.add_alert(alert)
         alert.connect('response', self.poll_activity._alert_cancel_cb)
         alert.show()
+
+class SelectCanvas(Gtk.Box):
+
+    def __init__(self, poll_activity):
+
+        Gtk.Box.__init__(self, orientation = Gtk.Orientation.VERTICAL)
+
+        poll_activity._current_view = 'select'
+
+        label = Gtk.Label()
+        label.set_markup('<big><b>%s</b></big>' % _('Choose a Poll'))
+        self.pack_start(label, False, False, 0)
+
+        poll_selector_box = Gtk.VBox()
+
+        scroll = Gtk.ScrolledWindow()
+
+        scroll.set_policy(
+            Gtk.PolicyType.AUTOMATIC,
+            Gtk.PolicyType.NEVER)
+
+        scroll.add_with_viewport(poll_selector_box)
+
+        self.pack_start(scroll, True, True, 10)
+
+        row_number = 0
+
+        for poll in poll_activity._polls:
+            sha = poll.sha
+
+            if row_number % 2:
+                row_bgcolor = style.COLOR_WHITE.get_int()
+
+            else:
+                row_bgcolor = style.COLOR_SELECTION_GREY.get_int()
+
+            row_number += 1
+
+            poll_row = Gtk.HBox()
+            poll_selector_box.pack_start(poll_row, False, False, 10)
+
+            title = Gtk.Label(label=poll.title + ' (' + poll.author + ')')
+            align = Gtk.Alignment.new(0, 0.5, 0, 0)
+            align.add(title)
+            poll_row.pack_start(align, True, True, 10)
+
+            if poll.active:
+                button = Gtk.Button(_('VOTE'))
+
+            else:
+                button = Gtk.Button(_('SEE RESULTS'))
+
+            button.connect('clicked', poll_activity._select_poll_button_cb, sha)
+            poll_row.pack_start(button, False, False, 10)
+
+            if poll.author == profile.get_nick_name():
+                button = Gtk.Button(_('DELETE'))
+                button.connect('clicked', poll_activity._delete_poll_button_cb, sha)
+                poll_row.pack_start(button, False, False, 10)
+
+            poll_row.pack_start(Gtk.Label(
+                poll.createdate.strftime('%d/%m/%y')), False, False, 10)
+
+        self.show_all()

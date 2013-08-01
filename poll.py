@@ -46,8 +46,6 @@ from dbus.gobject_service import ExportedGObject
 from sugar3.presence.tubeconn import TubeConnection'''
 
 from sugar3.activity import activity
-
-from sugar3.graphics import style
 from sugar3.graphics.alert import NotifyAlert
 
 from sugar3.presence import presenceservice
@@ -77,6 +75,7 @@ RADIO_SIZE = 32'''
 from Widgets import NewPollCanvas
 from Widgets import Toolbar
 from Widgets import OptionsCanvas
+from Widgets import SelectCanvas
 
 class PollBuilder(activity.Activity):
     """
@@ -148,14 +147,15 @@ class PollBuilder(activity.Activity):
         # toolbar.help_button.connect('clicked', self._button_lessonplan_cb)
         self.set_toolbar_box(toolbar)
 
-        self.set_canvas(self._select_canvas())
+        #self.set_canvas(self._select_canvas())
+        self.set_canvas(SelectCanvas(self))
 
         self.show_all()
 
         self.poll_session = None  # PollSession
         #self.connect('shared', self._shared_cb)
         #self.connect('joined', self._joined_cb)
-
+    '''
     def _select_canvas(self):
         """
         Show the select canvas where children choose an existing poll.
@@ -221,7 +221,7 @@ class PollBuilder(activity.Activity):
 
         mainbox.show_all()
 
-        return mainbox
+        return mainbox'''
 
     '''
     def set_root(self, widget):
@@ -310,7 +310,8 @@ class PollBuilder(activity.Activity):
 
         f.close()
 
-        self.set_canvas(self._select_canvas())
+        #self.set_canvas(self._select_canvas())
+        self.set_canvas(SelectCanvas(self))
 
     def write_file(self, file_path):
         """
@@ -450,7 +451,7 @@ class PollBuilder(activity.Activity):
         self._has_voted = False
         self.set_canvas(self._poll_canvas())
 
-    def __delete_poll_button_cb(self, button, sha):
+    def _delete_poll_button_cb(self, button, sha):
         """
         A DELETE button was clicked.
         """
@@ -464,11 +465,12 @@ class PollBuilder(activity.Activity):
             self._poll = Poll(activity=self)
             self.current_vote = None
 
-        for poll in self._polls.copy():
+        for poll in self._polls:
             if poll.sha == sha:
                 self._polls.remove(poll)
 
-        self.set_canvas(self._select_canvas())
+        #self.set_canvas(self._select_canvas())
+        self.set_canvas(SelectCanvas(self))
 
     '''
     def _load_image(self, pixbuf):
@@ -662,7 +664,8 @@ class PollBuilder(activity.Activity):
         Show Choose a Poll canvas
         """
 
-        self.set_canvas(self._select_canvas())
+        #self.set_canvas(self._select_canvas())
+        self.set_canvas(SelectCanvas(self))
 
     def __button_new_clicked(self, button):
         """
@@ -825,7 +828,8 @@ class PollBuilder(activity.Activity):
             self.set_root(self._poll_canvas())
 
         elif lesson_return == 'select':
-            self.set_root(self._select_canvas())
+            #self.set_root(self._select_canvas())
+            self.set_canvas(SelectCanvas(self))
 
         elif lesson_return == 'build':
             self.set_root(self._build_canvas())
