@@ -47,13 +47,13 @@ from sugar3.presence.tubeconn import TubeConnection'''
 
 from sugar3.activity import activity
 
-#from sugar3.graphics import style
+from sugar3.graphics import style
 from sugar3.graphics.alert import NotifyAlert
 
 from sugar3.presence import presenceservice
 #from sugar3.graphics.objectchooser import ObjectChooser
-#from sugar3.datastore import datastore
-#from sugar3 import mime
+from sugar3.datastore import datastore
+from sugar3 import mime
 from sugar3 import profile
 #from gi.repository import Abi
 
@@ -76,8 +76,6 @@ GRAPH_WIDTH = Gdk.Screen.width() / 3
 GRAPH_TEXT_WIDTH = 50
 RADIO_SIZE = 32'''
 
-#IMAGE_HEIGHT = 100
-#IMAGE_WIDTH = 100
 IMAGE_THUMBNAIL_HEIGHT = 80
 IMAGE_THUMBNAIL_WIDTH = 80
 
@@ -123,6 +121,9 @@ class PollBuilder(activity.Activity):
         #the last vote
         self._remember_last_vote = True
 
+        #This property has the image size
+        self._image_size = {'height': 100, 'width': 100}
+
         # get the Presence Service
         self.pservice = presenceservice.get_instance()
         self.initiating = False
@@ -140,9 +141,6 @@ class PollBuilder(activity.Activity):
         # when shared with many on the mesh
         #self._make_default_poll()
         self._has_voted = False
-
-        #This property has the image size
-        self._image_size = {'height': IMAGE_HEIGHT, 'width': IMAGE_WIDTH}
 
         # Lesson plan widget
         self._lessonplan_widget = None
@@ -219,7 +217,7 @@ class PollBuilder(activity.Activity):
 
             if poll.author == profile.get_nick_name():
                 button = Gtk.Button(_('DELETE'))
-                button.connect('clicked', self._delete_poll_button_cb, sha)
+                button.connect('clicked', self.__delete_poll_button_cb, sha)
                 poll_row.pack_start(button, False, False, 10)
 
             poll_row.pack_start(Gtk.Label(
@@ -236,7 +234,7 @@ class PollBuilder(activity.Activity):
             self._root.remove(self._root.get_children()[0])
 
         self._root.pack_start(widget, True, True, 0)'''
-    '''
+
     def _create_pixbufs(self, images_ds_object_id):
 
         pixbufs = {}
@@ -252,8 +250,8 @@ class PollBuilder(activity.Activity):
             else:
                 pixbufs[int(index)] = ''
 
-        return pixbufs'''
-    '''
+        return pixbufs
+
     def _get_images_ds_objects(self, images_ds_object_id):
 
         images_ds_objects = {}
@@ -266,8 +264,8 @@ class PollBuilder(activity.Activity):
                 images_ds_objects[int(index)]['file_path'] = \
                     datastore.get(ds_object_id).file_path
 
-        return images_ds_objects'''
-    '''
+        return images_ds_objects
+
     def read_file(self, file_path):
         """
         Implement reading from journal
@@ -276,8 +274,8 @@ class PollBuilder(activity.Activity):
         which provides file_path.
         """
 
-        self._logger.debug('Reading file from datastore via Journal: %s' %
-            file_path)
+        #self._logger.debug('Reading file from datastore via Journal: %s' %
+        #    file_path)
 
         self._polls = []
 
@@ -316,9 +314,8 @@ class PollBuilder(activity.Activity):
 
         f.close()
 
-        self.set_canvas(self._select_canvas())'''
+        self.set_canvas(self._select_canvas())
 
-    '''
     def write_file(self, file_path):
         """
         Implement writing to the journal
@@ -343,7 +340,7 @@ class PollBuilder(activity.Activity):
 
         f = open(file_path, 'w')
         f.write(s)
-        f.close()'''
+        f.close()
     '''
     def alert(self, title, text=None):
         """
@@ -443,55 +440,40 @@ class PollBuilder(activity.Activity):
         poll_details_box.pack_start(lessonplan, True, True, 0)
 
         return canvasbox'''
-    '''
+
     def _select_poll_button_cb(self, button, sha=None):
         """
         A VOTE or SEE RESULTS button was clicked.
         """
 
         if not sha:
-            self._logger.debug('Strange, which button was clicked?')
+            #self._logger.debug('Strange, which button was clicked?')
             return
 
         self._switch_to_poll(sha)
         self._has_voted = False
-        self.set_root(self._poll_canvas())
-        self.show_all()'''
-    '''
-    def _delete_poll_button_cb(self, button, sha=None):
+        self.set_canvas(self._poll_canvas())
+
+    def __delete_poll_button_cb(self, button, sha):
         """
         A DELETE button was clicked.
         """
 
         if not sha:
-            self._logger.debug('Strange, which button was clicked?')
+            #self._logger.debug('Strange, which button was clicked?')
             return
 
-        self.delete_poll(sha)
-        self.set_root(self._select_canvas())
-        self.show_all()'''
-    '''
-    def delete_poll(self, sha=None, poll=None):
-        """
-        Delete a poll, either by passing sha or the actual poll object.
-        sha -- string, sha property of the poll
-        poll -- Poll
-        """
+        if self._poll.sha == sha:
+            #self._logger.debug('delete_poll: removing current poll')
+            self._poll = Poll(activity=self)
+            self.current_vote = None
 
-        if poll:
-            if self._poll == poll:
-                self._make_blank_poll
+        for poll in self._polls.copy():
+            if poll.sha == sha:
+                self._polls.remove(poll)
 
-            self._polls.remove(poll)
+        self.set_canvas(self._select_canvas())
 
-        if sha:
-            if self._poll.sha == sha:
-                self._logger.debug('delete_poll: removing current poll')
-                self._make_blank_poll()
-
-            for poll in self._polls.copy():
-                if poll.sha == sha:
-                    self._polls.remove(poll)'''
     '''
     def _load_image(self, pixbuf):
         """
@@ -919,14 +901,7 @@ class PollBuilder(activity.Activity):
         if data:
             if text:
                 self._image_size[data] = int(text)'''
-    '''
-    def _make_blank_poll(self):
-        """
-        Initialize the poll state.
-        """
 
-        self._poll = Poll(activity=self)
-        self.current_vote = None'''
     '''
     def _make_default_poll(self):
         """
@@ -957,7 +932,7 @@ class PollBuilder(activity.Activity):
         """
 
         return self._poll.sha'''
-    '''
+
     def _switch_to_poll(self, sha):
         """
         Set self._poll to the specified poll with sha
@@ -967,7 +942,7 @@ class PollBuilder(activity.Activity):
 
         for poll in self._polls:
             if poll.sha == sha:
-                self._poll = poll'''
+                self._poll = poll
     '''
     def get_my_polls(self):
         """
@@ -1218,7 +1193,7 @@ class Poll():
 
         #self._logger = logging.getLogger('poll-activity.Poll')
         #self._logger.debug('Creating Poll(%s by %s)' % (title, author))
-    '''
+
     def dump(self):
         """
         Dump a pickled version for the journal.
@@ -1269,7 +1244,7 @@ class Poll():
         s += cPickle.dumps(votes)
         s += cPickle.dumps(images_objects_id)
 
-        return s'''
+        return s
 
     @property
     def vote_count(self):
@@ -1283,7 +1258,7 @@ class Poll():
             total += self.data[choice]
 
         return total
-    '''
+
     @property
     def sha(self):
         """
@@ -1292,7 +1267,7 @@ class Poll():
         Currently we sha1 the poll title and author.
         """
 
-        return sha1(self.title + self.author).hexdigest()'''
+        return sha1(self.title + self.author).hexdigest()
 
     def register_vote(self, choice, votersha):
         """
