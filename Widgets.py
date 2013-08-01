@@ -105,6 +105,7 @@ class NewPollCanvas(Gtk.Box):
         self.pack_start(item_poll, False, False, 10)
 
         for choice in self._poll.options.keys():
+            hbox = Gtk.HBox()
             item_poll = ItemNewPoll(_('Answer %d:'), self._poll.options[choice])
             item_poll.entry.connect('changed', self.__entry_activate_cb, str(choice))
             self.pack_start(item_poll, False, False, 10)

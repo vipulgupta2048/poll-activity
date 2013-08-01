@@ -147,9 +147,9 @@ class PollBuilder(activity.Activity):
         '''
         toolbar = Toolbar(self)
         toolbar.create_button.connect('clicked', self.__button_new_clicked)
-        # choose_button.connect('clicked', self.button_select_clicked)
-        # settings_button.connect('clicked', self.button_options_clicked)
-        # help_button.connect('clicked', self._button_lessonplan_cb)
+        toolbar.choose_button.connect('clicked', self.__button_select_clicked)
+        toolbar.settings_button.connect('clicked', self.__button_options_clicked)
+        # toolbar.help_button.connect('clicked', self._button_lessonplan_cb)
         self.set_toolbar_box(toolbar)
 
         self.set_canvas(self._select_canvas())
@@ -660,14 +660,13 @@ class PollBuilder(activity.Activity):
             self.add_alert(alert)
             alert.connect('response', self._alert_cancel_cb)
             alert.show()
-    '''
-    def button_select_clicked(self, button):
+
+    def __button_select_clicked(self, button):
         """
         Show Choose a Poll canvas
         """
 
-        self.set_root(self._select_canvas())
-        self.show_all()'''
+        self.set_canvas(self._select_canvas())
 
     def __button_new_clicked(self, button):
         """
@@ -690,11 +689,10 @@ class PollBuilder(activity.Activity):
         """
 
         self.set_canvas(NewPollCanvas(self._poll))
-    '''
-    def button_options_clicked(self, button):
 
-        self.set_root(self._options_canvas())
-        self.show_all()'''
+    def __button_options_clicked(self, button):
+
+        self.set_canvas(self.__options_canvas())
 
     def _button_choose_image_cb(self, button, data=None, data2=None):
 
@@ -780,8 +778,8 @@ class PollBuilder(activity.Activity):
 
         else:
             return False
-    '''
-    def _options_canvas(self, editing=False, highlight=[]):
+
+    def __options_canvas(self, editing=False, highlight=[]):
         """
         Show the options canvas.
         """
@@ -799,7 +797,7 @@ class PollBuilder(activity.Activity):
 
         optionsbox.pack_start(mainbox, True, False, 0)
 
-        mainbox.pack_start(self._text_mainbox(_('Settings')), True, True, 10)
+        mainbox.pack_start(Gtk.Label(_('Settings')), True, True, 10)
 
         options_details_box = Gtk.VBox()
         mainbox.pack_start(options_details_box, True, False, 10)
@@ -862,8 +860,9 @@ class PollBuilder(activity.Activity):
 
         options_details_box.pack_end(hbox, True, True, 10)
 
-        return canvasbox'''
-    '''
+        canvasbox.show_all()
+        return canvasbox
+
     def _view_result_checkbox_cb(self, checkbox, data=None):
         self._view_answer = checkbox.get_active()
 
@@ -881,9 +880,8 @@ class PollBuilder(activity.Activity):
             data.add(data2)
 
         else:
-            data.remove(data2)'''
+            data.remove(data2)
 
-    '''
     def _button_save_options_cb(self, button, data=None):
 
         alert = NotifyAlert(timeout=3)
@@ -891,16 +889,13 @@ class PollBuilder(activity.Activity):
         alert.props.msg = _('The settings have been saved')
         self.add_alert(alert)
         alert.connect('response', self._alert_cancel_cb)
-        alert.show()'''
+        alert.show()
 
-    '''
-    def _entry_image_size_cb(self, entrycontrol, data=None):
+    def _entry_image_size_cb(self, entrycontrol, data):
 
-        text = entrycontrol.props.text
+        text = entrycontrol.get_text()
 
-        if data:
-            if text:
-                self._image_size[data] = int(text)'''
+        if text: self._image_size[data] = int(text)
 
     '''
     def _make_default_poll(self):
