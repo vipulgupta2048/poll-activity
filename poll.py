@@ -33,7 +33,7 @@ import locale
 import logging
 import base64
 
-#from hashlib import sha1
+from hashlib import sha1
 from datetime import date
 from gettext import gettext as _
 '''
@@ -46,14 +46,14 @@ from dbus.gobject_service import ExportedGObject
 from sugar3.presence.tubeconn import TubeConnection'''
 
 from sugar3.activity import activity
-'''
-from sugar3.graphics import style
+
+#from sugar3.graphics import style
 from sugar3.graphics.alert import NotifyAlert
 
 from sugar3.presence import presenceservice
-from sugar3.graphics.objectchooser import ObjectChooser
-from sugar3.datastore import datastore
-from sugar3 import mime'''
+#from sugar3.graphics.objectchooser import ObjectChooser
+#from sugar3.datastore import datastore
+#from sugar3 import mime
 from sugar3 import profile
 #from gi.repository import Abi
 
@@ -75,10 +75,7 @@ PAD = 10
 GRAPH_WIDTH = Gdk.Screen.width() / 3
 GRAPH_TEXT_WIDTH = 50
 RADIO_SIZE = 32'''
-VIEW_ANSWER = True
-#REMEMBER_LAST_VOTE = True
-#PLAY_VOTE_SOUND = False
-USE_IMAGE_IN_ANSWER = False
+
 #IMAGE_HEIGHT = 100
 #IMAGE_WIDTH = 100
 IMAGE_THUMBNAIL_HEIGHT = 80
@@ -113,12 +110,19 @@ class PollBuilder(activity.Activity):
         self._previewing = False
 
         #This property allows result viewing while voting
-        self._view_answer = VIEW_ANSWER
+        self._view_answer = True
 
         #This property allows use image in answer
-        self._use_image = USE_IMAGE_IN_ANSWER
+        self._use_image = False
 
-        '''
+        #This property allows play a sound when click in
+        #the button to make a vote
+        self._play_vote_sound = False
+
+        #This property allows remember in the radio button options
+        #the last vote
+        self._remember_last_vote = True
+
         # get the Presence Service
         self.pservice = presenceservice.get_instance()
         self.initiating = False
@@ -128,7 +132,7 @@ class PollBuilder(activity.Activity):
         self.owner = owner
         self.nick = owner.props.nick
         self.nick_sha1 = sha1(self.nick).hexdigest()
-
+        '''
         self._basepath = activity.get_bundle_path()
         #os.chdir(self._basepath)  # required for i18n.py to work
 
@@ -136,14 +140,6 @@ class PollBuilder(activity.Activity):
         # when shared with many on the mesh
         #self._make_default_poll()
         self._has_voted = False
-
-        #This property allows remember in the radio button options
-        #the last vote
-        self._remember_last_vote = REMEMBER_LAST_VOTE
-
-        #This property allows play a sound when click in
-        #the button to make a vote
-        self._play_vote_sound = PLAY_VOTE_SOUND
 
         #This property has the image size
         self._image_size = {'height': IMAGE_HEIGHT, 'width': IMAGE_WIDTH}
@@ -360,13 +356,13 @@ class PollBuilder(activity.Activity):
         self.add_alert(alert)
         alert.connect('response', self._alert_cancel_cb)
         alert.show()'''
-    '''
+
     def _alert_cancel_cb(self, alert, response_id):
         """
         Callback for alert events
         """
 
-        self.remove_alert(alert)'''
+        self.remove_alert(alert)
 
     def _poll_canvas(self):
         """
@@ -546,7 +542,7 @@ class PollBuilder(activity.Activity):
                 button = Gtk.RadioButton.new_with_label_from_widget(
                     group, self._poll.options[choice])
 
-                #button.connect('toggled', self.vote_choice_radio_button, choice)
+                button.connect('toggled', self.vote_choice_radio_button, choice)
 
                 answer_box.pack_start(button, True, False, 10)
 
@@ -605,20 +601,20 @@ class PollBuilder(activity.Activity):
         if self._poll.active and not self._previewing:
             button_box = Gtk.HBox()
             button = Gtk.Button(_("Vote"))
-            #button.connect('clicked', self._button_vote_cb)
+            button.connect('clicked', self._button_vote_cb)
             button_box.pack_start(button, True, False, 10)
             self.poll_details_box_tail.pack_start(button_box, True, True, 10)
 
         elif self._previewing:
             button_box = Gtk.HBox()
             button = Gtk.Button(_("Edit Poll"))
-            #button.connect('clicked', self.button_edit_clicked)
+            button.connect('clicked', self.button_edit_clicked)
             button_box.pack_start(button, True, True, 0)
             button = Gtk.Button(_("Save Poll"))
-            #button.connect('clicked', self._button_save_cb)
+            button.connect('clicked', self.get_canvas().button_save_cb)
             button_box.pack_start(button, True, True, 0)
             self.poll_details_box_tail.pack_start(button_box, True, True, 0)
-    '''
+
     def vote_choice_radio_button(self, widget, data=None):
         """
         Track which radio button has been selected
@@ -627,16 +623,16 @@ class PollBuilder(activity.Activity):
         data contains the choice (0 - 4) selected.
         """
 
-        self.current_vote = data'''
-    '''
+        self.current_vote = data
+
     def _play_vote_button_sound(self):
 
         try:
             subprocess.Popen("aplay extras/vote-sound.wav", shell=True)
 
         except (OSError, ValueError), e:
-            logging.exception(e)'''
-    '''
+            logging.exception(e)
+
     def _button_vote_cb(self, button):
         """
         Register a vote
@@ -647,23 +643,25 @@ class PollBuilder(activity.Activity):
 
         if self.current_vote is not None:
             if self._poll.vote_count >= self._poll.maxvoters:
-                self._logger.debug('Hit the max voters, ignoring this vote.')
+                #self._logger.debug('Hit the max voters, ignoring this vote.')
                 return
 
-            self._logger.debug('Voted ' + str(self.current_vote))
+            #self._logger.debug('Voted ' + str(self.current_vote))
             self._has_voted = True
 
             try:
                 self._poll.register_vote(self.current_vote, self.nick_sha1)
 
             except OverflowError:
-                self._logger.debug('Local vote failed: '
-                    'maximum votes already registered.')
+                #self._logger.debug('Local vote failed: '
+                #    'maximum votes already registered.')
+                pass
 
             except ValueError:
-                self._logger.debug('Local vote failed: poll closed.')
+                #self._logger.debug('Local vote failed: poll closed.')
+                pass
 
-            self._logger.debug('Results: ' + str(self._poll.data))
+            #self._logger.debug('Results: ' + str(self._poll.data))
 
             if self._play_vote_sound:
                 self._play_vote_button_sound()
@@ -679,7 +677,7 @@ class PollBuilder(activity.Activity):
             alert.props.msg = _('To vote you have to select first one option')
             self.add_alert(alert)
             alert.connect('response', self._alert_cancel_cb)
-            alert.show()'''
+            alert.show()
     '''
     def button_select_clicked(self, button):
         """
@@ -704,14 +702,12 @@ class PollBuilder(activity.Activity):
 
         self.set_canvas(NewPollCanvas(self._poll))
 
-    '''
     def button_edit_clicked(self, button):
         """
         Go back from preview to edit
         """
 
-        self.set_root(self._build_canvas())
-        self.show_all()'''
+        self.set_canvas(NewPollCanvas(self._poll))
     '''
     def button_options_clicked(self, button):
 
@@ -906,9 +902,6 @@ class PollBuilder(activity.Activity):
             data.remove(data2)'''
 
     '''
-    def _button_save_cb(self, button, data=None):
-        movido a NewPollCanvas'''
-    '''
     def _button_save_options_cb(self, button, data=None):
 
         alert = NotifyAlert(timeout=3)
@@ -1070,20 +1063,7 @@ class PollBuilder(activity.Activity):
 
         del self._lessonplan_widget
         self._lessonplan_widget = None'''
-    '''
-    def _text_mainbox(self, text, warn=False):
-        """
-        Main text style.
 
-        warn=True makes the text color RED and appends ???.
-        """
-
-        title_box = Gtk.VBox()
-        label = Gtk.Label()
-        label.set_markup('<big><b>%s</b></big>' % text)
-        title_box.add(label)
-
-        return title_box'''
     '''
     def _shared_cb(self, activity):
         """
@@ -1312,7 +1292,7 @@ class Poll():
         Currently we sha1 the poll title and author.
         """
 
-        return sha1(self.title + self.author).hexdigest()
+        return sha1(self.title + self.author).hexdigest()'''
 
     def register_vote(self, choice, votersha):
         """
@@ -1322,11 +1302,11 @@ class Poll():
           sha1 of the voter nick
         """
 
-        self._logger.debug('In Poll.register_vote')
+        #self._logger.debug('In Poll.register_vote')
 
         if self.active:
             if self.vote_count < self.maxvoters:
-                self._logger.debug('About to vote')
+                #self._logger.debug('About to vote')
                 # XXX 27/10/07 Morgan: Allowing multiple votes per XO
                 #                      per Shannon's request.
                 ## if voter already voted, change their vote:
@@ -1337,20 +1317,20 @@ class Poll():
 
                 self.votes[votersha] = choice
                 self.data[choice] += 1
-                self._logger.debug(
-                    'Recording vote %d by %s on %s by %s' %
-                    (choice, votersha, self.title, self.author))
+                #self._logger.debug(
+                #    'Recording vote %d by %s on %s by %s' %
+                #    (choice, votersha, self.title, self.author))
 
                 ### Close poll:
                 if self.vote_count >= self.maxvoters:
                     self.active = False
-                    self._logger.debug('Poll hit maxvoters, closing')
+                    #self._logger.debug('Poll hit maxvoters, closing')
 
                 if self.activity.poll_session:
                     # We are shared so we can send the Vote signal if I voted
                     if votersha == self.activity.nick_sha1:
-                        self._logger.debug(
-                            'Shared, I voted so sending signal')
+                        #self._logger.debug(
+                        #    'Shared, I voted so sending signal')
 
                         self.activity.poll_session.Vote(
                             self.author, self.title, choice, votersha)
@@ -1360,7 +1340,7 @@ class Poll():
 
         else:
             raise ValueError('Poll closed')
-
+    '''
     def _pixbuf_save_cb(self, buf, data):
 
         data[0] += buf
@@ -1782,7 +1762,7 @@ class PollSession(ExportedGObject):
                 poll.maxvoters, poll.question, poll.number_of_options,
                 poll.options, poll.data, poll.votes, images_buf,
                 dbus_interface=IFACE)'''
-'''
+
 def justify(textdict, choice):
     """
     Take a {} of numbers, and right justify the chosen item.
@@ -1801,7 +1781,7 @@ def justify(textdict, choice):
             max_len = len(str(num))
 
     value = str(textdict[choice])
-    return value.rjust(max_len)'''
+    return value.rjust(max_len)
 '''
 class LessonPlanWidget(Gtk.Notebook):
     """
