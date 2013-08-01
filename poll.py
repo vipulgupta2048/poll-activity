@@ -51,9 +51,7 @@ from sugar3.graphics import style
 from sugar3.graphics.alert import NotifyAlert
 
 from sugar3.presence import presenceservice
-#from sugar3.graphics.objectchooser import ObjectChooser
 from sugar3.datastore import datastore
-from sugar3 import mime
 from sugar3 import profile
 #from gi.repository import Abi
 
@@ -75,9 +73,6 @@ PAD = 10
 GRAPH_WIDTH = Gdk.Screen.width() / 3
 GRAPH_TEXT_WIDTH = 50
 RADIO_SIZE = 32'''
-
-IMAGE_THUMBNAIL_HEIGHT = 80
-IMAGE_THUMBNAIL_WIDTH = 80
 
 from Widgets import NewPollCanvas
 from Widgets import Toolbar
@@ -694,83 +689,6 @@ class PollBuilder(activity.Activity):
     def __button_options_clicked(self, button):
 
         self.set_canvas(OptionsCanvas(self))
-
-    def _button_choose_image_cb(self, button, data=None, data2=None):
-
-        if hasattr(mime, 'GENERIC_TYPE_IMAGE'):
-            chooser = ObjectChooser(_('Choose image'), self,
-                Gtk.DialogFlags.MODAL |
-                Gtk.DialogFlags.DESTROY_WITH_PARENT,
-                what_filter=mime.GENERIC_TYPE_IMAGE)
-
-        else:
-            chooser = ObjectChooser(_('Choose image'), self,
-                Gtk.DialogFlags.MODAL |
-                Gtk.DialogFlags.DESTROY_WITH_PARENT)
-
-        try:
-            result = chooser.run()
-
-            if result == Gtk.ResponseType.ACCEPT:
-                logging.debug('ObjectChooser: %r' %
-                    chooser.get_selected_object())
-
-                jobject = chooser.get_selected_object()
-
-                images_mime_types = mime.get_generic_type(
-                    mime.GENERIC_TYPE_IMAGE).mime_types
-
-                if jobject and jobject.file_path and \
-                   jobject.metadata.get('mime_type') in images_mime_types:
-
-                    pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(
-                        jobject.file_path, self._image_size['height'],
-                        self._image_size['width'])
-
-                    self._poll.images[int(data)] = pixbuf
-
-                    self._poll.images_ds_objects[int(data)]['id'] = \
-                        jobject.object_id
-
-                    self._poll.images_ds_objects[int(data)]['file_path'] = \
-                        jobject.file_path
-
-                    self._show_image_thumbnail(data2, data)
-                    button.set_label(_('Change Image'))
-
-                else:
-                    alert = NotifyAlert(timeout=3)
-                    alert.props.title = _('Poll Activity')
-                    alert.props.msg = _('Your selection is not an image')
-                    self.add_alert(alert)
-                    alert.connect('response', self._alert_cancel_cb)
-                    alert.show()
-        finally:
-            chooser.destroy()
-            del chooser
-
-    def _show_image_thumbnail(self, parent_box, answer_number):
-
-        hbox = Gtk.HBox()
-
-        image_file_path = self._poll.images_ds_objects[int(answer_number)][
-            'file_path']
-
-        pixbuf_thumbnail = GdkPixbuf.Pixbuf.new_from_file_at_size(
-            image_file_path, IMAGE_THUMBNAIL_HEIGHT, IMAGE_THUMBNAIL_WIDTH)
-
-        image = Gtk.Image()
-        image.set_from_pixbuf(pixbuf_thumbnail)
-        image.show()
-        hbox.add(image)
-        hbox.show()
-
-        chl = parent_box.get_children()
-
-        if len(chl) == 4:
-            parent_box.remove(chl[len(chl) - 1])
-
-        parent_box.pack_start(hbox, True, True, 0)
 
     def _already_loaded_image_in_answer(self, answer_number):
 

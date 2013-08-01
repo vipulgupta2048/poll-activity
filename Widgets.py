@@ -22,13 +22,16 @@
 from gettext import gettext as _
 
 from gi.repository import Gtk
+from gi.repository import GdkPixbuf
+
+from sugar3.graphics.alert import NotifyAlert
+from sugar3 import mime
+from sugar3.graphics.objectchooser import ObjectChooser
 
 from sugar3.graphics.toolbarbox import ToolbarBox
 from sugar3.graphics.toolbutton import ToolButton
 from sugar3.activity.widgets import StopButton
 from sugar3.activity.widgets import ActivityToolbarButton
-
-from sugar3.graphics.alert import NotifyAlert
 
 class Toolbar(ToolbarBox):
 
@@ -116,13 +119,13 @@ class NewPollCanvas(Gtk.Box):
                 if self._poll.activity._already_loaded_image_in_answer(choice):
                     button = Gtk.Button(_("Change Image"))
                     hbox.pack_start(button, True, False, 10)
-                    self._poll.activity._show_image_thumbnail(hbox, choice)
+                    self.__show_image_thumbnail(hbox, choice)
 
                 else:
                     button = Gtk.Button(_("Add Image"))
                     hbox.pack_start(button, True, False, 10)
 
-                button.connect('clicked', self._poll.activity._button_choose_image_cb,
+                button.connect('clicked', self._button_choose_image_cb,
                     str(choice), hbox)
 
         # PREVIEW & SAVE buttons
@@ -139,6 +142,84 @@ class NewPollCanvas(Gtk.Box):
         self.pack_start(hbox, False, False, 10)
 
         self.show_all()
+
+    def _button_choose_image_cb(self, button, data=None, data2=None):
+
+        if hasattr(mime, 'GENERIC_TYPE_IMAGE'):
+            chooser = ObjectChooser(_('Choose image'), self,
+                Gtk.DialogFlags.MODAL |
+                Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                what_filter=mime.GENERIC_TYPE_IMAGE)
+
+        else:
+            chooser = ObjectChooser(_('Choose image'), self,
+                Gtk.DialogFlags.MODAL |
+                Gtk.DialogFlags.DESTROY_WITH_PARENT)
+
+        try:
+            result = chooser.run()
+
+            if result == Gtk.ResponseType.ACCEPT:
+                #logging.debug('ObjectChooser: %r' %
+                #    chooser.get_selected_object())
+
+                jobject = chooser.get_selected_object()
+
+                images_mime_types = mime.get_generic_type(
+                    mime.GENERIC_TYPE_IMAGE).mime_types
+
+                if jobject and jobject.file_path and \
+                   jobject.metadata.get('mime_type') in images_mime_types:
+
+                    pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(
+                        jobject.file_path, self._poll.activity._image_size['height'],
+                        self._poll.activity._image_size['width'])
+
+                    self._poll.images[int(data)] = pixbuf
+
+                    self._poll.images_ds_objects[int(data)]['id'] = \
+                        jobject.object_id
+
+                    self._poll.images_ds_objects[int(data)]['file_path'] = \
+                        jobject.file_path
+
+                    self.__show_image_thumbnail(data2, data)
+                    button.set_label(_('Change Image'))
+
+                else:
+                    alert = NotifyAlert(timeout=3)
+                    alert.props.title = _('Poll Activity')
+                    alert.props.msg = _('Your selection is not an image')
+                    self.add_alert(alert)
+                    alert.connect('response', self._alert_cancel_cb)
+                    alert.show()
+
+        finally:
+            chooser.destroy()
+            del chooser
+
+    def __show_image_thumbnail(self, parent_box, answer_number):
+
+        hbox = Gtk.HBox()
+
+        image_file_path = self._poll.images_ds_objects[int(answer_number)][
+            'file_path']
+
+        pixbuf_thumbnail = GdkPixbuf.Pixbuf.new_from_file_at_size(
+            image_file_path, 80, 80)
+
+        image = Gtk.Image()
+        image.set_from_pixbuf(pixbuf_thumbnail)
+        image.show()
+        hbox.add(image)
+        hbox.show()
+
+        chl = parent_box.get_children()
+
+        if len(chl) == 4:
+            parent_box.remove(chl[len(chl) - 1])
+
+        parent_box.pack_start(hbox, True, True, 0)
 
     def button_save_cb(self, button):
         """
