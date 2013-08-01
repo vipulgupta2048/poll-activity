@@ -19,9 +19,7 @@
 # If you find this activity useful or end up using parts of it in one of
 # your own creations we would love to hear from you at
 # info@WorldWideWorkshop.org !
-#
 
-# init gthreads before using abiword
 from gi.repository import GObject
 from gi.repository import Gtk
 from gi.repository import Gdk
@@ -76,16 +74,15 @@ PAD = 10
 
 GRAPH_WIDTH = Gdk.Screen.width() / 3
 GRAPH_TEXT_WIDTH = 50
-RADIO_SIZE = 32
+RADIO_SIZE = 32'''
 VIEW_ANSWER = True
-REMEMBER_LAST_VOTE = True
-PLAY_VOTE_SOUND = False
+#REMEMBER_LAST_VOTE = True
+#PLAY_VOTE_SOUND = False
 USE_IMAGE_IN_ANSWER = False
-IMAGE_HEIGHT = 100
-IMAGE_WIDTH = 100
+#IMAGE_HEIGHT = 100
+#IMAGE_WIDTH = 100
 IMAGE_THUMBNAIL_HEIGHT = 80
 IMAGE_THUMBNAIL_WIDTH = 80
-'''
 
 from Widgets import NewPollCanvas
 from Widgets import Toolbar
@@ -112,6 +109,14 @@ class PollBuilder(activity.Activity):
 
         self._polls = []
         self.current_vote = None
+        self._current_view = None
+        self._previewing = False
+
+        #This property allows result viewing while voting
+        self._view_answer = VIEW_ANSWER
+
+        #This property allows use image in answer
+        self._use_image = USE_IMAGE_IN_ANSWER
 
         '''
         # get the Presence Service
@@ -131,11 +136,6 @@ class PollBuilder(activity.Activity):
         # when shared with many on the mesh
         #self._make_default_poll()
         self._has_voted = False
-        self._previewing = False
-        self._current_view = None  # so we can switch back
-
-        #This property allows result viewing while voting
-        self._view_answer = VIEW_ANSWER
 
         #This property allows remember in the radio button options
         #the last vote
@@ -144,9 +144,6 @@ class PollBuilder(activity.Activity):
         #This property allows play a sound when click in
         #the button to make a vote
         self._play_vote_sound = PLAY_VOTE_SOUND
-
-        #This property allows use image in answer
-        self._use_image = USE_IMAGE_IN_ANSWER
 
         #This property has the image size
         self._image_size = {'height': IMAGE_HEIGHT, 'width': IMAGE_WIDTH}
@@ -174,7 +171,7 @@ class PollBuilder(activity.Activity):
         Show the select canvas where children choose an existing poll.
         """
 
-        #self._current_view = 'select'
+        self._current_view = 'select'
 
         mainbox = Gtk.VBox()
 
@@ -379,22 +376,20 @@ class PollBuilder(activity.Activity):
         self._current_view = 'poll'
         canvasbox = Gtk.VBox()
 
-        # pollbuilderbox is centered within canvasbox
         pollbuilderbox = Gtk.VBox()
 
         alignment = Gtk.Alignment.new(0.5, 0, 1, 0)
         alignment.add(pollbuilderbox)
         canvasbox.pack_start(alignment, True, True, 0)
-        #canvasbox.pack_start(pollbuilderbox, True, True, 0)
 
         mainbox = Gtk.VBox()
         pollbuilderbox.pack_start(mainbox, True, True, 0)
 
         if not self._previewing:
-            mainbox.pack_start(self._text_mainbox(_('VOTE!')), True, True, 0)
+            mainbox.pack_start(Gtk.Label(_('VOTE!')), True, True, 0)
 
         else:
-            mainbox.pack_start(self._text_mainbox(_('Poll Preview')),
+            mainbox.pack_start(Gtk.Label(_('Poll Preview')),
                 True, True, 0)
 
         poll_details_box = Gtk.VBox()
@@ -420,6 +415,8 @@ class PollBuilder(activity.Activity):
 
         self.current_vote = None
         self.draw_poll_details_box()
+
+        canvasbox.show_all()
 
         return canvasbox
 
@@ -525,9 +522,6 @@ class PollBuilder(activity.Activity):
         """
 
         poll_details_box = self.poll_details_box
-        #poll_details_box.remove_all()
-        #self.poll_details_box_head.remove_all()
-        #self.poll_details_box_tail.remove_all()
 
         votes_total = self._poll.vote_count
 
@@ -544,7 +538,7 @@ class PollBuilder(activity.Activity):
         group = Gtk.RadioButton()
 
         for choice in range(self._poll.number_of_options):
-            self._logger.debug(self._poll.options[choice])
+            #self._logger.debug(self._poll.options[choice])
 
             answer_row = Gtk.HBox()
 
@@ -552,8 +546,7 @@ class PollBuilder(activity.Activity):
                 button = Gtk.RadioButton.new_with_label_from_widget(
                     group, self._poll.options[choice])
 
-                button.connect('toggled',
-                    self.vote_choice_radio_button, choice)
+                #button.connect('toggled', self.vote_choice_radio_button, choice)
 
                 answer_box.pack_start(button, True, False, 10)
 
@@ -572,8 +565,8 @@ class PollBuilder(activity.Activity):
 
             if self._view_answer or not self._poll.active:
                 if votes_total > 0:
-                    self._logger.debug(str(self._poll.data[choice] * 1.0 /
-                        votes_total))
+                    #self._logger.debug(str(self._poll.data[choice] * 1.0 /
+                    #    votes_total))
 
                     graph_box = Gtk.HBox()
                     answer_row.pack_start(graph_box, True, True, 10)
@@ -612,17 +605,17 @@ class PollBuilder(activity.Activity):
         if self._poll.active and not self._previewing:
             button_box = Gtk.HBox()
             button = Gtk.Button(_("Vote"))
-            button.connect('clicked', self._button_vote_cb)
+            #button.connect('clicked', self._button_vote_cb)
             button_box.pack_start(button, True, False, 10)
             self.poll_details_box_tail.pack_start(button_box, True, True, 10)
 
         elif self._previewing:
             button_box = Gtk.HBox()
             button = Gtk.Button(_("Edit Poll"))
-            button.connect('clicked', self.button_edit_clicked)
+            #button.connect('clicked', self.button_edit_clicked)
             button_box.pack_start(button, True, True, 0)
             button = Gtk.Button(_("Save Poll"))
-            button.connect('clicked', self._button_save_cb)
+            #button.connect('clicked', self._button_save_cb)
             button_box.pack_start(button, True, True, 0)
             self.poll_details_box_tail.pack_start(button_box, True, True, 0)
     '''
@@ -707,7 +700,7 @@ class PollBuilder(activity.Activity):
             author = profile.get_nick_name(),
             active = False)
 
-        #self.current_vote = None
+        self.current_vote = None
 
         self.set_canvas(NewPollCanvas(self._poll))
 
@@ -724,7 +717,7 @@ class PollBuilder(activity.Activity):
 
         self.set_root(self._options_canvas())
         self.show_all()'''
-    '''
+
     def _button_choose_image_cb(self, button, data=None, data2=None):
 
         if hasattr(mime, 'GENERIC_TYPE_IMAGE'):
@@ -777,8 +770,8 @@ class PollBuilder(activity.Activity):
                     alert.show()
         finally:
             chooser.destroy()
-            del chooser'''
-    '''
+            del chooser
+
     def _show_image_thumbnail(self, parent_box, answer_number):
 
         hbox = Gtk.HBox()
@@ -800,15 +793,15 @@ class PollBuilder(activity.Activity):
         if len(chl) == 4:
             parent_box.remove(chl[len(chl) - 1])
 
-        parent_box.pack_start(hbox, True, True, 0)'''
-    '''
+        parent_box.pack_start(hbox, True, True, 0)
+
     def _already_loaded_image_in_answer(self, answer_number):
 
         if not self._poll.images_ds_objects[int(answer_number)] == {}:
             return True
 
         else:
-            return False'''
+            return False
     '''
     def _options_canvas(self, editing=False, highlight=[]):
         """
@@ -1296,7 +1289,7 @@ class Poll():
         s += cPickle.dumps(votes)
         s += cPickle.dumps(images_objects_id)
 
-        return s
+        return s'''
 
     @property
     def vote_count(self):
@@ -1310,7 +1303,7 @@ class Poll():
             total += self.data[choice]
 
         return total
-
+    '''
     @property
     def sha(self):
         """
