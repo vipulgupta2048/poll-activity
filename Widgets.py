@@ -28,6 +28,8 @@ from sugar3.graphics.toolbutton import ToolButton
 from sugar3.activity.widgets import StopButton
 from sugar3.activity.widgets import ActivityToolbarButton
 
+from sugar3.graphics.alert import NotifyAlert
+
 class Toolbar(ToolbarBox):
 
     def __init__(self, activity):
@@ -259,3 +261,125 @@ class ItemNewPoll(Gtk.Box):
         self.pack_start(self.entry, True, True, 10)
 
         self.show_all()
+
+class OptionsCanvas(Gtk.Box):
+    """
+    Show the options canvas.
+    """
+
+    def __init__(self, poll_activity):
+
+        Gtk.Box.__init__(self, orientation = Gtk.Orientation.VERTICAL)
+
+        self.poll_activity = poll_activity
+        self.poll_activity._current_view = 'options'
+
+        alignment = Gtk.Alignment.new(0.5, 0, 0, 0)
+        # optionsbox is centered within self
+        optionsbox = Gtk.VBox()
+
+        alignment.add(optionsbox)
+        self.pack_start(alignment, True, True, 0)
+
+        mainbox = Gtk.VBox()
+
+        optionsbox.pack_start(mainbox, True, False, 0)
+
+        mainbox.pack_start(Gtk.Label(_('Settings')), True, True, 10)
+
+        options_details_box = Gtk.VBox()
+        mainbox.pack_start(options_details_box, True, False, 10)
+
+        #options widgets
+        options_widgets = []
+
+        viewResultCB = Gtk.CheckButton(label=_('Show answers while voting'))
+        viewResultCB.set_active(self.poll_activity._view_answer)
+        viewResultCB.connect('toggled', self.__view_result_checkbox_cb)
+        options_details_box.pack_start(viewResultCB, True, True, 10)
+
+        rememberVoteCB = Gtk.CheckButton(label=_('Remember last vote'))
+        rememberVoteCB.set_active(self.poll_activity._remember_last_vote)
+        rememberVoteCB.connect('toggled', self.__remember_last_vote_checkbox_cb)
+        options_details_box.pack_start(rememberVoteCB, True, True, 10)
+
+        playVoteSoundCB = Gtk.CheckButton(
+            label=_('Play a sound when make a vote'))
+        playVoteSoundCB.set_active(self.poll_activity._play_vote_sound)
+        playVoteSoundCB.connect('toggled', self.__play_vote_sound_checkbox_cb)
+        options_details_box.pack_start(playVoteSoundCB, True, True, 10)
+
+        vbox = Gtk.VBox()
+        useImageCB = Gtk.CheckButton(label=_('Use image in answer'))
+        useImageCB.set_active(self.poll_activity._use_image)
+        options_details_box.pack_start(useImageCB, True, True, 10)
+
+        hbox2 = Gtk.HBox()
+        hbox2.pack_start(Gtk.Label(_('Image Size: ')), True, True, 10)
+        entrybox = Gtk.Entry(max_length=3)
+
+        #entrybox.modify_bg(Gtk.StateType.INSENSITIVE,
+        #    style.COLOR_WHITE.get_gdk_color())
+
+        entrybox.set_text(str(self.poll_activity._image_size['height']))
+        entrybox.connect('changed', self.__entry_image_size_cb, 'height')
+        hbox2.pack_start(entrybox, True, True, 10)
+        hbox2.pack_start(Gtk.Label('x'), True, True, 10)
+        entrybox = Gtk.Entry(max_length=3)
+
+        #entrybox.modify_bg(Gtk.StateType.INSENSITIVE,
+        #    style.COLOR_WHITE.get_gdk_color())
+
+        entrybox.set_text(str(self.poll_activity._image_size['width']))
+        entrybox.connect('changed', self.__entry_image_size_cb, 'width')
+        hbox2.pack_start(entrybox, True, True, 10)
+        useImageCB.connect('toggled', self.__use_image_checkbox_cb, vbox, hbox2)
+
+        if self.poll_activity._use_image:
+            vbox.pack_start(hbox2, True, True, 10)
+
+        options_details_box.pack_start(vbox, True, True, 0)
+
+        hbox = Gtk.HBox()
+        # SAVE button
+        button = Gtk.Button(_("Save"))
+        button.connect('clicked', self.__button_save_options_cb)
+        hbox.pack_start(button, True, True, 10)
+
+        options_details_box.pack_end(hbox, True, True, 10)
+
+        self.show_all()
+
+    def __view_result_checkbox_cb(self, checkbox):
+        self.poll_activity._view_answer = checkbox.get_active()
+
+    def __remember_last_vote_checkbox_cb(self, checkbox):
+        self.poll_activity._remember_last_vote = checkbox.get_active()
+
+    def __play_vote_sound_checkbox_cb(self, checkbox, data=None):
+        self.poll_activity._play_vote_sound = checkbox.get_active()
+
+    def __entry_image_size_cb(self, entrycontrol, data):
+
+        text = entrycontrol.get_text()
+
+        if text: self.poll_activity._image_size[data] = int(text)
+
+    def __use_image_checkbox_cb(self, checkbox, data=None, data2=None):
+
+        self.poll_activity._use_image = checkbox.get_active()
+
+        if checkbox.get_active():
+            data.add(data2)
+
+        else:
+            data.remove(data2)
+
+    def __button_save_options_cb(self, button):
+
+        alert = NotifyAlert(timeout=3)
+        alert.props.title = _('Poll Activity')
+        alert.props.msg = _('The settings have been saved')
+        self.poll_activity.add_alert(alert)
+        alert.connect('response', self.poll_activity._alert_cancel_cb)
+        alert.show()
