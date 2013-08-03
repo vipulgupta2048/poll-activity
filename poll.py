@@ -32,7 +32,6 @@ GObject.threads_init()
 import os
 import subprocess
 import cPickle
-import locale
 import logging
 import base64
 
@@ -54,7 +53,6 @@ from sugar3.graphics.alert import NotifyAlert
 from sugar3.presence import presenceservice
 from sugar3.datastore import datastore
 from sugar3 import profile
-#from gi.repository import Abi
 
 '''
 SERVICE = "org.worldwideworkshop.olpc.PollBuilder"
@@ -82,6 +80,7 @@ from Widgets import NewPollCanvas   #Creando una nueva encuesta.
 from Widgets import OptionsCanvas   #Configurando opciones de encuesta.
 from Widgets import SelectCanvas    #Seleccionando una de las encuestas disponibles.
 #from Widgets import PollCanvas     #Contestando una encuesta.
+from Widgets import LessonPlanCanvas
 
 class PollBuilder(activity.Activity):
     """
@@ -134,23 +133,16 @@ class PollBuilder(activity.Activity):
         self.owner = owner
         self.nick = owner.props.nick
         self.nick_sha1 = sha1(self.nick).hexdigest()
-        '''
-        self._basepath = activity.get_bundle_path()
-        #os.chdir(self._basepath)  # required for i18n.py to work
 
         # Removed default polls since it creates too much noise
         # when shared with many on the mesh
         #self._make_default_poll()
-        self._has_voted = False
 
-        # Lesson plan widget
-        self._lessonplan_widget = None
-        '''
         toolbar = Toolbar(self)
         toolbar.create_button.connect('clicked', self.__button_new_clicked)
         toolbar.choose_button.connect('clicked', self.__button_select_clicked)
         toolbar.settings_button.connect('clicked', self.__button_options_clicked)
-        # toolbar.help_button.connect('clicked', self._button_lessonplan_cb)
+        toolbar.help_button.connect('clicked', self.__button_lessonplan_cb)
         self.set_toolbar_box(toolbar)
 
         self.set_canvas(SelectCanvas(self))
@@ -345,34 +337,6 @@ class PollBuilder(activity.Activity):
 
         return canvasbox
 
-    '''
-    def _lessonplan_canvas(self):
-        """
-        Show the select canvas where children choose an existing poll.
-        """
-
-        previous_view = self._current_view
-        self._current_view = 'lessonplan'
-        canvasbox = Gtk.VBox()
-
-        # pollbuilderbox is centered within canvasbox
-        pollbuilderbox = Gtk.VBox()
-        canvasbox.pack_start(pollbuilderbox, True, False, 0)
-
-        mainbox = Gtk.VBox()
-        pollbuilderbox.pack_start(mainbox, True, False, 0)
-
-        mainbox.pack_start(self._text_mainbox(_('Lesson Plans')), True, True, 0)
-
-        poll_details_box = Gtk.VBox()
-        mainbox.pack_end(poll_details_box, True, True, 0)
-
-        lessonplan = LessonPlanWidget(self._basepath)
-        self._lessonplan_widget = lessonplan
-        poll_details_box.pack_start(lessonplan, True, True, 0)
-
-        return canvasbox'''
-
     def _select_poll_button_cb(self, button, sha=None):
         """
         A VOTE or SEE RESULTS button was clicked.
@@ -383,9 +347,7 @@ class PollBuilder(activity.Activity):
             return
 
         self._switch_to_poll(sha)
-        self._has_voted = False
-        self.set_canvas(self._poll_canvas())
-        #self.set_canvas(PollCanvas(self)) # FIXME: Generalizacion de PollCanvas
+        self.set_canvas(self._poll_canvas()) #self.set_canvas(PollCanvas(self)) # FIXME: Generalizacion de PollCanvas
 
     def _delete_poll_button_cb(self, button, sha):
         """
@@ -562,7 +524,6 @@ class PollBuilder(activity.Activity):
                 return
 
             #self._logger.debug('Voted ' + str(self.current_vote))
-            self._has_voted = True
 
             try:
                 self._poll.register_vote(self.current_vote, self.nick_sha1)
@@ -697,67 +658,15 @@ class PollBuilder(activity.Activity):
                     self._logger.debug('Ignored mesh vote %u from %s:'
                         ' poll closed.',
                         choice, votersha)'''
-    '''
-    def _canvas_lessonplanbox(self, lesson_return=None):
-        """
-        Render the lessonplanbox.
 
-        disconnect_lp True does not connect the button.
-        """
-
-        lessonplanbox = Gtk.VBox()
-
-        if lesson_return:
-            highlight = True
-            button = Gtk.Button(_("Close Lessons"))
-
-        else:
-            highlight = False
-            button = Gtk.Button(_("Lesson Plans"))
-
-        if lesson_return:
-            button.connect('clicked', self._button_closelessonplan_cb,
-                lesson_return)
-
-        else:
-            button.connect('clicked', self._button_lessonplan_cb)
-
-        lessonplanbox.pack_start(button, True, True, 0)
-        #, highlight=highlight)))
-        return lessonplanbox'''
-    '''
-    def _button_lessonplan_cb(self, button):
+    def __button_lessonplan_cb(self, button):
         """
         Lesson Plan button clicked.
         """
 
-        self._logger.debug('%s -> Lesson Plan' % self._current_view)
-        self.set_root(self._lessonplan_canvas())
-        self.show_all()'''
-    '''
-    def _button_closelessonplan_cb(self, button, lesson_return):
-        """
-        Lesson Plan button clicked in Lesson Plan view.
-
-        Go back to the view we had previously.
-        """
-
-        self._logger.debug('Lesson plans -> %s' % lesson_return)
-
-        if lesson_return == 'poll':
-            self.set_root(self._poll_canvas())
-            #self.set_canvas(PollCanvas(self)) # FIXME: Generalizacion de PollCanvas
-
-        elif lesson_return == 'select':
-            self.set_canvas(SelectCanvas(self))
-
-        elif lesson_return == 'build':
-            self.set_root(self._build_canvas())
-
-        self.show_all()
-
-        del self._lessonplan_widget
-        self._lessonplan_widget = None'''
+        #self._logger.debug('%s -> Lesson Plan' % self._current_view)
+        #self.set_canvas(self._lessonplan_canvas())
+        self.set_canvas(LessonPlanCanvas(self))
 
     '''
     def _shared_cb(self, activity):
@@ -1489,49 +1398,3 @@ def justify(textdict, choice):
 
     value = str(textdict[choice])
     return value.rjust(max_len)
-'''
-class LessonPlanWidget(Gtk.Notebook):
-    """
-    Create a Notebook widget for displaying lesson plans in tabs.
-
-    basepath -- string, path of directory containing lesson plans.
-    """
-
-    def __init__(self, basepath):
-        super(LessonPlanWidget, self).__init__()
-
-        lessons = filter(
-            lambda x: os.path.isdir(os.path.join(basepath,
-            'lessons', x)),
-            os.listdir(os.path.join(basepath, 'lessons')))
-
-        lessons.sort()
-
-        for lesson in lessons:
-            self._load_lesson(
-                os.path.join(basepath,
-                'lessons', lesson),
-                _(lesson))
-
-    def _load_lesson(self, path, name):
-        """
-        Load the lesson content from a .abw, taking l10n into account.
-
-        path -- string, path of lesson plan file, e.g. lessons/Introduction
-        lesson -- string, name of lesson
-        """
-
-        code, encoding = locale.getdefaultlocale()
-        canvas = Abi.Widget()
-        canvas.show()
-        files = map(
-            lambda x: os.path.join(path, '%s.abw' % x),
-            ('_' + code.lower(), '_' + code.split('_')[0].lower(),
-             'default'))
-
-        files = filter(lambda x: os.path.exists(x), files)
-        canvas.load_file('file://%s' % files[0], '')
-        canvas.view_online_layout()
-        canvas.zoom_width()
-        canvas.set_show_margin(False)
-        self.append_page(canvas, Gtk.Label(label=name))'''

@@ -19,10 +19,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
+import os
+import locale
+
 from gettext import gettext as _
 
 from gi.repository import Gtk
 from gi.repository import GdkPixbuf
+from gi.repository import Abi
 
 from sugar3 import mime
 from sugar3 import profile
@@ -33,6 +37,8 @@ from sugar3.graphics.toolbarbox import ToolbarBox
 from sugar3.graphics.toolbutton import ToolButton
 from sugar3.activity.widgets import StopButton
 from sugar3.activity.widgets import ActivityToolbarButton
+
+basepath = os.path.dirname(__file__)
 
 class Toolbar(ToolbarBox):
 
@@ -681,3 +687,66 @@ class PollCanvas(Gtk.Box):
             button.connect('clicked', self.get_canvas().button_save_cb)
             button_box.pack_start(button, True, True, 0)
             self.poll_details_box_tail.pack_start(button_box, True, True, 0)'''
+
+class LessonPlanCanvas(Gtk.Box):
+
+    def __init__(self, poll_activity):
+
+        Gtk.Box.__init__(self, orientation = Gtk.Orientation.VERTICAL)
+
+        poll_activity._current_view = 'lessonplan'
+
+        self.pack_start(Gtk.Label(_('Lesson Plans')), False, False, 0)
+        self.pack_start(LessonPlanWidget(), True, True, 0)
+
+        self.show_all()
+
+class LessonPlanWidget(Gtk.Notebook):
+    """
+    Create a Notebook widget for displaying lesson plans in tabs.
+
+    basepath -- string, path of directory containing lesson plans.
+    """
+
+    def __init__(self):
+
+        Gtk.Notebook.__init__(self)
+
+        lessons = filter(
+            lambda x: os.path.isdir(os.path.join(basepath,
+            'lessons', x)),
+            os.listdir(os.path.join(basepath, 'lessons')))
+
+        lessons.sort()
+
+        for lesson in lessons:
+            self._load_lesson(
+                os.path.join(basepath,
+                'lessons', lesson),
+                _(lesson))
+
+        self.show_all()
+
+    def _load_lesson(self, path, name):
+        """
+        Load the lesson content from a .abw, taking l10n into account.
+
+        path -- string, path of lesson plan file, e.g. lessons/Introduction
+        lesson -- string, name of lesson
+        """
+
+        code, encoding = locale.getdefaultlocale()
+        canvas = Abi.Widget()
+        canvas.show()
+
+        files = map(
+            lambda x: os.path.join(path, '%s.abw' % x),
+            ('_' + code.lower(), '_' + code.split('_')[0].lower(),
+             'default'))
+
+        files = filter(lambda x: os.path.exists(x), files)
+        canvas.load_file('file://%s' % files[0], '')
+        canvas.view_online_layout()
+        canvas.zoom_width()
+        canvas.set_show_margin(False)
+        self.append_page(canvas, Gtk.Label(label=name))
