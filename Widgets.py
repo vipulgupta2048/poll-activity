@@ -27,7 +27,6 @@ from gi.repository import GdkPixbuf
 from sugar3 import mime
 from sugar3 import profile
 from sugar3.graphics import style
-from sugar3.graphics.alert import NotifyAlert
 from sugar3.graphics.objectchooser import ObjectChooser
 
 from sugar3.graphics.toolbarbox import ToolbarBox
@@ -118,7 +117,7 @@ class NewPollCanvas(Gtk.Box):
             self.pack_start(item_poll, False, False, 10)
 
             if self._poll.activity._use_image:
-                if self._poll.activity._already_loaded_image_in_answer(choice):
+                if self.__already_loaded_image_in_answer(choice):
                     button = Gtk.Button(_("Change Image"))
                     hbox.pack_start(button, True, False, 10)
                     self.__show_image_thumbnail(hbox, choice)
@@ -144,6 +143,14 @@ class NewPollCanvas(Gtk.Box):
         self.pack_start(hbox, False, False, 10)
 
         self.show_all()
+
+    def __already_loaded_image_in_answer(self, answer_number):
+
+        if not self._poll.images_ds_objects[int(answer_number)] == {}:
+            return True
+
+        else:
+            return False
 
     def _button_choose_image_cb(self, button, data=None, data2=None):
 
@@ -189,12 +196,8 @@ class NewPollCanvas(Gtk.Box):
                     button.set_label(_('Change Image'))
 
                 else:
-                    alert = NotifyAlert(timeout=3)
-                    alert.props.title = _('Poll Activity')
-                    alert.props.msg = _('Your selection is not an image')
-                    self.add_alert(alert)
-                    alert.connect('response', self._alert_cancel_cb)
-                    alert.show()
+                    self._poll.activity.__get_alert(_('Poll Activity'),
+                        _('Your selection is not an image'))
 
         finally:
             chooser.destroy()
@@ -358,7 +361,6 @@ class OptionsCanvas(Gtk.Box):
         self.poll_activity._current_view = 'options'
 
         alignment = Gtk.Alignment.new(0.5, 0, 0, 0)
-        # optionsbox is centered within self
         optionsbox = Gtk.VBox()
 
         alignment.add(optionsbox)
@@ -460,12 +462,8 @@ class OptionsCanvas(Gtk.Box):
 
     def __button_save_options_cb(self, button):
 
-        alert = NotifyAlert(timeout=3)
-        alert.props.title = _('Poll Activity')
-        alert.props.msg = _('The settings have been saved')
-        self.poll_activity.add_alert(alert)
-        alert.connect('response', self.poll_activity._alert_cancel_cb)
-        alert.show()
+        self.poll_activity.__get_alert(_('Poll Activity'),
+            _('The settings have been saved'))
 
 class SelectCanvas(Gtk.Box):
 
@@ -530,3 +528,156 @@ class SelectCanvas(Gtk.Box):
                 poll.createdate.strftime('%d/%m/%y')), False, False, 10)
 
         self.show_all()
+'''
+class PollCanvas(Gtk.Box):
+
+    def __init__(self, poll_activity):
+
+        Gtk.Box.__init__(self, orientation = Gtk.Orientation.VERTICAL)
+
+        poll_activity._current_view = 'poll'
+
+        pollbuilderbox = Gtk.VBox()
+
+        alignment = Gtk.Alignment.new(0.5, 0, 1, 0)
+        alignment.add(pollbuilderbox)
+        self.pack_start(alignment, True, True, 0)
+
+        mainbox = Gtk.VBox()
+        pollbuilderbox.pack_start(mainbox, True, True, 0)
+
+        if not self._previewing:
+            mainbox.pack_start(Gtk.Label(_('VOTE!')), True, True, 0)
+
+        else:
+            mainbox.pack_start(Gtk.Label(_('Poll Preview')),
+                True, True, 0)
+
+        poll_details_box = Gtk.VBox()
+        mainbox.pack_start(poll_details_box, True, True, 0)
+
+        self.poll_details_box_head = Gtk.VBox()
+        poll_details_box.pack_start(self.poll_details_box_head, False,
+            False, 0)
+
+        self.poll_details_box = Gtk.VBox()
+
+        poll_details_scroll = Gtk.ScrolledWindow()
+
+        poll_details_scroll.set_policy(
+            Gtk.PolicyType.AUTOMATIC,
+            Gtk.PolicyType.NEVER)
+
+        poll_details_scroll.add_with_viewport(self.poll_details_box)
+        poll_details_box.pack_start(poll_details_scroll, True, True, 0)
+
+        self.poll_details_box_tail = Gtk.HBox()
+        poll_details_box.pack_start(self.poll_details_box_tail, False, False, 0)
+
+        self.current_vote = None
+        self.draw_poll_details_box()
+
+        self.show_all()
+
+    def draw_poll_details_box(self):
+        """
+        (Re)draw the poll details box
+
+        self.poll_details_box should be already defined on the canvas.
+        """
+
+        poll_details_box = self.poll_details_box
+
+        votes_total = self._poll.vote_count
+
+        title = Gtk.Label(label=self._poll.title)
+        self.poll_details_box_head.pack_start(title, True, True, 10)
+        question = Gtk.Label(label=self._poll.question)
+        self.poll_details_box_head.pack_start(question, True, True, 10)
+
+        answer_box = Gtk.VBox()
+        poll_details_box.pack_end(answer_box, True, True, 10)
+
+        group = Gtk.RadioButton()
+
+        for choice in range(self._poll.number_of_options):
+            #self._logger.debug(self._poll.options[choice])
+
+            answer_row = Gtk.HBox()
+
+            if self._poll.active:
+                button = Gtk.RadioButton.new_with_label_from_widget(
+                    group, self._poll.options[choice])
+
+                button.connect('toggled', self.vote_choice_radio_button, choice)
+
+                answer_box.pack_start(button, True, False, 10)
+
+                if choice == self.current_vote:
+                    button.set_active(True)
+
+            if not self._poll.images[int(choice)] == '':
+                hbox = Gtk.HBox()
+                hbox.add(self._load_image(self._poll.images[choice]))
+                hbox.show()
+                answer_row.pack_start(hbox, True, True, 10)
+
+            if not self._poll.active:
+                answer_row.pack_start(Gtk.Label(self._poll.options[choice]),
+                    True, False, 10)
+
+            if self._view_answer or not self._poll.active:
+                if votes_total > 0:
+                    #self._logger.debug(str(self._poll.data[choice] * 1.0 /
+                    #    votes_total))
+
+                    graph_box = Gtk.HBox()
+                    answer_row.pack_start(graph_box, True, True, 10)
+
+                    graph_box.pack_start(Gtk.Label(
+                        justify(self._poll.data, choice)), True, True, 10)
+
+                    graph_box.pack_start(Gtk.HBox(), True, True, 10)
+                    graph_box.pack_start(Gtk.Label(str(self._poll.data[
+                        choice] * 100 / votes_total) + '%'), True, True, 10)
+
+            answer_box.pack_start(answer_row, True, True, 0)
+
+        if self._view_answer or not self._poll.active:
+            # Line above total
+            line_box = Gtk.HBox()
+            answer_box.pack_start(line_box, True, True, 10)
+
+        # total votes
+        totals_box = Gtk.HBox()
+        answer_box.pack_start(totals_box, True, True, 10)
+
+        spacer = Gtk.HBox()
+
+        spacer.pack_start(Gtk.Label(str(votes_total)), True, True, 10)
+        totals_box.pack_start(spacer, True, True, 10)
+
+        totals_box.pack_start(Gtk.Label(' ' + _('votes')), True, True, 10)
+
+        if votes_total < self._poll.maxvoters:
+            totals_box.pack_start(
+                Gtk.Label(_('(%d votes left to collect)') %
+                    (self._poll.maxvoters - votes_total)), True, True, 10)
+
+        # Button area
+        if self._poll.active and not self._previewing:
+            button_box = Gtk.HBox()
+            button = Gtk.Button(_("Vote"))
+            button.connect('clicked', self._button_vote_cb)
+            button_box.pack_start(button, True, False, 10)
+            self.poll_details_box_tail.pack_start(button_box, True, True, 10)
+
+        elif self._previewing:
+            button_box = Gtk.HBox()
+            button = Gtk.Button(_("Edit Poll"))
+            button.connect('clicked', self.button_edit_clicked)
+            button_box.pack_start(button, True, True, 0)
+            button = Gtk.Button(_("Save Poll"))
+            button.connect('clicked', self.get_canvas().button_save_cb)
+            button_box.pack_start(button, True, True, 0)
+            self.poll_details_box_tail.pack_start(button_box, True, True, 0)'''

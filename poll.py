@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 # Copyright 2007 World Wide Workshop Foundation
 # Copyright 2007 Collabora Ltd
 # Copyright 2008 Morgan Collett
@@ -72,10 +75,13 @@ GRAPH_WIDTH = Gdk.Screen.width() / 3
 GRAPH_TEXT_WIDTH = 50
 RADIO_SIZE = 32'''
 
-from Widgets import NewPollCanvas
 from Widgets import Toolbar
-from Widgets import OptionsCanvas
-from Widgets import SelectCanvas
+
+### Interfaces
+from Widgets import NewPollCanvas   #Creando una nueva encuesta.
+from Widgets import OptionsCanvas   #Configurando opciones de encuesta.
+from Widgets import SelectCanvas    #Seleccionando una de las encuestas disponibles.
+#from Widgets import PollCanvas     #Contestando una encuesta.
 
 class PollBuilder(activity.Activity):
     """
@@ -147,7 +153,6 @@ class PollBuilder(activity.Activity):
         # toolbar.help_button.connect('clicked', self._button_lessonplan_cb)
         self.set_toolbar_box(toolbar)
 
-        #self.set_canvas(self._select_canvas())
         self.set_canvas(SelectCanvas(self))
 
         self.show_all()
@@ -155,83 +160,11 @@ class PollBuilder(activity.Activity):
         self.poll_session = None  # PollSession
         #self.connect('shared', self._shared_cb)
         #self.connect('joined', self._joined_cb)
-    '''
-    def _select_canvas(self):
-        """
-        Show the select canvas where children choose an existing poll.
-        """
-
-        self._current_view = 'select'
-
-        mainbox = Gtk.VBox()
-
-        label = Gtk.Label()
-        label.set_markup('<big><b>%s</b></big>' % _('Choose a Poll'))
-        mainbox.pack_start(label, False, False, 0)
-
-        poll_selector_box = Gtk.VBox()
-
-        scroll = Gtk.ScrolledWindow()
-
-        scroll.set_policy(
-            Gtk.PolicyType.AUTOMATIC,
-            Gtk.PolicyType.NEVER)
-
-        scroll.add_with_viewport(poll_selector_box)
-
-        mainbox.pack_start(scroll, True, True, 10)
-
-        row_number = 0
-
-        for poll in self._polls:
-            sha = poll.sha
-
-            if row_number % 2:
-                row_bgcolor = style.COLOR_WHITE.get_int()
-
-            else:
-                row_bgcolor = style.COLOR_SELECTION_GREY.get_int()
-
-            row_number += 1
-
-            poll_row = Gtk.HBox()
-            poll_selector_box.pack_start(poll_row, False, False, 10)
-
-            title = Gtk.Label(label=poll.title + ' (' + poll.author + ')')
-            align = Gtk.Alignment.new(0, 0.5, 0, 0)
-            align.add(title)
-            poll_row.pack_start(align, True, True, 10)
-
-            if poll.active:
-                button = Gtk.Button(_('VOTE'))
-
-            else:
-                button = Gtk.Button(_('SEE RESULTS'))
-
-            button.connect('clicked', self._select_poll_button_cb, sha)
-            poll_row.pack_start(button, False, False, 10)
-
-            if poll.author == profile.get_nick_name():
-                button = Gtk.Button(_('DELETE'))
-                button.connect('clicked', self.__delete_poll_button_cb, sha)
-                poll_row.pack_start(button, False, False, 10)
-
-            poll_row.pack_start(Gtk.Label(
-                poll.createdate.strftime('%d/%m/%y')), False, False, 10)
-
-        mainbox.show_all()
-
-        return mainbox'''
-
-    '''
-    def set_root(self, widget):
-
-        if self._root.get_children():
-            self._root.remove(self._root.get_children()[0])
-
-        self._root.pack_start(widget, True, True, 0)'''
 
     def _create_pixbufs(self, images_ds_object_id):
+        """
+        Crea las imágenes de la encuesta, al leer desde el journal.
+        """
 
         pixbufs = {}
 
@@ -249,6 +182,9 @@ class PollBuilder(activity.Activity):
         return pixbufs
 
     def _get_images_ds_objects(self, images_ds_object_id):
+        """
+        Obtiene las imagenes almacenadas en el jornal.
+        """
 
         images_ds_objects = {}
 
@@ -310,7 +246,6 @@ class PollBuilder(activity.Activity):
 
         f.close()
 
-        #self.set_canvas(self._select_canvas())
         self.set_canvas(SelectCanvas(self))
 
     def write_file(self, file_path):
@@ -338,20 +273,20 @@ class PollBuilder(activity.Activity):
         f = open(file_path, 'w')
         f.write(s)
         f.close()
-    '''
-    def alert(self, title, text=None):
+
+    def __get_alert(self, title, text):
         """
         Show an alert above the activity.
         """
 
-        alert = NotifyAlert(timeout=10)
+        alert = NotifyAlert(timeout=5)
         alert.props.title = title
         alert.props.msg = text
         self.add_alert(alert)
-        alert.connect('response', self._alert_cancel_cb)
-        alert.show()'''
+        alert.connect('response', self.__alert_cancel_cb)
+        alert.show()
 
-    def _alert_cancel_cb(self, alert, response_id):
+    def __alert_cancel_cb(self, alert, response_id):
         """
         Callback for alert events
         """
@@ -450,6 +385,7 @@ class PollBuilder(activity.Activity):
         self._switch_to_poll(sha)
         self._has_voted = False
         self.set_canvas(self._poll_canvas())
+        #self.set_canvas(PollCanvas(self)) # FIXME: Generalizacion de PollCanvas
 
     def _delete_poll_button_cb(self, button, sha):
         """
@@ -469,7 +405,6 @@ class PollBuilder(activity.Activity):
             if poll.sha == sha:
                 self._polls.remove(poll)
 
-        #self.set_canvas(self._select_canvas())
         self.set_canvas(SelectCanvas(self))
 
     '''
@@ -652,19 +587,14 @@ class PollBuilder(activity.Activity):
             self.draw_poll_details_box()
 
         else:
-            alert = NotifyAlert(timeout=3)
-            alert.props.title = _('Poll Activity')
-            alert.props.msg = _('To vote you have to select first one option')
-            self.add_alert(alert)
-            alert.connect('response', self._alert_cancel_cb)
-            alert.show()
+            self.__get_alert(_('Poll Activity'),
+                _('To vote you have to select first one option'))
 
     def __button_select_clicked(self, button):
         """
         Show Choose a Poll canvas
         """
 
-        #self.set_canvas(self._select_canvas())
         self.set_canvas(SelectCanvas(self))
 
     def __button_new_clicked(self, button):
@@ -683,23 +613,12 @@ class PollBuilder(activity.Activity):
         self.set_canvas(NewPollCanvas(self._poll))
 
     def button_edit_clicked(self, button):
-        """
-        Go back from preview to edit
-        """
 
         self.set_canvas(NewPollCanvas(self._poll))
 
     def __button_options_clicked(self, button):
 
         self.set_canvas(OptionsCanvas(self))
-
-    def _already_loaded_image_in_answer(self, answer_number):
-
-        if not self._poll.images_ds_objects[int(answer_number)] == {}:
-            return True
-
-        else:
-            return False
 
     '''
     def _make_default_poll(self):
@@ -742,6 +661,7 @@ class PollBuilder(activity.Activity):
         for poll in self._polls:
             if poll.sha == sha:
                 self._poll = poll
+                break
     '''
     def get_my_polls(self):
         """
@@ -765,8 +685,8 @@ class PollBuilder(activity.Activity):
             if poll.author == author and poll.title == title:
                 try:
                     poll.register_vote(choice, votersha)
-                    self.alert(_('Vote'),
-                        _('Somebody voted on %s') % title)
+                    #self.alert(_('Vote'), _('Somebody voted on %s') % title))
+                    self.__get_alert(_('Vote'), _('Somebody voted on %s') % title))
 
                 except OverflowError:
                     self._logger.debug('Ignored mesh vote %u from %s:'
@@ -826,9 +746,9 @@ class PollBuilder(activity.Activity):
 
         if lesson_return == 'poll':
             self.set_root(self._poll_canvas())
+            #self.set_canvas(PollCanvas(self)) # FIXME: Generalizacion de PollCanvas
 
         elif lesson_return == 'select':
-            #self.set_root(self._select_canvas())
             self.set_canvas(SelectCanvas(self))
 
         elif lesson_return == 'build':
@@ -892,7 +812,8 @@ class PollBuilder(activity.Activity):
             return
 
         self._logger.debug('Joined an existing shared activity')
-        self.alert(_('Joined'))
+        #self.alert(_('Joined'))
+        self.__get_alert(_('Joined'), "")
         self.initiating = False
         self._sharing_setup()
 
@@ -926,12 +847,14 @@ class PollBuilder(activity.Activity):
     '''
     def _buddy_joined_cb(self, activity, buddy):
 
-        self.alert(buddy.props.nick, _('Joined'))
+        #self.alert(buddy.props.nick, _('Joined'))
+        self.__get_alert(buddy.props.nick, _('Joined'))
         self._logger.debug('Buddy %s joined' % buddy.props.nick)
 
     def _buddy_left_cb(self, activity, buddy):
 
-        self.alert(buddy.props.nick, _('Left'))
+        #self.alert(buddy.props.nick, _('Left'))
+        self.__get_alert(buddy.props.nick, _('Left'))
         self._logger.debug('Buddy %s left' % buddy.props.nick)'''
     '''
     def _get_buddy(self, cs_handle):
@@ -1423,9 +1346,13 @@ class PollSession(ExportedGObject):
             options, data, votes, images)
 
         self.activity._polls.add(poll)
-
+        """
         self.activity.alert(
             _('New Poll'),
+            _("%(author)s shared a poll "
+            "'%(title)s' with you.") % {'author': author,
+            'title': title})"""
+        self.__get_alert(('New Poll'),
             _("%(author)s shared a poll "
             "'%(title)s' with you.") % {'author': author,
             'title': title})
@@ -1508,8 +1435,13 @@ class PollSession(ExportedGObject):
             options, data, votes, images)
 
         self.activity._polls.add(poll)
+        """
         self.activity.alert(
             _('New Poll'),
+            _("%(author)s shared a poll "
+            "'%(title)s' with you.") % {'author': author,
+            'title': title})"""
+        self.activity.__get_alert(_('New Poll'),
             _("%(author)s shared a poll "
             "'%(title)s' with you.") % {'author': author,
             'title': title})
