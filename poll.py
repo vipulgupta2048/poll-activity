@@ -82,6 +82,26 @@ from Widgets import SelectCanvas    #Seleccionando una de las encuestas disponib
 #from Widgets import PollCanvas     #Contestando una encuesta.
 from Widgets import LessonPlanCanvas
 
+def justify(textdict, choice):
+    """
+    Take a {} of numbers, and right justify the chosen item.
+
+    textdict is a dict of {n: m} where n and m are integers.
+    choice is one of textdict.keys()
+
+    Returns a string of '   m' with m right-justified
+    so that the longest value in the dict can fit.
+    """
+
+    max_len = 0
+
+    for num in textdict.values():
+        if len(str(num)) > max_len:
+            max_len = len(str(num))
+
+    value = str(textdict[choice])
+    return value.rjust(max_len)
+
 class PollBuilder(activity.Activity):
     """
     Sugar activity for polls
@@ -153,7 +173,7 @@ class PollBuilder(activity.Activity):
         #self.connect('shared', self._shared_cb)
         #self.connect('joined', self._joined_cb)
 
-    def _create_pixbufs(self, images_ds_object_id):
+    def __create_pixbufs(self, images_ds_object_id):
         """
         Crea las imágenes de la encuesta, al leer desde el journal.
         """
@@ -173,7 +193,7 @@ class PollBuilder(activity.Activity):
 
         return pixbufs
 
-    def _get_images_ds_objects(self, images_ds_object_id):
+    def __get_images_ds_objects(self, images_ds_object_id):
         """
         Obtiene las imagenes almacenadas en el jornal.
         """
@@ -224,9 +244,9 @@ class PollBuilder(activity.Activity):
             data = cPickle.load(f)
             votes = cPickle.load(f)
             images_ds_objects_id = cPickle.load(f)
-            images = self._create_pixbufs(images_ds_objects_id)
+            images = self.__create_pixbufs(images_ds_objects_id)
 
-            images_ds_object = self._get_images_ds_objects(
+            images_ds_object = self.__get_images_ds_objects(
                 images_ds_objects_id)
 
             poll = Poll(self, title, author, active,
@@ -331,7 +351,7 @@ class PollBuilder(activity.Activity):
         poll_details_box.pack_start(self.poll_details_box_tail, False, False, 0)
 
         self.current_vote = None
-        self.draw_poll_details_box()
+        self.__draw_poll_details_box()
 
         canvasbox.show_all()
 
@@ -346,7 +366,7 @@ class PollBuilder(activity.Activity):
             #self._logger.debug('Strange, which button was clicked?')
             return
 
-        self._switch_to_poll(sha)
+        self.__switch_to_poll(sha)
         self.set_canvas(self._poll_canvas()) #self.set_canvas(PollCanvas(self)) # FIXME: Generalizacion de PollCanvas
 
     def _delete_poll_button_cb(self, button, sha):
@@ -387,7 +407,7 @@ class PollBuilder(activity.Activity):
             return ''
         '''
 
-    def draw_poll_details_box(self):
+    def __draw_poll_details_box(self):
         """
         (Re)draw the poll details box
 
@@ -419,7 +439,7 @@ class PollBuilder(activity.Activity):
                 button = Gtk.RadioButton.new_with_label_from_widget(
                     group, self._poll.options[choice])
 
-                button.connect('toggled', self.vote_choice_radio_button, choice)
+                button.connect('toggled', self.__vote_choice_radio_button, choice)
 
                 answer_box.pack_start(button, True, False, 10)
 
@@ -478,21 +498,21 @@ class PollBuilder(activity.Activity):
         if self._poll.active and not self._previewing:
             button_box = Gtk.HBox()
             button = Gtk.Button(_("Vote"))
-            button.connect('clicked', self._button_vote_cb)
+            button.connect('clicked', self.__button_vote_cb)
             button_box.pack_start(button, True, False, 10)
             self.poll_details_box_tail.pack_start(button_box, True, True, 10)
 
         elif self._previewing:
             button_box = Gtk.HBox()
             button = Gtk.Button(_("Edit Poll"))
-            button.connect('clicked', self.button_edit_clicked)
+            button.connect('clicked', self.__button_edit_clicked)
             button_box.pack_start(button, True, True, 0)
             button = Gtk.Button(_("Save Poll"))
             button.connect('clicked', self.get_canvas().button_save_cb)
             button_box.pack_start(button, True, True, 0)
             self.poll_details_box_tail.pack_start(button_box, True, True, 0)
 
-    def vote_choice_radio_button(self, widget, data=None):
+    def __vote_choice_radio_button(self, widget, data):
         """
         Track which radio button has been selected
 
@@ -502,15 +522,16 @@ class PollBuilder(activity.Activity):
 
         self.current_vote = data
 
-    def _play_vote_button_sound(self):
+    def __play_vote_button_sound(self):
 
         try:
+            # FIXME: Cambiar por gst
             subprocess.Popen("aplay extras/vote-sound.wav", shell=True)
 
         except (OSError, ValueError), e:
             logging.exception(e)
 
-    def _button_vote_cb(self, button):
+    def __button_vote_cb(self, button):
         """
         Register a vote
 
@@ -540,12 +561,12 @@ class PollBuilder(activity.Activity):
             #self._logger.debug('Results: ' + str(self._poll.data))
 
             if self._play_vote_sound:
-                self._play_vote_button_sound()
+                self.__play_vote_button_sound()
 
             if not self._remember_last_vote:
                 self.current_vote = None
 
-            self.draw_poll_details_box()
+            self.__draw_poll_details_box()
 
         else:
             self.__get_alert(_('Poll Activity'),
@@ -573,7 +594,7 @@ class PollBuilder(activity.Activity):
 
         self.set_canvas(NewPollCanvas(self._poll))
 
-    def button_edit_clicked(self, button):
+    def __button_edit_clicked(self, button):
 
         self.set_canvas(NewPollCanvas(self._poll))
 
@@ -612,7 +633,7 @@ class PollBuilder(activity.Activity):
 
         return self._poll.sha'''
 
-    def _switch_to_poll(self, sha):
+    def __switch_to_poll(self, sha):
         """
         Set self._poll to the specified poll with sha
 
@@ -1378,23 +1399,3 @@ class PollSession(ExportedGObject):
                 poll.maxvoters, poll.question, poll.number_of_options,
                 poll.options, poll.data, poll.votes, images_buf,
                 dbus_interface=IFACE)'''
-
-def justify(textdict, choice):
-    """
-    Take a {} of numbers, and right justify the chosen item.
-
-    textdict is a dict of {n: m} where n and m are integers.
-    choice is one of textdict.keys()
-
-    Returns a string of '   m' with m right-justified
-    so that the longest value in the dict can fit.
-    """
-
-    max_len = 0
-
-    for num in textdict.values():
-        if len(str(num)) > max_len:
-            max_len = len(str(num))
-
-    value = str(textdict[choice])
-    return value.rjust(max_len)

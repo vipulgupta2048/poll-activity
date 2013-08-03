@@ -132,7 +132,7 @@ class NewPollCanvas(Gtk.Box):
                     button = Gtk.Button(_("Add Image"))
                     hbox.pack_start(button, True, False, 10)
 
-                button.connect('clicked', self._button_choose_image_cb,
+                button.connect('clicked', self.__button_choose_image_cb,
                     str(choice), hbox)
 
         # PREVIEW & SAVE buttons
@@ -143,7 +143,7 @@ class NewPollCanvas(Gtk.Box):
         hbox.pack_start(button, True, True, 10)
 
         button = Gtk.Button(_("Step 2: Save"))
-        button.connect('clicked', self.button_save_cb)
+        button.connect('clicked', self.__button_save_cb)
         hbox.pack_start(button, True, True, 10)
 
         self.pack_start(hbox, False, False, 10)
@@ -158,7 +158,7 @@ class NewPollCanvas(Gtk.Box):
         else:
             return False
 
-    def _button_choose_image_cb(self, button, data=None, data2=None):
+    def __button_choose_image_cb(self, button, data=None, data2=None):
 
         if hasattr(mime, 'GENERIC_TYPE_IMAGE'):
             chooser = ObjectChooser(_('Choose image'), self,
@@ -232,7 +232,7 @@ class NewPollCanvas(Gtk.Box):
 
         parent_box.pack_start(hbox, True, True, 0)
 
-    def button_save_cb(self, button):
+    def __button_save_cb(self, button):
         """
         Save button clicked.
         """
@@ -720,14 +720,14 @@ class LessonPlanWidget(Gtk.Notebook):
         lessons.sort()
 
         for lesson in lessons:
-            self._load_lesson(
+            self.__load_lesson(
                 os.path.join(basepath,
                 'lessons', lesson),
                 _(lesson))
 
         self.show_all()
 
-    def _load_lesson(self, path, name):
+    def __load_lesson(self, path, name):
         """
         Load the lesson content from a .abw, taking l10n into account.
 
