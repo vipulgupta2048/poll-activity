@@ -253,7 +253,7 @@ class NewPollCanvas(Gtk.Box):
         self._poll.activity._previewing = False
         self._poll.active = True
         self._poll.activity._polls.append(self._poll)
-        #self._poll.broadcast_on_mesh() FIXME: Falta Activar
+        self._poll.broadcast_on_mesh()
         self._poll.activity.set_canvas(self._poll.activity._poll_canvas())
         self._poll.activity.show_all()
 
