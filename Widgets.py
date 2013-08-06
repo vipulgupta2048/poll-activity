@@ -136,6 +136,8 @@ class NewPollCanvas(Gtk.Box):
                 button.connect('clicked', self.__button_choose_image_cb,
                     str(choice), hbox)
 
+            item_poll.pack_end(hbox, False, False, 0)
+
         # PREVIEW & SAVE buttons
         hbox = Gtk.HBox()
 
@@ -162,22 +164,18 @@ class NewPollCanvas(Gtk.Box):
     def __button_choose_image_cb(self, button, data=None, data2=None):
 
         if hasattr(mime, 'GENERIC_TYPE_IMAGE'):
-            chooser = ObjectChooser(_('Choose image'), self,
-                Gtk.DialogFlags.MODAL |
-                Gtk.DialogFlags.DESTROY_WITH_PARENT,
+            chooser = ObjectChooser(parent=self,
                 what_filter=mime.GENERIC_TYPE_IMAGE)
 
         else:
-            chooser = ObjectChooser(_('Choose image'), self,
-                Gtk.DialogFlags.MODAL |
-                Gtk.DialogFlags.DESTROY_WITH_PARENT)
+            chooser = ObjectChooser(parent=self)
 
         try:
             result = chooser.run()
 
             if result == Gtk.ResponseType.ACCEPT:
-                logging.debug('ObjectChooser: %r' %
-                    chooser.get_selected_object())
+                #logging.debug('ObjectChooser: %r' %
+                #    chooser.get_selected_object())
 
                 jobject = chooser.get_selected_object()
 
