@@ -31,6 +31,7 @@ from gi.repository import Abi
 from sugar3 import mime
 from sugar3 import profile
 from sugar3.graphics import style
+from sugar3.graphics.alert import NotifyAlert
 from sugar3.graphics.objectchooser import ObjectChooser
 
 from sugar3.graphics.toolbarbox import ToolbarBox
@@ -456,20 +457,41 @@ class OptionsCanvas(Gtk.Box):
 
         if text: self.poll_activity._image_size[data] = int(text)
 
-    def __use_image_checkbox_cb(self, checkbox, data=None, data2=None):
+    def __use_image_checkbox_cb(self, checkbox, parent, child):
 
         self.poll_activity._use_image = checkbox.get_active()
 
         if checkbox.get_active():
-            data.add(data2)
+            parent.pack_start(child, True, True, 0)
 
         else:
-            data.remove(data2)
+            parent.remove(child)
+
+        self.show_all()
 
     def __button_save_options_cb(self, button):
 
-        self.poll_activity.__get_alert(_('Poll Activity'),
+        self.__get_alert(_('Poll Activity'),
             _('The settings have been saved'))
+
+    def __get_alert(self, title, text):
+        """
+        Show an alert above the activity.
+        """
+
+        alert = NotifyAlert(timeout=5)
+        alert.props.title = title
+        alert.props.msg = text
+        self.get_toplevel().add_alert(alert)
+        alert.connect('response', self.__alert_cancel_cb)
+        alert.show()
+
+    def __alert_cancel_cb(self, alert, response_id):
+        """
+        Callback for alert events
+        """
+
+        self.get_toplevel().remove_alert(alert)
 
 class SelectCanvas(Gtk.Box):
 
