@@ -25,6 +25,12 @@ import base64
 
 from datetime import date
 
+try:
+    from hashlib import sha1
+except ImportError:
+    # Python < 2.5
+    from sha import new as sha1
+
 from dbus.service import method, signal
 from dbus.gobject_service import ExportedGObject
 

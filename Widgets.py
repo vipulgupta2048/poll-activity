@@ -144,7 +144,7 @@ class NewPollCanvas(Gtk.Box):
         hbox.pack_start(button, True, True, 10)
 
         button = Gtk.Button(_("Step 2: Save"))
-        button.connect('clicked', self.__button_save_cb)
+        button.connect('clicked', self._button_save_cb)
         hbox.pack_start(button, True, True, 10)
 
         self.pack_start(hbox, False, False, 10)
@@ -233,7 +233,7 @@ class NewPollCanvas(Gtk.Box):
 
         parent_box.pack_start(hbox, True, True, 0)
 
-    def __button_save_cb(self, button):
+    def _button_save_cb(self, button):
         """
         Save button clicked.
         """
@@ -491,7 +491,7 @@ class OptionsCanvas(Gtk.Box):
         Callback for alert events
         """
 
-        self.get_toplevel().remove_alert(alert)
+        self.poll_activity.remove_alert(alert)
 
 class SelectCanvas(Gtk.Box):
 

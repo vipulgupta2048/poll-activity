@@ -492,7 +492,7 @@ class PollBuilder(activity.Activity):
             button.connect('clicked', self.__button_edit_clicked)
             button_box.pack_start(button, True, True, 0)
             button = Gtk.Button(_("Save Poll"))
-            button.connect('clicked', self.get_canvas().button_save_cb)
+            button.connect('clicked', self.get_canvas()._button_save_cb)
             button_box.pack_start(button, True, True, 0)
             self.poll_details_box_tail.pack_start(button_box, True, True, 0)
 
