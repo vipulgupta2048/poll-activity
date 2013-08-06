@@ -104,8 +104,8 @@ class PollBuilder(activity.Activity):
 
         activity.Activity.__init__(self, handle)
 
-        #self._logger = logging.getLogger('poll-activity')
-        #self._logger.debug('Starting Poll activity')
+        self._logger = logging.getLogger('poll-activity')
+        self._logger.debug('Starting Poll activity')
 
         self._polls = []
         self.current_vote = None
@@ -204,8 +204,8 @@ class PollBuilder(activity.Activity):
         which provides file_path.
         """
 
-        #self._logger.debug('Reading file from datastore via Journal: %s' %
-        #    file_path)
+        self._logger.debug('Reading file from datastore via Journal: %s' %
+            file_path)
 
         self._polls = []
 
@@ -349,7 +349,7 @@ class PollBuilder(activity.Activity):
         """
 
         if not sha:
-            #self._logger.debug('Strange, which button was clicked?')
+            self._logger.debug('Strange, which button was clicked?')
             return
 
         self.__switch_to_poll(sha)
@@ -361,11 +361,11 @@ class PollBuilder(activity.Activity):
         """
 
         if not sha:
-            #self._logger.debug('Strange, which button was clicked?')
+            self._logger.debug('Strange, which button was clicked?')
             return
 
         if self._poll.sha == sha:
-            #self._logger.debug('delete_poll: removing current poll')
+            self._logger.debug('delete_poll: removing current poll')
             self._poll = Poll(activity=self)
             self.current_vote = None
 
@@ -415,7 +415,7 @@ class PollBuilder(activity.Activity):
         group = Gtk.RadioButton()
 
         for choice in range(self._poll.number_of_options):
-            #self._logger.debug(self._poll.options[choice])
+            self._logger.debug(self._poll.options[choice])
 
             answer_row = Gtk.HBox()
 
@@ -442,8 +442,8 @@ class PollBuilder(activity.Activity):
 
             if self._view_answer or not self._poll.active:
                 if votes_total > 0:
-                    #self._logger.debug(str(self._poll.data[choice] * 1.0 /
-                    #    votes_total))
+                    self._logger.debug(str(self._poll.data[choice] * 1.0 /
+                        votes_total))
 
                     graph_box = Gtk.HBox()
                     answer_row.pack_start(graph_box, True, True, 10)
@@ -525,24 +525,22 @@ class PollBuilder(activity.Activity):
 
         if self.current_vote is not None:
             if self._poll.vote_count >= self._poll.maxvoters:
-                #self._logger.debug('Hit the max voters, ignoring this vote.')
+                self._logger.debug('Hit the max voters, ignoring this vote.')
                 return
 
-            #self._logger.debug('Voted ' + str(self.current_vote))
+            self._logger.debug('Voted ' + str(self.current_vote))
 
             try:
                 self._poll.register_vote(self.current_vote, self.nick_sha1)
 
             except OverflowError:
-                #self._logger.debug('Local vote failed: '
-                #    'maximum votes already registered.')
-                pass
+                self._logger.debug('Local vote failed: '
+                    'maximum votes already registered.')
 
             except ValueError:
-                #self._logger.debug('Local vote failed: poll closed.')
-                pass
+                self._logger.debug('Local vote failed: poll closed.')
 
-            #self._logger.debug('Results: ' + str(self._poll.data))
+            self._logger.debug('Results: ' + str(self._poll.data))
 
             if self._play_vote_sound:
                 self.__play_vote_button_sound()
@@ -654,24 +652,21 @@ class PollBuilder(activity.Activity):
                     self.__get_alert(_('Vote'), _('Somebody voted on %s') % title)
 
                 except OverflowError:
-                    #self._logger.debug('Ignored mesh vote %u from %s:'
-                    #    ' poll reached maximum votes.',
-                    #    choice, votersha)
-                    pass
+                    self._logger.debug('Ignored mesh vote %u from %s:'
+                        ' poll reached maximum votes.',
+                        choice, votersha)
 
                 except ValueError:
-                    #self._logger.debug('Ignored mesh vote %u from %s:'
-                    #    ' poll closed.',
-                    #    choice, votersha)
-                    pass
+                    self._logger.debug('Ignored mesh vote %u from %s:'
+                        ' poll closed.',
+                        choice, votersha)
 
     def __button_lessonplan_cb(self, button):
         """
         Lesson Plan button clicked.
         """
 
-        #self._logger.debug('%s -> Lesson Plan' % self._current_view)
-        #self.set_canvas(self._lessonplan_canvas())
+        self._logger.debug('%s -> Lesson Plan' % self._current_view)
         self.set_canvas(LessonPlanCanvas(self))
 
     ### >>> COLABORATION
@@ -680,12 +675,12 @@ class PollBuilder(activity.Activity):
         Callback for completion of sharing this activity.
         """
 
-        #self._logger.debug('My activity was shared')
+        self._logger.debug('My activity was shared')
         self.initiating = True
 
         self.__sharing_setup()
 
-        #self._logger.debug('This is my activity: making a tube...')
+        self._logger.debug('This is my activity: making a tube...')
 
         id = self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].OfferDBusTube(
             SERVICE, {})
@@ -698,7 +693,7 @@ class PollBuilder(activity.Activity):
         """
 
         if self.shared_activity is None:
-            #self._logger.error('Failed to share or join activity')
+            self._logger.error('Failed to share or join activity')
             return
 
         self.conn = self.shared_activity.telepathy_conn
@@ -717,8 +712,7 @@ class PollBuilder(activity.Activity):
             self.__new_tube_cb(*tube_info)
 
     def __list_tubes_error_cb(self, e):
-        #self._logger.error('ListTubes() failed: %s', e)
-        pass
+        self._logger.error('ListTubes() failed: %s', e)
 
     def __joined_cb(self, activity):
         """
@@ -728,13 +722,13 @@ class PollBuilder(activity.Activity):
         if not self.shared_activity:
             return
 
-        #self._logger.debug('Joined an existing shared activity')
+        self._logger.debug('Joined an existing shared activity')
         self.__get_alert(_('Joined'), "")
 
         self.initiating = False
         self.__sharing_setup()
 
-        #self._logger.debug('This is not my activity: waiting for a tube...')
+        self._logger.debug('This is not my activity: waiting for a tube...')
         self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].ListTubes(
             reply_handler=self.__list_tubes_reply_cb,
             error_handler=self.__list_tubes_error_cb)
@@ -744,9 +738,9 @@ class PollBuilder(activity.Activity):
         Callback for when we have a Tube.
         """
 
-        #self._logger.debug('New tube: ID=%d initator=%d type=%d service=%s '
-        #   'params=%r state=%d', id, initiator, type, service,
-        #   params, state)
+        self._logger.debug('New tube: ID=%d initator=%d type=%d service=%s '
+           'params=%r state=%d', id, initiator, type, service,
+           params, state)
 
         if (type == telepathy.TUBE_TYPE_DBUS and service == SERVICE):
             if state == telepathy.TUBE_STATE_LOCAL_PENDING:
@@ -764,40 +758,38 @@ class PollBuilder(activity.Activity):
 
     def __buddy_joined_cb(self, activity, buddy):
 
-        #self.alert(buddy.props.nick, _('Joined'))
         self.__get_alert(buddy.props.nick, _('Joined'))
-        #self._logger.debug('Buddy %s joined' % buddy.props.nick)
+        self._logger.debug('Buddy %s joined' % buddy.props.nick)
 
     def __buddy_left_cb(self, activity, buddy):
 
-        #self.alert(buddy.props.nick, _('Left'))
         self.__get_alert(buddy.props.nick, _('Left'))
-        #self._logger.debug('Buddy %s left' % buddy.props.nick)
+        self._logger.debug('Buddy %s left' % buddy.props.nick)
 
     def __get_buddy(self, cs_handle):
         """
         Get a Buddy from a channel specific handle.
         """
 
-        #self._logger.debug('Trying to find owner of handle %u...', cs_handle)
+        self._logger.debug('Trying to find owner of handle %u...', cs_handle)
         group = self.text_chan[telepathy.CHANNEL_INTERFACE_GROUP]
         my_csh = group.GetSelfHandle()
 
         SIGNAL_TELEPATHY = telepathy.CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES
-        #self._logger.debug('My handle in that group is %u', my_csh)
+        self._logger.debug('My handle in that group is %u', my_csh)
 
         if my_csh == cs_handle:
             handle = self.conn.GetSelfHandle()
-            #self._logger.debug('CS handle %u belongs to me, %u', cs_handle,
-            #    handle)
+            self._logger.debug('CS handle %u belongs to me, %u', cs_handle,
+                handle)
 
         elif group.GetGroupFlags() & SIGNAL_TELEPATHY:
             handle = group.GetHandleOwners([cs_handle])[0]
-            #self._logger.debug('CS handle %u belongs to %u', cs_handle, handle)
+            self._logger.debug('CS handle %u belongs to %u', cs_handle, handle)
 
         else:
             handle = cs_handle
-            #self._logger.debug('non-CS handle %u belongs to itself', handle)
+            self._logger.debug('non-CS handle %u belongs to itself', handle)
             assert handle != 0
 
         return self.pservice.get_buddy_by_telepathy_handle(

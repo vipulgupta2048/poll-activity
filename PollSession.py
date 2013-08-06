@@ -60,8 +60,8 @@ class Poll():
         self.data = (data or {0: 0, 1: 0, 2: 0, 3: 0, 4: 0})
         self.votes = (votes or {})
 
-        #self._logger = logging.getLogger('poll-activity.Poll')
-        #self._logger.debug('Creating Poll(%s by %s)' % (title, author))
+        self._logger = logging.getLogger('poll-activity.Poll')
+        self._logger.debug('Creating Poll(%s by %s)' % (title, author))
 
     def dump(self):
         """
@@ -146,35 +146,35 @@ class Poll():
           sha1 of the voter nick
         """
 
-        #self._logger.debug('In Poll.register_vote')
+        self._logger.debug('In Poll.register_vote')
 
         if self.active:
             if self.vote_count < self.maxvoters:
-                #self._logger.debug('About to vote')
+                self._logger.debug('About to vote')
                 # XXX 27/10/07 Morgan: Allowing multiple votes per XO
                 #                      per Shannon's request.
                 ## if voter already voted, change their vote:
-                #if votersha in self.votes:
-                #    self._logger.debug('%s already voted, decrementing their '
-                #        'old choice %d' % (votersha, self.votes[votersha]))
-                #    self.data[self.votes[votersha]] -= 1
+                if votersha in self.votes:
+                    self._logger.debug('%s already voted, decrementing their '
+                        'old choice %d' % (votersha, self.votes[votersha]))
+                    self.data[self.votes[votersha]] -= 1
 
                 self.votes[votersha] = choice
                 self.data[choice] += 1
-                #self._logger.debug(
-                #    'Recording vote %d by %s on %s by %s' %
-                #    (choice, votersha, self.title, self.author))
+                self._logger.debug(
+                    'Recording vote %d by %s on %s by %s' %
+                    (choice, votersha, self.title, self.author))
 
                 ### Close poll:
                 if self.vote_count >= self.maxvoters:
                     self.active = False
-                    #self._logger.debug('Poll hit maxvoters, closing')
+                    self._logger.debug('Poll hit maxvoters, closing')
 
                 if self.activity.poll_session:
                     # We are shared so we can send the Vote signal if I voted
                     if votersha == self.activity.nick_sha1:
-                        #self._logger.debug(
-                        #    'Shared, I voted so sending signal')
+                        self._logger.debug(
+                            'Shared, I voted so sending signal')
 
                         self.activity.poll_session.Vote(
                             self.author, self.title, choice, votersha)
@@ -234,7 +234,7 @@ class PollSession(ExportedGObject):
         """
 
         super(PollSession, self).__init__(tube, PATH)
-        #self._logger = logging.getLogger('poll-activity.PollSession')
+        self._logger = logging.getLogger('poll-activity.PollSession')
         self.tube = tube
         self.is_initiator = is_initiator
         self.entered = False  # Have we set up the tube?
@@ -247,45 +247,41 @@ class PollSession(ExportedGObject):
         Callback when tube participants change.
         """
 
-        #self._logger.debug('In participant_change_cb')
+        self._logger.debug('In participant_change_cb')
 
         if added:
-            #self._logger.debug('Adding participants: %r' % added)
-            pass
+            self._logger.debug('Adding participants: %r' % added)
 
         if removed:
-            #self._logger.debug('Removing participants: %r' % removed)
-            pass
+            self._logger.debug('Removing participants: %r' % removed)
 
         for handle, bus_name in added:
             buddy = self._get_buddy(handle)
 
             if buddy is not None:
-                #self._logger.debug('Buddy %s was added' % buddy.props.nick)
-                pass
+                self._logger.debug('Buddy %s was added' % buddy.props.nick)
 
         for handle in removed:
             buddy = self._get_buddy(handle)
 
             if buddy is not None:
-                #self._logger.debug('Buddy %s was removed' % buddy.props.nick)
+                self._logger.debug('Buddy %s was removed' % buddy.props.nick)
                 # Set buddy's polls to not active so I can't vote on them
 
                 for poll in self.activity._polls:
                     if poll.author == buddy.props.nick:
                         poll.active = False
 
-                        #self._logger.debug(
-                        #    'Closing poll %s of %s who just left.' %
-                        #    (poll.title, poll.author))
+                        self._logger.debug(
+                            'Closing poll %s of %s who just left.' %
+                            (poll.title, poll.author))
 
         if not self.entered:
             if self.is_initiator:
-                #self._logger.debug("I'm initiating the tube")
-                pass
+                self._logger.debug("I'm initiating the tube")
 
             else:
-                #self._logger.debug('Joining, sending Hello')
+                self._logger.debug('Joining, sending Hello')
                 self.Hello()
 
             self.tube.add_signal_receiver(
@@ -353,7 +349,7 @@ class PollSession(ExportedGObject):
 
         assert sender is not None
 
-        #self._logger.debug('Newcomer %s has joined and sent Hello', sender)
+        self._logger.debug('Newcomer %s has joined and sent Hello', sender)
         # sender is a bus name - check if it's me:
         if sender == self.my_bus_name:
             # then I don't want to respond to my own Hello
@@ -361,8 +357,8 @@ class PollSession(ExportedGObject):
 
         # Send my polls
         for poll in self.activity.get_my_polls():
-            #self._logger.debug('Telling %s about my %s' %
-            #    (sender, poll.title))
+            self._logger.debug('Telling %s about my %s' %
+                (sender, poll.title))
 
             #images_properties = poll.simplify_images_dictionary()
             images_buf = {}
@@ -394,8 +390,8 @@ class PollSession(ExportedGObject):
         Other XOs should ignore this signal.
         """
 
-        #self._logger.debug('*** In helloback_cb: recipient: %s, sender: %s' %
-        #    (recipient, sender))
+        self._logger.debug('*** In helloback_cb: recipient: %s, sender: %s' %
+            (recipient, sender))
 
         if sender == self.my_bus_name:
             # Ignore my own signal
@@ -405,11 +401,11 @@ class PollSession(ExportedGObject):
             # This is not for me
             return
 
-        #self._logger.debug('*** It was for me, so sending my polls back.')
+        self._logger.debug('*** It was for me, so sending my polls back.')
 
         for poll in self.activity.get_my_polls():
-            #self._logger.debug('Telling %s about my %s' %
-            #    (sender, poll.title))
+            self._logger.debug('Telling %s about my %s' %
+                (sender, poll.title))
 
             images_buf = {}
 
@@ -445,7 +441,7 @@ class PollSession(ExportedGObject):
         Handle an UpdatedPoll signal by creating a new Poll.
         """
 
-        #self._logger.debug('Received UpdatedPoll from %s' % sender)
+        self._logger.debug('Received UpdatedPoll from %s' % sender)
 
         if sender == self.my_bus_name:
             # Ignore my own signal
@@ -518,9 +514,9 @@ class PollSession(ExportedGObject):
             # Don't respond to my own Vote signal
             return
 
-        #self._logger.debug('In vote_cb. sender: %r' % sender)
-        #self._logger.debug('%s voted %d on %s by %s' % (votersha, choice,
-        #    title, author))
+        self._logger.debug('In vote_cb. sender: %r' % sender)
+        self._logger.debug('%s voted %d on %s by %s' % (votersha, choice,
+            title, author))
 
         self.activity.vote_on_poll(author, title, choice, votersha)
 

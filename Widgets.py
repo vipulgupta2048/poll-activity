@@ -175,8 +175,8 @@ class NewPollCanvas(Gtk.Box):
             result = chooser.run()
 
             if result == Gtk.ResponseType.ACCEPT:
-                #logging.debug('ObjectChooser: %r' %
-                #    chooser.get_selected_object())
+                logging.debug('ObjectChooser: %r' %
+                    chooser.get_selected_object())
 
                 jobject = chooser.get_selected_object()
 
