@@ -26,6 +26,7 @@
 from gi.repository import GObject
 from gi.repository import Gtk
 from gi.repository import Gdk
+from gi.repository import GdkPixbuf
 
 GObject.threads_init()
 
@@ -296,6 +297,11 @@ class PollBuilder(activity.Activity):
         Show the poll canvas where children vote on an existing poll.
         """
 
+        scroll = Gtk.ScrolledWindow()
+        scroll.set_policy(
+            Gtk.PolicyType.AUTOMATIC,
+            Gtk.PolicyType.AUTOMATIC)
+
         self._current_view = 'poll'
         canvasbox = Gtk.VBox()
 
@@ -339,9 +345,11 @@ class PollBuilder(activity.Activity):
         self.current_vote = None
         self.__draw_poll_details_box()
 
-        canvasbox.show_all()
+        scroll.add_with_viewport(canvasbox)
 
-        return canvasbox
+        scroll.show_all()
+
+        return scroll
 
     def _select_poll_button_cb(self, button, sha=None):
         """
