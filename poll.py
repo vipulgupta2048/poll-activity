@@ -68,26 +68,6 @@ SERVICE = "org.worldwideworkshop.olpc.PollBuilder"
 IFACE = SERVICE
 PATH = "/org/worldwideworkshop/olpc/PollBuilder"
 
-def justify(textdict, choice):
-    """
-    Take a {} of numbers, and right justify the chosen item.
-
-    textdict is a dict of {n: m} where n and m are integers.
-    choice is one of textdict.keys()
-
-    Returns a string of '   m' with m right-justified
-    so that the longest value in the dict can fit.
-    """
-
-    max_len = 0
-
-    for num in textdict.values():
-        if len(str(num)) > max_len:
-            max_len = len(str(num))
-
-    value = str(textdict[choice])
-    return value.rjust(max_len)
-
 class PollBuilder(activity.Activity):
     """
     Sugar activity for polls
@@ -417,7 +397,6 @@ class PollBuilder(activity.Activity):
 
         answer_box = Gtk.VBox()
 
-        answer_box = Gtk.VBox()
         poll_details_box.pack_end(answer_box, True, True, 10)
 
         group = Gtk.RadioButton()
@@ -433,35 +412,37 @@ class PollBuilder(activity.Activity):
 
                 button.connect('toggled', self.__vote_choice_radio_button, choice)
 
-                answer_box.pack_start(button, True, False, 10)
+                answer_box.pack_start(button, False, False, 10)
 
                 if choice == self.current_vote:
                     button.set_active(True)
 
             if not self._poll.images[int(choice)] == '':
-                hbox = Gtk.HBox()
-                hbox.add(self.__load_image(self._poll.images[choice]))
-                hbox.show()
-                answer_row.pack_start(hbox, True, True, 10)
+                answer_row.pack_start(self.__load_image(self._poll.images[choice]),
+                    False, False, 10)
 
             if not self._poll.active:
-                answer_row.pack_start(Gtk.Label(self._poll.options[choice]),
-                    True, False, 10)
+                label = Gtk.Label(self._poll.options[choice])
+                label.set_size_request(100, -1)
+                answer_row.pack_start(label, False, False, 10)
 
             if self._view_answer or not self._poll.active:
                 if votes_total > 0:
                     self._logger.debug(str(self._poll.data[choice] * 1.0 /
                         votes_total))
 
-                    graph_box = Gtk.HBox()
-                    answer_row.pack_start(graph_box, True, True, 10)
+                    label = Gtk.Label(self._poll.data[choice])
+                    label.set_size_request(100, -1)
+                    answer_row.pack_start(label, False, False, 10)
 
-                    graph_box.pack_start(Gtk.Label(
-                        justify(self._poll.data, choice)), True, True, 10)
+                    eventbox = Gtk.EventBox()
+                    eventbox.set_size_request(300, -1)
+                    eventbox.modify_bg(0, Gdk.Color.parse('#FF0198')[1])
+                    answer_row.pack_end(eventbox, False, False, 10)
 
-                    graph_box.pack_start(Gtk.HBox(), True, True, 10)
-                    graph_box.pack_start(Gtk.Label(str(self._poll.data[
-                        choice] * 100 / votes_total) + '%'), True, True, 10)
+                    label = Gtk.Label("%s %s" % (str(self._poll.data[choice] * 100 / votes_total), "%") )
+                    label.set_size_request(100, -1)
+                    answer_row.pack_end(label, False, False, 10)
 
             answer_box.pack_start(answer_row, True, True, 0)
 
