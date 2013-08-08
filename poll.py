@@ -391,8 +391,10 @@ class PollBuilder(activity.Activity):
         votes_total = self._poll.vote_count
 
         title = Gtk.Label(label=self._poll.title)
+        title.set_alignment(0.0, 0.5)
         self.poll_details_box_head.pack_start(title, True, True, 10)
         question = Gtk.Label(label=self._poll.question)
+        question.set_alignment(0.0, 0.5)
         self.poll_details_box_head.pack_start(question, True, True, 10)
 
         answer_box = Gtk.VBox()
@@ -424,7 +426,7 @@ class PollBuilder(activity.Activity):
             if not self._poll.active:
                 label = Gtk.Label(self._poll.options[choice])
                 label.set_size_request(100, -1)
-                answer_row.pack_start(label, False, False, 10)
+                answer_box.pack_start(label, False, False, 10)
 
             if self._view_answer or not self._poll.active:
                 if votes_total > 0:
@@ -448,8 +450,10 @@ class PollBuilder(activity.Activity):
 
         if self._view_answer or not self._poll.active:
             # Line above total
-            line_box = Gtk.HBox()
-            answer_box.pack_start(line_box, True, True, 10)
+            eventbox = Gtk.EventBox()
+            eventbox.set_size_request(300, 15)
+            eventbox.modify_bg(0, Gdk.Color.parse('#FF0198')[1])
+            answer_box.pack_start(eventbox, True, True, 10)
 
         # total votes
         totals_box = Gtk.HBox()
