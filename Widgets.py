@@ -628,31 +628,28 @@ class PollCanvas(Gtk.Box):
         self._poll = poll
 
         self.cabecera = Gtk.Label(cabecera)
-        self.pack_start(self.cabecera, True, True, 10)
+        self.pack_start(self.cabecera, False, False, 10)
 
         self.title = Gtk.Label(poll.title)
-        self.title.set_alignment(0.0, 0.5)
-        self.pack_start(self.title, True, True, 10)
+        self.title.set_alignment(0.01, 0.5)
+        self.pack_start(self.title, False, False, 10)
 
         self.question = Gtk.Label(poll.question)
-        self.question.set_alignment(0.0, 0.5)
-        self.pack_start(self.question, True, True, 10)
+        self.question.set_alignment(0.01, 0.5)
+        self.pack_start(self.question, False, False, 10)
 
-        frame = Gtk.Frame()
+        frame = Gtk.AspectFrame()
         tabla = Gtk.Table(rows=6, columns=6)
+        tabla.set_border_width(20)
 
-        scroll = Gtk.ScrolledWindow()
+        eventbox = Gtk.EventBox()
+        eventbox.set_border_width(20)
+        eventbox.modify_bg(0, Gdk.Color(65000, 65000, 65000))
+        eventbox.add(tabla)
 
-        scroll.set_policy(
-            Gtk.PolicyType.AUTOMATIC,
-            Gtk.PolicyType.NEVER)
-
-        scroll.add_with_viewport(tabla)
-
-        frame.add(scroll)
+        frame.add(eventbox)
         self.pack_start(frame, True, True, 10)
 
-        ####
         group = Gtk.RadioButton()
 
         row = 0
@@ -684,14 +681,16 @@ class PollCanvas(Gtk.Box):
 
                         eventbox = Gtk.EventBox()
                         eventbox.set_size_request(300, -1)
-                        eventbox.modify_bg(0, Gdk.Color.parse('#FF0198')[1])
                         tabla.attach(eventbox, 4,5, row, row+1)
+
+                        eventbox.connect("draw",
+                            self.__draw_bar, poll.data[choice],
+                            poll.vote_count)
 
             row += 1
 
         ### Barra para total
         eventbox = Gtk.EventBox()
-        eventbox.set_size_request(300, -1)
         eventbox.modify_bg(0, Gdk.Color.parse('#FF0198')[1])
         tabla.attach(eventbox, 3,5, row, row+1)
 
@@ -785,3 +784,20 @@ class PollCanvas(Gtk.Box):
             self._poll.number_of_options = 5
 
         return failed_items
+
+    def __draw_bar(self, widget, context, votos, total):
+
+        rect = widget.get_allocation()
+        w, h = (rect.width, rect.height)
+
+        Gdk.cairo_set_source_color(context, Gdk.Color.parse('#FF0198')[1])
+        rect = Gdk.Rectangle()
+
+        por = votos * 100 / total
+        ancho = w * por / 100
+        rect.x, rect.y, rect.width, rect.height = (0, 0, ancho, h)
+
+        Gdk.cairo_rectangle(context, rect)
+        context.fill()
+
+        return True
