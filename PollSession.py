@@ -158,10 +158,10 @@ class Poll():
                 # XXX 27/10/07 Morgan: Allowing multiple votes per XO
                 #                      per Shannon's request.
                 ## if voter already voted, change their vote:
-                if votersha in self.votes:
-                    self._logger.debug('%s already voted, decrementing their '
-                        'old choice %d' % (votersha, self.votes[votersha]))
-                    self.data[self.votes[votersha]] -= 1
+                #if votersha in self.votes:
+                #    self._logger.debug('%s already voted, decrementing their '
+                #        'old choice %d' % (votersha, self.votes[votersha]))
+                #    self.data[self.votes[votersha]] -= 1
 
                 self.votes[votersha] = choice
                 self.data[choice] += 1

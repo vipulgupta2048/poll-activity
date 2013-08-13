@@ -311,8 +311,6 @@ class PollBuilder(activity.Activity):
 
         if self._poll.sha == sha:
             self._logger.debug('delete_poll: removing current poll')
-            self._poll = Poll(activity=self)
-            self.current_vote = None
 
         for poll in self._polls:
             if poll.sha == sha:

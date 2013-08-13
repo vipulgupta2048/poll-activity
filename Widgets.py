@@ -669,37 +669,42 @@ class PollCanvas(Gtk.Box):
         row = 0
         for choice in range(poll.number_of_options):
 
+            button = Gtk.RadioButton.new_with_label_from_widget(
+                group, poll.options[choice])
+
+            button.connect('toggled', poll.activity.vote_choice_radio_button, choice)
+
             if poll.active:
-                button = Gtk.RadioButton.new_with_label_from_widget(
-                    group, poll.options[choice])
+                button.set_sensitive(True)
 
-                button.connect('toggled', poll.activity.vote_choice_radio_button, choice)
+            else:
+                button.set_sensitive(False)
 
-                tabla.attach(button, 0, 1, row, row+1)
+            tabla.attach(button, 0, 1, row, row+1)
 
-                if choice == current_vote:
-                    button.set_active(True)
+            if choice == current_vote:
+                button.set_active(True)
 
-                if not poll.images[int(choice)] == '':
-                    image = Gtk.Image()
-                    image.set_from_pixbuf(poll.images[choice])
-                    tabla.attach(image, 1,2, row, row+1)
+            if not poll.images[int(choice)] == '':
+                image = Gtk.Image()
+                image.set_from_pixbuf(poll.images[choice])
+                tabla.attach(image, 1,2, row, row+1)
 
-                if view_answer or not poll.active:
-                    if poll.vote_count > 0:
+            if view_answer or not poll.active:
+                if poll.vote_count > 0:
 
-                        ### Total de votos
-                        label = Gtk.Label(poll.data[choice])
-                        label.set_size_request(100, -1)
-                        tabla.attach(label, 3,4, row, row+1)
+                    ### Total de votos
+                    label = Gtk.Label(poll.data[choice])
+                    label.set_size_request(100, -1)
+                    tabla.attach(label, 3,4, row, row+1)
 
-                        eventbox = Gtk.EventBox()
-                        eventbox.set_size_request(300, -1)
-                        tabla.attach(eventbox, 4,5, row, row+1)
+                    eventbox = Gtk.EventBox()
+                    eventbox.set_size_request(300, -1)
+                    tabla.attach(eventbox, 4,5, row, row+1)
 
-                        eventbox.connect("draw",
-                            self.__draw_bar, poll.data[choice],
-                            poll.vote_count)
+                    eventbox.connect("draw",
+                        self.__draw_bar, poll.data[choice],
+                        poll.vote_count)
 
             row += 1
 
