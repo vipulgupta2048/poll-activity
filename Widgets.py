@@ -642,13 +642,22 @@ class PollCanvas(Gtk.Box):
         tabla = Gtk.Table(rows=6, columns=6)
         tabla.set_border_width(20)
 
+        frame.add(tabla)
+
         eventbox = Gtk.EventBox()
         eventbox.set_border_width(20)
         eventbox.modify_bg(0, Gdk.Color(65000, 65000, 65000))
         eventbox.add(frame)
 
-        frame.add(tabla)
-        self.pack_start(eventbox, True, True, 10)
+        scroll = Gtk.ScrolledWindow()
+
+        scroll.set_policy(
+            Gtk.PolicyType.AUTOMATIC,
+            Gtk.PolicyType.AUTOMATIC)
+
+        scroll.add_with_viewport(eventbox)
+
+        self.pack_start(scroll, True, True, 10)
 
         group = Gtk.RadioButton()
 
