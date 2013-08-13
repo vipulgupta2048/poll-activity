@@ -376,7 +376,9 @@ class OptionsCanvas(Gtk.Box):
 
         optionsbox.pack_start(mainbox, True, False, 0)
 
-        mainbox.pack_start(Gtk.Label(_('Settings')), True, True, 10)
+        label = Gtk.Label()
+        label.set_markup('<big><b>%s</b></big>' % _('Settings'))
+        mainbox.pack_start(label, False, False, 10)
 
         options_details_box = Gtk.VBox()
         mainbox.pack_start(options_details_box, True, False, 10)
@@ -564,7 +566,9 @@ class LessonPlanCanvas(Gtk.Box):
 
         poll_activity._current_view = 'lessonplan'
 
-        self.pack_start(Gtk.Label(_('Lesson Plans')), False, False, 0)
+        label = Gtk.Label()
+        label.set_markup('<big><b>%s</b></big>' % _('Lesson Plans'))
+        self.pack_start(label, False, False, 10)
         self.pack_start(LessonPlanWidget(), True, True, 0)
 
         self.show_all()
@@ -627,7 +631,8 @@ class PollCanvas(Gtk.Box):
 
         self._poll = poll
 
-        self.cabecera = Gtk.Label(cabecera)
+        self.cabecera = Gtk.Label()
+        self.cabecera.set_markup('<big><b>%s</b></big>' % _(cabecera))
         self.pack_start(self.cabecera, False, False, 10)
 
         self.title = Gtk.Label(poll.title)
