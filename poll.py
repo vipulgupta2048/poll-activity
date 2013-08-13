@@ -88,7 +88,7 @@ class PollBuilder(activity.Activity):
         self._logger = logging.getLogger('poll-activity')
         self._logger.debug('Starting Poll activity')
 
-        self._polls = []
+        self._polls = set()
         self.current_vote = None
         self._current_view = None
         self._previewing = False
@@ -188,7 +188,7 @@ class PollBuilder(activity.Activity):
         self._logger.debug('Reading file from datastore via Journal: %s' %
             file_path)
 
-        self._polls = []
+        self._polls = set()
 
         f = open(file_path, 'r')
         num_polls = cPickle.load(f)
@@ -221,7 +221,7 @@ class PollBuilder(activity.Activity):
                 maxvoters, question, number_of_options, options,
                 data, votes, images, images_ds_object)
 
-            self._polls.append(poll)
+            self._polls.add(poll)
 
         f.close()
 
@@ -378,7 +378,6 @@ class PollBuilder(activity.Activity):
             else:
                 cabecera = _('Poll Preview')
 
-            return
             self.set_canvas(PollCanvas(cabecera, self._poll, self.current_vote, self._view_answer, self._previewing))
 
         else:

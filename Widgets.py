@@ -106,7 +106,7 @@ class NewPollCanvas(Gtk.Box):
         label.set_markup('<big><b>%s</b></big>' % _('Build a poll'))
         self.pack_start(label, False, False, 10)
 
-        item_poll = ItemNewPoll(_('poll Title:'), self._poll.title)
+        item_poll = ItemNewPoll(_('Poll Title:'), self._poll.title)
         item_poll.entry.connect('changed', self.__entry_activate_cb, 'title')
         self.pack_start(item_poll, False, False, 10)
 
@@ -120,7 +120,7 @@ class NewPollCanvas(Gtk.Box):
 
         for choice in self._poll.options.keys():
             hbox = Gtk.HBox()
-            item_poll = ItemNewPoll(_('Answer %d:'), self._poll.options[choice])
+            item_poll = ItemNewPoll(_('Answer %s:') % choice, self._poll.options[choice])
             item_poll.entry.connect('changed', self.__entry_activate_cb, str(choice))
             self.pack_start(item_poll, False, False, 10)
 
@@ -252,7 +252,7 @@ class NewPollCanvas(Gtk.Box):
         # Data OK
         self._poll.activity._previewing = False
         self._poll.active = True
-        self._poll.activity._polls.append(self._poll)
+        self._poll.activity._polls.add(self._poll)
         self._poll.broadcast_on_mesh()
         self._poll.activity.set_canvas(self._poll.activity._poll_canvas())
         self._poll.activity.show_all()
@@ -645,10 +645,10 @@ class PollCanvas(Gtk.Box):
         eventbox = Gtk.EventBox()
         eventbox.set_border_width(20)
         eventbox.modify_bg(0, Gdk.Color(65000, 65000, 65000))
-        eventbox.add(tabla)
+        eventbox.add(frame)
 
-        frame.add(eventbox)
-        self.pack_start(frame, True, True, 10)
+        frame.add(tabla)
+        self.pack_start(eventbox, True, True, 10)
 
         group = Gtk.RadioButton()
 
@@ -689,18 +689,21 @@ class PollCanvas(Gtk.Box):
 
             row += 1
 
-        ### Barra para total
-        eventbox = Gtk.EventBox()
-        eventbox.modify_bg(0, Gdk.Color.parse('#FF0198')[1])
-        tabla.attach(eventbox, 3,5, row, row+1)
+        if view_answer or not poll.active:
+            if poll.vote_count > 0:
+                ### Barra para total
+                eventbox = Gtk.EventBox()
+                eventbox.modify_bg(0, Gdk.Color.parse('#FF0198')[1])
+                tabla.attach(eventbox, 3,5, row, row+1)
 
         row += 1
 
-        label = Gtk.Label("%s %s %s %s" % (str(poll.vote_count),
-            _('votes'), _('(votes left to collect)'),
-            poll.maxvoters - poll.vote_count) )
-
-        tabla.attach(label, 3,5, row, row+1)
+        if view_answer or not poll.active:
+            if poll.vote_count > 0:
+                label = Gtk.Label("%s %s %s %s" % (str(poll.vote_count),
+                    _('votes'), _('(votes left to collect)'),
+                    poll.maxvoters - poll.vote_count) )
+                tabla.attach(label, 3,5, row, row+1)
 
         row += 1
 
@@ -741,7 +744,7 @@ class PollCanvas(Gtk.Box):
         # Data OK
         self._poll.activity._previewing = False
         self._poll.active = True
-        self._poll.activity._polls.append(self._poll)
+        self._poll.activity._polls.add(self._poll)
         self._poll.broadcast_on_mesh()
         self._poll.activity.set_canvas(self._poll.activity._poll_canvas())
         self._poll.activity.show_all()
