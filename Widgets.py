@@ -21,6 +21,7 @@
 
 import os
 import locale
+import cairo
 
 from gettext import gettext as _
 
@@ -712,7 +713,7 @@ class PollCanvas(Gtk.Box):
             if poll.vote_count > 0:
                 ### Barra para total
                 eventbox = Gtk.EventBox()
-                eventbox.modify_bg(0, Gdk.Color.parse('#FF0198')[1])
+                eventbox.connect("draw", self.__draw_line)
                 tabla.attach(eventbox, 3,5, row, row+1)
 
         row += 1
@@ -808,18 +809,38 @@ class PollCanvas(Gtk.Box):
         return failed_items
 
     def __draw_bar(self, widget, context, votos, total):
+        """
+        Grafica porcentaje de votos en una respuesta.
+        """
 
         rect = widget.get_allocation()
         w, h = (rect.width, rect.height)
 
-        Gdk.cairo_set_source_color(context, Gdk.Color.parse('#FF0198')[1])
-        rect = Gdk.Rectangle()
-
         por = votos * 100 / total
         ancho = w * por / 100
-        rect.x, rect.y, rect.width, rect.height = (0, 0, ancho, h)
 
-        Gdk.cairo_rectangle(context, rect)
+        linear = cairo.LinearGradient(0, h/2-10, ancho, 20)
+        linear.add_color_stop_rgba(0.00,  1, 1, 1, 1.0)
+        linear.add_color_stop_rgba(1, 0, 0, 0, 1)
+        context.rectangle(0, h/2-10, ancho, 20)
+        context.set_source(linear)
+        context.fill()
+
+        return True
+
+    def __draw_line(self, widget, context):
+        """
+        Grafica porcentaje de votos en una respuesta.
+        """
+
+        rect = widget.get_allocation()
+        w, h = (rect.width, rect.height)
+
+        linear = cairo.LinearGradient(0, h/2-2, w, 5)
+        linear.add_color_stop_rgba(0.00,  1, 1, 1, 1.0)
+        linear.add_color_stop_rgba(1, 0, 0, 0, 1)
+        context.rectangle(0, h/2-2, w, 5)
+        context.set_source(linear)
         context.fill()
 
         return True
