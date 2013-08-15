@@ -253,7 +253,7 @@ class PollBuilder(activity.Activity):
         f.write(s)
         f.close()
 
-    def __get_alert(self, title, text):
+    def get_alert(self, title, text):
         """
         Show an alert above the activity.
         """
@@ -379,7 +379,7 @@ class PollBuilder(activity.Activity):
             self.set_canvas(PollCanvas(cabecera, self._poll, self.current_vote, self._view_answer, self._previewing))
 
         else:
-            self.__get_alert(_('Poll Activity'),
+            self.get_alert(_('Poll Activity'),
                 _('To vote you have to select first one option'))
 
     def __button_select_clicked(self, button):
@@ -477,7 +477,16 @@ class PollBuilder(activity.Activity):
             if poll.author == author and poll.title == title:
                 try:
                     poll.register_vote(choice, votersha)
-                    self.__get_alert(_('Vote'), _('Somebody voted on %s') % title)
+                    self.get_alert(_('Vote'), _('Somebody voted on %s') % title)
+
+                    if not self._previewing:
+                        cabecera = _('VOTE!')
+
+                    else:
+                        cabecera = _('Poll Preview')
+
+                    if self._poll == poll and self._current_view == 'poll':
+                        self.set_canvas(PollCanvas(cabecera, self._poll, self.current_vote, self._view_answer, self._previewing))
 
                 except OverflowError:
                     self._logger.debug('Ignored mesh vote %u from %s:'
@@ -551,7 +560,7 @@ class PollBuilder(activity.Activity):
             return
 
         self._logger.debug('Joined an existing shared activity')
-        self.__get_alert(_('Joined'), "")
+        self.get_alert(_('Joined'), "")
 
         self.initiating = False
         self.__sharing_setup()
@@ -586,12 +595,12 @@ class PollBuilder(activity.Activity):
 
     def __buddy_joined_cb(self, activity, buddy):
 
-        self.__get_alert(buddy.props.nick, _('Joined'))
+        self.get_alert(buddy.props.nick, _('Joined'))
         self._logger.debug('Buddy %s joined' % buddy.props.nick)
 
     def __buddy_left_cb(self, activity, buddy):
 
-        self.__get_alert(buddy.props.nick, _('Left'))
+        self.get_alert(buddy.props.nick, _('Left'))
         self._logger.debug('Buddy %s left' % buddy.props.nick)
 
     def __get_buddy(self, cs_handle):

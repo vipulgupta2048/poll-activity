@@ -33,7 +33,6 @@ from gi.repository import Abi
 from sugar3 import mime
 from sugar3 import profile
 from sugar3.graphics import style
-from sugar3.graphics.alert import NotifyAlert
 from sugar3.graphics.objectchooser import ObjectChooser
 
 from sugar3.graphics.toolbarbox import ToolbarBox
@@ -203,7 +202,7 @@ class NewPollCanvas(Gtk.Box):
                     button.set_label(_('Change Image'))
 
                 else:
-                    self._poll.activity.__get_alert(_('Poll Activity'),
+                    self._poll.activity.get_alert(_('Poll Activity'),
                         _('Your selection is not an image'))
 
         finally:
@@ -473,27 +472,8 @@ class OptionsCanvas(Gtk.Box):
 
     def __button_save_options_cb(self, button):
 
-        self.__get_alert(_('Poll Activity'),
+        self.poll_activity.get_alert(_('Poll Activity'),
             _('The settings have been saved'))
-
-    def __get_alert(self, title, text):
-        """
-        Show an alert above the activity.
-        """
-
-        alert = NotifyAlert(timeout=5)
-        alert.props.title = title
-        alert.props.msg = text
-        self.get_toplevel().add_alert(alert)
-        alert.connect('response', self.__alert_cancel_cb)
-        alert.show()
-
-    def __alert_cancel_cb(self, alert, response_id):
-        """
-        Callback for alert events
-        """
-
-        self.poll_activity.remove_alert(alert)
 
 class SelectCanvas(Gtk.Box):
 

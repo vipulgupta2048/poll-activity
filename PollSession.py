@@ -197,10 +197,12 @@ class Poll():
 
     def get_buffer(self, pixbuf):
 
-        data = [""]
-        pixbuf.save_to_callback(self._pixbuf_save_cb, "png", {}, data)
+        # FIXME: save_to_callback No Funciona.
+        #data = [""]
+        #pixbuf.save_to_callback(self._pixbuf_save_cb, "png", {}, data)
 
-        return str(data[0])
+        #return str(data[0])
+        return ""
 
     def broadcast_on_mesh(self):
 
@@ -496,7 +498,7 @@ class PollSession(ExportedGObject):
 
         self.activity._polls.add(poll)
 
-        self.__get_alert(('New Poll'),
+        self.activity.get_alert(('New Poll'),
             _("%(author)s shared a poll "
             "'%(title)s' with you.") % {'author': author,
             'title': title})
@@ -580,7 +582,7 @@ class PollSession(ExportedGObject):
 
         self.activity._polls.add(poll)
 
-        self.activity.__get_alert(_('New Poll'),
+        self.activity.get_alert(_('New Poll'),
             _("%(author)s shared a poll "
             "'%(title)s' with you.") % {'author': author,
             'title': title})
