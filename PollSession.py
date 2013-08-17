@@ -19,11 +19,13 @@
 # your own creations we would love to hear from you at
 # info@WorldWideWorkshop.org !
 
+import os
 import cPickle
 import logging
 import base64
 
 from datetime import date
+from gettext import gettext as _
 
 from gi.repository import GdkPixbuf
 
@@ -189,20 +191,18 @@ class Poll():
         else:
             raise ValueError('Poll closed')
 
-    def _pixbuf_save_cb(self, buf, data):
-
-        data[0] += buf
-
-        return True
-
     def get_buffer(self, pixbuf):
 
-        # FIXME: save_to_callback No Funciona.
-        #data = [""]
-        #pixbuf.save_to_callback(self._pixbuf_save_cb, "png", {}, data)
+        path = "/dev/shm/pix.png"
+        pixbuf.savev(path, "png", [], [])
 
-        #return str(data[0])
-        return ""
+        pixbuf_file = open(path, 'rb')
+        image_string = base64.b64encode(pixbuf_file.read())
+        pixbuf_file.close()
+
+        os.remove(path)
+
+        return image_string
 
     def broadcast_on_mesh(self):
 
@@ -211,8 +211,7 @@ class Poll():
 
             for img_number, img_pixbuf in self.images.iteritems():
                 if not img_pixbuf == '':
-                    images_buf[img_number] = base64.b64encode(
-                        self.get_buffer(img_pixbuf))
+                    images_buf[img_number] = self.get_buffer(img_pixbuf)
 
                 else:
                     images_buf[img_number] = img_pixbuf
@@ -371,8 +370,7 @@ class PollSession(ExportedGObject):
 
             for img_number, img_pixbuf in poll.images.iteritems():
                 if not img_pixbuf == '':
-                    images_buf[img_number] = base64.b64encode(
-                        poll.get_buffer(img_pixbuf))
+                    images_buf[img_number] = poll.get_buffer(img_pixbuf)
 
                 else:
                     images_buf[img_number] = img_pixbuf
@@ -417,8 +415,7 @@ class PollSession(ExportedGObject):
 
             for img_number, img_pixbuf in poll.images.iteritems():
                 if not img_pixbuf == '':
-                    images_buf[img_number] = base64.b64encode(
-                        poll.get_buffer(img_pixbuf))
+                    images_buf[img_number] = poll.get_buffer(img_pixbuf)
 
                 else:
                     images_buf[img_number] = img_pixbuf
@@ -598,8 +595,7 @@ class PollSession(ExportedGObject):
 
             for img_number, img_pixbuf in poll.images.iteritems():
                 if not img_pixbuf == '':
-                    images_buf[img_number] = base64.b64encode(
-                        poll.get_buffer(img_pixbuf))
+                    images_buf[img_number] = poll.get_buffer(img_pixbuf)
 
                 else:
                     images_buf[img_number] = img_pixbuf
