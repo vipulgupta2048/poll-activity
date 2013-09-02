@@ -38,15 +38,17 @@ SERVICE = "org.worldwideworkshop.olpc.PollBuilder"
 IFACE = SERVICE
 PATH = "/org/worldwideworkshop/olpc/PollBuilder"
 
+
 class Poll():
     """
     Represent the data of one poll.
     """
 
-    def __init__(self, activity=None, title='', author='', active=False,
-        createdate=date.today(), maxvoters=20, question='',
-        number_of_options=5, options=None, data=None, votes=None,
-        images=None, images_ds_objects=None):
+    def __init__(
+            self, activity=None, title='', author='', active=False,
+            createdate=date.today(), maxvoters=20, question='',
+            number_of_options=5, options=None, data=None, votes=None,
+            images=None, images_ds_objects=None):
 
         ### Create the Poll.
         self.activity = activity
@@ -61,7 +63,7 @@ class Poll():
         self.images = (images or {0: '', 1: '', 2: '', 3: '', 4: ''})
 
         self.images_ds_objects = (images_ds_objects or {0: {}, 1: {}, 2: {},
-            3: {}, 4: {}})
+                                                        3: {}, 4: {}})
 
         self.data = (data or {0: 0, 1: 0, 2: 0, 3: 0, 4: 0})
         self.votes = (votes or {})
@@ -223,6 +225,7 @@ class Poll():
                 self.maxvoters, self.question, self.number_of_options,
                 self.options, self.data, self.votes, images_buf)
 
+
 class PollSession(ExportedGObject):
     """
     The bit that talks over the TUBES!!!
@@ -341,8 +344,8 @@ class PollSession(ExportedGObject):
 
     @signal(dbus_interface=IFACE, signature='ssuuusua{us}a{uu}a{su}a{us}')
     def UpdatedPoll(self, title, author, active, createdate, maxvoters,
-        question, number_of_options, options, data, votes,
-        images_buf):
+                    question, number_of_options, options, data, votes,
+                    images_buf):
         """
         Broadcast a new poll to the mesh.
         """
@@ -363,7 +366,7 @@ class PollSession(ExportedGObject):
         # Send my polls
         for poll in self.activity.get_my_polls():
             self._logger.debug('Telling %s about my %s' %
-                (sender, poll.title))
+                               (sender, poll.title))
 
             #images_properties = poll.simplify_images_dictionary()
             images_buf = {}
@@ -395,7 +398,7 @@ class PollSession(ExportedGObject):
         """
 
         self._logger.debug('*** In helloback_cb: recipient: %s, sender: %s' %
-            (recipient, sender))
+                           (recipient, sender))
 
         if sender == self.my_bus_name:
             # Ignore my own signal
@@ -409,7 +412,7 @@ class PollSession(ExportedGObject):
 
         for poll in self.activity.get_my_polls():
             self._logger.debug('Telling %s about my %s' %
-                (sender, poll.title))
+                               (sender, poll.title))
 
             images_buf = {}
 
@@ -438,8 +441,8 @@ class PollSession(ExportedGObject):
         return pixbuf
 
     def __updatedpoll_cb(self, title, author, active, createdate, maxvoters,
-        question, number_of_options, options_d, data_d,
-        votes_d, images_buf_d, sender):
+                         question, number_of_options, options_d, data_d,
+                         votes_d, images_buf_d, sender):
         """
         Handle an UpdatedPoll signal by creating a new Poll.
         """
@@ -490,15 +493,15 @@ class PollSession(ExportedGObject):
                 images[int(key)] = ''
 
         poll = Poll(self.activity, title, author, active,
-            createdate, maxvoters, question, number_of_options,
-            options, data, votes, images)
+                    createdate, maxvoters, question, number_of_options,
+                    options, data, votes, images)
 
         self.activity._polls.add(poll)
 
         self.activity.get_alert(('New Poll'),
-            _("%(author)s shared a poll "
-            "'%(title)s' with you.") % {'author': author,
-            'title': title})
+                                _("%(author)s shared a poll "
+                                  "'%(title)s' with you.") %
+                                {'author': author, 'title': title})
 
     def __vote_cb(self, author, title, choice, votersha, sender=None):
         """
@@ -519,15 +522,15 @@ class PollSession(ExportedGObject):
 
         self._logger.debug('In vote_cb. sender: %r' % sender)
         self._logger.debug('%s voted %d on %s by %s' % (votersha, choice,
-            title, author))
+                           title, author))
 
         self.activity.vote_on_poll(author, title, choice, votersha)
 
     @method(dbus_interface=IFACE, in_signature='ssuuusua{us}a{uu}a{su}a{us}',
-        out_signature='')
+            out_signature='')
     def UpdatePoll(self, title, author, active, createdate, maxvoters,
-        question, number_of_options, options_d, data_d, votes_d,
-        images_buf_d):
+                   question, number_of_options, options_d, data_d, votes_d,
+                   images_buf_d):
         """
         To be called on the incoming buddy by the other participants
         to inform you of their polls and state.
@@ -574,15 +577,15 @@ class PollSession(ExportedGObject):
                 images[int(key)] = ''
 
         poll = Poll(self.activity, title, author, active,
-            createdate, maxvoters, question, number_of_options,
-            options, data, votes, images)
+                    createdate, maxvoters, question, number_of_options,
+                    options, data, votes, images)
 
         self.activity._polls.add(poll)
 
         self.activity.get_alert(_('New Poll'),
-            _("%(author)s shared a poll "
-            "'%(title)s' with you.") % {'author': author,
-            'title': title})
+                                _("%(author)s shared a poll "
+                                  "'%(title)s' with you.") %
+                                {'author': author, 'title': title})
 
     @method(dbus_interface=IFACE, in_signature='s', out_signature='')
     def PollsWanted(self, sender):

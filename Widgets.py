@@ -42,6 +42,7 @@ from sugar3.activity.widgets import ActivityToolbarButton
 
 basepath = os.path.dirname(__file__)
 
+
 class Toolbar(ToolbarBox):
 
     def __init__(self, activity):
@@ -82,6 +83,7 @@ class Toolbar(ToolbarBox):
 
         self.show_all()
 
+
 class NewPollCanvas(Gtk.Box):
     """
     widgets to set up a new poll or editing existing poll.
@@ -96,7 +98,7 @@ class NewPollCanvas(Gtk.Box):
         # FIXME: El parámetro highlight nunca se utilizó, la idea era
         # resaltar el texto en las etiquetas para aquellas opciones no
         # validadas en la encuesta.
-        Gtk.Box.__init__(self, orientation = Gtk.Orientation.VERTICAL)
+        Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
 
         self._poll = poll
 
@@ -111,17 +113,22 @@ class NewPollCanvas(Gtk.Box):
         self.pack_start(item_poll, False, False, 10)
 
         item_poll = ItemNewPoll(_('Question:'), self._poll.question)
-        item_poll.entry.connect('changed', self.__entry_activate_cb, 'question')
+        item_poll.entry.connect('changed', self.__entry_activate_cb,
+                                'question')
         self.pack_start(item_poll, False, False, 10)
 
-        item_poll = ItemNewPoll(_('Number of votes to collect:'), str(self._poll.maxvoters))
-        item_poll.entry.connect('changed', self.__entry_activate_cb, 'maxvoters')
+        item_poll = ItemNewPoll(_('Number of votes to collect:'),
+                                str(self._poll.maxvoters))
+        item_poll.entry.connect('changed', self.__entry_activate_cb,
+                                'maxvoters')
         self.pack_start(item_poll, False, False, 10)
 
         for choice in self._poll.options.keys():
             hbox = Gtk.HBox()
-            item_poll = ItemNewPoll(_('Answer %s:') % choice, self._poll.options[choice])
-            item_poll.entry.connect('changed', self.__entry_activate_cb, str(choice))
+            item_poll = ItemNewPoll(_('Answer %s:') % choice,
+                                    self._poll.options[choice])
+            item_poll.entry.connect('changed', self.__entry_activate_cb,
+                                    str(choice))
             self.pack_start(item_poll, False, False, 10)
 
             if self._poll.activity._use_image:
@@ -135,7 +142,7 @@ class NewPollCanvas(Gtk.Box):
                     hbox.pack_start(button, True, False, 10)
 
                 button.connect('clicked', self.__button_choose_image_cb,
-                    str(choice), hbox)
+                               str(choice), hbox)
 
             item_poll.pack_end(hbox, False, False, 0)
 
@@ -166,8 +173,7 @@ class NewPollCanvas(Gtk.Box):
 
         if hasattr(mime, 'GENERIC_TYPE_IMAGE'):
             chooser = ObjectChooser(parent=self,
-                what_filter=mime.GENERIC_TYPE_IMAGE)
-
+                                    what_filter=mime.GENERIC_TYPE_IMAGE)
         else:
             chooser = ObjectChooser(parent=self)
 
@@ -175,8 +181,6 @@ class NewPollCanvas(Gtk.Box):
             result = chooser.run()
 
             if result == Gtk.ResponseType.ACCEPT:
-                #logging.debug('ObjectChooser: %r' %
-                #    chooser.get_selected_object())
 
                 jobject = chooser.get_selected_object()
 
@@ -187,7 +191,8 @@ class NewPollCanvas(Gtk.Box):
                    jobject.metadata.get('mime_type') in images_mime_types:
 
                     pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(
-                        jobject.file_path, self._poll.activity._image_size['height'],
+                        jobject.file_path,
+                        self._poll.activity._image_size['height'],
                         self._poll.activity._image_size['width'])
 
                     self._poll.images[int(data)] = pixbuf
@@ -202,7 +207,8 @@ class NewPollCanvas(Gtk.Box):
                     button.set_label(_('Change Image'))
 
                 else:
-                    self._poll.activity.get_alert(_('Poll Activity'),
+                    self._poll.activity.get_alert(
+                        _('Poll Activity'),
                         _('Your selection is not an image'))
 
         finally:
@@ -244,7 +250,8 @@ class NewPollCanvas(Gtk.Box):
             print "*** failed_items:", failed_items
             # FIXME: El parámetro highlight nunca se utilizó, la idea era
             # resaltar el texto en las etiquetas para aquellas opciones no
-            # validadas en la encuesta. (Modificar para que suceda al perder el foco el entry)
+            # validadas en la encuesta.
+            # (Modificar para que suceda al perder el foco el entry)
             #self.set_root(self._build_canvas(highlight=failed_items))
             #self.show_all()
             return
@@ -269,7 +276,8 @@ class NewPollCanvas(Gtk.Box):
             print "*** failed_items:", failed_items
             # FIXME: El parámetro highlight nunca se utilizó, la idea era
             # resaltar el texto en las etiquetas para aquellas opciones no
-            # validadas en la encuesta. (Modificar para que suceda al perder el foco el entry)
+            # validadas en la encuesta.
+            # (Modificar para que suceda al perder el foco el entry)
             #self.set_root(self._build_canvas(highlight=failed_items))
             #self.show_all()
             return
@@ -335,16 +343,17 @@ class NewPollCanvas(Gtk.Box):
                     self._poll.maxvoters = int(text)
 
                 except ValueError:
-                    self._poll.maxvoters = 0 # invalid, will be trapped
+                    self._poll.maxvoters = 0  # invalid, will be trapped
 
             else:
                 self._poll.options[int(data)] = text
+
 
 class ItemNewPoll(Gtk.Box):
 
     def __init__(self, label_text, entry_text):
 
-        Gtk.Box.__init__(self, orientation = Gtk.Orientation.HORIZONTAL)
+        Gtk.Box.__init__(self, orientation=Gtk.Orientation.HORIZONTAL)
 
         self.entry = Gtk.Entry()
         self.entry.set_text(entry_text)
@@ -354,6 +363,7 @@ class ItemNewPoll(Gtk.Box):
 
         self.show_all()
 
+
 class OptionsCanvas(Gtk.Box):
     """
     Show the options canvas.
@@ -361,7 +371,7 @@ class OptionsCanvas(Gtk.Box):
 
     def __init__(self, poll_activity):
 
-        Gtk.Box.__init__(self, orientation = Gtk.Orientation.VERTICAL)
+        Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
 
         self.poll_activity = poll_activity
         self.poll_activity._current_view = 'options'
@@ -393,7 +403,8 @@ class OptionsCanvas(Gtk.Box):
 
         rememberVoteCB = Gtk.CheckButton(label=_('Remember last vote'))
         rememberVoteCB.set_active(self.poll_activity._remember_last_vote)
-        rememberVoteCB.connect('toggled', self.__remember_last_vote_checkbox_cb)
+        rememberVoteCB.connect('toggled',
+                               self.__remember_last_vote_checkbox_cb)
         options_details_box.pack_start(rememberVoteCB, True, True, 10)
 
         playVoteSoundCB = Gtk.CheckButton(
@@ -426,7 +437,8 @@ class OptionsCanvas(Gtk.Box):
         entrybox.set_text(str(self.poll_activity._image_size['width']))
         entrybox.connect('changed', self.__entry_image_size_cb, 'width')
         hbox2.pack_start(entrybox, True, True, 10)
-        useImageCB.connect('toggled', self.__use_image_checkbox_cb, vbox, hbox2)
+        useImageCB.connect('toggled', self.__use_image_checkbox_cb, vbox,
+                           hbox2)
 
         if self.poll_activity._use_image:
             vbox.pack_start(hbox2, True, True, 10)
@@ -456,7 +468,8 @@ class OptionsCanvas(Gtk.Box):
 
         text = entrycontrol.get_text()
 
-        if text: self.poll_activity._image_size[data] = int(text)
+        if text:
+            self.poll_activity._image_size[data] = int(text)
 
     def __use_image_checkbox_cb(self, checkbox, parent, child):
 
@@ -472,14 +485,16 @@ class OptionsCanvas(Gtk.Box):
 
     def __button_save_options_cb(self, button):
 
-        self.poll_activity.get_alert(_('Poll Activity'),
+        self.poll_activity.get_alert(
+            _('Poll Activity'),
             _('The settings have been saved'))
+
 
 class SelectCanvas(Gtk.Box):
 
     def __init__(self, poll_activity):
 
-        Gtk.Box.__init__(self, orientation = Gtk.Orientation.VERTICAL)
+        Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
 
         poll_activity._current_view = 'select'
 
@@ -526,12 +541,14 @@ class SelectCanvas(Gtk.Box):
             else:
                 button = Gtk.Button(_('SEE RESULTS'))
 
-            button.connect('clicked', poll_activity._select_poll_button_cb, sha)
+            button.connect('clicked', poll_activity._select_poll_button_cb,
+                           sha)
             poll_row.pack_start(button, False, False, 10)
 
             if poll.author == profile.get_nick_name():
                 button = Gtk.Button(_('DELETE'))
-                button.connect('clicked', poll_activity._delete_poll_button_cb, sha)
+                button.connect('clicked',
+                               poll_activity._delete_poll_button_cb, sha)
                 poll_row.pack_start(button, False, False, 10)
 
             poll_row.pack_start(Gtk.Label(
@@ -539,11 +556,12 @@ class SelectCanvas(Gtk.Box):
 
         self.show_all()
 
+
 class LessonPlanCanvas(Gtk.Box):
 
     def __init__(self, poll_activity):
 
-        Gtk.Box.__init__(self, orientation = Gtk.Orientation.VERTICAL)
+        Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
 
         poll_activity._current_view = 'lessonplan'
 
@@ -553,6 +571,7 @@ class LessonPlanCanvas(Gtk.Box):
         self.pack_start(LessonPlanWidget(), True, True, 0)
 
         self.show_all()
+
 
 class LessonPlanWidget(Gtk.Notebook):
     """
@@ -567,15 +586,14 @@ class LessonPlanWidget(Gtk.Notebook):
 
         lessons = filter(
             lambda x: os.path.isdir(os.path.join(basepath,
-            'lessons', x)),
+                                                 'lessons', x)),
             os.listdir(os.path.join(basepath, 'lessons')))
 
         lessons.sort()
 
         for lesson in lessons:
             self.__load_lesson(
-                os.path.join(basepath,
-                'lessons', lesson),
+                os.path.join(basepath, 'lessons', lesson),
                 _(lesson))
 
         self.show_all()
@@ -604,11 +622,12 @@ class LessonPlanWidget(Gtk.Notebook):
         canvas.set_show_margin(False)
         self.append_page(canvas, Gtk.Label(label=name))
 
+
 class PollCanvas(Gtk.Box):
 
     def __init__(self, cabecera, poll, current_vote, view_answer, previewing):
 
-        Gtk.Box.__init__(self, orientation = Gtk.Orientation.VERTICAL)
+        Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
 
         self._poll = poll
 
@@ -653,11 +672,11 @@ class PollCanvas(Gtk.Box):
             button = Gtk.RadioButton.new_with_label_from_widget(
                 group, poll.options[choice])
 
-            button.connect('toggled', poll.activity.vote_choice_radio_button, choice)
+            button.connect('toggled', poll.activity.vote_choice_radio_button,
+                           choice)
 
             if poll.active:
                 button.set_sensitive(True)
-
             else:
                 button.set_sensitive(False)
 
@@ -669,7 +688,7 @@ class PollCanvas(Gtk.Box):
             if not poll.images[int(choice)] == '':
                 image = Gtk.Image()
                 image.set_from_pixbuf(poll.images[choice])
-                tabla.attach(image, 1,2, row, row+1)
+                tabla.attach(image, 1, 2, row, row + 1)
 
             if view_answer or not poll.active:
                 if poll.vote_count > 0:
@@ -677,15 +696,15 @@ class PollCanvas(Gtk.Box):
                     ### Total de votos
                     label = Gtk.Label(poll.data[choice])
                     label.set_size_request(100, -1)
-                    tabla.attach(label, 3,4, row, row+1)
+                    tabla.attach(label, 3, 4, row, row + 1)
 
                     eventbox = Gtk.EventBox()
                     eventbox.set_size_request(300, -1)
-                    tabla.attach(eventbox, 4,5, row, row+1)
+                    tabla.attach(eventbox, 4, 5, row, row + 1)
 
                     eventbox.connect("draw",
-                        self.__draw_bar, poll.data[choice],
-                        poll.vote_count)
+                                     self.__draw_bar, poll.data[choice],
+                                     poll.vote_count)
 
             row += 1
 
@@ -694,16 +713,16 @@ class PollCanvas(Gtk.Box):
                 ### Barra para total
                 eventbox = Gtk.EventBox()
                 eventbox.connect("draw", self.__draw_line)
-                tabla.attach(eventbox, 3,5, row, row+1)
+                tabla.attach(eventbox, 3, 5, row, row + 1)
 
         row += 1
 
         if view_answer or not poll.active:
             if poll.vote_count > 0:
                 label = Gtk.Label("%s %s %s %s" % (str(poll.vote_count),
-                    _('votes'), _('(votes left to collect)'),
-                    poll.maxvoters - poll.vote_count) )
-                tabla.attach(label, 3,5, row, row+1)
+                                  _('votes'), _('(votes left to collect)'),
+                                  poll.maxvoters - poll.vote_count))
+                tabla.attach(label, 3, 5, row, row + 1)
 
         row += 1
 
@@ -711,16 +730,16 @@ class PollCanvas(Gtk.Box):
         if poll.active and not previewing:
             button = Gtk.Button(_("Vote"))
             button.connect('clicked', poll.activity.button_vote_cb)
-            tabla.attach(button, 0,1, row, row+1)
+            tabla.attach(button, 0, 1, row, row + 1)
 
         elif previewing:
             button = Gtk.Button(_("Edit Poll"))
             button.connect('clicked', poll.activity.button_edit_clicked)
-            tabla.attach(button, 0,1, row, row+1)
+            tabla.attach(button, 0, 1, row, row + 1)
 
             button = Gtk.Button(_("Save Poll"))
             button.connect('clicked', self._button_save_cb)
-            tabla.attach(button, 1,2, row, row+1)
+            tabla.attach(button, 1, 2, row, row + 1)
 
         self.show_all()
 
@@ -736,7 +755,8 @@ class PollCanvas(Gtk.Box):
             print "*** failed_items:", failed_items
             # FIXME: El parámetro highlight nunca se utilizó, la idea era
             # resaltar el texto en las etiquetas para aquellas opciones no
-            # validadas en la encuesta. (Modificar para que suceda al perder el foco el entry)
+            # validadas en la encuesta.
+            # (Modificar para que suceda al perder el foco el entry)
             #self.set_root(self._build_canvas(highlight=failed_items))
             #self.show_all()
             return

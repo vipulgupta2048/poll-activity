@@ -55,10 +55,10 @@ from sugar3 import profile
 from Widgets import Toolbar
 
 ### Interfaces
-from Widgets import NewPollCanvas   #Creando una nueva encuesta.
-from Widgets import OptionsCanvas   #Configurando opciones de encuesta.
-from Widgets import SelectCanvas    #Seleccionando una de las encuestas disponibles.
-from Widgets import PollCanvas      #Contestando una encuesta.
+from Widgets import NewPollCanvas   # Create a new poll.
+from Widgets import OptionsCanvas   # Configure optinons.
+from Widgets import SelectCanvas    # Select one available poll.
+from Widgets import PollCanvas      # Participate in a poll.
 from Widgets import LessonPlanCanvas
 
 from PollSession import PollSession
@@ -67,6 +67,7 @@ from PollSession import Poll
 SERVICE = "org.worldwideworkshop.olpc.PollBuilder"
 IFACE = SERVICE
 PATH = "/org/worldwideworkshop/olpc/PollBuilder"
+
 
 class PollBuilder(activity.Activity):
     """
@@ -127,7 +128,8 @@ class PollBuilder(activity.Activity):
         toolbar = Toolbar(self)
         toolbar.create_button.connect('clicked', self.__button_new_clicked)
         toolbar.choose_button.connect('clicked', self.__button_select_clicked)
-        toolbar.settings_button.connect('clicked', self.__button_options_clicked)
+        toolbar.settings_button.connect('clicked',
+                                        self.__button_options_clicked)
         toolbar.help_button.connect('clicked', self.__button_lessonplan_cb)
         self.set_toolbar_box(toolbar)
 
@@ -186,7 +188,7 @@ class PollBuilder(activity.Activity):
         """
 
         self._logger.debug('Reading file from datastore via Journal: %s' %
-            file_path)
+                           file_path)
 
         self._polls = set()
 
@@ -217,9 +219,9 @@ class PollBuilder(activity.Activity):
                 images_ds_objects_id)
 
             poll = Poll(self, title, author, active,
-                date.fromordinal(int(createdate_i)),
-                maxvoters, question, number_of_options, options,
-                data, votes, images, images_ds_object)
+                        date.fromordinal(int(createdate_i)),
+                        maxvoters, question, number_of_options, options,
+                        data, votes, images, images_ds_object)
 
             self._polls.add(poll)
 
@@ -286,7 +288,8 @@ class PollBuilder(activity.Activity):
         else:
             cabecera = _('Poll Preview')
 
-        return PollCanvas(cabecera, self._poll, self.current_vote, self._view_answer, self._previewing)
+        return PollCanvas(cabecera, self._poll, self.current_vote,
+                          self._view_answer, self._previewing)
 
     def _select_poll_button_cb(self, button, sha=None):
         """
@@ -357,7 +360,7 @@ class PollBuilder(activity.Activity):
 
             except OverflowError:
                 self._logger.debug('Local vote failed: '
-                    'maximum votes already registered.')
+                                   'maximum votes already registered.')
 
             except ValueError:
                 self._logger.debug('Local vote failed: poll closed.')
@@ -376,10 +379,12 @@ class PollBuilder(activity.Activity):
             else:
                 cabecera = _('Poll Preview')
 
-            self.set_canvas(PollCanvas(cabecera, self._poll, self.current_vote, self._view_answer, self._previewing))
-
+            self.set_canvas(PollCanvas(cabecera, self._poll,
+                                       self.current_vote, self._view_answer,
+                                       self._previewing))
         else:
-            self.get_alert(_('Poll Activity'),
+            self.get_alert(
+                _('Poll Activity'),
                 _('To vote you have to select first one option'))
 
     def __button_select_clicked(self, button):
@@ -395,10 +400,8 @@ class PollBuilder(activity.Activity):
         """
 
         # Reset vote data to 0
-        self._poll = Poll(
-            activity=self,
-            author = profile.get_nick_name(),
-            active = False)
+        self._poll = Poll(activity=self, author=profile.get_nick_name(),
+                          active=False)
 
         self.current_vote = None
 
@@ -477,7 +480,8 @@ class PollBuilder(activity.Activity):
             if poll.author == author and poll.title == title:
                 try:
                     poll.register_vote(choice, votersha)
-                    self.get_alert(_('Vote'), _('Somebody voted on %s') % title)
+                    self.get_alert(_('Vote'),
+                                   _('Somebody voted on %s') % title)
 
                     if not self._previewing:
                         cabecera = _('VOTE!')
@@ -486,16 +490,20 @@ class PollBuilder(activity.Activity):
                         cabecera = _('Poll Preview')
 
                     if self._poll == poll and self._current_view == 'poll':
-                        self.set_canvas(PollCanvas(cabecera, self._poll, self.current_vote, self._view_answer, self._previewing))
+                        self.set_canvas(PollCanvas(cabecera, self._poll,
+                                                   self.current_vote,
+                                                   self._view_answer,
+                                                   self._previewing))
 
                 except OverflowError:
-                    self._logger.debug('Ignored mesh vote %u from %s:'
+                    self._logger.debug(
+                        'Ignored mesh vote %u from %s:'
                         ' poll reached maximum votes.',
                         choice, votersha)
 
                 except ValueError:
-                    self._logger.debug('Ignored mesh vote %u from %s:'
-                        ' poll closed.',
+                    self._logger.debug(
+                        'Ignored mesh vote %u from %s: poll closed.',
                         choice, votersha)
 
     def __button_lessonplan_cb(self, button):
@@ -575,9 +583,9 @@ class PollBuilder(activity.Activity):
         Callback for when we have a Tube.
         """
 
-        self._logger.debug('New tube: ID=%d initator=%d type=%d service=%s '
-           'params=%r state=%d', id, initiator, type, service,
-           params, state)
+        self._logger.debug(
+            'New tube: ID=%d initator=%d type=%d srv=%s params=%r state=%d',
+            id, initiator, type, service, params, state)
 
         if (type == telepathy.TUBE_TYPE_DBUS and service == SERVICE):
             if state == telepathy.TUBE_STATE_LOCAL_PENDING:
@@ -591,7 +599,7 @@ class PollBuilder(activity.Activity):
                 group_iface=self.text_chan[telepathy.CHANNEL_INTERFACE_GROUP])
 
             self.poll_session = PollSession(tube_conn, self.initiating,
-                self.__get_buddy, self)
+                                            self.__get_buddy, self)
 
     def __buddy_joined_cb(self, activity, buddy):
 
@@ -612,13 +620,14 @@ class PollBuilder(activity.Activity):
         group = self.text_chan[telepathy.CHANNEL_INTERFACE_GROUP]
         my_csh = group.GetSelfHandle()
 
-        SIGNAL_TELEPATHY = telepathy.CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES
+        SIGNAL_TELEPATHY = \
+            telepathy.CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES
         self._logger.debug('My handle in that group is %u', my_csh)
 
         if my_csh == cs_handle:
             handle = self.conn.GetSelfHandle()
             self._logger.debug('CS handle %u belongs to me, %u', cs_handle,
-                handle)
+                               handle)
 
         elif group.GetGroupFlags() & SIGNAL_TELEPATHY:
             handle = group.GetHandleOwners([cs_handle])[0]
