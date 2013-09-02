@@ -32,7 +32,6 @@ from gi.repository import Abi
 
 from sugar3 import mime
 from sugar3 import profile
-from sugar3.graphics import style
 from sugar3.graphics.objectchooser import ObjectChooser
 
 from sugar3.graphics.toolbarbox import ToolbarBox
@@ -49,7 +48,6 @@ class Toolbar(ToolbarBox):
 
         ToolbarBox.__init__(self)
 
-        toolbar_box = ToolbarBox()
         activity_button = ActivityToolbarButton(activity)
         self.toolbar.insert(activity_button, 0)
         activity_button.show()
@@ -393,9 +391,6 @@ class OptionsCanvas(Gtk.Box):
         options_details_box = Gtk.VBox()
         mainbox.pack_start(options_details_box, True, False, 10)
 
-        #options widgets
-        options_widgets = []
-
         viewResultCB = Gtk.CheckButton(label=_('Show answers while voting'))
         viewResultCB.set_active(self.poll_activity._view_answer)
         viewResultCB.connect('toggled', self.__view_result_checkbox_cb)
@@ -519,11 +514,13 @@ class SelectCanvas(Gtk.Box):
         for poll in poll_activity._polls:
             sha = poll.sha
 
+            """
             if row_number % 2:
                 row_bgcolor = style.COLOR_WHITE.get_int()
 
             else:
                 row_bgcolor = style.COLOR_SELECTION_GREY.get_int()
+            """
 
             row_number += 1
 
@@ -558,6 +555,10 @@ class SelectCanvas(Gtk.Box):
 
 
 class LessonPlanCanvas(Gtk.Box):
+
+    # This strings are needed to l10n of the tabs
+    tabs_labels = [_("Introduction"), _("Lesson 1"), _("Lesson 2"),
+                   _("Lesson 3"), _("Lesson 4")]
 
     def __init__(self, poll_activity):
 

@@ -23,18 +23,11 @@
 # your own creations we would love to hear from you at
 # info@WorldWideWorkshop.org !
 
-from gi.repository import GObject
-from gi.repository import Gtk
-from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 
-GObject.threads_init()
-
-import os
 import subprocess
 import cPickle
 import logging
-import base64
 
 from hashlib import sha1
 from datetime import date
@@ -527,7 +520,7 @@ class PollBuilder(activity.Activity):
 
         self._logger.debug('This is my activity: making a tube...')
 
-        id = self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].OfferDBusTube(
+        self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].OfferDBusTube(
             SERVICE, {})
 
     def __sharing_setup(self):
