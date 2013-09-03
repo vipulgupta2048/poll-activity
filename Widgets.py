@@ -21,7 +21,6 @@
 
 import os
 import locale
-import cairo
 
 from gettext import gettext as _
 
@@ -38,6 +37,7 @@ from sugar3.graphics.toolbarbox import ToolbarBox
 from sugar3.graphics.toolbutton import ToolButton
 from sugar3.activity.widgets import StopButton
 from sugar3.activity.widgets import ActivityToolbarButton
+from sugar3.graphics.style import Color
 
 basepath = os.path.dirname(__file__)
 
@@ -667,6 +667,8 @@ class PollCanvas(Gtk.Box):
 
         group = Gtk.RadioButton()
 
+        xo_color = profile.get_color()
+
         row = 0
         for choice in range(poll.number_of_options):
 
@@ -705,16 +707,15 @@ class PollCanvas(Gtk.Box):
 
                     eventbox.connect("draw",
                                      self.__draw_bar, poll.data[choice],
-                                     poll.vote_count)
+                                     poll.vote_count, xo_color)
 
             row += 1
 
         if view_answer or not poll.active:
             if poll.vote_count > 0:
                 ### Barra para total
-                eventbox = Gtk.EventBox()
-                eventbox.connect("draw", self.__draw_line)
-                tabla.attach(eventbox, 3, 5, row, row + 1)
+                separator = Gtk.HSeparator()
+                tabla.attach(separator, 3, 5, row, row + 1)
 
         row += 1
 
@@ -809,39 +810,23 @@ class PollCanvas(Gtk.Box):
 
         return failed_items
 
-    def __draw_bar(self, widget, context, votos, total):
+    def __draw_bar(self, widget, context, votos, total, xo_color):
         """
-        Grafica porcentaje de votos en una respuesta.
+        Graphic the percent of votes from one option.
         """
+        stroke_color = Color(xo_color.get_stroke_color())
+        fill_color = Color(xo_color.get_fill_color())
 
         rect = widget.get_allocation()
         w, h = (rect.width, rect.height)
+        percent = votos * 100 / total
+        width = w * percent / 100
 
-        por = votos * 100 / total
-        ancho = w * por / 100
-
-        linear = cairo.LinearGradient(0, h/2-10, ancho, 20)
-        linear.add_color_stop_rgba(0.00,  1, 1, 1, 1.0)
-        linear.add_color_stop_rgba(1, 0, 0, 0, 1)
-        context.rectangle(0, h/2-10, ancho, 20)
-        context.set_source(linear)
-        context.fill()
-
-        return True
-
-    def __draw_line(self, widget, context):
-        """
-        Grafica porcentaje de votos en una respuesta.
-        """
-
-        rect = widget.get_allocation()
-        w, h = (rect.width, rect.height)
-
-        linear = cairo.LinearGradient(0, h/2-2, w, 5)
-        linear.add_color_stop_rgba(0.00,  1, 1, 1, 1.0)
-        linear.add_color_stop_rgba(1, 0, 0, 0, 1)
-        context.rectangle(0, h/2-2, w, 5)
-        context.set_source(linear)
-        context.fill()
+        context.rectangle(0, h / 2 - 10, width, 20)
+        context.set_source_rgba(*fill_color.get_rgba())
+        context.fill_preserve()
+        context.set_source_rgba(*stroke_color.get_rgba())
+        context.set_line_width(5)
+        context.stroke()
 
         return True
