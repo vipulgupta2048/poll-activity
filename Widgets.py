@@ -826,7 +826,7 @@ class PollCanvas(Gtk.Box):
         context.set_source_rgba(*fill_color.get_rgba())
         context.fill_preserve()
         context.set_source_rgba(*stroke_color.get_rgba())
-        context.set_line_width(5)
+        context.set_line_width(3)
         context.stroke()
 
         return True
