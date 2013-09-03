@@ -732,15 +732,18 @@ class PollCanvas(Gtk.Box):
         if poll.active and not previewing:
             button = Gtk.Button(_("Vote"))
             button.connect('clicked', poll.activity.button_vote_cb)
+            button.props.margin = 10
             tabla.attach(button, 0, 1, row, row + 1)
 
         elif previewing:
             button = Gtk.Button(_("Edit Poll"))
             button.connect('clicked', poll.activity.button_edit_clicked)
+            button.props.margin = 10
             tabla.attach(button, 0, 1, row, row + 1)
 
             button = Gtk.Button(_("Save Poll"))
             button.connect('clicked', self._button_save_cb)
+            button.props.margin = 10
             tabla.attach(button, 1, 2, row, row + 1)
 
         self.show_all()
