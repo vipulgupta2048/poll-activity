@@ -42,8 +42,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-08 00:33-0400\n"
-"PO-Revision-Date: 2013-07-04 23:15+0200\n"
+"POT-Creation-Date: 2013-09-04 00:33-0400\n"
+"PO-Revision-Date: 2013-09-29 14:57+0200\n"
 "Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: en\n"
@@ -59,202 +59,199 @@ msgstr ""
 msgid "Poll"
 msgstr "Poll"
 
-#: i18n_misc_strings.py:1
-msgid "Lesson 1"
-msgstr "Lesson 1"
+#: PollSession.py:502 PollSession.py:586
+#, python-format
+msgid "%(author)s shared a poll '%(title)s' with you."
+msgstr "%(author)s shared a poll '%(title)s' with you."
 
-#: i18n_misc_strings.py:2
-msgid "Lesson 2"
-msgstr "Lesson 2"
+#: PollSession.py:585
+msgid "New Poll"
+msgstr "New Poll"
 
-#: i18n_misc_strings.py:3
-msgid "Lesson 3"
-msgstr "Lesson 3"
-
-#: i18n_misc_strings.py:4
-msgid "Lesson 4"
-msgstr "Lesson 4"
-
-#: i18n_misc_strings.py:5
-msgid "Introduction"
-msgstr "Introduction"
-
-#: poll.py:162 poll.py:362
+#: Widgets.py:59 Widgets.py:497
 msgid "Choose a Poll"
 msgstr "Choose a Poll"
 
-#: poll.py:167 poll.py:735
+#: Widgets.py:63
 msgid "Build a Poll"
 msgstr "Build a Poll"
 
-#: poll.py:172 poll.py:819
+#: Widgets.py:67 Widgets.py:388
 msgid "Settings"
 msgstr "Settings"
 
-#: poll.py:177 poll.py:423 poll.py:1059
+#: Widgets.py:71 Widgets.py:570
 msgid "Lesson Plans"
 msgstr "Lesson Plans"
 
-#: poll.py:322
-msgid "VOTE!"
-msgstr "VOTE!"
+#: Widgets.py:106
+msgid "Build a poll"
+msgstr "Build a poll"
 
-#: poll.py:324
-msgid "Poll Preview"
-msgstr "Poll Preview"
-
-#: poll.py:394
-msgid "VOTE"
-msgstr "VOTE"
-
-#: poll.py:396
-msgid "SEE RESULTS"
-msgstr "SEE RESULTS"
-
-#: poll.py:401
-msgid "DELETE"
-msgstr "DELETE"
-
-#: poll.py:565
-msgid "votes"
-msgstr "votes"
-
-#: poll.py:568
-#, python-format
-#, python-format, 
-msgid "(%d votes left to collect)"
-msgstr "(%d votes left to collect)"
-
-#: poll.py:575 poll.py:1036
-msgid "Vote"
-msgstr "Vote"
-
-#: poll.py:581
-msgid "Edit Poll"
-msgstr "Edit Poll"
-
-#: poll.py:584
-msgid "Save Poll"
-msgstr "Save Poll"
-
-#: poll.py:631 poll.py:693 poll.py:928
-msgid "Poll Activity"
-msgstr "Poll Activity"
-
-#: poll.py:632
-msgid "To vote you have to select first one option"
-msgstr "To vote you have to select first one option"
-
-#: poll.py:663 poll.py:668
-msgid "Choose image"
-msgstr "Choose image"
-
-#: poll.py:690 poll.py:780
-msgid "Change Image"
-msgstr "Change Image"
-
-#: poll.py:694
-msgid "Your selection is not an image"
-msgstr "Your selection is not an image"
-
-#: poll.py:745
+#: Widgets.py:109
 msgid "Poll Title:"
 msgstr "Poll Title:"
 
-#: poll.py:753
+#: Widgets.py:113
 msgid "Question:"
 msgstr "Question:"
 
-#: poll.py:761
+#: Widgets.py:118
 msgid "Number of votes to collect:"
 msgstr "Number of votes to collect:"
 
-#: poll.py:771
+#: Widgets.py:126
 #, python-format
-msgid "Answer %d:"
-msgstr "Answer %d:"
+#, python-format, 
+msgid "Answer %s:"
+msgstr "Answer %s:"
 
-#: poll.py:784
+#: Widgets.py:134 Widgets.py:205
+msgid "Change Image"
+msgstr "Change Image"
+
+#: Widgets.py:139
 msgid "Add Image"
 msgstr "Add Image"
 
-#: poll.py:793
+#: Widgets.py:150
 msgid "Step 1: Preview"
 msgstr "Step 1: Preview"
 
-#: poll.py:796
+#: Widgets.py:154
 msgid "Step 2: Save"
 msgstr "Step 2: Save"
 
-#: poll.py:827
+#: Widgets.py:209 Widgets.py:484 poll.py:380
+msgid "Poll Activity"
+msgstr "Poll Activity"
+
+#: Widgets.py:210
+msgid "Your selection is not an image"
+msgstr "Your selection is not an image"
+
+#: Widgets.py:394
 msgid "Show answers while voting"
 msgstr "Show answers while voting"
 
-#: poll.py:832
+#: Widgets.py:399
 msgid "Remember last vote"
 msgstr "Remember last vote"
 
-#: poll.py:838
+#: Widgets.py:406
 msgid "Play a sound when make a vote"
 msgstr "Play a sound when make a vote"
 
-#: poll.py:845
+#: Widgets.py:412
 msgid "Use image in answer"
 msgstr "Use image in answer"
 
-#: poll.py:850
+#: Widgets.py:417
 msgid "Image Size: "
 msgstr "Image Size: "
 
-#: poll.py:872
+#: Widgets.py:445
 msgid "Save"
 msgstr "Save"
 
-#: poll.py:929
+#: Widgets.py:485
 msgid "The settings have been saved"
 msgstr "The settings have been saved"
 
-#: poll.py:964
-msgid "Favorite Color"
-msgstr "Favorite Color"
+#: Widgets.py:536
+msgid "VOTE"
+msgstr "VOTE"
 
-#: poll.py:966
-msgid "What is your favorite color?"
-msgstr "What is your favorite color?"
+#: Widgets.py:539
+msgid "SEE RESULTS"
+msgstr "SEE RESULTS"
 
-#: poll.py:970
-msgid "Orange"
-msgstr "Orange"
+#: Widgets.py:546
+msgid "DELETE"
+msgstr "DELETE"
 
-#: poll.py:971
-msgid "None of the above"
-msgstr "None of the above"
+#: Widgets.py:560
+msgid "Introduction"
+msgstr "Introduction"
 
-#: poll.py:1037
+#: Widgets.py:560
+msgid "Lesson 1"
+msgstr "Lesson 1"
+
+#: Widgets.py:560
+msgid "Lesson 2"
+msgstr "Lesson 2"
+
+#: Widgets.py:561
+msgid "Lesson 3"
+msgstr "Lesson 3"
+
+#: Widgets.py:561
+msgid "Lesson 4"
+msgstr "Lesson 4"
+
+#: Widgets.py:725
+msgid "votes"
+msgstr "votes"
+
+#: Widgets.py:725
+msgid "(votes left to collect)"
+msgstr "(votes left to collect)"
+
+#: Widgets.py:733 poll.py:476
+msgid "Vote"
+msgstr "Vote"
+
+#: Widgets.py:739
+msgid "Edit Poll"
+msgstr "Edit Poll"
+
+#: Widgets.py:744
+msgid "Save Poll"
+msgstr "Save Poll"
+
+#: poll.py:279 poll.py:370 poll.py:480
+msgid "VOTE!"
+msgstr "VOTE!"
+
+#: poll.py:282 poll.py:373 poll.py:483
+msgid "Poll Preview"
+msgstr "Poll Preview"
+
+#: poll.py:381
+msgid "To vote you have to select first one option"
+msgstr "To vote you have to select first one option"
+
+#: poll.py:477
 #, python-format
 msgid "Somebody voted on %s"
 msgstr "Somebody voted on %s"
 
-#: poll.py:1056
-msgid "Close Lessons"
-msgstr "Close Lessons"
-
-#: poll.py:1144 poll.py:1173
+#: poll.py:564 poll.py:599
 msgid "Joined"
 msgstr "Joined"
 
-#: poll.py:1177
+#: poll.py:604
 msgid "Left"
 msgstr "Left"
 
-#: poll.py:1549 poll.py:1613
-msgid "New Poll"
-msgstr "New Poll"
+#~ msgid "Choose image"
+#~ msgstr "Choose image"
 
-#: poll.py:1550 poll.py:1614
-#, python-format
-msgid "%(author)s shared a poll '%(title)s' with you."
-msgstr "%(author)s shared a poll '%(title)s' with you."
+#~ msgid "Favorite Color"
+#~ msgstr "Favorite Color"
+
+#~ msgid "What is your favorite color?"
+#~ msgstr "What is your favorite color?"
+
+#~ msgid "Orange"
+#~ msgstr "Orange"
+
+#~ msgid "None of the above"
+#~ msgstr "None of the above"
+
+#~ msgid "Close Lessons"
+#~ msgstr "Close Lessons"
 
 #~ msgid "Answer"
 #~ msgstr "Answer"
