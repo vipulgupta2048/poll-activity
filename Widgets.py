@@ -63,6 +63,16 @@ class Toolbar(ToolbarBox):
 
         self.settings_button = ToolButton('preferences-system')
         self.settings_button.set_tooltip(_('Settings'))
+        self.settings_button.palette_invoker.props.toggle_palette = True
+        self.settings_button.palette_invoker.props.lock_palette = True
+        self.settings_button.props.hide_tooltip_on_click = False
+
+        palette = self.settings_button.get_palette()
+        hbox = Gtk.HBox()
+        hbox.pack_start(OptionsCanvas(activity), True, True,
+                        style.DEFAULT_SPACING)
+        hbox.show_all()
+        palette.set_content(hbox)
         self.toolbar.insert(self.settings_button, -1)
 
         separator = Gtk.SeparatorToolItem()
@@ -360,83 +370,58 @@ class OptionsCanvas(Gtk.Box):
     """
 
     def __init__(self, poll_activity):
-
-        Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
-
         self.poll_activity = poll_activity
-        self.poll_activity._current_view = 'options'
-
-        alignment = Gtk.Alignment.new(0.5, 0, 0, 0)
-        optionsbox = Gtk.VBox()
-
-        alignment.add(optionsbox)
-        self.pack_start(alignment, True, True, 0)
-
-        mainbox = Gtk.VBox()
-
-        optionsbox.pack_start(mainbox, True, False, 0)
-
-        mainbox.pack_start(HeaderBar(_('Settings')), False, False, 10)
-
-        options_details_box = Gtk.VBox()
-        mainbox.pack_start(options_details_box, True, False, 10)
+        Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
 
         viewResultCB = Gtk.CheckButton(label=_('Show answers while voting'))
         viewResultCB.set_active(self.poll_activity._view_answer)
         viewResultCB.connect('toggled', self.__view_result_checkbox_cb)
-        options_details_box.pack_start(viewResultCB, True, True, 10)
+        self.pack_start(viewResultCB, True, True, 10)
 
         rememberVoteCB = Gtk.CheckButton(label=_('Remember last vote'))
         rememberVoteCB.set_active(self.poll_activity._remember_last_vote)
         rememberVoteCB.connect('toggled',
                                self.__remember_last_vote_checkbox_cb)
-        options_details_box.pack_start(rememberVoteCB, True, True, 10)
+        self.pack_start(rememberVoteCB, True, True, 10)
 
         playVoteSoundCB = Gtk.CheckButton(
             label=_('Play a sound when make a vote'))
         playVoteSoundCB.set_active(self.poll_activity._play_vote_sound)
         playVoteSoundCB.connect('toggled', self.__play_vote_sound_checkbox_cb)
-        options_details_box.pack_start(playVoteSoundCB, True, True, 10)
+        self.pack_start(playVoteSoundCB, True, True, 10)
 
         vbox = Gtk.VBox()
         useImageCB = Gtk.CheckButton(label=_('Use image in answer'))
         useImageCB.set_active(self.poll_activity._use_image)
-        options_details_box.pack_start(useImageCB, True, True, 10)
+        self.pack_start(useImageCB, True, True, 10)
 
         hbox2 = Gtk.HBox()
         hbox2.pack_start(Gtk.Label(_('Image Size: ')), True, True, 10)
-        entrybox = Gtk.Entry(max_length=3)
 
-        # entrybox.modify_bg(Gtk.StateType.INSENSITIVE,
-        #    style.COLOR_WHITE.get_gdk_color())
+        self._image_width_entry = Gtk.Entry(max_length=3)
+        self._image_width_entry.set_size_request(style.GRID_CELL_SIZE, -1)
+        self._image_width_entry.set_text(
+            str(self.poll_activity._image_size['width']))
+        self._image_width_entry.connect(
+            'changed', self.__entry_image_size_cb, 'width')
+        hbox2.pack_start(self._image_width_entry, True, True, 10)
 
-        entrybox.set_text(str(self.poll_activity._image_size['height']))
-        entrybox.connect('changed', self.__entry_image_size_cb, 'height')
-        hbox2.pack_start(entrybox, True, True, 10)
         hbox2.pack_start(Gtk.Label('x'), True, True, 10)
-        entrybox = Gtk.Entry(max_length=3)
 
-        # entrybox.modify_bg(Gtk.StateType.INSENSITIVE,
-        #    style.COLOR_WHITE.get_gdk_color())
+        self._image_height_entry = Gtk.Entry(max_length=3)
+        self._image_height_entry.set_text(
+            str(self.poll_activity._image_size['height']))
+        self._image_height_entry.connect(
+            'changed', self.__entry_image_size_cb, 'height')
+        hbox2.pack_start(self._image_height_entry, True, True, 10)
 
-        entrybox.set_text(str(self.poll_activity._image_size['width']))
-        entrybox.connect('changed', self.__entry_image_size_cb, 'width')
-        hbox2.pack_start(entrybox, True, True, 10)
-        useImageCB.connect('toggled', self.__use_image_checkbox_cb, vbox,
-                           hbox2)
+        useImageCB.connect('toggled', self.__use_image_checkbox_cb)
 
-        if self.poll_activity._use_image:
-            vbox.pack_start(hbox2, True, True, 10)
+        self._image_height_entry.set_sensitive(useImageCB.get_active())
+        self._image_width_entry.set_sensitive(useImageCB.get_active())
 
-        options_details_box.pack_start(vbox, True, True, 0)
-
-        hbox = Gtk.HBox()
-        # SAVE button
-        button = Gtk.Button(_("Save"))
-        button.connect('clicked', self.__button_save_options_cb)
-        hbox.pack_start(button, True, True, 10)
-
-        options_details_box.pack_end(hbox, True, True, 10)
+        vbox.pack_start(hbox2, True, True, 10)
+        self.pack_start(vbox, True, True, 0)
 
         self.show_all()
 
@@ -450,29 +435,14 @@ class OptionsCanvas(Gtk.Box):
         self.poll_activity._play_vote_sound = checkbox.get_active()
 
     def __entry_image_size_cb(self, entrycontrol, data):
-
         text = entrycontrol.get_text()
-
         if text:
             self.poll_activity._image_size[data] = int(text)
 
-    def __use_image_checkbox_cb(self, checkbox, parent, child):
-
+    def __use_image_checkbox_cb(self, checkbox):
         self.poll_activity._use_image = checkbox.get_active()
-
-        if checkbox.get_active():
-            parent.pack_start(child, True, True, 0)
-
-        else:
-            parent.remove(child)
-
-        self.show_all()
-
-    def __button_save_options_cb(self, button):
-
-        self.poll_activity.get_alert(
-            _('Poll Activity'),
-            _('The settings have been saved'))
+        self._image_height_entry.set_sensitive(checkbox.get_active())
+        self._image_width_entry.set_sensitive(checkbox.get_active())
 
 
 class SelectCanvas(Gtk.Box):

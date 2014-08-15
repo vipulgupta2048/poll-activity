@@ -49,7 +49,6 @@ from Widgets import Toolbar
 
 # Interfaces
 from Widgets import NewPollCanvas   # Create a new poll.
-from Widgets import OptionsCanvas   # Configure optinons.
 from Widgets import SelectCanvas    # Select one available poll.
 from Widgets import PollCanvas      # Participate in a poll.
 
@@ -120,8 +119,6 @@ class PollBuilder(activity.Activity):
         toolbar = Toolbar(self)
         toolbar.create_button.connect('clicked', self.__button_new_clicked)
         toolbar.choose_button.connect('clicked', self.__button_select_clicked)
-        toolbar.settings_button.connect('clicked',
-                                        self.__button_options_clicked)
         self.set_toolbar_box(toolbar)
 
         self.set_canvas(SelectCanvas(self))
@@ -401,10 +398,6 @@ class PollBuilder(activity.Activity):
     def button_edit_clicked(self, button):
 
         self.set_canvas(NewPollCanvas(self._poll))
-
-    def __button_options_clicked(self, button):
-
-        self.set_canvas(OptionsCanvas(self))
 
     '''
     def _make_default_poll(self):
