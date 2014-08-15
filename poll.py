@@ -52,7 +52,6 @@ from Widgets import NewPollCanvas   # Create a new poll.
 from Widgets import OptionsCanvas   # Configure optinons.
 from Widgets import SelectCanvas    # Select one available poll.
 from Widgets import PollCanvas      # Participate in a poll.
-from Widgets import LessonPlanCanvas
 
 from PollSession import PollSession
 from PollSession import Poll
@@ -123,7 +122,6 @@ class PollBuilder(activity.Activity):
         toolbar.choose_button.connect('clicked', self.__button_select_clicked)
         toolbar.settings_button.connect('clicked',
                                         self.__button_options_clicked)
-        toolbar.help_button.connect('clicked', self.__button_lessonplan_cb)
         self.set_toolbar_box(toolbar)
 
         self.set_canvas(SelectCanvas(self))
@@ -498,14 +496,6 @@ class PollBuilder(activity.Activity):
                     self._logger.debug(
                         'Ignored mesh vote %u from %s: poll closed.',
                         choice, votersha)
-
-    def __button_lessonplan_cb(self, button):
-        """
-        Lesson Plan button clicked.
-        """
-
-        self._logger.debug('%s -> Lesson Plan' % self._current_view)
-        self.set_canvas(LessonPlanCanvas(self))
 
     # COLABORATION >>
 

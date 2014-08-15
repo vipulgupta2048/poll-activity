@@ -20,14 +20,12 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 import os
-import locale
 
 from gettext import gettext as _
 
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
-from gi.repository import Abi
 
 from sugar3 import mime
 from sugar3 import profile
@@ -66,10 +64,6 @@ class Toolbar(ToolbarBox):
         self.settings_button = ToolButton('preferences-system')
         self.settings_button.set_tooltip(_('Settings'))
         self.toolbar.insert(self.settings_button, -1)
-
-        self.help_button = ToolButton('toolbar-help')
-        self.help_button.set_tooltip(_('Lesson Plans'))
-        self.toolbar.insert(self.help_button, -1)
 
         separator = Gtk.SeparatorToolItem()
         separator.props.draw = False
@@ -546,76 +540,6 @@ class SelectCanvas(Gtk.Box):
                 poll.createdate.strftime('%d/%m/%y')), False, False, 10)
 
         self.show_all()
-
-
-class LessonPlanCanvas(Gtk.Box):
-
-    # This strings are needed to l10n of the tabs
-    tabs_labels = [_("Introduction"), _("Lesson 1"), _("Lesson 2"),
-                   _("Lesson 3"), _("Lesson 4")]
-
-    def __init__(self, poll_activity):
-
-        Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
-
-        poll_activity._current_view = 'lessonplan'
-
-        label = Gtk.Label()
-        label.set_markup('<big><b>%s</b></big>' % _('Lesson Plans'))
-        self.pack_start(label, False, False, 10)
-        self.pack_start(LessonPlanWidget(), True, True, 0)
-
-        self.show_all()
-
-
-class LessonPlanWidget(Gtk.Notebook):
-    """
-    Create a Notebook widget for displaying lesson plans in tabs.
-
-    basepath -- string, path of directory containing lesson plans.
-    """
-
-    def __init__(self):
-
-        Gtk.Notebook.__init__(self)
-
-        lessons = filter(
-            lambda x: os.path.isdir(os.path.join(basepath,
-                                                 'lessons', x)),
-            os.listdir(os.path.join(basepath, 'lessons')))
-
-        lessons.sort()
-
-        for lesson in lessons:
-            self.__load_lesson(
-                os.path.join(basepath, 'lessons', lesson),
-                _(lesson))
-
-        self.show_all()
-
-    def __load_lesson(self, path, name):
-        """
-        Load the lesson content from a .abw, taking l10n into account.
-
-        path -- string, path of lesson plan file, e.g. lessons/Introduction
-        lesson -- string, name of lesson
-        """
-
-        code, encoding = locale.getdefaultlocale()
-        canvas = Abi.Widget()
-        canvas.show()
-
-        files = map(
-            lambda x: os.path.join(path, '%s.abw' % x),
-            ('_' + code.lower(), '_' + code.split('_')[0].lower(),
-             'default'))
-
-        files = filter(lambda x: os.path.exists(x), files)
-        canvas.load_file('file://%s' % files[0], '')
-        canvas.view_online_layout()
-        canvas.zoom_width()
-        canvas.set_show_margin(False)
-        self.append_page(canvas, Gtk.Label(label=name))
 
 
 class HeaderBar(Gtk.EventBox):
