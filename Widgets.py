@@ -37,7 +37,7 @@ from sugar3.graphics.toolbarbox import ToolbarBox
 from sugar3.graphics.toolbutton import ToolButton
 from sugar3.activity.widgets import StopButton
 from sugar3.activity.widgets import ActivityToolbarButton
-from sugar3.graphics.style import Color
+from sugar3.graphics import style
 
 basepath = os.path.dirname(__file__)
 
@@ -102,9 +102,7 @@ class NewPollCanvas(Gtk.Box):
 
         self._poll.activity._current_view = 'build'
 
-        label = Gtk.Label()
-        label.set_markup('<big><b>%s</b></big>' % _('Build a poll'))
-        self.pack_start(label, False, False, 10)
+        self.pack_start(HeaderBar(_('Build a poll')), False, False, 0)
 
         item_poll = ItemNewPoll(_('Poll Title:'), self._poll.title)
         item_poll.entry.connect('changed', self.__entry_activate_cb, 'title')
@@ -384,9 +382,7 @@ class OptionsCanvas(Gtk.Box):
 
         optionsbox.pack_start(mainbox, True, False, 0)
 
-        label = Gtk.Label()
-        label.set_markup('<big><b>%s</b></big>' % _('Settings'))
-        mainbox.pack_start(label, False, False, 10)
+        mainbox.pack_start(HeaderBar(_('Settings')), False, False, 10)
 
         options_details_box = Gtk.VBox()
         mainbox.pack_start(options_details_box, True, False, 10)
@@ -493,9 +489,7 @@ class SelectCanvas(Gtk.Box):
 
         poll_activity._current_view = 'select'
 
-        label = Gtk.Label()
-        label.set_markup('<big><b>%s</b></big>' % _('Choose a Poll'))
-        self.pack_start(label, False, False, 0)
+        self.pack_start(HeaderBar(_('Choose a Poll')), False, False, 0)
 
         poll_selector_box = Gtk.VBox()
 
@@ -624,6 +618,24 @@ class LessonPlanWidget(Gtk.Notebook):
         self.append_page(canvas, Gtk.Label(label=name))
 
 
+class HeaderBar(Gtk.EventBox):
+
+    def __init__(self, title=None):
+
+        Gtk.EventBox.__init__(self)
+        self.modify_bg(Gtk.StateType.NORMAL,
+                       style.Color('#666666').get_gdk_color())
+        self.set_size_request(-1, style.GRID_CELL_SIZE)
+        self.box = Gtk.HBox()
+        self.add(self.box)
+
+        if title is not None:
+            self.title_label = Gtk.Label()
+            self.title_label.set_markup(
+                '<span size="x-large" foreground="white">%s</span>' % title)
+            self.box.pack_start(self.title_label, False, False, 10)
+
+
 class PollCanvas(Gtk.Box):
 
     def __init__(self, cabecera, poll, current_vote, view_answer, previewing):
@@ -632,9 +644,7 @@ class PollCanvas(Gtk.Box):
 
         self._poll = poll
 
-        self.cabecera = Gtk.Label()
-        self.cabecera.set_markup('<big><b>%s</b></big>' % _(cabecera))
-        self.pack_start(self.cabecera, False, False, 10)
+        self.pack_start(HeaderBar(_(cabecera)), False, False, 10)
 
         self.title = Gtk.Label(poll.title)
         self.title.set_alignment(0.01, 0.5)
@@ -817,8 +827,8 @@ class PollCanvas(Gtk.Box):
         """
         Graphic the percent of votes from one option.
         """
-        stroke_color = Color(xo_color.get_stroke_color())
-        fill_color = Color(xo_color.get_fill_color())
+        stroke_color = style.Color(xo_color.get_stroke_color())
+        fill_color = style.Color(xo_color.get_fill_color())
 
         rect = widget.get_allocation()
         w, h = (rect.width, rect.height)
