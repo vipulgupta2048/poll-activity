@@ -47,7 +47,7 @@ from sugar3 import profile
 
 from Widgets import Toolbar
 
-### Interfaces
+# Interfaces
 from Widgets import NewPollCanvas   # Create a new poll.
 from Widgets import OptionsCanvas   # Configure optinons.
 from Widgets import SelectCanvas    # Select one available poll.
@@ -87,21 +87,21 @@ class PollBuilder(activity.Activity):
         self._current_view = None
         self._previewing = False
 
-        #This property allows result viewing while voting
+        # This property allows result viewing while voting
         self._view_answer = True
 
-        #This property allows use image in answer
+        # This property allows use image in answer
         self._use_image = False
 
-        #This property allows play a sound when click in
-        #the button to make a vote
+        # This property allows play a sound when click in
+        # the button to make a vote
         self._play_vote_sound = False
 
-        #This property allows remember in the radio button options
-        #the last vote
+        # This property allows remember in the radio button options
+        # the last vote
         self._remember_last_vote = True
 
-        #This property has the image size
+        # This property has the image size
         self._image_size = {'height': 100, 'width': 100}
 
         # get the Presence Service
@@ -116,7 +116,7 @@ class PollBuilder(activity.Activity):
 
         # Removed default polls since it creates too much noise
         # when shared with many on the mesh
-        #self._make_default_poll()
+        # self._make_default_poll()
 
         toolbar = Toolbar(self)
         toolbar.create_button.connect('clicked', self.__button_new_clicked)
@@ -507,7 +507,8 @@ class PollBuilder(activity.Activity):
         self._logger.debug('%s -> Lesson Plan' % self._current_view)
         self.set_canvas(LessonPlanCanvas(self))
 
-    ### >>> COLABORATION
+    # COLABORATION >>
+
     def __shared_cb(self, activity):
         """
         Callback for completion of sharing this activity.
@@ -633,4 +634,4 @@ class PollBuilder(activity.Activity):
 
         return self.pservice.get_buddy_by_telepathy_handle(
             self.conn.service_name, self.conn.object_path, handle)
-        ### <<< COLABORATION
+        # << COLABORATION

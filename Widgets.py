@@ -239,7 +239,7 @@ class NewPollCanvas(Gtk.Box):
         Save button clicked.
         """
 
-        ### Validate data
+        # Validate data
         failed_items = self.__validate()
 
         if failed_items:
@@ -248,8 +248,8 @@ class NewPollCanvas(Gtk.Box):
             # resaltar el texto en las etiquetas para aquellas opciones no
             # validadas en la encuesta.
             # (Modificar para que suceda al perder el foco el entry)
-            #self.set_root(self._build_canvas(highlight=failed_items))
-            #self.show_all()
+            # self.set_root(self._build_canvas(highlight=failed_items))
+            # self.show_all()
             return
 
         # Data OK
@@ -274,8 +274,8 @@ class NewPollCanvas(Gtk.Box):
             # resaltar el texto en las etiquetas para aquellas opciones no
             # validadas en la encuesta.
             # (Modificar para que suceda al perder el foco el entry)
-            #self.set_root(self._build_canvas(highlight=failed_items))
-            #self.show_all()
+            # self.set_root(self._build_canvas(highlight=failed_items))
+            # self.show_all()
             return
 
         # Data OK
@@ -413,7 +413,7 @@ class OptionsCanvas(Gtk.Box):
         hbox2.pack_start(Gtk.Label(_('Image Size: ')), True, True, 10)
         entrybox = Gtk.Entry(max_length=3)
 
-        #entrybox.modify_bg(Gtk.StateType.INSENSITIVE,
+        # entrybox.modify_bg(Gtk.StateType.INSENSITIVE,
         #    style.COLOR_WHITE.get_gdk_color())
 
         entrybox.set_text(str(self.poll_activity._image_size['height']))
@@ -422,7 +422,7 @@ class OptionsCanvas(Gtk.Box):
         hbox2.pack_start(Gtk.Label('x'), True, True, 10)
         entrybox = Gtk.Entry(max_length=3)
 
-        #entrybox.modify_bg(Gtk.StateType.INSENSITIVE,
+        # entrybox.modify_bg(Gtk.StateType.INSENSITIVE,
         #    style.COLOR_WHITE.get_gdk_color())
 
         entrybox.set_text(str(self.poll_activity._image_size['width']))
@@ -706,7 +706,7 @@ class PollCanvas(Gtk.Box):
             if view_answer or not poll.active:
                 if poll.vote_count > 0:
 
-                    ### Total de votos
+                    # Total de votos
                     label = Gtk.Label(poll.data[choice])
                     label.set_size_request(100, -1)
                     tabla.attach(label, 3, 4, row, row + 1)
@@ -723,7 +723,7 @@ class PollCanvas(Gtk.Box):
 
         if view_answer or not poll.active:
             if poll.vote_count > 0:
-                ### Barra para total
+                # Barra para total
                 separator = Gtk.HSeparator()
                 tabla.attach(separator, 3, 5, row, row + 1)
 
@@ -763,7 +763,7 @@ class PollCanvas(Gtk.Box):
         Save button clicked.
         """
 
-        ### Validate data
+        # Validate data
         failed_items = self.__validate()
 
         if failed_items:
@@ -772,8 +772,8 @@ class PollCanvas(Gtk.Box):
             # resaltar el texto en las etiquetas para aquellas opciones no
             # validadas en la encuesta.
             # (Modificar para que suceda al perder el foco el entry)
-            #self.set_root(self._build_canvas(highlight=failed_items))
-            #self.show_all()
+            # self.set_root(self._build_canvas(highlight=failed_items))
+            # self.show_all()
             return
 
         # Data OK

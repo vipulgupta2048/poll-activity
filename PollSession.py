@@ -50,7 +50,7 @@ class Poll():
             number_of_options=5, options=None, data=None, votes=None,
             images=None, images_ds_objects=None):
 
-        ### Create the Poll.
+        # Create the Poll.
         self.activity = activity
         self.title = title
         self.author = author
@@ -161,8 +161,8 @@ class Poll():
                 self._logger.debug('About to vote')
                 # XXX 27/10/07 Morgan: Allowing multiple votes per XO
                 #                      per Shannon's request.
-                ## if voter already voted, change their vote:
-                #if votersha in self.votes:
+                # if voter already voted, change their vote:
+                # if votersha in self.votes:
                 #    self._logger.debug('%s already voted, decrementing their '
                 #        'old choice %d' % (votersha, self.votes[votersha]))
                 #    self.data[self.votes[votersha]] -= 1
@@ -173,7 +173,7 @@ class Poll():
                     'Recording vote %d by %s on %s by %s' %
                     (choice, votersha, self.title, self.author))
 
-                ### Close poll:
+                # Close poll:
                 if self.vote_count >= self.maxvoters:
                     self.active = False
                     self._logger.debug('Poll hit maxvoters, closing')
@@ -368,7 +368,7 @@ class PollSession(ExportedGObject):
             self._logger.debug('Telling %s about my %s' %
                                (sender, poll.title))
 
-            #images_properties = poll.simplify_images_dictionary()
+            # images_properties = poll.simplify_images_dictionary()
             images_buf = {}
 
             for img_number, img_pixbuf in poll.images.iteritems():
