@@ -91,15 +91,10 @@ class NewPollCanvas(Gtk.EventBox):
     widgets to set up a new poll or editing existing poll.
         editing is False to start a new poll.
         editing is True to edit the current poll.
-
-    highlight is a list of strings denoting items failing validation.
     """
 
-    def __init__(self, poll, editing=False, highlight=[]):
+    def __init__(self, poll, editing=False):
 
-        # FIXME: El parámetro highlight nunca se utilizó, la idea era
-        # resaltar el texto en las etiquetas para aquellas opciones no
-        # validadas en la encuesta.
         Gtk.EventBox.__init__(self)
         self.modify_bg(Gtk.StateType.NORMAL, style.COLOR_WHITE.get_gdk_color())
 
@@ -107,33 +102,26 @@ class NewPollCanvas(Gtk.EventBox):
 
         self._poll.activity._current_view = 'build'
 
-        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        self.add(box)
+        self._box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        self.add(self._box)
 
-        box.pack_start(HeaderBar(_('Build a poll')), False, False, 0)
+        self._box.pack_start(HeaderBar(_('Build a poll')), False, False, 0)
 
-        item_poll = ItemNewPoll(_('Poll Title:'), self._poll.title)
-        item_poll.entry.connect('changed', self.__entry_activate_cb, 'title')
-        box.pack_start(item_poll, False, False, 10)
+        item_poll = ItemNewPoll(_('Poll Title:'), self._poll, 'title')
+        self._box.pack_start(item_poll, False, False, 10)
 
-        item_poll = ItemNewPoll(_('Question:'), self._poll.question)
-        item_poll.entry.connect('changed', self.__entry_activate_cb,
-                                'question')
-        box.pack_start(item_poll, False, False, 10)
+        item_poll = ItemNewPoll(_('Question:'), self._poll, 'question')
+        self._box.pack_start(item_poll, False, False, 10)
 
         item_poll = ItemNewPoll(_('Number of votes to collect:'),
-                                str(self._poll.maxvoters))
-        item_poll.entry.connect('changed', self.__entry_activate_cb,
-                                'maxvoters')
-        box.pack_start(item_poll, False, False, 10)
+                                self._poll, 'maxvoters')
+        self._box.pack_start(item_poll, False, False, 10)
 
         for choice in self._poll.options.keys():
             hbox = Gtk.HBox()
             item_poll = ItemNewPoll(_('Answer %s:') % (choice + 1),
-                                    self._poll.options[choice])
-            item_poll.entry.connect('changed', self.__entry_activate_cb,
-                                    str(choice))
-            box.pack_start(item_poll, False, False, 10)
+                                    self._poll, str(choice))
+            self._box.pack_start(item_poll, False, False, 10)
 
             if self._poll.activity._use_image:
                 if self.__already_loaded_image_in_answer(choice):
@@ -161,7 +149,7 @@ class NewPollCanvas(Gtk.EventBox):
         button.connect('clicked', self._button_save_cb)
         hbox.pack_start(button, True, True, 10)
 
-        box.pack_start(hbox, False, False, 10)
+        self._box.pack_start(hbox, False, False, 10)
 
         self.show_all()
 
@@ -246,18 +234,8 @@ class NewPollCanvas(Gtk.EventBox):
         """
         Save button clicked.
         """
-
         # Validate data
-        failed_items = self.__validate()
-
-        if failed_items:
-            print "*** failed_items:", failed_items
-            # FIXME: El parámetro highlight nunca se utilizó, la idea era
-            # resaltar el texto en las etiquetas para aquellas opciones no
-            # validadas en la encuesta.
-            # (Modificar para que suceda al perder el foco el entry)
-            # self.set_root(self._build_canvas(highlight=failed_items))
-            # self.show_all()
+        if self.__validate():
             return
 
         # Data OK
@@ -272,18 +250,8 @@ class NewPollCanvas(Gtk.EventBox):
         """
         Preview button clicked.
         """
-
         # Validate data
-        failed_items = self.__validate()
-
-        if failed_items:
-            print "*** failed_items:", failed_items
-            # FIXME: El parámetro highlight nunca se utilizó, la idea era
-            # resaltar el texto en las etiquetas para aquellas opciones no
-            # validadas en la encuesta.
-            # (Modificar para que suceda al perder el foco el entry)
-            # self.set_root(self._build_canvas(highlight=failed_items))
-            # self.show_all()
+        if self.__validate():
             return
 
         # Data OK
@@ -329,43 +297,51 @@ class NewPollCanvas(Gtk.EventBox):
         else:
             self._poll.number_of_options = 5
 
+        # paint the obligatory entries without value
+        for child in self._box.get_children():
+            if type(child) is ItemNewPoll and child.field in failed_items:
+                child.entry.modify_bg(Gtk.StateType.NORMAL,
+                                      style.Color('#FFFF00').get_gdk_color())
+
         return failed_items
-
-    def __entry_activate_cb(self, entry, data):
-
-        text = entry.get_text()
-
-        if text:
-            if data == 'title':
-                self._poll.title = text
-
-            elif data == 'question':
-                self._poll.question = text
-
-            elif data == 'maxvoters':
-                try:
-                    self._poll.maxvoters = int(text)
-
-                except ValueError:
-                    self._poll.maxvoters = 0  # invalid, will be trapped
-
-            else:
-                self._poll.options[int(data)] = text
 
 
 class ItemNewPoll(Gtk.Box):
 
-    def __init__(self, label_text, entry_text):
+    def __init__(self, label_text, poll, field):
 
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.HORIZONTAL)
-
+        self._poll = poll
+        self.field = field
         self.entry = Gtk.Entry()
-        self.entry.set_text(entry_text)
+        if field in ('title', 'question', 'maxvoters'):
+            self.entry.set_text(str(getattr(poll, field)))
+        else:
+            self.entry.set_text(poll.options[int(field)])
+
+        self.entry.connect('changed', self.__entry_changed_cb)
 
         self.pack_start(Gtk.Label(label_text), False, False, 10)
         self.pack_start(self.entry, True, True, 10)
 
         self.show_all()
+
+    def __entry_changed_cb(self, entry):
+
+        text = entry.get_text()
+        if text:
+            if self.field == 'title':
+                self._poll.title = text
+            elif self.field == 'question':
+                self._poll.question = text
+            elif self.field == 'maxvoters':
+                try:
+                    self._poll.maxvoters = int(text)
+                except ValueError:
+                    self._poll.maxvoters = 0  # invalid, will be trapped
+            else:
+                self._poll.options[int(self.field)] = text
+        entry.modify_bg(Gtk.StateType.NORMAL, None)
 
 
 class OptionsCanvas(Gtk.Box):
