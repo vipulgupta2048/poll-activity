@@ -40,6 +40,8 @@ from sugar3.activity.widgets import StopButton
 from sugar3.activity.widgets import ActivityToolbarButton
 from sugar3.graphics import style
 
+import colors
+
 basepath = os.path.dirname(__file__)
 
 
@@ -571,8 +573,6 @@ class PollCanvas(Gtk.EventBox):
 
         group = Gtk.RadioButton()
 
-        xo_color = profile.get_color()
-
         row = 0
         for choice in range(poll.number_of_options):
 
@@ -609,9 +609,11 @@ class PollCanvas(Gtk.EventBox):
                     eventbox.set_size_request(300, -1)
                     tabla.attach(eventbox, 4, 5, row, row + 1)
 
+                    color = colors.get_category_color(poll.options[choice])
+
                     eventbox.connect("draw",
                                      self.__draw_bar, poll.data[choice],
-                                     poll.vote_count, xo_color)
+                                     poll.vote_count, color)
 
             row += 1
 
@@ -664,23 +666,18 @@ class PollCanvas(Gtk.EventBox):
         self._poll.activity.set_canvas(self._poll.activity._poll_canvas())
         self._poll.activity.show_all()
 
-    def __draw_bar(self, widget, context, votos, total, xo_color):
+    def __draw_bar(self, widget, context, votos, total, color):
         """
         Graphic the percent of votes from one option.
         """
-        stroke_color = style.Color(xo_color.get_stroke_color())
-        fill_color = style.Color(xo_color.get_fill_color())
 
         rect = widget.get_allocation()
         w, h = (rect.width, rect.height)
         percent = votos * 100 / total
         width = w * percent / 100
 
-        context.rectangle(0, h / 2 - 10, width, 20)
-        context.set_source_rgba(*fill_color.get_rgba())
-        context.fill_preserve()
-        context.set_source_rgba(*stroke_color.get_rgba())
-        context.set_line_width(3)
-        context.stroke()
+        context.rectangle(0, h / 2 - 10, width, 30)
+        context.set_source_rgb(color[0], color[1], color[2])
+        context.fill()
 
         return True
