@@ -458,6 +458,8 @@ class SelectCanvas(Gtk.Box):
         poll_selector_box = Gtk.VBox()
 
         scroll = Gtk.ScrolledWindow()
+        scroll.modify_bg(Gtk.StateType.NORMAL,
+                         style.COLOR_WHITE.get_gdk_color())
 
         scroll.set_policy(
             Gtk.PolicyType.AUTOMATIC,
@@ -465,27 +467,30 @@ class SelectCanvas(Gtk.Box):
 
         scroll.add_with_viewport(poll_selector_box)
 
-        self.pack_start(scroll, True, True, 10)
+        self.pack_start(scroll, True, True, 0)
 
         row_number = 0
 
         for poll in poll_activity._polls:
             sha = poll.sha
 
-            """
             if row_number % 2:
-                row_bgcolor = style.COLOR_WHITE.get_int()
-
+                row_bgcolor = style.COLOR_WHITE.get_gdk_color()
             else:
-                row_bgcolor = style.COLOR_SELECTION_GREY.get_int()
-            """
-
+                row_bgcolor = style.COLOR_HIGHLIGHT.get_gdk_color()
             row_number += 1
 
-            poll_row = Gtk.HBox()
-            poll_selector_box.pack_start(poll_row, False, False, 10)
+            evbox = Gtk.EventBox()
+            evbox.modify_bg(Gtk.StateType.NORMAL, row_bgcolor)
 
-            title = Gtk.Label(label=poll.title + ' (' + poll.author + ')')
+            poll_row = Gtk.HBox()
+            evbox.add(poll_row)
+            poll_row.props.margin = 10
+            poll_selector_box.pack_start(evbox, False, False, 0)
+
+            title = Gtk.Label()
+            title.set_markup('<span size="large">%s (%s)</span>' %
+                             (poll.title, poll.author))
             align = Gtk.Alignment.new(0, 0.5, 0, 0)
             align.add(title)
             poll_row.pack_start(align, True, True, 10)
