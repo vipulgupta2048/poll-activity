@@ -29,6 +29,10 @@ from gi.repository import GdkPixbuf
 from sugar3 import mime
 from sugar3 import profile
 from sugar3.graphics.objectchooser import ObjectChooser
+try:
+    from sugar3.graphics.objectchooser import FILTER_TYPE_GENERIC_MIME
+except:
+    FILTER_TYPE_GENERIC_MIME = 'generic_mime'
 
 from sugar3.graphics.toolbarbox import ToolbarBox
 from sugar3.graphics.toolbutton import ToolButton
@@ -162,11 +166,13 @@ class NewPollCanvas(Gtk.EventBox):
 
     def __button_choose_image_cb(self, button, data=None, data2=None):
 
-        if hasattr(mime, 'GENERIC_TYPE_IMAGE'):
-            chooser = ObjectChooser(parent=self,
-                                    what_filter=mime.GENERIC_TYPE_IMAGE)
-        else:
-            chooser = ObjectChooser(parent=self)
+        try:
+            chooser = ObjectChooser(self, what_filter='Image',
+                                    filter_type=FILTER_TYPE_GENERIC_MIME,
+                                    show_preview=True)
+        except:
+            # for compatibility with older versions
+            chooser = ObjectChooser(self, what_filter='Image')
 
         try:
             result = chooser.run()
