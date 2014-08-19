@@ -86,7 +86,7 @@ class Toolbar(ToolbarBox):
         self.show_all()
 
 
-class NewPollCanvas(Gtk.Box):
+class NewPollCanvas(Gtk.EventBox):
     """
     widgets to set up a new poll or editing existing poll.
         editing is False to start a new poll.
@@ -100,36 +100,40 @@ class NewPollCanvas(Gtk.Box):
         # FIXME: El parámetro highlight nunca se utilizó, la idea era
         # resaltar el texto en las etiquetas para aquellas opciones no
         # validadas en la encuesta.
-        Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
+        Gtk.EventBox.__init__(self)
+        self.modify_bg(Gtk.StateType.NORMAL, style.COLOR_WHITE.get_gdk_color())
 
         self._poll = poll
 
         self._poll.activity._current_view = 'build'
 
-        self.pack_start(HeaderBar(_('Build a poll')), False, False, 0)
+        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        self.add(box)
+
+        box.pack_start(HeaderBar(_('Build a poll')), False, False, 0)
 
         item_poll = ItemNewPoll(_('Poll Title:'), self._poll.title)
         item_poll.entry.connect('changed', self.__entry_activate_cb, 'title')
-        self.pack_start(item_poll, False, False, 10)
+        box.pack_start(item_poll, False, False, 10)
 
         item_poll = ItemNewPoll(_('Question:'), self._poll.question)
         item_poll.entry.connect('changed', self.__entry_activate_cb,
                                 'question')
-        self.pack_start(item_poll, False, False, 10)
+        box.pack_start(item_poll, False, False, 10)
 
         item_poll = ItemNewPoll(_('Number of votes to collect:'),
                                 str(self._poll.maxvoters))
         item_poll.entry.connect('changed', self.__entry_activate_cb,
                                 'maxvoters')
-        self.pack_start(item_poll, False, False, 10)
+        box.pack_start(item_poll, False, False, 10)
 
         for choice in self._poll.options.keys():
             hbox = Gtk.HBox()
-            item_poll = ItemNewPoll(_('Answer %s:') % choice,
+            item_poll = ItemNewPoll(_('Answer %s:') % (choice + 1),
                                     self._poll.options[choice])
             item_poll.entry.connect('changed', self.__entry_activate_cb,
                                     str(choice))
-            self.pack_start(item_poll, False, False, 10)
+            box.pack_start(item_poll, False, False, 10)
 
             if self._poll.activity._use_image:
                 if self.__already_loaded_image_in_answer(choice):
@@ -157,7 +161,7 @@ class NewPollCanvas(Gtk.Box):
         button.connect('clicked', self._button_save_cb)
         hbox.pack_start(button, True, True, 10)
 
-        self.pack_start(hbox, False, False, 10)
+        box.pack_start(hbox, False, False, 10)
 
         self.show_all()
 
