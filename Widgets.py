@@ -24,7 +24,6 @@ import os
 from gettext import gettext as _
 
 from gi.repository import Gtk
-from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 
 from sugar3 import mime
@@ -515,23 +514,31 @@ class HeaderBar(Gtk.EventBox):
             self.box.pack_start(self.title_label, False, False, 10)
 
 
-class PollCanvas(Gtk.Box):
+class PollCanvas(Gtk.EventBox):
 
     def __init__(self, cabecera, poll, current_vote, view_answer, previewing):
 
-        Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
+        Gtk.EventBox.__init__(self)
+        self.modify_bg(Gtk.StateType.NORMAL,
+                       style.COLOR_WHITE.get_gdk_color())
+
+        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        self.add(box)
 
         self._poll = poll
 
-        self.pack_start(HeaderBar(_(cabecera)), False, False, 10)
+        box.pack_start(HeaderBar(_(cabecera)), False, False, 0)
 
-        self.title = Gtk.Label(poll.title)
+        self.title = Gtk.Label()
+        self.title.set_markup('<span size="large">%s</span>' % poll.title)
         self.title.set_alignment(0.01, 0.5)
-        self.pack_start(self.title, False, False, 10)
+        box.pack_start(self.title, False, False, 10)
 
         self.question = Gtk.Label(poll.question)
+        self.question.set_markup('<span size="large"><b>%s</b></span>' %
+                                 poll.question)
         self.question.set_alignment(0.01, 0.5)
-        self.pack_start(self.question, False, False, 10)
+        box.pack_start(self.question, False, False, 10)
 
         frame = Gtk.AspectFrame()
         tabla = Gtk.Table(rows=6, columns=6)
@@ -539,20 +546,13 @@ class PollCanvas(Gtk.Box):
 
         frame.add(tabla)
 
-        eventbox = Gtk.EventBox()
-        eventbox.set_border_width(20)
-        eventbox.modify_bg(0, Gdk.Color(65000, 65000, 65000))
-        eventbox.add(frame)
-
         scroll = Gtk.ScrolledWindow()
 
-        scroll.set_policy(
-            Gtk.PolicyType.AUTOMATIC,
-            Gtk.PolicyType.AUTOMATIC)
+        scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
 
-        scroll.add_with_viewport(eventbox)
+        scroll.add_with_viewport(frame)
 
-        self.pack_start(scroll, True, True, 10)
+        box.pack_start(scroll, True, True, 10)
 
         group = Gtk.RadioButton()
 
@@ -641,20 +641,6 @@ class PollCanvas(Gtk.Box):
         """
         Save button clicked.
         """
-
-        # Validate data
-        failed_items = self.__validate()
-
-        if failed_items:
-            print "*** failed_items:", failed_items
-            # FIXME: El parámetro highlight nunca se utilizó, la idea era
-            # resaltar el texto en las etiquetas para aquellas opciones no
-            # validadas en la encuesta.
-            # (Modificar para que suceda al perder el foco el entry)
-            # self.set_root(self._build_canvas(highlight=failed_items))
-            # self.show_all()
-            return
-
         # Data OK
         self._poll.activity._previewing = False
         self._poll.active = True
@@ -662,45 +648,6 @@ class PollCanvas(Gtk.Box):
         self._poll.broadcast_on_mesh()
         self._poll.activity.set_canvas(self._poll.activity._poll_canvas())
         self._poll.activity.show_all()
-
-    def __validate(self):
-
-        failed_items = []
-
-        if self._poll.title == '':
-            failed_items.append('title')
-
-        if self._poll.question == '':
-            failed_items.append('question')
-
-        if self._poll.maxvoters == 0:
-            failed_items.append('maxvoters')
-
-        if self._poll.options[0] == '':
-            failed_items.append('0')
-
-        if self._poll.options[1] == '':
-            failed_items.append('1')
-
-        if self._poll.options[3] != '' and self._poll.options[2] == '':
-            failed_items.append('2')
-
-        if self._poll.options[4] != '' and self._poll.options[3] == '':
-            failed_items.append('3')
-
-        if self._poll.options[2] == '':
-            self._poll.number_of_options = 2
-
-        elif self._poll.options[3] == '':
-            self._poll.number_of_options = 3
-
-        elif self._poll.options[4] == '':
-            self._poll.number_of_options = 4
-
-        else:
-            self._poll.number_of_options = 5
-
-        return failed_items
 
     def __draw_bar(self, widget, context, votos, total, xo_color):
         """
