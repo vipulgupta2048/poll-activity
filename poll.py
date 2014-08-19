@@ -266,17 +266,9 @@ class PollBuilder(activity.Activity):
         """
         Show the poll canvas where children vote on an existing poll.
         """
-
         self._current_view = 'poll'
         self.current_vote = None
-
-        if not self._previewing:
-            cabecera = _('VOTE!')
-
-        else:
-            cabecera = _('Poll Preview')
-
-        return PollCanvas(cabecera, self._poll, self.current_vote,
+        return PollCanvas(self._poll, self.current_vote,
                           self._view_answer, self._previewing)
 
     def _select_poll_button_cb(self, button, sha=None):
@@ -361,13 +353,7 @@ class PollBuilder(activity.Activity):
             if not self._remember_last_vote:
                 self.current_vote = None
 
-            if not self._previewing:
-                cabecera = _('VOTE!')
-
-            else:
-                cabecera = _('Poll Preview')
-
-            self.set_canvas(PollCanvas(cabecera, self._poll,
+            self.set_canvas(PollCanvas(self._poll,
                                        self.current_vote, self._view_answer,
                                        self._previewing))
         else:
@@ -467,14 +453,8 @@ class PollBuilder(activity.Activity):
                     self.get_alert(_('Vote'),
                                    _('Somebody voted on %s') % title)
 
-                    if not self._previewing:
-                        cabecera = _('VOTE!')
-
-                    else:
-                        cabecera = _('Poll Preview')
-
                     if self._poll == poll and self._current_view == 'poll':
-                        self.set_canvas(PollCanvas(cabecera, self._poll,
+                        self.set_canvas(PollCanvas(self._poll,
                                                    self.current_vote,
                                                    self._view_answer,
                                                    self._previewing))

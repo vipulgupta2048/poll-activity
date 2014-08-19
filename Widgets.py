@@ -522,7 +522,7 @@ class HeaderBar(Gtk.EventBox):
 
 class PollCanvas(Gtk.EventBox):
 
-    def __init__(self, cabecera, poll, current_vote, view_answer, previewing):
+    def __init__(self, poll, current_vote, view_answer, previewing):
 
         Gtk.EventBox.__init__(self)
         self.modify_bg(Gtk.StateType.NORMAL,
@@ -533,7 +533,16 @@ class PollCanvas(Gtk.EventBox):
 
         self._poll = poll
 
-        box.pack_start(HeaderBar(_(cabecera)), False, False, 0)
+        if not previewing:
+            header = _('VOTE!')
+            if self._poll.active:
+                header = _('VOTE')
+            else:
+                header = _('RESULTS')
+        else:
+            header = _('Poll Preview')
+
+        box.pack_start(HeaderBar(_(header)), False, False, 0)
 
         self.title = Gtk.Label()
         self.title.set_markup('<span size="large">%s</span>' % poll.title)
