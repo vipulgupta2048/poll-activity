@@ -112,10 +112,6 @@ class PollBuilder(activity.Activity):
         self.nick = owner.props.nick
         self.nick_sha1 = sha1(self.nick).hexdigest()
 
-        # Removed default polls since it creates too much noise
-        # when shared with many on the mesh
-        # self._make_default_poll()
-
         toolbar = Toolbar(self)
         toolbar.create_button.connect('clicked', self.__button_new_clicked)
         toolbar.choose_button.connect('clicked', self.__button_select_clicked)
@@ -384,37 +380,6 @@ class PollBuilder(activity.Activity):
     def button_edit_clicked(self, button):
 
         self.set_canvas(NewPollCanvas(self._poll))
-
-    '''
-    def _make_default_poll(self):
-        """
-        A hardcoded poll for first time launch.
-        """
-
-        self._poll = Poll(
-            activity=self, title=self.nick + ' ' + _('Favorite Color'),
-            author=self.nick, active=True,
-            question=_('What is your favorite color?'),
-            options={0: ('Green'),
-                     1: ('Red'),
-                     2: ('Blue'),
-                     3: _('Orange'),
-                     4: _('None of the above')})
-
-        self.current_vote = None
-        self._polls.add(self._poll)'''
-
-    '''
-    def _get_sha(self):
-        """
-        Return a sha1 hash of something about this poll.
-
-        Currently we sha1 the poll title and author.
-        This is used for the filename of the saved poll.
-        It will probably be used for the mesh networking too.
-        """
-
-        return self._poll.sha'''
 
     def __switch_to_poll(self, sha):
         """
