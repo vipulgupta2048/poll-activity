@@ -416,7 +416,7 @@ class OptionsPalette(Gtk.Box):
 
     def update_configs(self):
         self._view_results_checkbutton.set_active(
-            self._poll_activity._view_answer)
+            self._poll_activity.get_view_answer())
         self._remember_vote_checkbutton.set_active(
             self._poll_activity._remember_last_vote)
         self._play_vote_sound_checkbutton.set_active(
@@ -426,7 +426,7 @@ class OptionsPalette(Gtk.Box):
         self._image_width_entry.set_sensitive(self._poll_activity._use_image)
 
     def __view_result_checkbox_cb(self, checkbox):
-        self._poll_activity._view_answer = checkbox.get_active()
+        self._poll_activity.set_view_answer(checkbox.get_active())
 
     def __remember_last_vote_checkbox_cb(self, checkbox):
         self._poll_activity._remember_last_vote = checkbox.get_active()
@@ -599,6 +599,7 @@ class PollCanvas(Gtk.EventBox):
         group = Gtk.RadioButton()
 
         row = 0
+        self._results_widgets = []
         for choice in range(poll.number_of_options):
 
             button = Gtk.RadioButton.new_with_label_from_widget(
@@ -623,26 +624,27 @@ class PollCanvas(Gtk.EventBox):
                 image.set_halign(Gtk.Align.START)
                 tabla.attach(image, 1, 2, row, row + 1)
 
-            if view_answer or not poll.active:
-                if poll.vote_count > 0:
+            # Total de votos
+            label = Gtk.Label(poll.data[choice])
+            label.set_halign(Gtk.Align.END)
+            label.set_valign(Gtk.Align.CENTER)
+            label.props.margin = 10
+            tabla.attach(label, 3, 4, row, row + 1)
 
-                    # Total de votos
-                    label = Gtk.Label(poll.data[choice])
-                    label.set_halign(Gtk.Align.END)
-                    label.set_valign(Gtk.Align.CENTER)
-                    label.props.margin = 10
-                    tabla.attach(label, 3, 4, row, row + 1)
+            eventbox = Gtk.EventBox()
+            eventbox.set_valign(Gtk.Align.CENTER)
+            eventbox.set_size_request(300, style.GRID_CELL_SIZE / 2)
+            tabla.attach(eventbox, 4, 5, row, row + 1)
 
-                    eventbox = Gtk.EventBox()
-                    eventbox.set_valign(Gtk.Align.CENTER)
-                    eventbox.set_size_request(300, style.GRID_CELL_SIZE / 2)
-                    tabla.attach(eventbox, 4, 5, row, row + 1)
+            color = colors.get_category_color(poll.options[choice])
 
-                    color = colors.get_category_color(poll.options[choice])
+            eventbox.connect("draw",
+                             self.__draw_bar, poll.data[choice],
+                             poll.vote_count, color)
 
-                    eventbox.connect("draw",
-                                     self.__draw_bar, poll.data[choice],
-                                     poll.vote_count, color)
+            # add to a collection to show/hide on demand
+            self._results_widgets.append(label)
+            self._results_widgets.append(eventbox)
 
             row += 1
 
@@ -680,6 +682,12 @@ class PollCanvas(Gtk.EventBox):
             self._grid.attach(button, 1, 3, 1, 1)
 
         self.show_all()
+        # hide or show the results if needed
+        self.set_view_answer(view_answer or not poll.active)
+
+    def set_view_answer(self, visible):
+        for widget in self._results_widgets:
+            widget.set_visible(visible)
 
     def _button_save_cb(self, button):
         """

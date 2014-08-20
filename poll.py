@@ -447,6 +447,15 @@ class PollBuilder(activity.Activity):
 
         return [poll for poll in self._polls if poll.author == self.nick]
 
+    def set_view_answer(self, view_answer):
+        self._view_answer = view_answer
+        if type(self.get_canvas()) is PollCanvas and self._poll.active:
+            poll_canvas = self.get_canvas()
+            poll_canvas.set_view_answer(view_answer)
+
+    def get_view_answer(self):
+        return self._view_answer
+
     def vote_on_poll(self, author, title, choice, votersha):
         """
         Register a vote on a poll from the mesh.
