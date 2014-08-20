@@ -318,11 +318,11 @@ class PollBuilder(activity.Activity):
         """
         A VOTE or SEE RESULTS button was clicked.
         """
-
         if not sha:
             self._logger.debug('Strange, which button was clicked?')
             return
 
+        self._previewing = False
         self.__switch_to_poll(sha)
         self.set_canvas(self._poll_canvas())
 
