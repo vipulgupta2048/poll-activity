@@ -74,7 +74,8 @@ class Toolbar(ToolbarBox):
 
         palette = self.settings_button.get_palette()
         hbox = Gtk.HBox()
-        hbox.pack_start(OptionsCanvas(activity), True, True,
+        self._options_palette = OptionsPalette(activity)
+        hbox.pack_start(self._options_palette, True, True,
                         style.DEFAULT_SPACING)
         hbox.show_all()
         palette.set_content(hbox)
@@ -89,6 +90,9 @@ class Toolbar(ToolbarBox):
         self.toolbar.insert(StopButton(activity), -1)
 
         self.show_all()
+
+    def update_configs(self):
+        self._options_palette.update_configs()
 
 
 class NewPollCanvas(Gtk.EventBox):
@@ -351,36 +355,39 @@ class ItemNewPoll(Gtk.Box):
         entry.modify_bg(Gtk.StateType.NORMAL, None)
 
 
-class OptionsCanvas(Gtk.Box):
+class OptionsPalette(Gtk.Box):
     """
-    Show the options canvas.
+    Show the options palette.
     """
 
     def __init__(self, poll_activity):
-        self.poll_activity = poll_activity
+        self._poll_activity = poll_activity
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
 
-        viewResultCB = Gtk.CheckButton(label=_('Show answers while voting'))
-        viewResultCB.set_active(self.poll_activity._view_answer)
-        viewResultCB.connect('toggled', self.__view_result_checkbox_cb)
-        self.pack_start(viewResultCB, True, True, 10)
+        self._view_results_checkbutton = Gtk.CheckButton(
+            label=_('Show answers while voting'))
+        self._view_results_checkbutton.connect(
+            'toggled', self.__view_result_checkbox_cb)
+        self.pack_start(self._view_results_checkbutton, True, True, 10)
 
-        rememberVoteCB = Gtk.CheckButton(label=_('Remember last vote'))
-        rememberVoteCB.set_active(self.poll_activity._remember_last_vote)
-        rememberVoteCB.connect('toggled',
-                               self.__remember_last_vote_checkbox_cb)
-        self.pack_start(rememberVoteCB, True, True, 10)
+        self._remember_vote_checkbutton = Gtk.CheckButton(
+            label=_('Remember last vote'))
+        self._remember_vote_checkbutton.connect(
+            'toggled', self.__remember_last_vote_checkbox_cb)
+        self.pack_start(self._remember_vote_checkbutton, True, True, 10)
 
-        playVoteSoundCB = Gtk.CheckButton(
+        self._play_vote_sound_checkbutton = Gtk.CheckButton(
             label=_('Play a sound when make a vote'))
-        playVoteSoundCB.set_active(self.poll_activity._play_vote_sound)
-        playVoteSoundCB.connect('toggled', self.__play_vote_sound_checkbox_cb)
-        self.pack_start(playVoteSoundCB, True, True, 10)
+        self._play_vote_sound_checkbutton.connect(
+            'toggled', self.__play_vote_sound_checkbox_cb)
+        self.pack_start(self._play_vote_sound_checkbutton, True, True, 10)
 
         vbox = Gtk.VBox()
-        useImageCB = Gtk.CheckButton(label=_('Use image in answer'))
-        useImageCB.set_active(self.poll_activity._use_image)
-        self.pack_start(useImageCB, True, True, 10)
+        self._use_image_checkbox = Gtk.CheckButton(
+            label=_('Use image in answer'))
+        self.pack_start(self._use_image_checkbox, True, True, 10)
+        self._use_image_checkbox.connect('toggled',
+                                         self.__use_image_checkbox_cb)
 
         hbox2 = Gtk.HBox()
         hbox2.pack_start(Gtk.Label(_('Image Size: ')), True, True, 10)
@@ -388,7 +395,7 @@ class OptionsCanvas(Gtk.Box):
         self._image_width_entry = Gtk.Entry(max_length=3)
         self._image_width_entry.set_size_request(style.GRID_CELL_SIZE, -1)
         self._image_width_entry.set_text(
-            str(self.poll_activity._image_size['width']))
+            str(self._poll_activity._image_size['width']))
         self._image_width_entry.connect(
             'changed', self.__entry_image_size_cb, 'width')
         hbox2.pack_start(self._image_width_entry, True, True, 10)
@@ -397,37 +404,42 @@ class OptionsCanvas(Gtk.Box):
 
         self._image_height_entry = Gtk.Entry(max_length=3)
         self._image_height_entry.set_text(
-            str(self.poll_activity._image_size['height']))
+            str(self._poll_activity._image_size['height']))
         self._image_height_entry.connect(
             'changed', self.__entry_image_size_cb, 'height')
         hbox2.pack_start(self._image_height_entry, True, True, 10)
-
-        useImageCB.connect('toggled', self.__use_image_checkbox_cb)
-
-        self._image_height_entry.set_sensitive(useImageCB.get_active())
-        self._image_width_entry.set_sensitive(useImageCB.get_active())
-
         vbox.pack_start(hbox2, True, True, 10)
         self.pack_start(vbox, True, True, 0)
 
         self.show_all()
 
+    def update_configs(self):
+        self._view_results_checkbutton.set_active(
+            self._poll_activity._view_answer)
+        self._remember_vote_checkbutton.set_active(
+            self._poll_activity._remember_last_vote)
+        self._play_vote_sound_checkbutton.set_active(
+            self._poll_activity._play_vote_sound)
+        self._use_image_checkbox.set_active(self._poll_activity._use_image)
+        self._image_height_entry.set_sensitive(self._poll_activity._use_image)
+        self._image_width_entry.set_sensitive(self._poll_activity._use_image)
+
     def __view_result_checkbox_cb(self, checkbox):
-        self.poll_activity._view_answer = checkbox.get_active()
+        self._poll_activity._view_answer = checkbox.get_active()
 
     def __remember_last_vote_checkbox_cb(self, checkbox):
-        self.poll_activity._remember_last_vote = checkbox.get_active()
+        self._poll_activity._remember_last_vote = checkbox.get_active()
 
-    def __play_vote_sound_checkbox_cb(self, checkbox, data=None):
-        self.poll_activity._play_vote_sound = checkbox.get_active()
+    def __play_vote_sound_checkbox_cb(self, checkbox):
+        self._poll_activity._play_vote_sound = checkbox.get_active()
 
     def __entry_image_size_cb(self, entrycontrol, data):
         text = entrycontrol.get_text()
         if text:
-            self.poll_activity._image_size[data] = int(text)
+            self._poll_activity._image_size[data] = int(text)
 
     def __use_image_checkbox_cb(self, checkbox):
-        self.poll_activity._use_image = checkbox.get_active()
+        self._poll_activity._use_image = checkbox.get_active()
         self._image_height_entry.set_sensitive(checkbox.get_active())
         self._image_width_entry.set_sensitive(checkbox.get_active())
 

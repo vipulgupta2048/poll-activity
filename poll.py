@@ -206,6 +206,7 @@ class PollBuilder(activity.Activity):
             # if can't read json, try read with the old format
             self._old_read_file(file_path)
         self.set_canvas(SelectCanvas(self))
+        self.get_toolbar_box().update_configs()
 
     def _old_read_file(self, file_path):
         """
