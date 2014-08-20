@@ -39,6 +39,7 @@ from sugar3.graphics.toolbutton import ToolButton
 from sugar3.activity.widgets import StopButton
 from sugar3.activity.widgets import ActivityToolbarButton
 from sugar3.graphics import style
+from sugar3.graphics.icon import Icon
 
 import colors
 
@@ -558,30 +559,42 @@ class PollCanvas(Gtk.EventBox):
 
         box.pack_start(HeaderBar(_(header)), False, False, 0)
 
+        self._grid = Gtk.Grid()
+        box.pack_start(self._grid, True, True, 0)
+
         self.title = Gtk.Label()
         self.title.set_markup('<span size="large">%s</span>' % poll.title)
-        self.title.set_alignment(0.01, 0.5)
-        box.pack_start(self.title, False, False, 10)
+        self.title.props.margin = style.GRID_CELL_SIZE / 2
+        self.title.set_halign(Gtk.Align.START)
+        self._grid.attach(self.title, 0, 0, 1, 1)
 
-        self.question = Gtk.Label(poll.question)
+        self.question = Gtk.Label()
         self.question.set_markup('<span size="large"><b>%s</b></span>' %
                                  poll.question)
-        self.question.set_alignment(0.01, 0.5)
-        box.pack_start(self.question, False, False, 10)
+        self.question.props.margin = style.GRID_CELL_SIZE / 2
+        self.question.set_halign(Gtk.Align.START)
+        self._grid.attach(self.question, 0, 1, 1, 1)
 
-        frame = Gtk.AspectFrame()
+        counter_label = Gtk.Label()
+        counter_label.set_markup(
+            '<span size="x-large">%s from %s votes collected</span>' %
+            (poll.vote_count, poll.maxvoters))
+        counter_label.props.margin = style.GRID_CELL_SIZE / 2
+        counter_label.set_halign(Gtk.Align.END)
+        self._grid.attach(counter_label, 1, 0, 1, 1)
+
         tabla = Gtk.Table(rows=6, columns=6)
-        tabla.set_border_width(20)
-
-        frame.add(tabla)
+        tabla.set_border_width(style.GRID_CELL_SIZE)
 
         scroll = Gtk.ScrolledWindow()
 
         scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
 
-        scroll.add_with_viewport(frame)
+        scroll.add_with_viewport(tabla)
+        scroll.set_hexpand(True)
+        scroll.set_vexpand(True)
 
-        box.pack_start(scroll, True, True, 10)
+        self._grid.attach(scroll, 0, 2, 2, 1)
 
         group = Gtk.RadioButton()
 
@@ -599,14 +612,15 @@ class PollCanvas(Gtk.EventBox):
             else:
                 button.set_sensitive(False)
 
-            tabla.attach(button, 0, 1, row, row+1)
+            tabla.attach(button, 0, 1, row, row + 1)
 
             if choice == current_vote:
                 button.set_active(True)
 
-            if not poll.images[int(choice)] == '':
+            if poll.images[int(choice)]:
                 image = Gtk.Image()
                 image.set_from_pixbuf(poll.images[choice])
+                image.set_halign(Gtk.Align.START)
                 tabla.attach(image, 1, 2, row, row + 1)
 
             if view_answer or not poll.active:
@@ -614,11 +628,14 @@ class PollCanvas(Gtk.EventBox):
 
                     # Total de votos
                     label = Gtk.Label(poll.data[choice])
-                    label.set_size_request(100, -1)
+                    label.set_halign(Gtk.Align.END)
+                    label.set_valign(Gtk.Align.CENTER)
+                    label.props.margin = 10
                     tabla.attach(label, 3, 4, row, row + 1)
 
                     eventbox = Gtk.EventBox()
-                    eventbox.set_size_request(300, -1)
+                    eventbox.set_valign(Gtk.Align.CENTER)
+                    eventbox.set_size_request(300, style.GRID_CELL_SIZE / 2)
                     tabla.attach(eventbox, 4, 5, row, row + 1)
 
                     color = colors.get_category_color(poll.options[choice])
@@ -629,40 +646,38 @@ class PollCanvas(Gtk.EventBox):
 
             row += 1
 
-        if view_answer or not poll.active:
-            if poll.vote_count > 0:
-                # Barra para total
-                separator = Gtk.HSeparator()
-                tabla.attach(separator, 3, 5, row, row + 1)
-
-        row += 1
-
-        if view_answer or not poll.active:
-            if poll.vote_count > 0:
-                label = Gtk.Label("%s %s %s %s" % (str(poll.vote_count),
-                                  _('votes'), _('(votes left to collect)'),
-                                  poll.maxvoters - poll.vote_count))
-                tabla.attach(label, 3, 5, row, row + 1)
-
-        row += 1
-
         # Button area
         if poll.active and not previewing:
             button = Gtk.Button(_("Vote"))
+            button.set_image(Icon(icon_name='dialog-ok',
+                                  pixel_size=style.LARGE_ICON_SIZE))
+            theme = 'GtkButton {background-color: %s;' \
+                'font-size:%s;' \
+                'padding: 5px 35px 5px 35px;}' % \
+                ('#ff0000', style.FONT_SIZE * 2)
+            css_provider = Gtk.CssProvider()
+            css_provider.load_from_data(theme)
+            style_context = button.get_style_context()
+            style_context.add_provider(css_provider,
+                                       Gtk.STYLE_PROVIDER_PRIORITY_USER)
+
             button.connect('clicked', poll.activity.button_vote_cb)
-            button.props.margin = 10
-            tabla.attach(button, 0, 1, row, row + 1)
+            button.props.margin = style.GRID_CELL_SIZE / 2
+            button.set_hexpand(False)
+            button.set_halign(Gtk.Align.END)
+
+            self._grid.attach(button, 1, 3, 1, 1)
 
         elif previewing:
             button = Gtk.Button(_("Edit Poll"))
             button.connect('clicked', poll.activity.button_edit_clicked)
-            button.props.margin = 10
-            tabla.attach(button, 0, 1, row, row + 1)
+            button.props.margin = style.GRID_CELL_SIZE / 2
+            self._grid.attach(button, 0, 3, 1, 1)
 
             button = Gtk.Button(_("Save Poll"))
             button.connect('clicked', self._button_save_cb)
-            button.props.margin = 10
-            tabla.attach(button, 1, 2, row, row + 1)
+            button.props.margin = style.GRID_CELL_SIZE / 2
+            self._grid.attach(button, 1, 3, 1, 1)
 
         self.show_all()
 
