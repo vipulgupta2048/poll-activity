@@ -125,24 +125,26 @@ class NewPollCanvas(Gtk.EventBox):
                                 self._poll, 'maxvoters')
         self._box.pack_start(item_poll, False, False, 10)
 
+        self._image_widgets = []
         for choice in self._poll.options.keys():
             hbox = Gtk.HBox()
             item_poll = ItemNewPoll(_('Answer %s:') % (choice + 1),
                                     self._poll, str(choice))
             self._box.pack_start(item_poll, False, False, 10)
 
-            if self._poll.activity._use_image:
-                if self.__already_loaded_image_in_answer(choice):
-                    button = Gtk.Button(_("Change Image"))
-                    hbox.pack_start(button, True, False, 10)
-                    self.__show_image_thumbnail(hbox, choice)
+            if self.__already_loaded_image_in_answer(choice):
+                button = Gtk.Button(_("Change Image"))
+                hbox.pack_start(button, True, False, 10)
+                image = self.__show_image_thumbnail(hbox, choice)
+                self._image_widgets.append(button)
+                self._image_widgets.append(image)
+            else:
+                button = Gtk.Button(_("Add Image"))
+                hbox.pack_start(button, True, False, 10)
+                self._image_widgets.append(button)
 
-                else:
-                    button = Gtk.Button(_("Add Image"))
-                    hbox.pack_start(button, True, False, 10)
-
-                button.connect('clicked', self.__button_choose_image_cb,
-                               str(choice), hbox)
+            button.connect('clicked', self.__button_choose_image_cb,
+                           int(choice), hbox)
 
             item_poll.pack_end(hbox, False, False, 0)
 
@@ -160,6 +162,11 @@ class NewPollCanvas(Gtk.EventBox):
         self._box.pack_start(hbox, False, False, 10)
 
         self.show_all()
+        self.set_image_widgets_visible(self._poll.activity.get_use_image())
+
+    def set_image_widgets_visible(self, visible):
+        for widget in self._image_widgets:
+            widget.set_visible(visible)
 
     def __already_loaded_image_in_answer(self, answer_number):
 
@@ -169,7 +176,11 @@ class NewPollCanvas(Gtk.EventBox):
         else:
             return False
 
-    def __button_choose_image_cb(self, button, data=None, data2=None):
+    def __button_choose_image_cb(self, button, choice, hbox):
+        """
+        choice: int
+        hbox: the container where the image will be displayed
+        """
 
         try:
             chooser = ObjectChooser(self, what_filter='Image',
@@ -197,15 +208,15 @@ class NewPollCanvas(Gtk.EventBox):
                         self._poll.activity._image_size['height'],
                         self._poll.activity._image_size['width'])
 
-                    self._poll.images[int(data)] = pixbuf
+                    self._poll.images[choice] = pixbuf
 
-                    self._poll.images_ds_objects[int(data)]['id'] = \
+                    self._poll.images_ds_objects[choice]['id'] = \
                         jobject.object_id
 
-                    self._poll.images_ds_objects[int(data)]['file_path'] = \
+                    self._poll.images_ds_objects[choice]['file_path'] = \
                         jobject.file_path
 
-                    self.__show_image_thumbnail(data2, data)
+                    self.__show_image_thumbnail(hbox, choice)
                     button.set_label(_('Change Image'))
 
                 else:
@@ -219,9 +230,7 @@ class NewPollCanvas(Gtk.EventBox):
 
     def __show_image_thumbnail(self, parent_box, answer_number):
 
-        hbox = Gtk.HBox()
-
-        image_file_path = self._poll.images_ds_objects[int(answer_number)][
+        image_file_path = self._poll.images_ds_objects[answer_number][
             'file_path']
 
         pixbuf_thumbnail = GdkPixbuf.Pixbuf.new_from_file_at_size(
@@ -230,15 +239,15 @@ class NewPollCanvas(Gtk.EventBox):
         image = Gtk.Image()
         image.set_from_pixbuf(pixbuf_thumbnail)
         image.show()
-        hbox.add(image)
-        hbox.show()
+        self._image_widgets.append(image)
 
         chl = parent_box.get_children()
 
-        if len(chl) == 4:
+        if len(chl) == 2:
             parent_box.remove(chl[len(chl) - 1])
 
-        parent_box.pack_start(hbox, True, True, 0)
+        parent_box.pack_start(image, True, True, 10)
+        return pixbuf_thumbnail
 
     def _button_save_cb(self, button):
         """
@@ -419,9 +428,12 @@ class OptionsPalette(Gtk.Box):
             self._poll_activity._remember_last_vote)
         self._play_vote_sound_checkbutton.set_active(
             self._poll_activity._play_vote_sound)
-        self._use_image_checkbox.set_active(self._poll_activity._use_image)
-        self._image_height_entry.set_sensitive(self._poll_activity._use_image)
-        self._image_width_entry.set_sensitive(self._poll_activity._use_image)
+        self._use_image_checkbox.set_active(
+            self._poll_activity.get_use_image())
+        self._image_height_entry.set_sensitive(
+            self._poll_activity.get_use_image())
+        self._image_width_entry.set_sensitive(
+            self._poll_activity.get_use_image())
 
     def __view_result_checkbox_cb(self, checkbox):
         self._poll_activity.set_view_answer(checkbox.get_active())
@@ -438,7 +450,7 @@ class OptionsPalette(Gtk.Box):
             self._poll_activity._image_size[data] = int(text)
 
     def __use_image_checkbox_cb(self, checkbox):
-        self._poll_activity._use_image = checkbox.get_active()
+        self._poll_activity.set_use_image(checkbox.get_active())
         self._image_height_entry.set_sensitive(checkbox.get_active())
         self._image_width_entry.set_sensitive(checkbox.get_active())
 
