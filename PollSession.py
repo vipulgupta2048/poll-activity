@@ -20,7 +20,6 @@
 # info@WorldWideWorkshop.org !
 
 import os
-import cPickle
 import logging
 import base64
 
@@ -79,32 +78,17 @@ class Poll():
             Pay special attention to dicts - we need to convert the keys
             and values too.
         """
-
-        s = cPickle.dumps(str(self.title))
-        s += cPickle.dumps(str(self.author))
-        s += cPickle.dumps(bool(self.active))
-        s += cPickle.dumps(self.createdate.toordinal())
-        s += cPickle.dumps(int(self.maxvoters))
-        s += cPickle.dumps(str(self.question))
-        s += cPickle.dumps(int(self.number_of_options))
-
-        options = {}
-
-        for key in self.options:
-            value = self.options[key]
-            options[int(key)] = str(value)
-
         data = {}
-
-        for key in self.data:
-            value = self.data[key]
-            data[int(key)] = int(value)
-
-        votes = {}
-
-        for key in self.votes:
-            value = self.votes[key]
-            votes[str(key)] = int(value)
+        data['title'] = str(self.title)
+        data['author'] = str(self.author)
+        data['active'] = bool(self.active)
+        data['createdate'] = self.createdate.toordinal()
+        data['maxvoters'] = int(self.maxvoters)
+        data['question'] = str(self.question)
+        data['number_of_options'] = int(self.number_of_options)
+        data['options'] = self.options
+        data['data'] = self.data
+        data['votes'] = self.votes
 
         images_objects_id = {}
 
@@ -112,16 +96,11 @@ class Poll():
             if not self.images_ds_objects[key] == {}:
                 value = self.images_ds_objects[key]['id']
                 images_objects_id[int(key)] = str(value)
-
             else:
                 images_objects_id[int(key)] = ''
 
-        s += cPickle.dumps(options)
-        s += cPickle.dumps(data)
-        s += cPickle.dumps(votes)
-        s += cPickle.dumps(images_objects_id)
-
-        return s
+        data['images_ds_objects'] = images_objects_id
+        return data
 
     @property
     def vote_count(self):

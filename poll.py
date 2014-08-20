@@ -27,6 +27,7 @@ from gi.repository import GdkPixbuf
 
 import subprocess
 import cPickle
+import json
 import logging
 
 from hashlib import sha1
@@ -164,15 +165,57 @@ class PollBuilder(activity.Activity):
         return images_ds_objects
 
     def read_file(self, file_path):
-        """
-        Implement reading from journal
+        try:
+            with open(file_path, 'r') as f:
+                data = json.load(f)
 
-        This is called within sugar3.activity.Activity code
-        which provides file_path.
+                self._view_answer = data['view_answer']
+                self._remember_last_vote = data['remember_last_vote']
+                self._play_vote_sound = data['play_vote_sound']
+                self._use_image = data['use_image']
+                self._image_size = data['image_size']
+                self._polls = set()
+                for poll_data in data['polls_data']:
+                    # json stores the dictionary keys as strings,
+                    # convert to int
+                    options = {}
+                    for key in poll_data['options']:
+                        options[int(key)] = poll_data['options'][key]
+
+                    images_ds_objects = {}
+                    for key in poll_data['images_ds_objects']:
+                        images_ds_objects[int(key)] = \
+                            poll_data['images_ds_objects'][key]
+
+                    data = {}
+                    for key in poll_data['data']:
+                        data[int(key)] = poll_data['data'][key]
+
+                    images = self.__create_pixbufs(images_ds_objects)
+                    images_ds_object = self.__get_images_ds_objects(
+                        images_ds_objects)
+                    self._polls.add(Poll(
+                        self, poll_data['title'], poll_data['author'],
+                        poll_data['active'],
+                        date.fromordinal(poll_data['createdate']),
+                        poll_data['maxvoters'], poll_data['question'],
+                        poll_data['number_of_options'],
+                        options, data, poll_data['votes'],
+                        images, images_ds_object))
+        except:
+            # if can't read json, try read with the old format
+            self._old_read_file(file_path)
+        self.set_canvas(SelectCanvas(self))
+
+    def _old_read_file(self, file_path):
+        """
+        This method use pickle to read files saved by old versions of the
+        activity
         """
 
-        self._logger.debug('Reading file from datastore via Journal: %s' %
-                           file_path)
+        self._logger.debug(
+            'Reading OLD FORMAT file from datastore via Journal: %s' %
+            file_path)
 
         self._polls = set()
 
@@ -221,23 +264,19 @@ class PollBuilder(activity.Activity):
         which provides the file_path.
         """
 
-        s = cPickle.dumps(len(self._polls))
-
-        activity_settings = {
+        polls_data = []
+        for poll in self._polls:
+            polls_data.append(poll.dump())
+        data = {
             'view_answer': self._view_answer,
             'remember_last_vote': self._remember_last_vote,
             'play_vote_sound': self._play_vote_sound,
-            'use_image': self._use_image}
+            'use_image': self._use_image,
+            'image_size': self._image_size,
+            'polls_data': polls_data}
 
-        s += cPickle.dumps(activity_settings)
-        s += cPickle.dumps(self._image_size)
-
-        for poll in self._polls:
-            s += poll.dump()
-
-        f = open(file_path, 'w')
-        f.write(s)
-        f.close()
+        with open(file_path, 'w') as f:
+            f.write(json.dumps(data))
 
     def get_alert(self, title, text):
         """
