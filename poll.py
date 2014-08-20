@@ -83,7 +83,6 @@ class PollBuilder(activity.Activity):
 
         self._polls = set()
         self.current_vote = None
-        self._current_view = None
         self._previewing = False
 
         # This property allows result viewing while voting
@@ -309,7 +308,6 @@ class PollBuilder(activity.Activity):
         """
         Show the poll canvas where children vote on an existing poll.
         """
-        self._current_view = 'poll'
         self.current_vote = None
         return PollCanvas(self._poll, self.current_vote,
                           self._view_answer, self._previewing)
@@ -474,7 +472,8 @@ class PollBuilder(activity.Activity):
                     self.get_alert(_('Vote'),
                                    _('Somebody voted on %s') % title)
 
-                    if self._poll == poll and self._current_view == 'poll':
+                    if self._poll == poll and \
+                            type(self.get_canvas()) is PollCanvas:
                         self.set_canvas(PollCanvas(self._poll,
                                                    self.current_vote,
                                                    self._view_answer,

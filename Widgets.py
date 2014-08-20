@@ -110,8 +110,6 @@ class NewPollCanvas(Gtk.EventBox):
 
         self._poll = poll
 
-        self._poll.activity._current_view = 'build'
-
         self._box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         self.add(self._box)
 
@@ -450,8 +448,6 @@ class SelectCanvas(Gtk.Box):
     def __init__(self, poll_activity):
 
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
-
-        poll_activity._current_view = 'select'
 
         self.pack_start(HeaderBar(_('Choose a Poll')), False, False, 0)
 
