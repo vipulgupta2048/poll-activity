@@ -118,7 +118,7 @@ class PollBuilder(activity.Activity):
         toolbar.choose_button.connect('clicked', self.__button_select_clicked)
         self.set_toolbar_box(toolbar)
 
-        self.set_canvas(SelectCanvas(self))
+        self._create_new_poll()
 
         self.show_all()
 
@@ -205,7 +205,14 @@ class PollBuilder(activity.Activity):
         except:
             # if can't read json, try read with the old format
             self._old_read_file(file_path)
-        self.set_canvas(SelectCanvas(self))
+
+        # if there are polls loaded, show the selection screen
+        # if not, show the creation screen
+        if self._polls:
+            self.set_canvas(SelectCanvas(self))
+        else:
+            self._create_new_poll()
+
         self.get_toolbar_box().update_configs()
 
     def _old_read_file(self, file_path):
@@ -408,13 +415,13 @@ class PollBuilder(activity.Activity):
         """
         Show Build a Poll canvas.
         """
+        self._create_new_poll()
 
+    def _create_new_poll(self):
         # Reset vote data to 0
         self._poll = Poll(activity=self, author=profile.get_nick_name(),
                           active=False)
-
         self.current_vote = None
-
         self.set_canvas(NewPollCanvas(self._poll))
 
     def button_edit_clicked(self, button):
