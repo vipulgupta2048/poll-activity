@@ -55,6 +55,7 @@ from Widgets import PollCanvas      # Participate in a poll.
 
 from PollSession import PollSession
 from PollSession import Poll
+import emptypanel
 
 SERVICE = "org.worldwideworkshop.olpc.PollBuilder"
 IFACE = SERVICE
@@ -117,7 +118,8 @@ class PollBuilder(activity.Activity):
         toolbar.choose_button.connect('clicked', self.__button_select_clicked)
         self.set_toolbar_box(toolbar)
 
-        self._create_new_poll()
+        emptypanel.show(self, 'new-poll', _('Create a new poll'),
+                        _('Create'), self.__button_new_clicked)
 
         self.show_all()
 
@@ -210,7 +212,8 @@ class PollBuilder(activity.Activity):
         if self._polls:
             self.set_canvas(SelectCanvas(self))
         else:
-            self._create_new_poll()
+            emptypanel.show(self, 'new-poll', _('Create a new poll'),
+                            _('Create'), self.__button_new_clicked)
 
         self.get_toolbar_box().update_configs()
 

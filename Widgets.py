@@ -63,7 +63,7 @@ class Toolbar(ToolbarBox):
         self.choose_button.set_tooltip(_('Choose a Poll'))
         self.toolbar.insert(self.choose_button, -1)
 
-        self.create_button = ToolButton('view-source')
+        self.create_button = ToolButton('new-poll')
         self.create_button.set_tooltip(_('Build a Poll'))
         self.toolbar.insert(self.create_button, -1)
 
