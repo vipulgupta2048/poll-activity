@@ -464,6 +464,7 @@ class SelectCanvas(Gtk.Box):
         self.pack_start(HeaderBar(_('Choose a Poll')), False, False, 0)
 
         poll_selector_box = Gtk.VBox()
+        poll_selector_box.props.margin = style.GRID_CELL_SIZE
 
         scroll = Gtk.ScrolledWindow()
         scroll.modify_bg(Gtk.StateType.NORMAL,
@@ -477,24 +478,15 @@ class SelectCanvas(Gtk.Box):
 
         self.pack_start(scroll, True, True, 0)
 
-        row_number = 0
+        size_group = Gtk.SizeGroup(Gtk.SizeGroupMode.HORIZONTAL)
 
         for poll in poll_activity._polls:
             sha = poll.sha
 
-            if row_number % 2:
-                row_bgcolor = style.COLOR_WHITE.get_gdk_color()
-            else:
-                row_bgcolor = style.COLOR_HIGHLIGHT.get_gdk_color()
-            row_number += 1
-
-            evbox = Gtk.EventBox()
-            evbox.modify_bg(Gtk.StateType.NORMAL, row_bgcolor)
-
             poll_row = Gtk.HBox()
-            evbox.add(poll_row)
             poll_row.props.margin = 10
-            poll_selector_box.pack_start(evbox, False, False, 0)
+            poll_selector_box.pack_start(poll_row, False, False, 0)
+            poll_selector_box.pack_start(Gtk.HSeparator(), False, False, 0)
 
             title = Gtk.Label()
             title.set_markup('<span size="large">%s (%s)</span>' %
@@ -504,23 +496,23 @@ class SelectCanvas(Gtk.Box):
             poll_row.pack_start(align, True, True, 10)
 
             if poll.active:
-                button = Gtk.Button(_('VOTE'))
-
+                button = Gtk.Button(_('Vote'))
+                button.set_image(Icon(icon_name='dialog-ok'))
             else:
-                button = Gtk.Button(_('SEE RESULTS'))
+                button = Gtk.Button(_('See Results'))
+                button.set_image(Icon(icon_name='toolbar-view'))
+            size_group.add_widget(button)
 
             button.connect('clicked', poll_activity._select_poll_button_cb,
                            sha)
             poll_row.pack_start(button, False, False, 10)
 
             if poll.author == profile.get_nick_name():
-                button = Gtk.Button(_('DELETE'))
+                button = Gtk.Button(_('Delete'))
+                button.set_image(Icon(icon_name='basket'))
                 button.connect('clicked',
                                poll_activity._delete_poll_button_cb, sha)
                 poll_row.pack_start(button, False, False, 10)
-
-            poll_row.pack_start(Gtk.Label(
-                poll.createdate.strftime('%d/%m/%y')), False, False, 10)
 
         self.show_all()
 
