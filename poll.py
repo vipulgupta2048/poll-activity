@@ -339,6 +339,7 @@ class PollBuilder(activity.Activity):
         for poll in self._polls:
             if poll.sha == sha:
                 self._polls.remove(poll)
+                break
 
         self.set_canvas(SelectCanvas(self))
 
