@@ -20,10 +20,12 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 import os
+import logging
 
 from gettext import gettext as _
 
 from gi.repository import Gtk
+from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 
 from sugar3 import mime
@@ -115,54 +117,161 @@ class NewPollCanvas(Gtk.EventBox):
 
         self._box.pack_start(HeaderBar(_('Build a poll')), False, False, 0)
 
-        item_poll = ItemNewPoll(_('Poll Title:'), self._poll, 'title')
-        self._box.pack_start(item_poll, False, False, 10)
+        self._notebook = Gtk.Notebook()
+        self._notebook.set_show_tabs(False)
+        self._notebook.show()
 
-        item_poll = ItemNewPoll(_('Question:'), self._poll, 'question')
-        self._box.pack_start(item_poll, False, False, 10)
+        self._box.pack_start(self._notebook, True, True, 0)
 
-        item_poll = ItemNewPoll(_('Number of votes to collect:'),
+        # first page
+
+        self._first_page = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        self._notebook.append_page(self._first_page, None)
+        self._first_page.show()
+
+        item_poll = ItemNewPoll(_('What is the title?'), self._poll, 'title')
+        self._first_page.pack_start(item_poll, False, False, 10)
+
+        item_poll = ItemNewPoll(_('What is the question?'), self._poll,
+                                'question')
+        self._first_page.pack_start(item_poll, False, False, 10)
+
+        item_poll = ItemNewPoll(_('How many votes you want collect?'),
                                 self._poll, 'maxvoters')
-        self._box.pack_start(item_poll, False, False, 10)
+        self._first_page.pack_start(item_poll, False, False, 10)
+
+        # second page
+
+        self._second_page = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        self._notebook.append_page(self._second_page, None)
+        self._second_page.show()
+
+        label = Gtk.Label()
+        label.set_markup('<span size="x-large">%s</span>' %
+                         _('What are the choices?'))
+        label.set_halign(Gtk.Align.CENTER)
+        label.props.margin = style.GRID_CELL_SIZE / 2
+        self._second_page.pack_start(label, False, False, 0)
 
         self._image_widgets = []
         for choice in self._poll.options.keys():
             hbox = Gtk.HBox()
-            item_poll = ItemNewPoll(_('Answer %s:') % (choice + 1),
-                                    self._poll, str(choice))
-            self._box.pack_start(item_poll, False, False, 10)
+            item_poll = ItemOptionNewPoll(_('Answer %s:') % (choice + 1),
+                                          self._poll, str(choice))
+            self._second_page.pack_start(item_poll, False, False, 10)
 
+            button = Gtk.Button()
+            button.set_image(Icon(icon_name='insert-picture'))
+            hbox.pack_start(button, True, False, 10)
+            self._image_widgets.append(button)
             if self.__already_loaded_image_in_answer(choice):
-                button = Gtk.Button(_("Change Image"))
-                hbox.pack_start(button, True, False, 10)
                 image = self.__show_image_thumbnail(hbox, choice)
-                self._image_widgets.append(button)
                 self._image_widgets.append(image)
-            else:
-                button = Gtk.Button(_("Add Image"))
-                hbox.pack_start(button, True, False, 10)
-                self._image_widgets.append(button)
 
             button.connect('clicked', self.__button_choose_image_cb,
                            int(choice), hbox)
 
             item_poll.pack_end(hbox, False, False, 0)
 
-        # PREVIEW & SAVE buttons
-        hbox = Gtk.HBox()
+        # 3 page, summary
+        third_page = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        self._notebook.append_page(third_page, None)
 
-        button = Gtk.Button(_("Step 1: Preview"))
-        button.connect('clicked', self.__button_preview_cb)
-        hbox.pack_start(button, True, True, 10)
+        label = Gtk.Label()
+        label.set_markup('<span size="x-large">%s</span>' %
+                         _('Is this correct?'))
+        label.set_halign(Gtk.Align.CENTER)
+        label.props.margin = style.GRID_CELL_SIZE
+        third_page.pack_start(label, False, False, 0)
 
-        button = Gtk.Button(_("Step 2: Save"))
-        button.connect('clicked', self._button_save_cb)
-        hbox.pack_start(button, True, True, 10)
+        columns_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+        columns_box.set_homogeneous(True)
+        first_column = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        second_column = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        columns_box.pack_start(first_column, False, False, 10)
+        columns_box.pack_start(second_column, False, False, 10)
+
+        label = Gtk.Label()
+        label.set_markup('<b>%s</b>' % _('Title'))
+        first_column.pack_start(label, False, True, 10)
+
+        self._title_label = Gtk.Label()
+        first_column.pack_start(self._title_label, False, False, 10)
+
+        label = Gtk.Label()
+        label.set_markup('<b>%s</b>' % _('Question'))
+        first_column.pack_start(label, False, False, 10)
+
+        self._question_label = Gtk.Label()
+        first_column.pack_start(self._question_label, False, False, 10)
+
+        label = Gtk.Label()
+        label.set_markup('<b>%s</b>' % _('How many votes'))
+        first_column.pack_start(label, False, False, 10)
+
+        self._maxvoters_label = Gtk.Label()
+        first_column.pack_start(self._maxvoters_label, False, False, 10)
+
+        label = Gtk.Label()
+        label.set_markup('<b>%s</b>' % _('Answers'))
+        second_column.pack_start(label, False, False, 10)
+
+        self._option_labels = {}
+        for choice in self._poll.options.keys():
+            label = Gtk.Label()
+            self._option_labels[int(choice)] = label
+            second_column.pack_start(label, False, False, 10)
+
+        logging.error(self._option_labels)
+
+        third_page.pack_start(columns_box, True, True, 10)
+
+        save_button = Gtk.Button(_('Make the poll'))
+        save_button.set_halign(Gtk.Align.CENTER)
+        save_button.set_valign(Gtk.Align.START)
+        save_button.props.margin = style.GRID_CELL_SIZE
+        save_button.connect('clicked', self._button_save_cb)
+        third_page.pack_start(save_button, False, False, 0)
+
+        third_page.show_all()
+
+        # buttons
+        hbox = Gtk.ButtonBox()
+        hbox.props.margin = style.GRID_CELL_SIZE
+
+        self._back_button = Gtk.Button(_("Back"))
+        self._back_button.set_image(Icon(icon_name='go-left'))
+        self._back_button.connect('clicked', self.__button_back_cb)
+        hbox.pack_start(self._back_button, True, True, 10)
+
+        self._next_button = Gtk.Button(_("Next"))
+        self._next_button.set_image(Icon(icon_name='go-right'))
+        self._next_button.connect('clicked', self.__button_next_cb)
+        hbox.pack_start(self._next_button, True, True, 10)
 
         self._box.pack_start(hbox, False, False, 10)
 
         self.show_all()
         self.set_image_widgets_visible(self._poll.activity.get_use_image())
+
+    def __button_back_cb(self, button):
+        self._notebook.prev_page()
+
+    def __button_next_cb(self, button):
+        logging.error('current page %s', self._notebook.get_current_page())
+        if self._notebook.get_current_page() < 2:
+            errors = self._validate(self._notebook.get_current_page())
+            if not errors:
+                self._notebook.next_page()
+        if self._notebook.get_current_page() == 2:
+            self._title_label.set_text(self._poll.title)
+            self._question_label.set_text(self._poll.question)
+            self._maxvoters_label.set_text(str(self._poll.maxvoters))
+            logging.error(self._poll.options.keys())
+            for choice in self._poll.options.keys():
+                self._option_labels[int(choice)].set_text(
+                    self._poll.options[int(choice)])
+            self._notebook.next_page()
 
     def set_image_widgets_visible(self, visible):
         for widget in self._image_widgets:
@@ -217,7 +326,6 @@ class NewPollCanvas(Gtk.EventBox):
                         jobject.file_path
 
                     self.__show_image_thumbnail(hbox, choice)
-                    button.set_label(_('Change Image'))
 
                 else:
                     self._poll.activity.get_alert(
@@ -253,10 +361,6 @@ class NewPollCanvas(Gtk.EventBox):
         """
         Save button clicked.
         """
-        # Validate data
-        if self.__validate():
-            return
-
         # Data OK
         self._poll.activity._previewing = False
         self._poll.active = True
@@ -265,60 +369,52 @@ class NewPollCanvas(Gtk.EventBox):
         self._poll.activity.set_canvas(self._poll.activity._poll_canvas())
         self._poll.activity.show_all()
 
-    def __button_preview_cb(self, button):
-        """
-        Preview button clicked.
-        """
-        # Validate data
-        if self.__validate():
-            return
-
-        # Data OK
-        self._poll.active = True  # Show radio buttons
-        self._poll.activity._previewing = True
-        self._poll.activity.set_canvas(self._poll.activity._poll_canvas())
-        self._poll.activity.show_all()
-
-    def __validate(self):
+    def _validate(self, page):
 
         failed_items = []
 
-        if self._poll.title == '':
-            failed_items.append('title')
+        if page == 0:
+            box = self._first_page
+            if self._poll.title == '':
+                failed_items.append('title')
 
-        if self._poll.question == '':
-            failed_items.append('question')
+            if self._poll.question == '':
+                failed_items.append('question')
 
-        if self._poll.maxvoters == 0:
-            failed_items.append('maxvoters')
+            if self._poll.maxvoters == 0:
+                failed_items.append('maxvoters')
+        if page == 1:
+            box = self._second_page
+            if self._poll.options[0] == '':
+                failed_items.append('0')
 
-        if self._poll.options[0] == '':
-            failed_items.append('0')
+            if self._poll.options[1] == '':
+                failed_items.append('1')
 
-        if self._poll.options[1] == '':
-            failed_items.append('1')
+            if self._poll.options[3] != '' and self._poll.options[2] == '':
+                failed_items.append('2')
 
-        if self._poll.options[3] != '' and self._poll.options[2] == '':
-            failed_items.append('2')
+            if self._poll.options[4] != '' and self._poll.options[3] == '':
+                failed_items.append('3')
 
-        if self._poll.options[4] != '' and self._poll.options[3] == '':
-            failed_items.append('3')
+            if self._poll.options[2] == '':
+                self._poll.number_of_options = 2
 
-        if self._poll.options[2] == '':
-            self._poll.number_of_options = 2
+            elif self._poll.options[3] == '':
+                self._poll.number_of_options = 3
 
-        elif self._poll.options[3] == '':
-            self._poll.number_of_options = 3
+            elif self._poll.options[4] == '':
+                self._poll.number_of_options = 4
 
-        elif self._poll.options[4] == '':
-            self._poll.number_of_options = 4
-
-        else:
-            self._poll.number_of_options = 5
+            else:
+                self._poll.number_of_options = 5
 
         # paint the obligatory entries without value
-        for child in self._box.get_children():
-            if type(child) is ItemNewPoll and child.field in failed_items:
+
+        for child in box:
+            if (type(child) is ItemNewPoll or
+                type(child) is ItemOptionNewPoll) \
+                    and child.field in failed_items:
                 child.entry.modify_bg(Gtk.StateType.NORMAL,
                                       style.Color('#FFFF00').get_gdk_color())
 
@@ -329,24 +425,36 @@ class ItemNewPoll(Gtk.Box):
 
     def __init__(self, label_text, poll, field):
 
-        Gtk.Box.__init__(self, orientation=Gtk.Orientation.HORIZONTAL)
+        Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
         self._poll = poll
         self.field = field
+
+        label = Gtk.Label()
+        label.set_markup('<span size="x-large">%s</span>' % label_text)
+        label.set_halign(Gtk.Align.CENTER)
+        label.props.margin = style.GRID_CELL_SIZE / 2
+        self.pack_start(label, False, False, 0)
+
         self.entry = Gtk.Entry()
-        if field in ('title', 'question', 'maxvoters'):
-            self.entry.set_text(str(getattr(poll, field)))
-        else:
-            self.entry.set_text(poll.options[int(field)])
+        margin = style.GRID_CELL_SIZE
+
+        if field == 'maxvoters':
+            self.entry.props.xalign = 1
+            margin = Gdk.Screen.width() / 2 - (style.GRID_CELL_SIZE * 2)
+
+        self.entry.props.margin_left = margin
+        self.entry.props.margin_right = margin
+
+        self.entry.set_text(str(getattr(poll, field)))
 
         self.entry.connect('changed', self.__entry_changed_cb)
 
-        self.pack_start(Gtk.Label(label_text), False, False, 10)
-        self.pack_start(self.entry, True, True, 10)
+        self.pack_start(self.entry, False, False, 0)
 
         self.show_all()
 
     def __entry_changed_cb(self, entry):
-
+        logging.error(entry.get_text())
         text = entry.get_text()
         if text:
             if self.field == 'title':
@@ -354,12 +462,36 @@ class ItemNewPoll(Gtk.Box):
             elif self.field == 'question':
                 self._poll.question = text
             elif self.field == 'maxvoters':
-                try:
-                    self._poll.maxvoters = int(text)
-                except ValueError:
-                    self._poll.maxvoters = 0  # invalid, will be trapped
-            else:
-                self._poll.options[int(self.field)] = text
+                self._poll.maxvoters = int(text)
+        entry.modify_bg(Gtk.StateType.NORMAL, None)
+
+
+class ItemOptionNewPoll(Gtk.Box):
+
+    def __init__(self, label_text, poll, field):
+
+        Gtk.Box.__init__(self, orientation=Gtk.Orientation.HORIZONTAL)
+        self._poll = poll
+        self.field = field
+        self.set_border_width(style.GRID_CELL_SIZE / 2)
+
+        label = Gtk.Label()
+        label.set_markup('<span size="x-large">%s</span>' % label_text)
+        label.set_halign(Gtk.Align.CENTER)
+        self.pack_start(label, False, False, 10)
+
+        self.entry = Gtk.Entry()
+        self.entry.set_text(poll.options[int(field)])
+        self.entry.connect('changed', self.__entry_changed_cb)
+        self.pack_start(self.entry, True, True, 0)
+
+        self.show_all()
+
+    def __entry_changed_cb(self, entry):
+        logging.error(entry.get_text())
+        text = entry.get_text()
+        if text:
+            self._poll.options[int(self.field)] = text
         entry.modify_bg(Gtk.StateType.NORMAL, None)
 
 
