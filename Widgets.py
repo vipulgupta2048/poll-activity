@@ -38,12 +38,13 @@ except:
 
 from sugar3.graphics.toolbarbox import ToolbarBox
 from sugar3.graphics.toolbutton import ToolButton
+from sugar3.graphics.radiotoolbutton import RadioToolButton
 from sugar3.activity.widgets import StopButton
 from sugar3.activity.widgets import ActivityToolbarButton
 from sugar3.graphics import style
 from sugar3.graphics.icon import Icon
 
-from graphics import PieChart
+from graphics import Chart, CHART_TYPE_PIE
 
 basepath = os.path.dirname(__file__)
 
@@ -83,6 +84,18 @@ class Toolbar(ToolbarBox):
         hbox.show_all()
         palette.set_content(hbox)
         self.toolbar.insert(self.settings_button, -1)
+
+        self.toolbar.insert(Gtk.SeparatorToolItem(), -1)
+
+        self.pie_chart_button = RadioToolButton('pie-chart')
+        self.pie_chart_button.set_tooltip(_('Pie chart'))
+        self.toolbar.insert(self.pie_chart_button, -1)
+        charts_group = self.pie_chart_button
+
+        self.vbar_chart_button = RadioToolButton('vbar-chart')
+        self.vbar_chart_button.set_tooltip(_('Vertical bar chart'))
+        self.toolbar.insert(self.vbar_chart_button, -1)
+        self.vbar_chart_button.props.group = charts_group
 
         separator = Gtk.SeparatorToolItem()
         separator.props.draw = False
@@ -753,17 +766,17 @@ class PollCanvas(Gtk.EventBox):
 
         logging.error('poll options %s data %s', poll.options, poll.data)
 
-        chart = PieChart(data)
-        chart.set_hexpand(True)
-        chart.set_vexpand(True)
+        self.chart = Chart(data, CHART_TYPE_PIE)
+        self.chart.set_hexpand(True)
+        self.chart.set_vexpand(True)
 
         # TODO: just showing/hiding one widget now
-        self._results_widgets.append(chart)
+        self._results_widgets.append(self.chart)
 
         # Button area
         if poll.active:
             self._grid.attach(scroll, 0, 2, 1, 1)
-            self._grid.attach(chart, 1, 2, 1, 1)
+            self._grid.attach(self.chart, 1, 2, 1, 1)
 
             button = Gtk.Button(_("Vote"))
             button.set_image(Icon(icon_name='dialog-ok',
@@ -786,7 +799,7 @@ class PollCanvas(Gtk.EventBox):
             self._grid.attach(button, 1, 3, 1, 1)
         else:
             logging.error('poll not active')
-            self._grid.attach(chart, 0, 2, 1, 1)
+            self._grid.attach(self.chart, 0, 2, 1, 1)
 
         self.show_all()
         # hide or show the results if needed

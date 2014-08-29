@@ -24,14 +24,27 @@ def _set_screen_dpi():
     font_map_default.set_resolution(dpi)
 
 
-class PieChart(Gtk.DrawingArea):
+CHART_TYPE_PIE = 1
+CHART_TYPE_VERTICAL_BARS = 2
 
-    def __init__(self, data):
+
+class Chart(Gtk.DrawingArea):
+
+    def __init__(self, data, chart_type):
         # data is a dictionary, with the key (str) and the value (number)
         Gtk.DrawingArea.__init__(self)
         self._data = data
+        self._chart_type = chart_type
         self.sorted_categories = self._data.keys()
         self.connect('draw', self.__chart_draw_cb)
+
+    def set_data(self, data):
+        self._data = data
+        self.queue_draw()
+
+    def set_chart_type(self, chart_type):
+        self._chart_type = chart_type
+        self.queue_draw()
 
     def __chart_draw_cb(self, widget, context):
         # Draw pie chart.
@@ -121,44 +134,48 @@ class PieChart(Gtk.DrawingArea):
 
         context.restore()
 
-        # draw the pie
-        x = (image_width - rectangles_width) / 2 + rectangles_width
-        y = image_height / 2
-        r = min(image_width, image_height) / 2 - 10
+        if self._chart_type == CHART_TYPE_PIE:
+            # draw the pie
+            x = (image_width - rectangles_width) / 2 + rectangles_width
+            y = image_height / 2
+            r = min(image_width, image_height) / 2 - 10
 
-        total = 0
-        for c in self.sorted_categories:
-            total += self._data[c]
-
-        if total != 0:
-            angle = 0.0
-
+            total = 0
             for c in self.sorted_categories:
-                slice = 2 * math.pi * self._data[c] / total
+                total += self._data[c]
+
+            if total != 0:
+                angle = 0.0
+
+                for c in self.sorted_categories:
+                    slice = 2 * math.pi * self._data[c] / total
+                    color = colors.get_category_color(c)
+
+                    context.move_to(x, y)
+                    context.arc(x, y, r, angle, angle + slice)
+                    context.close_path()
+
+                    context.set_source_rgb(color[0], color[1], color[2])
+                    context.fill()
+
+                    angle += slice
+
+        if self._chart_type == CHART_TYPE_VERTICAL_BARS:
+            margin = 20
+            graph_width = image_width - rectangles_width - margin * 2
+            graph_height = image_height - margin * 2
+            bar_width = graph_width / len(self.sorted_categories) - margin
+
+            max_value = 0
+            for c in self.sorted_categories:
+                max_value = max(max_value, self._data[c])
+
+            x_value = rectangles_width + margin
+            for c in self.sorted_categories:
+                bar_height = self._data[c] * graph_height / max_value
+                context.rectangle(x_value, graph_height - bar_height,
+                                  bar_width, bar_height)
                 color = colors.get_category_color(c)
-
-                context.move_to(x, y)
-                context.arc(x, y, r, angle, angle + slice)
-                context.close_path()
-
                 context.set_source_rgb(color[0], color[1], color[2])
                 context.fill()
-
-                angle += slice
-
-    """
-
-    def __draw_bar(self, widget, context, votos, total, color):
-        #Graphic the percent of votes from one option.
-
-        rect = widget.get_allocation()
-        w, h = (rect.width, rect.height)
-        percent = votos * 100 / total
-        width = w * percent / 100
-
-        context.rectangle(0, h / 2 - 10, width, 30)
-        context.set_source_rgb(color[0], color[1], color[2])
-        context.fill()
-
-        return True
-    """
+                x_value += bar_width + margin

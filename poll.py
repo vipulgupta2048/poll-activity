@@ -56,6 +56,7 @@ from Widgets import PollCanvas      # Participate in a poll.
 from PollSession import PollSession
 from PollSession import Poll
 import emptypanel
+from graphics import CHART_TYPE_PIE, CHART_TYPE_VERTICAL_BARS
 
 SERVICE = "org.worldwideworkshop.olpc.PollBuilder"
 IFACE = SERVICE
@@ -115,6 +116,12 @@ class PollBuilder(activity.Activity):
         toolbar = Toolbar(self)
         toolbar.create_button.connect('clicked', self.__button_new_clicked)
         toolbar.choose_button.connect('clicked', self.__button_select_clicked)
+
+        toolbar.pie_chart_button.connect(
+            'clicked', self.__chart_type_clicked_cb, CHART_TYPE_PIE)
+        toolbar.vbar_chart_button.connect(
+            'clicked', self.__chart_type_clicked_cb, CHART_TYPE_VERTICAL_BARS)
+
         self.set_toolbar_box(toolbar)
 
         emptypanel.show(self, 'new-poll', _('Create a new poll'),
@@ -463,6 +470,10 @@ class PollBuilder(activity.Activity):
 
     def get_use_image(self):
         return self._use_image
+
+    def __chart_type_clicked_cb(self, button, chart_type):
+        if type(self.get_canvas()) is PollCanvas:
+            self.get_canvas().chart.set_chart_type(chart_type)
 
     def vote_on_poll(self, author, title, choice, votersha):
         """
