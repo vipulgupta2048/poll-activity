@@ -84,7 +84,6 @@ class PollBuilder(activity.Activity):
 
         self._polls = set()
         self.current_vote = None
-        self._previewing = False
 
         # This property allows result viewing while voting
         self._view_answer = True
@@ -313,7 +312,7 @@ class PollBuilder(activity.Activity):
         """
         self.current_vote = None
         return PollCanvas(self._poll, self.current_vote,
-                          self._view_answer, self._previewing)
+                          self._view_answer)
 
     def _select_poll_button_cb(self, button, sha=None):
         """
@@ -323,7 +322,6 @@ class PollBuilder(activity.Activity):
             self._logger.debug('Strange, which button was clicked?')
             return
 
-        self._previewing = False
         self.__switch_to_poll(sha)
         self.set_canvas(self._poll_canvas())
 
@@ -399,8 +397,7 @@ class PollBuilder(activity.Activity):
                 self.current_vote = None
 
             self.set_canvas(PollCanvas(self._poll,
-                                       self.current_vote, self._view_answer,
-                                       self._previewing))
+                                       self.current_vote, self._view_answer))
         else:
             self.get_alert(
                 _('Poll Activity'),
@@ -489,8 +486,7 @@ class PollBuilder(activity.Activity):
                             type(self.get_canvas()) is PollCanvas:
                         self.set_canvas(PollCanvas(self._poll,
                                                    self.current_vote,
-                                                   self._view_answer,
-                                                   self._previewing))
+                                                   self._view_answer))
 
                 except OverflowError:
                     self._logger.debug(

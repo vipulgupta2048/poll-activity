@@ -43,7 +43,7 @@ from sugar3.activity.widgets import ActivityToolbarButton
 from sugar3.graphics import style
 from sugar3.graphics.icon import Icon
 
-import colors
+from graphics import PieChart
 
 basepath = os.path.dirname(__file__)
 
@@ -362,7 +362,6 @@ class NewPollCanvas(Gtk.EventBox):
         Save button clicked.
         """
         # Data OK
-        self._poll.activity._previewing = False
         self._poll.active = True
         self._poll.activity._polls.add(self._poll)
         self._poll.broadcast_on_mesh()
@@ -669,7 +668,7 @@ class HeaderBar(Gtk.EventBox):
 
 class PollCanvas(Gtk.EventBox):
 
-    def __init__(self, poll, current_vote, view_answer, previewing):
+    def __init__(self, poll, current_vote, view_answer):
 
         Gtk.EventBox.__init__(self)
         self.modify_bg(Gtk.StateType.NORMAL,
@@ -680,14 +679,11 @@ class PollCanvas(Gtk.EventBox):
 
         self._poll = poll
 
-        if not previewing:
-            header = _('VOTE!')
-            if self._poll.active:
-                header = _('VOTE')
-            else:
-                header = _('RESULTS')
+        header = _('VOTE!')
+        if self._poll.active:
+            header = _('VOTE')
         else:
-            header = _('Poll Preview')
+            header = _('RESULTS')
 
         box.pack_start(HeaderBar(_(header)), False, False, 0)
 
@@ -704,8 +700,8 @@ class PollCanvas(Gtk.EventBox):
         self.question.set_markup('<span size="large"><b>%s</b></span>' %
                                  poll.question)
         self.question.props.margin = style.GRID_CELL_SIZE / 2
-        self.question.set_halign(Gtk.Align.START)
-        self._grid.attach(self.question, 0, 1, 1, 1)
+        self.question.set_halign(Gtk.Align.CENTER)
+        self._grid.attach(self.question, 0, 1, 2, 1)
 
         counter_label = Gtk.Label()
         counter_label.set_markup(
@@ -726,65 +722,52 @@ class PollCanvas(Gtk.EventBox):
         scroll.set_hexpand(True)
         scroll.set_vexpand(True)
 
-        self._grid.attach(scroll, 0, 2, 2, 1)
-
         group = Gtk.RadioButton()
 
         row = 0
         self._results_widgets = []
+        data = {}
         for choice in range(poll.number_of_options):
-
-            button = Gtk.RadioButton.new_with_label_from_widget(
-                group, poll.options[choice])
-
-            button.connect('toggled', poll.activity.vote_choice_radio_button,
-                           choice)
+            # data is used by the chart
+            data[poll.options[choice]] = poll.data[choice]
 
             if poll.active:
-                button.set_sensitive(True)
-            else:
-                button.set_sensitive(False)
+                button = Gtk.RadioButton.new_with_label_from_widget(
+                    group, poll.options[choice])
 
-            tabla.attach(button, 0, 1, row, row + 1)
+                button.connect(
+                    'toggled', poll.activity.vote_choice_radio_button, choice)
 
-            if choice == current_vote:
-                button.set_active(True)
+                tabla.attach(button, 0, 1, row, row + 1)
 
-            if poll.images[int(choice)]:
-                image = Gtk.Image()
-                image.set_from_pixbuf(poll.images[choice])
-                image.set_halign(Gtk.Align.START)
-                tabla.attach(image, 1, 2, row, row + 1)
+                if choice == current_vote:
+                    button.set_active(True)
 
-            # Total de votos
-            label = Gtk.Label(poll.data[choice])
-            label.set_halign(Gtk.Align.END)
-            label.set_valign(Gtk.Align.CENTER)
-            label.props.margin = 10
-            tabla.attach(label, 3, 4, row, row + 1)
-
-            eventbox = Gtk.EventBox()
-            eventbox.set_valign(Gtk.Align.CENTER)
-            eventbox.set_size_request(300, style.GRID_CELL_SIZE / 2)
-            tabla.attach(eventbox, 4, 5, row, row + 1)
-
-            color = colors.get_category_color(poll.options[choice])
-
-            eventbox.connect("draw",
-                             self.__draw_bar, poll.data[choice],
-                             poll.vote_count, color)
-
-            # add to a collection to show/hide on demand
-            self._results_widgets.append(label)
-            self._results_widgets.append(eventbox)
+                if poll.images[int(choice)]:
+                    image = Gtk.Image()
+                    image.set_from_pixbuf(poll.images[choice])
+                    image.set_halign(Gtk.Align.START)
+                    tabla.attach(image, 1, 2, row, row + 1)
 
             row += 1
 
+        logging.error('poll options %s data %s', poll.options, poll.data)
+
+        chart = PieChart(data)
+        chart.set_hexpand(True)
+        chart.set_vexpand(True)
+
+        # TODO: just showing/hiding one widget now
+        self._results_widgets.append(chart)
+
         # Button area
-        if poll.active and not previewing:
+        if poll.active:
+            self._grid.attach(scroll, 0, 2, 1, 1)
+            self._grid.attach(chart, 1, 2, 1, 1)
+
             button = Gtk.Button(_("Vote"))
             button.set_image(Icon(icon_name='dialog-ok',
-                                  pixel_size=style.LARGE_ICON_SIZE))
+                                  pixel_size=style.MEDIUM_ICON_SIZE))
             theme = 'GtkButton {background-color: %s;' \
                 'font-size:%s;' \
                 'padding: 5px 35px 5px 35px;}' % \
@@ -801,17 +784,9 @@ class PollCanvas(Gtk.EventBox):
             button.set_halign(Gtk.Align.END)
 
             self._grid.attach(button, 1, 3, 1, 1)
-
-        elif previewing:
-            button = Gtk.Button(_("Edit Poll"))
-            button.connect('clicked', poll.activity.button_edit_clicked)
-            button.props.margin = style.GRID_CELL_SIZE / 2
-            self._grid.attach(button, 0, 3, 1, 1)
-
-            button = Gtk.Button(_("Save Poll"))
-            button.connect('clicked', self._button_save_cb)
-            button.props.margin = style.GRID_CELL_SIZE / 2
-            self._grid.attach(button, 1, 3, 1, 1)
+        else:
+            logging.error('poll not active')
+            self._grid.attach(chart, 0, 2, 1, 1)
 
         self.show_all()
         # hide or show the results if needed
@@ -826,25 +801,8 @@ class PollCanvas(Gtk.EventBox):
         Save button clicked.
         """
         # Data OK
-        self._poll.activity._previewing = False
         self._poll.active = True
         self._poll.activity._polls.add(self._poll)
         self._poll.broadcast_on_mesh()
         self._poll.activity.set_canvas(self._poll.activity._poll_canvas())
         self._poll.activity.show_all()
-
-    def __draw_bar(self, widget, context, votos, total, color):
-        """
-        Graphic the percent of votes from one option.
-        """
-
-        rect = widget.get_allocation()
-        w, h = (rect.width, rect.height)
-        percent = votos * 100 / total
-        width = w * percent / 100
-
-        context.rectangle(0, h / 2 - 10, width, 30)
-        context.set_source_rgb(color[0], color[1], color[2])
-        context.fill()
-
-        return True
