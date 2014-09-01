@@ -24,6 +24,22 @@ def _set_screen_dpi():
     font_map_default.set_resolution(dpi)
 
 
+def draw_round_rect(context, x, y, w, h, r):
+    # Copiado de http://www.steveanddebs.org/PyCairoDemo/
+    # "Draw a rounded rectangle"
+
+    context.move_to(x + r, y)
+    context.line_to(x + w - r, y)
+    context.curve_to(x + w, y, x + w, y, x + w, y + r)
+    context.line_to(x + w, y + h - r)
+    context.curve_to(x + w, y + h, x + w, y + h, x + w - r, y + h)
+    context.line_to(x + r, y + h)
+    context.curve_to(x, y + h, x, y + h, x, y + h - r)
+    context.line_to(x, y + r)
+    context.curve_to(x, y, x, y, x + r, y)
+    return
+
+
 CHART_TYPE_PIE = 1
 CHART_TYPE_VERTICAL_BARS = 2
 
@@ -102,7 +118,8 @@ class Chart(Gtk.DrawingArea):
                 description = _('Unknown')
             context.save()
             context.translate(0, y)
-            context.rectangle(0, 0, rectangles_width, max_height + padding)
+            draw_round_rect(context, 0, 0,
+                            rectangles_width, max_height + padding, 10)
 
             color = colors.get_category_color(c)
             context.set_source_rgb(color[0], color[1], color[2])
