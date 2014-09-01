@@ -173,9 +173,22 @@ class Chart(Gtk.DrawingArea):
             x_value = rectangles_width + margin
             for c in self.sorted_categories:
                 bar_height = self._data[c] * graph_height / max_value
-                context.rectangle(x_value, graph_height - bar_height,
+                context.rectangle(x_value + margin, graph_height - bar_height,
                                   bar_width, bar_height)
                 color = colors.get_category_color(c)
                 context.set_source_rgb(color[0], color[1], color[2])
                 context.fill()
                 x_value += bar_width + margin
+
+            # add a shadow at the bottom
+            context.rectangle(
+                rectangles_width + 2 * margin, graph_height,
+                (bar_width + margin) * len(self.sorted_categories) - margin,
+                margin)
+            gradient = cairo.LinearGradient(
+                rectangles_width + 2 * margin, graph_height,
+                rectangles_width + 2 * margin, graph_height + margin)
+            gradient.add_color_stop_rgba(0, 0, 0, 0, 0.25)
+            gradient.add_color_stop_rgba(1, 1, 1, 1, 0.25)
+            context.set_source(gradient)
+            context.fill()
