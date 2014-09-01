@@ -121,6 +121,7 @@ class PollBuilder(activity.Activity):
             'clicked', self.__chart_type_clicked_cb, CHART_TYPE_PIE)
         toolbar.vbar_chart_button.connect(
             'clicked', self.__chart_type_clicked_cb, CHART_TYPE_VERTICAL_BARS)
+        self._chart_type_selected = CHART_TYPE_PIE
 
         self.set_toolbar_box(toolbar)
 
@@ -319,7 +320,7 @@ class PollBuilder(activity.Activity):
         """
         self.current_vote = None
         return PollCanvas(self._poll, self.current_vote,
-                          self._view_answer)
+                          self._view_answer, self._chart_type_selected)
 
     def _select_poll_button_cb(self, button, sha=None):
         """
@@ -403,8 +404,9 @@ class PollBuilder(activity.Activity):
             if not self._remember_last_vote:
                 self.current_vote = None
 
-            self.set_canvas(PollCanvas(self._poll,
-                                       self.current_vote, self._view_answer))
+            self.set_canvas(PollCanvas(
+                self._poll, self.current_vote,
+                self._view_answer, self._chart_type_selected))
         else:
             self.get_alert(
                 _('Poll Activity'),
@@ -472,6 +474,7 @@ class PollBuilder(activity.Activity):
         return self._use_image
 
     def __chart_type_clicked_cb(self, button, chart_type):
+        self._chart_type_selected = chart_type
         if type(self.get_canvas()) is PollCanvas:
             self.get_canvas().chart.set_chart_type(chart_type)
 
@@ -497,7 +500,8 @@ class PollBuilder(activity.Activity):
                             type(self.get_canvas()) is PollCanvas:
                         self.set_canvas(PollCanvas(self._poll,
                                                    self.current_vote,
-                                                   self._view_answer))
+                                                   self._view_answer,
+                                                   self._chart_type_selected))
 
                 except OverflowError:
                     self._logger.debug(
