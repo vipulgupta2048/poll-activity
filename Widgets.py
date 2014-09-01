@@ -529,7 +529,7 @@ class OptionsPalette(Gtk.Box):
         self.pack_start(self._remember_vote_checkbutton, True, True, 10)
 
         self._play_vote_sound_checkbutton = Gtk.CheckButton(
-            label=_('Play a sound when make a vote'))
+            label=_('Play a sound when making a vote'))
         self._play_vote_sound_checkbutton.connect(
             'toggled', self.__play_vote_sound_checkbox_cb)
         self.pack_start(self._play_vote_sound_checkbutton, True, True, 10)
