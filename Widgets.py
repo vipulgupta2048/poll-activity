@@ -380,6 +380,12 @@ class NewPollCanvas(Gtk.EventBox):
         image.show()
         self._image_widgets.append(image)
 
+        # reduce margin in the box, or the options will not fill in the screen
+        parent_box.get_parent().set_border_width(0)
+        answer_label = parent_box.get_parent().get_children()[0]
+        answer_label.props.margin_left = style.GRID_CELL_SIZE / 2
+        image.props.margin_right = style.GRID_CELL_SIZE / 2
+
         chl = parent_box.get_children()
 
         if len(chl) == 2:
