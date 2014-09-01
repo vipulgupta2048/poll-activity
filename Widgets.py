@@ -818,9 +818,9 @@ class PollCanvas(Gtk.EventBox):
             button.connect('clicked', poll.activity.button_vote_cb)
             button.props.margin = style.GRID_CELL_SIZE / 2
             button.set_hexpand(False)
-            button.set_halign(Gtk.Align.END)
+            button.set_halign(Gtk.Align.CENTER)
 
-            self._grid.attach(button, 1, 3, 1, 1)
+            self._grid.attach(button, 0, 3, 1, 1)
         else:
             logging.error('poll not active')
             self._grid.attach(self.chart, 0, 2, 1, 1)
