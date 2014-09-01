@@ -40,6 +40,20 @@ def draw_round_rect(context, x, y, w, h, r):
     return
 
 
+def top_rounded_rect(context, x, y, w, h, r):
+    # Copiado de http://www.steveanddebs.org/PyCairoDemo/
+    # "Draw a rounded rectangle"
+
+    context.move_to(x + r, y)
+    context.line_to(x + w - r, y)
+    context.curve_to(x + w, y, x + w, y, x + w, y + r)
+    context.line_to(x + w, y + h)
+    context.line_to(x, y + h)
+    context.line_to(x, y + r)
+    context.curve_to(x, y, x, y, x + r, y)
+    return
+
+
 CHART_TYPE_PIE = 1
 CHART_TYPE_VERTICAL_BARS = 2
 
@@ -190,8 +204,9 @@ class Chart(Gtk.DrawingArea):
             x_value = rectangles_width + margin
             for c in self.sorted_categories:
                 bar_height = self._data[c] * graph_height / max_value
-                context.rectangle(x_value + margin, graph_height - bar_height,
-                                  bar_width, bar_height)
+                top_rounded_rect(context,
+                                 x_value + margin, graph_height - bar_height,
+                                 bar_width, bar_height, 10)
                 color = colors.get_category_color(c)
                 context.set_source_rgb(color[0], color[1], color[2])
                 context.fill()
