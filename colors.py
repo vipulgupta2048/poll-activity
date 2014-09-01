@@ -55,6 +55,24 @@ def _luminance(color):
         int(color[5:7], 16) * 0.1
 
 
+def lighter_color(colors):
+    ''' Which color is lighter?
+            colors: array of str with two colors in #rrggbb format
+            returns index of the color in the array
+    '''
+    if _luminance(colors[0]) > _luminance(colors[1]):
+        return 0
+    return 1
+
+
+def darker_color(colors):
+    ''' Which color is darker?
+            colors: array of str with two colors in #rrggbb format
+            returns index of the color in the array
+    '''
+    return 1 - lighter_color(colors)
+
+
 def test_luminances():
     for cat_color in CATEGORY_COLORS:
         color = "#%02x%02x%02x" % \

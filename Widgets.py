@@ -45,8 +45,16 @@ from sugar3.graphics import style
 from sugar3.graphics.icon import Icon
 
 from graphics import Chart, CHART_TYPE_PIE
+import colors
 
 basepath = os.path.dirname(__file__)
+
+
+# check the darker user color
+xo_color = profile.get_color()
+my_colors = [xo_color.get_stroke_color(),
+             xo_color.get_fill_color()]
+darker_color_str = my_colors[colors.darker_color(my_colors)]
 
 
 class Toolbar(ToolbarBox):
@@ -166,8 +174,8 @@ class NewPollCanvas(Gtk.EventBox):
         self._options_page.show()
 
         label = Gtk.Label()
-        label.set_markup('<span size="x-large">%s</span>' %
-                         _('What are the choices?'))
+        label.set_markup('<span size="x-large" color="%s">%s</span>'
+                         % (darker_color_str, _('What are the choices?')))
         label.set_halign(Gtk.Align.CENTER)
         label.props.margin = style.GRID_CELL_SIZE / 2
         self._options_page.pack_start(label, False, False, 0)
@@ -197,8 +205,8 @@ class NewPollCanvas(Gtk.EventBox):
         self._notebook.append_page(summary_page, None)
 
         label = Gtk.Label()
-        label.set_markup('<span size="x-large">%s</span>' %
-                         _('Is this correct?'))
+        label.set_markup('<span size="x-large" color="%s">%s</span>'
+                         % (darker_color_str, _('Is this correct?')))
         label.set_halign(Gtk.Align.CENTER)
         label.props.margin = style.GRID_CELL_SIZE
         summary_page.pack_start(label, False, False, 0)
@@ -211,28 +219,32 @@ class NewPollCanvas(Gtk.EventBox):
         columns_box.pack_start(second_column, False, False, 10)
 
         label = Gtk.Label()
-        label.set_markup('<b>%s</b>' % _('Title'))
+        label.set_markup('<b><span color="%s">%s</span></b>' %
+                         (darker_color_str, _('Title')))
         first_column.pack_start(label, False, True, 10)
 
         self._title_label = Gtk.Label()
         first_column.pack_start(self._title_label, False, False, 10)
 
         label = Gtk.Label()
-        label.set_markup('<b>%s</b>' % _('Question'))
+        label.set_markup('<b><span color="%s">%s</span></b>' %
+                         (darker_color_str, _('Question')))
         first_column.pack_start(label, False, False, 10)
 
         self._question_label = Gtk.Label()
         first_column.pack_start(self._question_label, False, False, 10)
 
         label = Gtk.Label()
-        label.set_markup('<b>%s</b>' % _('How many votes'))
+        label.set_markup('<b><span color="%s">%s</span></b>' %
+                         (darker_color_str, _('How many votes')))
         first_column.pack_start(label, False, False, 10)
 
         self._maxvoters_label = Gtk.Label()
         first_column.pack_start(self._maxvoters_label, False, False, 10)
 
         label = Gtk.Label()
-        label.set_markup('<b>%s</b>' % _('Answers'))
+        label.set_markup('<b><span color="%s">%s</span></b>' %
+                         (darker_color_str, _('Answers')))
         second_column.pack_start(label, False, False, 10)
 
         self._option_labels = {}
@@ -451,7 +463,8 @@ class ItemNewPoll(Gtk.Box):
         self.field = field
 
         label = Gtk.Label()
-        label.set_markup('<span size="x-large">%s</span>' % label_text)
+        label.set_markup('<span size="x-large" color="%s">%s</span>'
+                         % (darker_color_str, label_text))
         label.set_halign(Gtk.Align.CENTER)
         label.props.margin = style.GRID_CELL_SIZE / 2
         self.pack_start(label, False, False, 0)
@@ -713,21 +726,22 @@ class PollCanvas(Gtk.EventBox):
         box.pack_start(self._grid, True, True, 0)
 
         self.title = Gtk.Label()
-        self.title.set_markup('<span size="large">%s</span>' % poll.title)
+        self.title.set_markup('<span size="x-large">%s</span>' % poll.title)
         self.title.props.margin = style.GRID_CELL_SIZE / 2
         self.title.set_halign(Gtk.Align.START)
         self._grid.attach(self.title, 0, 0, 1, 1)
 
         self.question = Gtk.Label()
-        self.question.set_markup('<span size="large"><b>%s</b></span>' %
-                                 poll.question)
+        self.question.set_markup(
+            '<span size="x-large" color="%s"><b>%s</b></span>' %
+            (darker_color_str, poll.question))
         self.question.props.margin = style.GRID_CELL_SIZE / 2
         self.question.set_halign(Gtk.Align.CENTER)
         self._grid.attach(self.question, 0, 1, 2, 1)
 
         counter_label = Gtk.Label()
         counter_label.set_markup(
-            '<span size="x-large">%s from %s votes collected</span>' %
+            '<span size="large">%s from %s votes collected</span>' %
             (poll.vote_count, poll.maxvoters))
         counter_label.props.margin = style.GRID_CELL_SIZE / 2
         counter_label.set_halign(Gtk.Align.END)
