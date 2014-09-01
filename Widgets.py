@@ -149,29 +149,35 @@ class NewPollCanvas(Gtk.EventBox):
                                 'question')
         self._first_page.pack_start(item_poll, False, False, 10)
 
+        # first page
+
+        self._maxvoters_page = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        self._notebook.append_page(self._maxvoters_page, None)
+        self._maxvoters_page.show()
+
         item_poll = ItemNewPoll(_('How many votes you want collect?'),
                                 self._poll, 'maxvoters')
-        self._first_page.pack_start(item_poll, False, False, 10)
+        self._maxvoters_page.pack_start(item_poll, False, False, 10)
 
-        # second page
+        # options page
 
-        self._second_page = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        self._notebook.append_page(self._second_page, None)
-        self._second_page.show()
+        self._options_page = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        self._notebook.append_page(self._options_page, None)
+        self._options_page.show()
 
         label = Gtk.Label()
         label.set_markup('<span size="x-large">%s</span>' %
                          _('What are the choices?'))
         label.set_halign(Gtk.Align.CENTER)
         label.props.margin = style.GRID_CELL_SIZE / 2
-        self._second_page.pack_start(label, False, False, 0)
+        self._options_page.pack_start(label, False, False, 0)
 
         self._image_widgets = []
         for choice in self._poll.options.keys():
             hbox = Gtk.HBox()
             item_poll = ItemOptionNewPoll(_('Answer %s:') % (choice + 1),
                                           self._poll, str(choice))
-            self._second_page.pack_start(item_poll, False, False, 10)
+            self._options_page.pack_start(item_poll, False, False, 10)
 
             button = Gtk.Button()
             button.set_image(Icon(icon_name='insert-picture'))
@@ -186,16 +192,16 @@ class NewPollCanvas(Gtk.EventBox):
 
             item_poll.pack_end(hbox, False, False, 0)
 
-        # 3 page, summary
-        third_page = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        self._notebook.append_page(third_page, None)
+        # 4 page, summary
+        summary_page = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        self._notebook.append_page(summary_page, None)
 
         label = Gtk.Label()
         label.set_markup('<span size="x-large">%s</span>' %
                          _('Is this correct?'))
         label.set_halign(Gtk.Align.CENTER)
         label.props.margin = style.GRID_CELL_SIZE
-        third_page.pack_start(label, False, False, 0)
+        summary_page.pack_start(label, False, False, 0)
 
         columns_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
         columns_box.set_homogeneous(True)
@@ -237,16 +243,16 @@ class NewPollCanvas(Gtk.EventBox):
 
         logging.error(self._option_labels)
 
-        third_page.pack_start(columns_box, True, True, 10)
+        summary_page.pack_start(columns_box, True, True, 10)
 
         save_button = Gtk.Button(_('Make the poll'))
         save_button.set_halign(Gtk.Align.CENTER)
         save_button.set_valign(Gtk.Align.START)
         save_button.props.margin = style.GRID_CELL_SIZE
         save_button.connect('clicked', self._button_save_cb)
-        third_page.pack_start(save_button, False, False, 0)
+        summary_page.pack_start(save_button, False, False, 0)
 
-        third_page.show_all()
+        summary_page.show_all()
 
         # buttons
         hbox = Gtk.ButtonBox()
@@ -272,11 +278,11 @@ class NewPollCanvas(Gtk.EventBox):
 
     def __button_next_cb(self, button):
         logging.error('current page %s', self._notebook.get_current_page())
-        if self._notebook.get_current_page() < 2:
+        if self._notebook.get_current_page() < 3:
             errors = self._validate(self._notebook.get_current_page())
             if not errors:
                 self._notebook.next_page()
-        if self._notebook.get_current_page() == 2:
+        if self._notebook.get_current_page() == 3:
             self._title_label.set_text(self._poll.title)
             self._question_label.set_text(self._poll.question)
             self._maxvoters_label.set_text(str(self._poll.maxvoters))
@@ -393,10 +399,13 @@ class NewPollCanvas(Gtk.EventBox):
             if self._poll.question == '':
                 failed_items.append('question')
 
+        if page == 1:
+            box = self._maxvoters_page
             if self._poll.maxvoters == 0:
                 failed_items.append('maxvoters')
-        if page == 1:
-            box = self._second_page
+
+        if page == 2:
+            box = self._options_page
             if self._poll.options[0] == '':
                 failed_items.append('0')
 
