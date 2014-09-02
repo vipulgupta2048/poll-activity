@@ -24,6 +24,7 @@
 # info@WorldWideWorkshop.org !
 
 from gi.repository import GdkPixbuf
+from gi.repository import Gtk
 
 import subprocess
 import cPickle
@@ -40,7 +41,7 @@ import telepathy.client
 from sugar3.presence.tubeconn import TubeConnection
 
 from sugar3.activity import activity
-from sugar3.graphics.alert import NotifyAlert
+from sugar3.graphics.alert import NotifyAlert, ConfirmationAlert
 
 from sugar3.presence import presenceservice
 from sugar3.datastore import datastore
@@ -336,21 +337,31 @@ class PollBuilder(activity.Activity):
         self.__switch_to_poll(sha)
         self.set_canvas(self._poll_canvas())
 
-    def _delete_poll_button_cb(self, button, event, sha):
+    def _delete_poll_button_cb(self, button, event, sha, title):
         """
         A DELETE button was clicked.
         """
 
-        if not sha:
-            self._logger.debug('Strange, which button was clicked?')
-            return
+        alert = ConfirmationAlert()
+        alert.props.title = _('Delete Poll?')
+        alert.props.msg = _('Do you want delete the poll "%s"?' % title)
+        alert.connect('response', self._delete_alert_confirmation_cb, sha)
+        self.add_alert(alert)
 
-        for poll in self._polls:
-            if poll.sha == sha:
-                self._polls.remove(poll)
-                break
+    def _delete_alert_confirmation_cb(self, alert, response_id, sha):
+        self.remove_alert(alert)
 
-        self.set_canvas(SelectCanvas(self))
+        if response_id is Gtk.ResponseType.OK:
+            if not sha:
+                self._logger.debug('Strange, which button was clicked?')
+                return
+
+            for poll in self._polls:
+                if poll.sha == sha:
+                    self._polls.remove(poll)
+                    break
+
+            self.set_canvas(SelectCanvas(self))
 
     def vote_choice_radio_button(self, widget, data):
         """

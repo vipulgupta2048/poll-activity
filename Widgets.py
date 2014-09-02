@@ -687,7 +687,8 @@ class SelectCanvas(Gtk.Box):
                                    pixel_size=style.STANDARD_ICON_SIZE)
                 button.set_stroke_color('#888888')
                 button.connect('button-press-event',
-                               poll_activity._delete_poll_button_cb, sha)
+                               poll_activity._delete_poll_button_cb, sha,
+                               poll.title)
                 poll_row.pack_start(button, False, False,
                                     style.GRID_CELL_SIZE / 2)
 
