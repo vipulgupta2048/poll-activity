@@ -704,10 +704,11 @@ class PollIcon(Gtk.DrawingArea):
         self.connect('draw', self.__draw_cb)
 
     def __draw_cb(self, widget, context):
-        # Draw pie chart.
-        graph_width = style.GRID_CELL_SIZE
-        graph_height = style.GRID_CELL_SIZE
-        margin = graph_width / 10
+        if self._poll.number_of_options == 0:
+            return
+        margin = style.GRID_CELL_SIZE / 10
+        graph_width = style.GRID_CELL_SIZE - margin * 2
+        graph_height = style.GRID_CELL_SIZE - margin * 2
         bar_width = (graph_width / self._poll.number_of_options) - margin
 
         max_value = 0
@@ -717,7 +718,8 @@ class PollIcon(Gtk.DrawingArea):
         x_value = margin
         for choice in range(self._poll.number_of_options):
             bar_height = self._poll.data[choice] * graph_height / max_value
-            context.rectangle(x_value + margin, graph_height - bar_height,
+            context.rectangle(x_value + margin,
+                              graph_height + margin - bar_height,
                               bar_width, bar_height)
             context.set_source_rgb(0.9, 0.9, 0.9)
             context.fill()
