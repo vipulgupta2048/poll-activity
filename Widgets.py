@@ -667,6 +667,8 @@ class SelectCanvas(Gtk.Box):
             align.add(title)
             poll_row.pack_start(align, True, True, 10)
 
+            poll_row.pack_start(PollIcon(poll), False, False, 10)
+
             if poll.active:
                 button = Gtk.Button(_('Vote'))
                 button.set_image(Icon(icon_name='dialog-ok'))
@@ -687,6 +689,35 @@ class SelectCanvas(Gtk.Box):
                 poll_row.pack_start(button, False, False, 10)
 
         self.show_all()
+
+
+class PollIcon(Gtk.DrawingArea):
+
+    def __init__(self, poll):
+        self._poll = poll
+        Gtk.DrawingArea.__init__(self)
+        self.set_size_request(style.GRID_CELL_SIZE, style.GRID_CELL_SIZE)
+        self.connect('draw', self.__draw_cb)
+
+    def __draw_cb(self, widget, context):
+        # Draw pie chart.
+        graph_width = style.GRID_CELL_SIZE
+        graph_height = style.GRID_CELL_SIZE
+        margin = graph_width / 10
+        bar_width = (graph_width / self._poll.number_of_options) - margin
+
+        max_value = 0
+        for choice in range(self._poll.number_of_options):
+            max_value = max(max_value, self._poll.data[choice])
+
+        x_value = margin
+        for choice in range(self._poll.number_of_options):
+            bar_height = self._poll.data[choice] * graph_height / max_value
+            context.rectangle(x_value + margin, graph_height - bar_height,
+                              bar_width, bar_height)
+            context.set_source_rgb(0.5, 0.5, 0.5)
+            context.fill()
+            x_value += bar_width + margin
 
 
 class HeaderBar(Gtk.EventBox):
