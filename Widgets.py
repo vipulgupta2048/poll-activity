@@ -42,7 +42,7 @@ from sugar3.graphics.radiotoolbutton import RadioToolButton
 from sugar3.activity.widgets import StopButton
 from sugar3.activity.widgets import ActivityToolbarButton
 from sugar3.graphics import style
-from sugar3.graphics.icon import Icon
+from sugar3.graphics.icon import Icon, EventIcon
 
 from graphics import Chart, CHART_TYPE_PIE
 import colors
@@ -633,6 +633,7 @@ class SelectCanvas(Gtk.Box):
 
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
 
+        poll_activity.reset_poll()
         self.pack_start(HeaderBar(_('Choose a Poll')), False, False, 0)
 
         poll_selector_box = Gtk.VBox()
@@ -650,8 +651,6 @@ class SelectCanvas(Gtk.Box):
 
         self.pack_start(scroll, True, True, 0)
 
-        size_group = Gtk.SizeGroup(Gtk.SizeGroupMode.HORIZONTAL)
-
         for poll in poll_activity._polls:
             sha = poll.sha
 
@@ -667,26 +666,30 @@ class SelectCanvas(Gtk.Box):
             align.add(title)
             poll_row.pack_start(align, True, True, 10)
 
-            poll_row.pack_start(PollIcon(poll), False, False, 10)
+            poll_row.pack_start(PollIcon(poll), False, False,
+                                style.GRID_CELL_SIZE / 2)
 
             if poll.active:
-                button = Gtk.Button(_('Vote'))
-                button.set_image(Icon(icon_name='dialog-ok'))
+                button = EventIcon(icon_name='activity-poll',
+                                   pixel_size=style.STANDARD_ICON_SIZE)
+                button.set_stroke_color('#888888')
             else:
-                button = Gtk.Button(_('See Results'))
-                button.set_image(Icon(icon_name='toolbar-view'))
-            size_group.add_widget(button)
+                button = EventIcon(icon_name='toolbar-view',
+                                   pixel_size=style.STANDARD_ICON_SIZE)
+                button.set_fill_color('#888888')
 
-            button.connect('clicked', poll_activity._select_poll_button_cb,
-                           sha)
-            poll_row.pack_start(button, False, False, 10)
+            button.connect('button-press-event',
+                           poll_activity._select_poll_button_cb, sha)
+            poll_row.pack_start(button, False, False, style.GRID_CELL_SIZE / 2)
 
             if poll.author == profile.get_nick_name():
-                button = Gtk.Button(_('Delete'))
-                button.set_image(Icon(icon_name='basket'))
-                button.connect('clicked',
+                button = EventIcon(icon_name='basket',
+                                   pixel_size=style.STANDARD_ICON_SIZE)
+                button.set_stroke_color('#888888')
+                button.connect('button-press-event',
                                poll_activity._delete_poll_button_cb, sha)
-                poll_row.pack_start(button, False, False, 10)
+                poll_row.pack_start(button, False, False,
+                                    style.GRID_CELL_SIZE / 2)
 
         self.show_all()
 
@@ -715,7 +718,7 @@ class PollIcon(Gtk.DrawingArea):
             bar_height = self._poll.data[choice] * graph_height / max_value
             context.rectangle(x_value + margin, graph_height - bar_height,
                               bar_width, bar_height)
-            context.set_source_rgb(0.5, 0.5, 0.5)
+            context.set_source_rgb(0.9, 0.9, 0.9)
             context.fill()
             x_value += bar_width + margin
 

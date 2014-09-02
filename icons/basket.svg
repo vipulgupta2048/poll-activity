@@ -1,6 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+    <!ENTITY stroke_color "#010101">
+    <!ENTITY fill_color "#FFFFFF">
+]>
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -17,28 +19,6 @@
    sodipodi:docname="clear_all.svg">
   <defs
      id="defs2987" />
-  <sodipodi:namedview
-     id="base"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageopacity="0.0"
-     inkscape:pageshadow="2"
-     inkscape:zoom="7"
-     inkscape:cx="-1.1428571"
-     inkscape:cy="24"
-     inkscape:current-layer="layer1"
-     showgrid="true"
-     inkscape:grid-bbox="true"
-     inkscape:document-units="px"
-     gridtolerance="10"
-     inkscape:snap-global="false"
-     guidetolerance="10"
-     inkscape:window-width="1360"
-     inkscape:window-height="744"
-     inkscape:window-x="0"
-     inkscape:window-y="24"
-     inkscape:window-maximized="1" />
   <metadata
      id="metadata2990">
     <rdf:RDF>
@@ -56,56 +36,56 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer">
     <rect
-       style="fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:3.899;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:none;fill-opacity:1;fill-rule:nonzero;stroke:&stroke_color;;stroke-width:3.899;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect3821"
        width="30.772253"
        height="29.05797"
        x="9.1853018"
        y="14.328158" />
     <rect
-       style="fill:none;stroke:#ffffff;stroke-width:1.75924551;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:none;stroke:&stroke_color;;stroke-width:1.75924551;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect3823"
        width="38.669331"
        height="1.6693259"
        x="5.02248"
        y="12.593908" />
     <rect
-       style="fill:none;stroke:#ffffff;stroke-width:1.25541639;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:none;stroke:&stroke_color;;stroke-width:1.25541639;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect3825"
        width="1.2017266"
        height="14.344584"
        x="15.970565"
        y="21.399136" />
     <rect
-       style="fill:none;stroke:#ffffff;stroke-width:1.25541639;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:none;stroke:&stroke_color;;stroke-width:1.25541639;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect3825-4"
        width="1.2017266"
        height="14.344584"
        x="24.11342"
        y="21.399137" />
     <rect
-       style="fill:none;stroke:#ffffff;stroke-width:1.25541639;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:none;stroke:&stroke_color;;stroke-width:1.25541639;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect3825-1"
        width="1.2017266"
        height="14.344584"
        x="31.970564"
        y="21.256279" />
     <rect
-       style="fill:none;stroke:#ffffff;stroke-width:3.599;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:none;stroke:&stroke_color;;stroke-width:3.599;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect3908"
        width="24.428572"
        height="0.14285715"
        x="12.571428"
        y="6.5714283" />
     <rect
-       style="fill:none;stroke:#ffffff;stroke-width:3.599;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:none;stroke:&stroke_color;;stroke-width:3.599;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect3910"
        width="0.14285715"
        height="5.1428571"
        x="12.571428"
        y="6.8571424" />
     <rect
-       style="fill:none;stroke:#ffffff;stroke-width:3.599;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:none;stroke:&stroke_color;;stroke-width:3.599;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect3910-5"
        width="0.14285715"
        height="5.1428571"

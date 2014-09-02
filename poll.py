@@ -103,6 +103,9 @@ class PollBuilder(activity.Activity):
         # This property has the image size
         self._image_size = {'height': 100, 'width': 100}
 
+        # the active poll
+        self._poll = None
+
         # get the Presence Service
         self.pservice = presenceservice.get_instance()
         self.initiating = False
@@ -322,7 +325,7 @@ class PollBuilder(activity.Activity):
         return PollCanvas(self._poll, self.current_vote,
                           self._view_answer, self._chart_type_selected)
 
-    def _select_poll_button_cb(self, button, sha=None):
+    def _select_poll_button_cb(self, button, event, sha=None):
         """
         A VOTE or SEE RESULTS button was clicked.
         """
@@ -333,7 +336,7 @@ class PollBuilder(activity.Activity):
         self.__switch_to_poll(sha)
         self.set_canvas(self._poll_canvas())
 
-    def _delete_poll_button_cb(self, button, sha):
+    def _delete_poll_button_cb(self, button, event, sha):
         """
         A DELETE button was clicked.
         """
@@ -341,9 +344,6 @@ class PollBuilder(activity.Activity):
         if not sha:
             self._logger.debug('Strange, which button was clicked?')
             return
-
-        if self._poll.sha == sha:
-            self._logger.debug('delete_poll: removing current poll')
 
         for poll in self._polls:
             if poll.sha == sha:
@@ -435,6 +435,9 @@ class PollBuilder(activity.Activity):
     def button_edit_clicked(self, button):
 
         self.set_canvas(NewPollCanvas(self._poll))
+
+    def reset_poll(self):
+        self._poll = None
 
     def __switch_to_poll(self, sha):
         """
