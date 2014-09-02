@@ -715,6 +715,9 @@ class PollIcon(Gtk.DrawingArea):
         for choice in range(self._poll.number_of_options):
             max_value = max(max_value, self._poll.data[choice])
 
+        if max_value == 0:
+            return
+
         x_value = margin
         for choice in range(self._poll.number_of_options):
             bar_height = self._poll.data[choice] * graph_height / max_value
