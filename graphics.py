@@ -61,11 +61,12 @@ CHART_TYPE_VERTICAL_BARS = 2
 class Chart(Gtk.DrawingArea):
 
     def __init__(self, data, chart_type):
-        # data is a dictionary, with the key (str) and the value (number)
+        # data is a array to be able to preserve the order
+        # selected by the user.
+        # every item in the array is a dict with keys 'label' and 'value'
         Gtk.DrawingArea.__init__(self)
         self._data = data
         self._chart_type = chart_type
-        self.sorted_categories = self._data.keys()
         self.connect('draw', self.__chart_draw_cb)
 
     def set_data(self, data):
@@ -104,10 +105,10 @@ class Chart(Gtk.DrawingArea):
                                  cairo.FONT_WEIGHT_NORMAL)
         context.set_font_size(26 * scale)
 
-        for c in self.sorted_categories:
-            description = c
+        for data in self._data:
+            description = data['label']
             # If there is no category, display as Unknown
-            if c is '':
+            if description is '':
                 description = _('Unknown')
 
             # need measure the description width to align the amounts
@@ -117,7 +118,7 @@ class Chart(Gtk.DrawingArea):
             max_height = max(max_height, height)
 
             x_bearing, y_bearing, width, height, x_advance, y_advance = \
-                context.text_extents(str(self._data[c]))
+                context.text_extents(str(data['value']))
             max_height = max(max_height, height)
             max_width_amount = max(max_width_amount, width)
 
@@ -126,20 +127,20 @@ class Chart(Gtk.DrawingArea):
         context.save()
         context.translate(margin_left, 0)
         rectangles_width = max_width_desc + max_width_amount + padding * 3
-        for c in self.sorted_categories:
-            description = c
-            if c is '':
+        for data in self._data:
+            description = data['label']
+            if description is '':
                 description = _('Unknown')
             context.save()
             context.translate(0, y)
             draw_round_rect(context, 0, 0,
                             rectangles_width, max_height + padding, 10)
 
-            color = colors.get_category_color(c)
+            color = colors.get_category_color(description)
             context.set_source_rgb(color[0], color[1], color[2])
             context.fill()
 
-            if colors.is_too_light(colors.get_category_color_str(c)):
+            if colors.is_too_light(colors.get_category_color_str(description)):
                 context.set_source_rgb(0, 0, 0)
             else:
                 context.set_source_rgb(1, 1, 1)
@@ -152,7 +153,7 @@ class Chart(Gtk.DrawingArea):
             context.restore()
 
             context.save()
-            text = str(self._data[c])
+            text = str(data['value'])
             x_bearing, y_bearing, width, height, x_advance, y_advance = \
                 context.text_extents(text)
             context.move_to(rectangles_width - x_advance - padding,
@@ -172,15 +173,17 @@ class Chart(Gtk.DrawingArea):
             r = min(image_width, image_height) / 2 - 10
 
             total = 0
-            for c in self.sorted_categories:
-                total += self._data[c]
+            for data in self._data:
+                total += data['value']
 
             if total != 0:
                 angle = 0.0
 
-                for c in self.sorted_categories:
-                    slice = 2 * math.pi * self._data[c] / total
-                    color = colors.get_category_color(c)
+                for data in self._data:
+                    value = data['value']
+                    label = data['label']
+                    slice = 2 * math.pi * value / total
+                    color = colors.get_category_color(label)
 
                     context.move_to(x, y)
                     context.arc(x, y, r, angle, angle + slice)
@@ -195,19 +198,21 @@ class Chart(Gtk.DrawingArea):
             margin = 20
             graph_width = image_width - rectangles_width - margin * 2
             graph_height = image_height - margin * 2
-            bar_width = graph_width / len(self.sorted_categories) - margin
+            bar_width = graph_width / len(self._data) - margin
 
             max_value = 0
-            for c in self.sorted_categories:
-                max_value = max(max_value, self._data[c])
+            for data in self._data:
+                max_value = max(max_value, data['value'])
 
             x_value = rectangles_width + margin
-            for c in self.sorted_categories:
-                bar_height = self._data[c] * graph_height / max_value
+            for data in self._data:
+                value = data['value']
+                label = data['label']
+                bar_height = value * graph_height / max_value
                 top_rounded_rect(context,
                                  x_value + margin, graph_height - bar_height,
                                  bar_width, bar_height, 10)
-                color = colors.get_category_color(c)
+                color = colors.get_category_color(label)
                 context.set_source_rgb(color[0], color[1], color[2])
                 context.fill()
                 x_value += bar_width + margin
@@ -215,7 +220,7 @@ class Chart(Gtk.DrawingArea):
             # add a shadow at the bottom
             context.rectangle(
                 rectangles_width + 2 * margin, graph_height,
-                (bar_width + margin) * len(self.sorted_categories) - margin,
+                (bar_width + margin) * len(self._data) - margin,
                 margin)
             gradient = cairo.LinearGradient(
                 rectangles_width + 2 * margin, graph_height,

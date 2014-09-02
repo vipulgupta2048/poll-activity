@@ -806,10 +806,11 @@ class PollCanvas(Gtk.EventBox):
 
         row = 0
         self._results_widgets = []
-        data = {}
+        data = []
         for choice in range(poll.number_of_options):
             # data is used by the chart
-            data[poll.options[choice]] = poll.data[choice]
+            data.append({'label': poll.options[choice],
+                         'value': poll.data[choice]})
 
             if poll.active:
                 button = Gtk.RadioButton.new_with_label_from_widget(
