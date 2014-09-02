@@ -318,6 +318,16 @@ class PollBuilder(activity.Activity):
 
         self.remove_alert(alert)
 
+    def set_canvas(self, widget):
+        # change the toolbar bassed on the canvas selected
+        enable_charts = type(widget) is PollCanvas
+        toolbarbox = self.get_toolbar_box()
+
+        toolbarbox.pie_chart_button.set_sensitive(enable_charts)
+        toolbarbox.vbar_chart_button.set_sensitive(enable_charts)
+
+        activity.Activity.set_canvas(self, widget)
+
     def _poll_canvas(self):
         """
         Show the poll canvas where children vote on an existing poll.
