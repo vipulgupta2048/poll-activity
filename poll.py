@@ -30,6 +30,9 @@ import subprocess
 import cPickle
 import json
 import logging
+import tempfile
+import dbus
+import StringIO
 
 from hashlib import sha1
 from datetime import date
@@ -41,7 +44,8 @@ import telepathy.client
 from sugar3.presence.tubeconn import TubeConnection
 
 from sugar3.activity import activity
-from sugar3.graphics.alert import NotifyAlert, ConfirmationAlert
+from sugar3.graphics.alert import Alert, NotifyAlert, ConfirmationAlert
+from sugar3.graphics.icon import Icon
 
 from sugar3.presence import presenceservice
 from sugar3.datastore import datastore
@@ -120,6 +124,8 @@ class PollBuilder(activity.Activity):
         toolbar = Toolbar(self)
         toolbar.create_button.connect('clicked', self.__button_new_clicked)
         toolbar.choose_button.connect('clicked', self.__button_select_clicked)
+        toolbar.export_data_bt.connect('clicked', self.__save_data_cb)
+        toolbar.export_image_bt.connect('clicked', self.__save_image_cb)
 
         toolbar.pie_chart_button.connect(
             'clicked', self.__chart_type_clicked_cb, CHART_TYPE_PIE)
@@ -325,6 +331,8 @@ class PollBuilder(activity.Activity):
 
         toolbarbox.pie_chart_button.set_sensitive(enable_charts)
         toolbarbox.vbar_chart_button.set_sensitive(enable_charts)
+        toolbarbox.export_data_bt.set_sensitive(enable_charts)
+        toolbarbox.export_image_bt.set_sensitive(enable_charts)
 
         activity.Activity.set_canvas(self, widget)
 
@@ -496,6 +504,113 @@ class PollBuilder(activity.Activity):
 
     def get_use_image(self):
         return self._use_image
+
+    def __save_image_cb(self, button):
+        if type(self.get_canvas()) is not PollCanvas:
+            return
+        chart = self.get_canvas().chart
+        image_file = tempfile.NamedTemporaryFile(mode='w+b', suffix='.png')
+        journal_entry = datastore.create()
+        journal_entry.metadata['title'] = \
+            '"%s" results chart' % self._poll.title
+        journal_entry.metadata['keep'] = '0'
+        journal_entry.metadata['mime_type'] = 'image/png'
+
+        # generate the image
+        chart.save_image(image_file.file, 800, 600)
+        image_file.file.close()
+        journal_entry.file_path = image_file.name
+
+        # generate the preview
+        preview_str = StringIO.StringIO()
+        chart.save_image(preview_str, activity.PREVIEW_SIZE[0],
+                         activity.PREVIEW_SIZE[1])
+        journal_entry.metadata['preview'] = dbus.ByteArray(
+            preview_str.getvalue())
+
+        logging.error('Create %s image file', image_file.name)
+        datastore.write(journal_entry)
+        self._show_journal_alert(
+            _('Chart created'), _('Open in the Journal'),
+            journal_entry.object_id)
+
+    def _show_journal_alert(self, title, msg, object_id):
+        open_alert = Alert()
+        open_alert.props.title = title
+        open_alert.props.msg = msg
+        open_icon = Icon(icon_name='zoom-activity')
+        open_alert.add_button(Gtk.ResponseType.APPLY,
+                              _('Show in Journal'), open_icon)
+        open_icon.show()
+        ok_icon = Icon(icon_name='dialog-ok')
+        open_alert.add_button(Gtk.ResponseType.OK, _('Ok'), ok_icon)
+        ok_icon.show()
+        # Remove other alerts
+        for alert in self._alerts:
+            self.remove_alert(alert)
+
+        self.add_alert(open_alert)
+        open_alert.connect('response', self.__open_response_cb, object_id)
+        open_alert.show()
+
+    def __open_response_cb(self, alert, response_id, object_id):
+        if response_id is Gtk.ResponseType.APPLY:
+            activity.show_object_in_journal(object_id)
+        self.remove_alert(alert)
+
+    def __save_data_cb(self, button):
+        if type(self.get_canvas()) is not PollCanvas:
+            return
+
+        chart_params = {}
+        axis = {'tickFont': 'Sans', 'labelFont': 'Sans', 'labelFontSize': 14,
+                'labelColor': '#666666', 'lineColor': '#b3b3b3',
+                'tickColor': '#000000', 'tickFontSize': 12}
+        chart_params['font_options'] = {
+            'titleFont': 'Sans', 'titleFontSize': 12, 'titleColor': '#000000',
+            'axis': axis}
+
+        title = _('Results from poll "%s"') % self._poll.title
+        chart_params['title'] = title
+        chart_params['x_label'] = ''
+        chart_params['y_label'] = ''
+        chart_params['current_chart.type'] = 1
+        xo_color = profile.get_color()
+        chart_params['chart_line_color'] = xo_color.get_stroke_color()
+        chart_params['chart_color'] = xo_color.get_fill_color()
+
+        """
+        'chart_data': [
+            ['hello', 200.0],
+            ['mrch', 100.0]],
+        """
+        data = []
+
+        for choice in range(self._poll.number_of_options):
+            # data is used by the chart
+            data.append([self._poll.options[choice], self._poll.data[choice]])
+
+        chart_params['chart_data'] = data
+
+        logging.debug('chart_data %s', chart_params)
+
+        # save to the journal
+        data_file = tempfile.NamedTemporaryFile(mode='w+b', suffix='.json')
+        journal_entry = datastore.create()
+        journal_entry.metadata['title'] = title
+        journal_entry.metadata['keep'] = '0'
+        journal_entry.metadata['mime_type'] = 'application/x-chart-activity'
+        journal_entry.metadata['activity'] = 'org.sugarlabs.SimpleGraph'
+
+        json.dump(chart_params, data_file.file)
+        data_file.file.close()
+        journal_entry.file_path = data_file.name
+
+        logging.debug('Create %s data file', data_file.name)
+        datastore.write(journal_entry)
+        self._show_journal_alert(
+            _('Exported data'), _('Open in the Journal'),
+            journal_entry.object_id)
 
     def __chart_type_clicked_cb(self, button, chart_type):
         self._chart_type_selected = chart_type

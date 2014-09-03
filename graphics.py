@@ -82,6 +82,14 @@ class Chart(Gtk.DrawingArea):
         bounds = widget.get_allocation()
         self.create_chart(context, bounds.width, bounds.height)
 
+    def save_image(self, image_file, width, height):
+        image_surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, width, height)
+
+        context = cairo.Context(image_surface)
+        self.create_chart(context, width, height)
+        image_surface.flush()
+        image_surface.write_to_png(image_file)
+
     def create_chart(self, context, image_width, image_height):
 
         _set_screen_dpi()

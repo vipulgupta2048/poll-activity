@@ -115,6 +115,18 @@ class Toolbar(ToolbarBox):
 
         self.toolbar.insert(StopButton(activity), -1)
 
+        # add the export buttons
+        activity_button.page.insert(Gtk.SeparatorToolItem(), -1)
+
+        self.export_data_bt = ToolButton('save-as-data')
+        self.export_data_bt.props.tooltip = _('Export data')
+        activity_button.page.insert(self.export_data_bt, -1)
+
+        self.export_image_bt = ToolButton('save-as-image')
+        self.export_image_bt.set_tooltip(_("Save as Image"))
+        activity_button.page.insert(self.export_image_bt, -1)
+        activity_button.page.show_all()
+
         self.show_all()
 
     def update_configs(self):
