@@ -136,8 +136,6 @@ class NewPollCanvas(Gtk.EventBox):
         self._box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         self.add(self._box)
 
-        self._box.pack_start(HeaderBar(_('Build a poll')), False, False, 0)
-
         self._notebook = Gtk.Notebook()
         self._notebook.set_show_tabs(False)
         self._notebook.show()
@@ -627,14 +625,24 @@ class OptionsPalette(Gtk.Box):
         self._image_width_entry.set_sensitive(checkbox.get_active())
 
 
-class SelectCanvas(Gtk.Box):
+class SelectCanvas(Gtk.EventBox):
 
     def __init__(self, poll_activity):
+        Gtk.EventBox.__init__(self)
+        self.modify_bg(Gtk.StateType.NORMAL,
+                       style.COLOR_WHITE.get_gdk_color())
 
-        Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
+        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        self.add(box)
 
         poll_activity.reset_poll()
-        self.pack_start(HeaderBar(_('Choose a Poll')), False, False, 0)
+
+        label = Gtk.Label()
+        label.set_markup('<span size="x-large" color="%s">%s</span>'
+                         % (darker_color_str, _('Choose a Poll')))
+        label.set_halign(Gtk.Align.START)
+        label.props.margin = style.GRID_CELL_SIZE
+        box.pack_start(label, False, False, 0)
 
         poll_selector_box = Gtk.VBox()
         poll_selector_box.props.margin = style.GRID_CELL_SIZE
@@ -649,7 +657,7 @@ class SelectCanvas(Gtk.Box):
 
         scroll.add_with_viewport(poll_selector_box)
 
-        self.pack_start(scroll, True, True, 0)
+        box.pack_start(scroll, True, True, 0)
 
         for poll in poll_activity._polls:
             sha = poll.sha
@@ -729,24 +737,6 @@ class PollIcon(Gtk.DrawingArea):
             x_value += bar_width + margin
 
 
-class HeaderBar(Gtk.EventBox):
-
-    def __init__(self, title=None):
-
-        Gtk.EventBox.__init__(self)
-        self.modify_bg(Gtk.StateType.NORMAL,
-                       style.Color('#666666').get_gdk_color())
-        self.set_size_request(-1, style.GRID_CELL_SIZE)
-        self.box = Gtk.HBox()
-        self.add(self.box)
-
-        if title is not None:
-            self.title_label = Gtk.Label()
-            self.title_label.set_markup(
-                '<span size="x-large" foreground="white">%s</span>' % title)
-            self.box.pack_start(self.title_label, False, False, 10)
-
-
 class PollCanvas(Gtk.EventBox):
 
     def __init__(self, poll, current_vote, view_answer,
@@ -760,14 +750,6 @@ class PollCanvas(Gtk.EventBox):
         self.add(box)
 
         self._poll = poll
-
-        header = _('VOTE!')
-        if self._poll.active:
-            header = _('VOTE')
-        else:
-            header = _('RESULTS')
-
-        box.pack_start(HeaderBar(_(header)), False, False, 0)
 
         self._grid = Gtk.Grid()
         box.pack_start(self._grid, True, True, 0)
