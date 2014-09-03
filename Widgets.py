@@ -172,6 +172,7 @@ class NewPollCanvas(Gtk.EventBox):
         self._options_page = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         self._notebook.append_page(self._options_page, None)
         self._options_page.show()
+        self._options_page.set_homogeneous(True)
 
         label = Gtk.Label()
         label.set_markup('<span size="x-large" color="%s">%s</span>'
@@ -180,25 +181,13 @@ class NewPollCanvas(Gtk.EventBox):
         label.props.margin = style.GRID_CELL_SIZE / 2
         self._options_page.pack_start(label, False, False, 0)
 
-        self._image_widgets = []
+        self._option_widgets = []
         for choice in self._poll.options.keys():
-            hbox = Gtk.HBox()
             item_poll = ItemOptionNewPoll(_('Answer %s:') % (choice + 1),
-                                          self._poll, str(choice))
+                                          self._poll, choice)
             self._options_page.pack_start(item_poll, False, False, 10)
 
-            button = Gtk.Button()
-            button.set_image(Icon(icon_name='insert-picture'))
-            hbox.pack_start(button, True, False, 10)
-            self._image_widgets.append(button)
-            if self.__already_loaded_image_in_answer(choice):
-                image = self.__show_image_thumbnail(hbox, choice)
-                self._image_widgets.append(image)
-
-            button.connect('clicked', self.__button_choose_image_cb,
-                           int(choice), hbox)
-
-            item_poll.pack_end(hbox, False, False, 0)
+            self._option_widgets.append(item_poll)
 
         # 4 page, summary
         summary_page = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
@@ -305,94 +294,8 @@ class NewPollCanvas(Gtk.EventBox):
             self._notebook.next_page()
 
     def set_image_widgets_visible(self, visible):
-        for widget in self._image_widgets:
-            widget.set_visible(visible)
-
-    def __already_loaded_image_in_answer(self, answer_number):
-
-        if not self._poll.images_ds_objects[int(answer_number)] == {}:
-            return True
-
-        else:
-            return False
-
-    def __button_choose_image_cb(self, button, choice, hbox):
-        """
-        choice: int
-        hbox: the container where the image will be displayed
-        """
-
-        try:
-            chooser = ObjectChooser(self, what_filter='Image',
-                                    filter_type=FILTER_TYPE_GENERIC_MIME,
-                                    show_preview=True)
-        except:
-            # for compatibility with older versions
-            chooser = ObjectChooser(self, what_filter='Image')
-
-        try:
-            result = chooser.run()
-
-            if result == Gtk.ResponseType.ACCEPT:
-
-                jobject = chooser.get_selected_object()
-
-                images_mime_types = mime.get_generic_type(
-                    mime.GENERIC_TYPE_IMAGE).mime_types
-
-                if jobject and jobject.file_path and \
-                   jobject.metadata.get('mime_type') in images_mime_types:
-
-                    pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(
-                        jobject.file_path,
-                        self._poll.activity._image_size['height'],
-                        self._poll.activity._image_size['width'])
-
-                    self._poll.images[choice] = pixbuf
-
-                    self._poll.images_ds_objects[choice]['id'] = \
-                        jobject.object_id
-
-                    self._poll.images_ds_objects[choice]['file_path'] = \
-                        jobject.file_path
-
-                    self.__show_image_thumbnail(hbox, choice)
-
-                else:
-                    self._poll.activity.get_alert(
-                        _('Poll Activity'),
-                        _('Your selection is not an image'))
-
-        finally:
-            chooser.destroy()
-            del chooser
-
-    def __show_image_thumbnail(self, parent_box, answer_number):
-
-        image_file_path = self._poll.images_ds_objects[answer_number][
-            'file_path']
-
-        pixbuf_thumbnail = GdkPixbuf.Pixbuf.new_from_file_at_size(
-            image_file_path, 80, 80)
-
-        image = Gtk.Image()
-        image.set_from_pixbuf(pixbuf_thumbnail)
-        image.show()
-        self._image_widgets.append(image)
-
-        # reduce margin in the box, or the options will not fill in the screen
-        parent_box.get_parent().set_border_width(0)
-        answer_label = parent_box.get_parent().get_children()[0]
-        answer_label.props.margin_left = style.GRID_CELL_SIZE / 2
-        image.props.margin_right = style.GRID_CELL_SIZE / 2
-
-        chl = parent_box.get_children()
-
-        if len(chl) == 2:
-            parent_box.remove(chl[len(chl) - 1])
-
-        parent_box.pack_start(image, True, True, 10)
-        return pixbuf_thumbnail
+        for widget in self._option_widgets:
+            widget.set_image_widgets_visible(visible)
 
     def _button_save_cb(self, button):
         """
@@ -509,30 +412,127 @@ class ItemNewPoll(Gtk.Box):
 class ItemOptionNewPoll(Gtk.Box):
 
     def __init__(self, label_text, poll, field):
+        """
+        field (int)
+        """
 
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.HORIZONTAL)
         self._poll = poll
         self.field = field
-        self.set_border_width(style.GRID_CELL_SIZE / 2)
 
         label = Gtk.Label()
         label.set_markup('<span size="x-large">%s</span>' % label_text)
         label.set_halign(Gtk.Align.CENTER)
+        label.props.margin_left = style.GRID_CELL_SIZE / 2
         self.pack_start(label, False, False, 10)
 
         self.entry = Gtk.Entry()
-        self.entry.set_text(poll.options[int(field)])
+        self.entry.set_text(poll.options[field])
         self.entry.connect('changed', self.__entry_changed_cb)
         self.pack_start(self.entry, True, True, 0)
 
+        self._image = Gtk.Image()
+        self.pack_start(self._image, False, False, 10)
+
+        self._image_button = Gtk.Button()
+        self._image_button.set_image(Icon(icon_name='insert-picture'))
+        self.pack_start(self._image_button, False, False, 10)
+
         self.show_all()
+        if self.__already_loaded_image_in_answer():
+            self.__show_image_thumbnail()
+        else:
+            self._image.hide()
+
+        self._image_button.connect('clicked', self.__button_choose_image_cb)
 
     def __entry_changed_cb(self, entry):
         logging.error(entry.get_text())
         text = entry.get_text()
         if text:
-            self._poll.options[int(self.field)] = text
+            self._poll.options[self.field] = text
         entry.modify_bg(Gtk.StateType.NORMAL, None)
+
+    def set_image_widgets_visible(self, visible):
+        logging.error('set_image_widgets_visible %s %s', self.field, visible)
+        self._image_button.set_visible(visible)
+        self._image.set_visible(visible)
+        if visible:
+            if self.__already_loaded_image_in_answer():
+                self.__show_image_thumbnail()
+            else:
+                self._image.hide()
+
+            self.entry.props.margin_right = 0
+            self._image_button.props.margin_right = style.GRID_CELL_SIZE / 2
+        else:
+            self.entry.props.margin_right = style.GRID_CELL_SIZE / 2
+
+    def __already_loaded_image_in_answer(self):
+        loaded = self._poll.images_ds_objects[self.field] != {}
+        logging.error('__already_loaded_image_in_answer %s', loaded)
+        return loaded
+
+    def __button_choose_image_cb(self, button):
+
+        try:
+            chooser = ObjectChooser(self, what_filter='Image',
+                                    filter_type=FILTER_TYPE_GENERIC_MIME,
+                                    show_preview=True)
+        except:
+            # for compatibility with older versions
+            chooser = ObjectChooser(self, what_filter='Image')
+
+        try:
+            result = chooser.run()
+
+            if result == Gtk.ResponseType.ACCEPT:
+
+                jobject = chooser.get_selected_object()
+
+                images_mime_types = mime.get_generic_type(
+                    mime.GENERIC_TYPE_IMAGE).mime_types
+
+                if jobject and jobject.file_path and \
+                   jobject.metadata.get('mime_type') in images_mime_types:
+
+                    pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(
+                        jobject.file_path,
+                        self._poll.activity._image_size['height'],
+                        self._poll.activity._image_size['width'])
+
+                    self._poll.images[self.field] = pixbuf
+
+                    self._poll.images_ds_objects[self.field]['id'] = \
+                        jobject.object_id
+
+                    self._poll.images_ds_objects[self.field]['file_path'] = \
+                        jobject.file_path
+
+                    self.__show_image_thumbnail()
+
+                else:
+                    self._poll.activity.get_alert(
+                        _('Poll Activity'),
+                        _('Your selection is not an image'))
+
+        finally:
+            chooser.destroy()
+            del chooser
+
+    def __show_image_thumbnail(self):
+
+        image_file_path = self._poll.images_ds_objects[self.field][
+            'file_path']
+
+        if image_file_path:
+            pixbuf_thumbnail = GdkPixbuf.Pixbuf.new_from_file_at_size(
+                image_file_path, 80, 80)
+
+            self._image.set_from_pixbuf(pixbuf_thumbnail)
+            self._image.show()
+        else:
+            self._image.hide()
 
 
 class OptionsPalette(Gtk.Box):
