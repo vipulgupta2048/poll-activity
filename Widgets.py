@@ -70,13 +70,15 @@ class Toolbar(ToolbarBox):
         separator = Gtk.SeparatorToolItem()
         self.toolbar.insert(separator, -1)
 
-        self.choose_button = ToolButton('view-list')
+        self.choose_button = RadioToolButton('view-list')
         self.choose_button.set_tooltip(_('Choose a Poll'))
         self.toolbar.insert(self.choose_button, -1)
+        modes_group = self.choose_button
 
-        self.create_button = ToolButton('new-poll')
+        self.create_button = RadioToolButton('new-poll')
         self.create_button.set_tooltip(_('Build a Poll'))
         self.toolbar.insert(self.create_button, -1)
+        self.create_button.props.group = modes_group
 
         self.settings_button = ToolButton('preferences-system')
         self.settings_button.set_tooltip(_('Settings'))
