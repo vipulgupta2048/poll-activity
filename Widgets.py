@@ -792,7 +792,6 @@ class PollCanvas(Gtk.EventBox):
         group = Gtk.RadioButton()
 
         row = 0
-        self._results_widgets = []
         data = []
         for choice in range(poll.number_of_options):
             # data is used by the chart
@@ -825,9 +824,6 @@ class PollCanvas(Gtk.EventBox):
         self.chart.set_hexpand(True)
         self.chart.set_vexpand(True)
 
-        # TODO: just showing/hiding one widget now
-        self._results_widgets.append(self.chart)
-
         # Button area
         if poll.active:
             self._grid.attach(scroll, 0, 2, 1, 1)
@@ -854,15 +850,14 @@ class PollCanvas(Gtk.EventBox):
             self._grid.attach(button, 0, 3, 1, 1)
         else:
             logging.error('poll not active')
-            self._grid.attach(self.chart, 0, 2, 1, 1)
+            self._grid.attach(self.chart, 0, 2, 2, 1)
 
         self.show_all()
         # hide or show the results if needed
         self.set_view_answer(view_answer or not poll.active)
 
     def set_view_answer(self, visible):
-        for widget in self._results_widgets:
-            widget.set_visible(visible)
+        self.chart.set_visible(visible)
 
     def _button_save_cb(self, button):
         """
