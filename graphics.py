@@ -203,7 +203,7 @@ class Chart(Gtk.DrawingArea):
                     angle += slice
 
         if self._chart_type == CHART_TYPE_VERTICAL_BARS:
-            margin = 20
+            margin = padding * 2
             graph_width = image_width - rectangles_width - margin * 2
             graph_height = image_height - margin * 2
             bar_width = graph_width / len(self._data) - margin
@@ -218,7 +218,8 @@ class Chart(Gtk.DrawingArea):
                 label = data['label']
                 bar_height = value * graph_height / max_value
                 top_rounded_rect(context,
-                                 x_value + margin, graph_height - bar_height,
+                                 x_value + margin,
+                                 graph_height - bar_height + margin,
                                  bar_width, bar_height, 10)
                 color = colors.get_category_color(label)
                 context.set_source_rgb(color[0], color[1], color[2])
@@ -227,12 +228,12 @@ class Chart(Gtk.DrawingArea):
 
             # add a shadow at the bottom
             context.rectangle(
-                rectangles_width + 2 * margin, graph_height,
+                rectangles_width + 2 * margin, graph_height + margin,
                 (bar_width + margin) * len(self._data) - margin,
                 margin)
             gradient = cairo.LinearGradient(
-                rectangles_width + 2 * margin, graph_height,
-                rectangles_width + 2 * margin, graph_height + margin)
+                rectangles_width + 2 * margin, graph_height + margin,
+                rectangles_width + 2 * margin, graph_height + margin * 2)
             gradient.add_color_stop_rgba(0, 0, 0, 0, 0.25)
             gradient.add_color_stop_rgba(1, 1, 1, 1, 0.25)
             context.set_source(gradient)
