@@ -496,12 +496,12 @@ class ItemOptionNewPoll(Gtk.Box):
     def __button_choose_image_cb(self, button):
 
         try:
-            chooser = ObjectChooser(self, what_filter='Image',
+            chooser = ObjectChooser(self.get_toplevel(), what_filter='Image',
                                     filter_type=FILTER_TYPE_GENERIC_MIME,
                                     show_preview=True)
         except:
             # for compatibility with older versions
-            chooser = ObjectChooser(self, what_filter='Image')
+            chooser = ObjectChooser(self.get_toplevel(), what_filter='Image')
 
         try:
             result = chooser.run()
