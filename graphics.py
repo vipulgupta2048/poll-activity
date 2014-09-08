@@ -60,13 +60,14 @@ CHART_TYPE_VERTICAL_BARS = 2
 
 class Chart(Gtk.DrawingArea):
 
-    def __init__(self, data, chart_type):
+    def __init__(self, data, chart_type, show_labels=True):
         # data is a array to be able to preserve the order
         # selected by the user.
         # every item in the array is a dict with keys 'label' and 'value'
         Gtk.DrawingArea.__init__(self)
         self._data = data
         self._chart_type = chart_type
+        self._show_labels = show_labels
         self.connect('draw', self.__chart_draw_cb)
 
     def set_data(self, data):
@@ -75,6 +76,10 @@ class Chart(Gtk.DrawingArea):
 
     def set_chart_type(self, chart_type):
         self._chart_type = chart_type
+        self.queue_draw()
+
+    def set_show_labels(self, show_labels):
+        self._show_labels = show_labels
         self.queue_draw()
 
     def __chart_draw_cb(self, widget, context):
@@ -105,74 +110,77 @@ class Chart(Gtk.DrawingArea):
         margin_top = (style.GRID_CELL_SIZE / 2) * scale
         padding = 20 * scale
 
-        # measure the descriptions
-        max_width_desc = 0
-        max_width_amount = 0
-        max_height = 0
-        context.select_font_face('Sans', cairo.FONT_SLANT_NORMAL,
-                                 cairo.FONT_WEIGHT_NORMAL)
-        context.set_font_size(26 * scale)
+        rectangles_width = 0
+        if self._show_labels:
+            # measure the descriptions
+            max_width_desc = 0
+            max_width_amount = 0
+            max_height = 0
+            context.select_font_face('Sans', cairo.FONT_SLANT_NORMAL,
+                                     cairo.FONT_WEIGHT_NORMAL)
+            context.set_font_size(26 * scale)
 
-        for data in self._data:
-            description = data['label']
-            # If there is no category, display as Unknown
-            if description is '':
-                description = _('Unknown')
+            for data in self._data:
+                description = data['label']
+                # If there is no category, display as Unknown
+                if description is '':
+                    description = _('Unknown')
 
-            # need measure the description width to align the amounts
-            x_bearing, y_bearing, width, height, x_advance, y_advance = \
-                context.text_extents(description)
-            max_width_desc = max(max_width_desc, width)
-            max_height = max(max_height, height)
+                # need measure the description width to align the amounts
+                x_bearing, y_bearing, width, height, x_advance, y_advance = \
+                    context.text_extents(description)
+                max_width_desc = max(max_width_desc, width)
+                max_height = max(max_height, height)
 
-            x_bearing, y_bearing, width, height, x_advance, y_advance = \
-                context.text_extents(str(data['value']))
-            max_height = max(max_height, height)
-            max_width_amount = max(max_width_amount, width)
+                x_bearing, y_bearing, width, height, x_advance, y_advance = \
+                    context.text_extents(str(data['value']))
+                max_height = max(max_height, height)
+                max_width_amount = max(max_width_amount, width)
 
-        # draw the labels
-        y = margin_top
-        context.save()
-        context.translate(margin_left, 0)
-        rectangles_width = max_width_desc + max_width_amount + padding * 3
-        for data in self._data:
-            description = data['label']
-            if description is '':
-                description = _('Unknown')
+            # draw the labels
+            y = margin_top
             context.save()
-            context.translate(0, y)
-            draw_round_rect(context, 0, 0,
-                            rectangles_width, max_height + padding, 10)
+            context.translate(margin_left, 0)
+            rectangles_width = max_width_desc + max_width_amount + padding * 3
+            for data in self._data:
+                description = data['label']
+                if description is '':
+                    description = _('Unknown')
+                context.save()
+                context.translate(0, y)
+                draw_round_rect(context, 0, 0,
+                                rectangles_width, max_height + padding, 10)
 
-            color = colors.get_category_color(description)
-            context.set_source_rgb(color[0], color[1], color[2])
-            context.fill()
+                color = colors.get_category_color(description)
+                context.set_source_rgb(color[0], color[1], color[2])
+                context.fill()
 
-            if colors.is_too_light(colors.get_category_color_str(description)):
-                context.set_source_rgb(0, 0, 0)
-            else:
-                context.set_source_rgb(1, 1, 1)
+                if colors.is_too_light(colors.get_category_color_str(
+                        description)):
+                    context.set_source_rgb(0, 0, 0)
+                else:
+                    context.set_source_rgb(1, 1, 1)
 
-            context.save()
-            x_bearing, y_bearing, width, height, x_advance, y_advance = \
-                context.text_extents(description)
-            context.move_to(padding, padding * 2.5 + y_bearing)
-            context.show_text(description)
+                context.save()
+                x_bearing, y_bearing, width, height, x_advance, y_advance = \
+                    context.text_extents(description)
+                context.move_to(padding, padding * 2.5 + y_bearing)
+                context.show_text(description)
+                context.restore()
+
+                context.save()
+                text = str(data['value'])
+                x_bearing, y_bearing, width, height, x_advance, y_advance = \
+                    context.text_extents(text)
+                context.move_to(rectangles_width - x_advance - padding,
+                                padding * 2.5 + y_bearing)
+                context.show_text(text)
+                context.restore()
+
+                y += max_height + padding * 2
+                context.restore()
+
             context.restore()
-
-            context.save()
-            text = str(data['value'])
-            x_bearing, y_bearing, width, height, x_advance, y_advance = \
-                context.text_extents(text)
-            context.move_to(rectangles_width - x_advance - padding,
-                            padding * 2.5 + y_bearing)
-            context.show_text(text)
-            context.restore()
-
-            y += max_height + padding * 2
-            context.restore()
-
-        context.restore()
 
         if self._chart_type == CHART_TYPE_PIE:
             # draw the pie

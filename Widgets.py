@@ -838,7 +838,7 @@ class PollCanvas(Gtk.EventBox):
 
         logging.error('poll options %s data %s', poll.options, poll.data)
 
-        self.chart = Chart(data, chart_type)
+        self.chart = Chart(data, chart_type, show_labels=not poll.active)
         self.chart.set_hexpand(True)
         self.chart.set_vexpand(True)
         self.chart.props.margin_right = style.GRID_CELL_SIZE * 2
