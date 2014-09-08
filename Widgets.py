@@ -384,6 +384,18 @@ class NewPollCanvas(Gtk.EventBox):
         return failed_items
 
 
+class BigEntry(Gtk.Entry):
+
+    def __init__(self):
+        Gtk.Entry.__init__(self)
+        theme = 'GtkEntry {font-size:%s;}' % int(style.FONT_SIZE * 1.25)
+        css_provider = Gtk.CssProvider()
+        css_provider.load_from_data(theme)
+        style_context = self.get_style_context()
+        style_context.add_provider(css_provider,
+                                   Gtk.STYLE_PROVIDER_PRIORITY_USER)
+
+
 class ItemNewPoll(Gtk.Box):
 
     def __init__(self, label_text, poll, field):
@@ -399,7 +411,7 @@ class ItemNewPoll(Gtk.Box):
         label.props.margin = style.GRID_CELL_SIZE / 2
         self.pack_start(label, False, False, 0)
 
-        self.entry = Gtk.Entry()
+        self.entry = BigEntry()
         margin = style.GRID_CELL_SIZE * 2
 
         if field == 'maxvoters':
@@ -447,7 +459,7 @@ class ItemOptionNewPoll(Gtk.Box):
         label.props.margin_left = style.GRID_CELL_SIZE * 2
         self.pack_start(label, False, False, 10)
 
-        self.entry = Gtk.Entry()
+        self.entry = BigEntry()
         self.entry.set_text(poll.options[field])
         self.entry.connect('changed', self.__entry_changed_cb)
         self.pack_start(self.entry, True, True, 0)
