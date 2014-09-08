@@ -160,6 +160,7 @@ class NewPollCanvas(Gtk.EventBox):
 
         self._first_page = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         self._notebook.append_page(self._first_page, None)
+        self._first_page.set_homogeneous(True)
         self._first_page.show()
 
         item_poll = ItemNewPoll(_('What is the title?'), self._poll, 'title')
@@ -169,13 +170,14 @@ class NewPollCanvas(Gtk.EventBox):
                                 'question')
         self._first_page.pack_start(item_poll, False, False, 10)
 
-        # first page
+        # maxvoters page
 
         self._maxvoters_page = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        self._maxvoters_page.set_homogeneous(True)
         self._notebook.append_page(self._maxvoters_page, None)
         self._maxvoters_page.show()
 
-        item_poll = ItemNewPoll(_('How many votes you want collect?'),
+        item_poll = ItemNewPoll(_('How many votes do you want to collect?'),
                                 self._poll, 'maxvoters')
         self._maxvoters_page.pack_start(item_poll, False, False, 10)
 
@@ -187,7 +189,7 @@ class NewPollCanvas(Gtk.EventBox):
         self._options_page.set_homogeneous(True)
 
         label = Gtk.Label()
-        label.set_markup('<span size="x-large" color="%s">%s</span>'
+        label.set_markup('<span size="xx-large" color="%s">%s</span>'
                          % (darker_color_str, _('What are the choices?')))
         label.set_halign(Gtk.Align.CENTER)
         label.props.margin = style.GRID_CELL_SIZE / 2
@@ -195,8 +197,7 @@ class NewPollCanvas(Gtk.EventBox):
 
         self._option_widgets = []
         for choice in self._poll.options.keys():
-            item_poll = ItemOptionNewPoll(_('Answer %s:') % (choice + 1),
-                                          self._poll, choice)
+            item_poll = ItemOptionNewPoll(str(choice + 1), self._poll, choice)
             self._options_page.pack_start(item_poll, False, False, 10)
 
             self._option_widgets.append(item_poll)
@@ -206,7 +207,7 @@ class NewPollCanvas(Gtk.EventBox):
         self._notebook.append_page(summary_page, None)
 
         label = Gtk.Label()
-        label.set_markup('<span size="x-large" color="%s">%s</span>'
+        label.set_markup('<span size="xx-large" color="%s">%s</span>'
                          % (darker_color_str, _('Is this correct?')))
         label.set_halign(Gtk.Align.CENTER)
         label.props.margin = style.GRID_CELL_SIZE
@@ -215,12 +216,14 @@ class NewPollCanvas(Gtk.EventBox):
         columns_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
         columns_box.set_homogeneous(True)
         first_column = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        first_column.set_homogeneous(True)
         second_column = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        second_column.set_homogeneous(True)
         columns_box.pack_start(first_column, False, False, 10)
         columns_box.pack_start(second_column, False, False, 10)
 
         label = Gtk.Label()
-        label.set_markup('<b><span color="%s">%s</span></b>' %
+        label.set_markup('<b><span size="x-large" color="%s">%s</span></b>' %
                          (darker_color_str, _('Title')))
         first_column.pack_start(label, False, True, 10)
 
@@ -228,7 +231,7 @@ class NewPollCanvas(Gtk.EventBox):
         first_column.pack_start(self._title_label, False, False, 10)
 
         label = Gtk.Label()
-        label.set_markup('<b><span color="%s">%s</span></b>' %
+        label.set_markup('<b><span size="x-large" color="%s">%s</span></b>' %
                          (darker_color_str, _('Question')))
         first_column.pack_start(label, False, False, 10)
 
@@ -236,7 +239,7 @@ class NewPollCanvas(Gtk.EventBox):
         first_column.pack_start(self._question_label, False, False, 10)
 
         label = Gtk.Label()
-        label.set_markup('<b><span color="%s">%s</span></b>' %
+        label.set_markup('<b><span size="x-large" color="%s">%s</span></b>' %
                          (darker_color_str, _('How many votes')))
         first_column.pack_start(label, False, False, 10)
 
@@ -244,7 +247,7 @@ class NewPollCanvas(Gtk.EventBox):
         first_column.pack_start(self._maxvoters_label, False, False, 10)
 
         label = Gtk.Label()
-        label.set_markup('<b><span color="%s">%s</span></b>' %
+        label.set_markup('<b><span size="x-large" color="%s">%s</span></b>' %
                          (darker_color_str, _('Answers')))
         second_column.pack_start(label, False, False, 10)
 
@@ -259,6 +262,7 @@ class NewPollCanvas(Gtk.EventBox):
         summary_page.pack_start(columns_box, True, True, 10)
 
         save_button = Gtk.Button(_('Make the poll'))
+        save_button.set_image(Icon(icon_name='dialog-ok'))
         save_button.set_halign(Gtk.Align.CENTER)
         save_button.set_valign(Gtk.Align.START)
         save_button.props.margin = style.GRID_CELL_SIZE
@@ -296,12 +300,16 @@ class NewPollCanvas(Gtk.EventBox):
             if not errors:
                 self._notebook.next_page()
         if self._notebook.get_current_page() == 3:
-            self._title_label.set_text(self._poll.title)
-            self._question_label.set_text(self._poll.question)
-            self._maxvoters_label.set_text(str(self._poll.maxvoters))
-            logging.error(self._poll.options.keys())
+            self._title_label.set_markup('<span size="x-large" >%s</span>' %
+                                         self._poll.title)
+            self._question_label.set_markup(
+                '<span size="x-large" >%s</span>' % self._poll.question)
+            self._maxvoters_label.set_markup(
+                '<span size="x-large" >%s</span>' % str(self._poll.maxvoters))
+
             for choice in self._poll.options.keys():
-                self._option_labels[int(choice)].set_text(
+                self._option_labels[int(choice)].set_markup(
+                    '<span size="x-large" >%s</span>' %
                     self._poll.options[int(choice)])
             self._notebook.next_page()
 
@@ -384,14 +392,14 @@ class ItemNewPoll(Gtk.Box):
         self.field = field
 
         label = Gtk.Label()
-        label.set_markup('<span size="x-large" color="%s">%s</span>'
+        label.set_markup('<span size="xx-large" color="%s">%s</span>'
                          % (darker_color_str, label_text))
         label.set_halign(Gtk.Align.CENTER)
         label.props.margin = style.GRID_CELL_SIZE / 2
         self.pack_start(label, False, False, 0)
 
         self.entry = Gtk.Entry()
-        margin = style.GRID_CELL_SIZE
+        margin = style.GRID_CELL_SIZE * 2
 
         if field == 'maxvoters':
             self.entry.props.xalign = 1
@@ -405,7 +413,7 @@ class ItemNewPoll(Gtk.Box):
         self.entry.connect('changed', self.__entry_changed_cb)
 
         self.pack_start(self.entry, False, False, 0)
-
+        self.set_valign(Gtk.Align.CENTER)
         self.show_all()
 
     def __entry_changed_cb(self, entry):
@@ -435,7 +443,7 @@ class ItemOptionNewPoll(Gtk.Box):
         label = Gtk.Label()
         label.set_markup('<span size="x-large">%s</span>' % label_text)
         label.set_halign(Gtk.Align.CENTER)
-        label.props.margin_left = style.GRID_CELL_SIZE / 2
+        label.props.margin_left = style.GRID_CELL_SIZE * 2
         self.pack_start(label, False, False, 10)
 
         self.entry = Gtk.Entry()
@@ -476,9 +484,9 @@ class ItemOptionNewPoll(Gtk.Box):
                 self._image.hide()
 
             self.entry.props.margin_right = 0
-            self._image_button.props.margin_right = style.GRID_CELL_SIZE / 2
+            self._image_button.props.margin_right = style.GRID_CELL_SIZE * 2
         else:
-            self.entry.props.margin_right = style.GRID_CELL_SIZE / 2
+            self.entry.props.margin_right = style.GRID_CELL_SIZE * 2
 
     def __already_loaded_image_in_answer(self):
         loaded = self._poll.images_ds_objects[self.field] != {}
