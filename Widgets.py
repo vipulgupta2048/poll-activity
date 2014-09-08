@@ -348,16 +348,16 @@ class NewPollCanvas(Gtk.EventBox):
         if page == 2:
             box = self._options_page
             if self._poll.options[0] == '':
-                failed_items.append('0')
+                failed_items.append(0)
 
             if self._poll.options[1] == '':
-                failed_items.append('1')
+                failed_items.append(1)
 
             if self._poll.options[3] != '' and self._poll.options[2] == '':
-                failed_items.append('2')
+                failed_items.append(2)
 
             if self._poll.options[4] != '' and self._poll.options[3] == '':
-                failed_items.append('3')
+                failed_items.append(3)
 
             if self._poll.options[2] == '':
                 self._poll.number_of_options = 2
