@@ -814,6 +814,7 @@ class PollCanvas(Gtk.EventBox):
             '<span size="xx-large" color="%s"><b>%s</b></span>' %
             (darker_color_str, poll.question))
         self.question.props.margin_top = style.GRID_CELL_SIZE / 2
+        self.question.props.margin_bottom = style.GRID_CELL_SIZE / 2
         self.question.props.margin_left = style.GRID_CELL_SIZE * 2
         self.question.set_halign(Gtk.Align.CENTER)
         self._grid.attach(self.question, 0, row, 2, 1)
@@ -848,7 +849,7 @@ class PollCanvas(Gtk.EventBox):
                 roundbox.border_color = color
                 button = Gtk.RadioButton.new_with_label_from_widget(
                     group, text)
-                button.props.margin = style.GRID_CELL_SIZE / 2
+                button.props.margin = style.GRID_CELL_SIZE / 4
                 roundbox.add(button)
                 roundbox.set_valign(Gtk.Align.CENTER)
                 roundbox.set_hexpand(False)
