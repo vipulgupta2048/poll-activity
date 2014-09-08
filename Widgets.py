@@ -684,14 +684,16 @@ class SelectCanvas(Gtk.EventBox):
             poll_selector_box.pack_start(poll_row, False, False, 0)
             poll_selector_box.pack_start(Gtk.HSeparator(), False, False, 0)
 
+            evbox = Gtk.EventBox()
             title = Gtk.Label()
             title.set_markup('<span size="large">%s (%s)</span>' %
                              (poll.title, poll.author))
-            align = Gtk.Alignment.new(0, 0.5, 0, 0)
-            align.add(title)
-            poll_row.pack_start(align, True, True, 10)
+            title.set_halign(Gtk.Align.START)
+            evbox.add(title)
+            poll_row.pack_start(evbox, True, True, 0)
 
-            poll_row.pack_start(PollIcon(poll), False, False,
+            poll_icon = PollIcon(poll)
+            poll_row.pack_start(poll_icon, False, False,
                                 style.GRID_CELL_SIZE / 2)
 
             if poll.active:
@@ -703,8 +705,14 @@ class SelectCanvas(Gtk.EventBox):
                                    pixel_size=style.STANDARD_ICON_SIZE)
                 button.set_fill_color('#888888')
 
+            evbox.set_events(Gdk.EventMask.BUTTON_PRESS_MASK)
+            evbox.connect('button-press-event',
+                          poll_activity._select_poll_button_cb, sha)
+            poll_icon.connect('button-press-event',
+                              poll_activity._select_poll_button_cb, sha)
             button.connect('button-press-event',
                            poll_activity._select_poll_button_cb, sha)
+
             poll_row.pack_start(button, False, False, style.GRID_CELL_SIZE / 2)
 
             if poll.author == profile.get_nick_name():
@@ -714,8 +722,7 @@ class SelectCanvas(Gtk.EventBox):
                 button.connect('button-press-event',
                                poll_activity._delete_poll_button_cb, sha,
                                poll.title)
-                poll_row.pack_start(button, False, False,
-                                    style.GRID_CELL_SIZE / 2)
+                poll_row.pack_start(button, False, False, 0)
 
         self.show_all()
 
@@ -725,6 +732,7 @@ class PollIcon(Gtk.DrawingArea):
     def __init__(self, poll):
         self._poll = poll
         Gtk.DrawingArea.__init__(self)
+        self.set_events(Gdk.EventMask.BUTTON_PRESS_MASK)
         self.set_size_request(style.GRID_CELL_SIZE, style.GRID_CELL_SIZE)
         self.connect('draw', self.__draw_cb)
 
