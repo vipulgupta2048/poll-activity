@@ -787,30 +787,17 @@ class PollCanvas(Gtk.EventBox):
         self._grid = Gtk.Grid()
         box.pack_start(self._grid, True, True, 0)
 
-        self.title = Gtk.Label()
-        self.title.set_markup('<span size="x-large">%s</span>' % poll.title)
-        self.title.props.margin = style.GRID_CELL_SIZE / 2
-        self.title.set_halign(Gtk.Align.START)
-        self._grid.attach(self.title, 0, 0, 1, 1)
-
         self.question = Gtk.Label()
         self.question.set_markup(
-            '<span size="x-large" color="%s"><b>%s</b></span>' %
+            '<span size="xx-large" color="%s"><b>%s</b></span>' %
             (darker_color_str, poll.question))
-        self.question.props.margin = style.GRID_CELL_SIZE / 2
-        self.question.set_halign(Gtk.Align.CENTER)
-        self._grid.attach(self.question, 0, 1, 2, 1)
-
-        counter_label = Gtk.Label()
-        counter_label.set_markup(
-            '<span size="large">%s from %s votes collected</span>' %
-            (poll.vote_count, poll.maxvoters))
-        counter_label.props.margin = style.GRID_CELL_SIZE / 2
-        counter_label.set_halign(Gtk.Align.END)
-        self._grid.attach(counter_label, 1, 0, 1, 1)
+        self.question.props.margin_top = style.GRID_CELL_SIZE / 2
+        self.question.props.margin_left = style.GRID_CELL_SIZE * 2
+        self.question.set_halign(Gtk.Align.START)
+        self._grid.attach(self.question, 0, 0, 1, 1)
 
         tabla = Gtk.Table(rows=6, columns=6)
-        tabla.set_border_width(style.GRID_CELL_SIZE)
+        tabla.props.margin_left = style.GRID_CELL_SIZE * 2
 
         scroll = Gtk.ScrolledWindow()
 
@@ -854,6 +841,7 @@ class PollCanvas(Gtk.EventBox):
         self.chart = Chart(data, chart_type)
         self.chart.set_hexpand(True)
         self.chart.set_vexpand(True)
+        self.chart.props.margin_right = style.GRID_CELL_SIZE * 2
 
         # Button area
         if poll.active:
@@ -878,7 +866,16 @@ class PollCanvas(Gtk.EventBox):
             button.set_hexpand(False)
             button.set_halign(Gtk.Align.CENTER)
 
-            self._grid.attach(button, 0, 3, 1, 1)
+            self._grid.attach(button, 0, 3, 2, 1)
+
+            counter_label = Gtk.Label()
+            counter_label.set_markup(
+                '<span size="large">%s from %s votes collected</span>' %
+                (poll.vote_count, poll.maxvoters))
+            counter_label.props.margin = style.GRID_CELL_SIZE / 2
+            counter_label.set_halign(Gtk.Align.CENTER)
+            self._grid.attach(counter_label, 0, 4, 2, 1)
+
         else:
             logging.error('poll not active')
             self._grid.attach(self.chart, 0, 2, 2, 1)
