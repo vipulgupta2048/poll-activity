@@ -46,6 +46,7 @@ from sugar3.graphics.icon import Icon, EventIcon
 
 from graphics import Chart, CHART_TYPE_PIE
 import colors
+from roundbox import RoundBox
 
 basepath = os.path.dirname(__file__)
 
@@ -817,13 +818,24 @@ class PollCanvas(Gtk.EventBox):
                          'value': poll.data[choice]})
 
             if poll.active:
+                box = Gtk.VBox()
+                text = poll.options[choice]
+                color = style.Color(colors.get_category_color_str(text))
+                roundbox = RoundBox()
+                roundbox.background_color = color
+                roundbox.border_color = color
                 button = Gtk.RadioButton.new_with_label_from_widget(
-                    group, poll.options[choice])
-
+                    group, text)
+                button.props.margin = style.GRID_CELL_SIZE / 2
+                roundbox.add(button)
+                roundbox.set_valign(Gtk.Align.CENTER)
+                roundbox.set_hexpand(False)
+                box.pack_start(roundbox, False, False, 0)
+                box.set_valign(Gtk.Align.CENTER)
                 button.connect(
                     'toggled', poll.activity.vote_choice_radio_button, choice)
 
-                tabla.attach(button, 0, 1, row, row + 1)
+                tabla.attach(box, 0, 1, row, row + 1)
 
                 if choice == current_vote:
                     button.set_active(True)
