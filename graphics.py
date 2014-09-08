@@ -241,8 +241,8 @@ class Chart(Gtk.DrawingArea):
                 margin)
             gradient = cairo.LinearGradient(
                 rectangles_width + 2 * margin, graph_height + margin,
-                rectangles_width + 2 * margin, graph_height + margin * 2)
-            gradient.add_color_stop_rgba(0, 0, 0, 0, 0.25)
-            gradient.add_color_stop_rgba(1, 1, 1, 1, 0.25)
+                rectangles_width + 2 * margin, graph_height + margin * 1.5)
+            gradient.add_color_stop_rgba(0, 0, 0, 0, 0.10)
+            gradient.add_color_stop_rgba(1, 1, 1, 1, 0.10)
             context.set_source(gradient)
             context.fill()
