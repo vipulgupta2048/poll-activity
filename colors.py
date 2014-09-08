@@ -1,11 +1,6 @@
 import logging
 
-CREDIT_COLOR = '#009900'
-
-DEBIT_COLOR = '#ff4040'
-
 CATEGORY_COLORS = [
-    (1.0, 1.0, 1.0),
     (1.0, 1.0, 0.6),
     (1.0, 1.0, 0.8),
     (1.0, 0.6, 1.0),
