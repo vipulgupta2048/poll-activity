@@ -199,7 +199,7 @@ class NewPollCanvas(Gtk.EventBox):
         self._option_widgets = []
         for choice in self._poll.options.keys():
             item_poll = ItemOptionNewPoll(str(choice + 1), self._poll, choice)
-            self._options_page.pack_start(item_poll, False, False, 10)
+            self._options_page.pack_start(item_poll, False, False, 0)
 
             self._option_widgets.append(item_poll)
 
@@ -266,7 +266,6 @@ class NewPollCanvas(Gtk.EventBox):
         save_button.set_image(Icon(icon_name='dialog-ok'))
         save_button.set_halign(Gtk.Align.CENTER)
         save_button.set_valign(Gtk.Align.START)
-        save_button.props.margin = style.GRID_CELL_SIZE
         save_button.connect('clicked', self._button_save_cb)
         summary_page.pack_start(save_button, False, False, 0)
 
