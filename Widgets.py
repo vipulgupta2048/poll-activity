@@ -652,19 +652,22 @@ class SelectCanvas(Gtk.EventBox):
         poll_activity.reset_poll()
 
         label = Gtk.Label()
-        label.set_markup('<span size="x-large" color="%s">%s</span>'
+        label.set_markup('<span size="xx-large" color="%s">%s</span>'
                          % (darker_color_str, _('Choose a Poll')))
         label.set_halign(Gtk.Align.START)
-        label.props.margin = style.GRID_CELL_SIZE
+        label.props.margin_top = style.GRID_CELL_SIZE
+        label.props.margin_bottom = style.GRID_CELL_SIZE / 2
+        label.props.margin_left = style.GRID_CELL_SIZE
         box.pack_start(label, False, False, 0)
 
         poll_selector_box = Gtk.VBox()
-        poll_selector_box.props.margin = style.GRID_CELL_SIZE
+        poll_selector_box.props.margin_left = style.GRID_CELL_SIZE
+        poll_selector_box.props.margin_right = style.GRID_CELL_SIZE
 
         scroll = Gtk.ScrolledWindow()
         scroll.modify_bg(Gtk.StateType.NORMAL,
                          style.COLOR_WHITE.get_gdk_color())
-
+        scroll.set_valign(Gtk.Align.START)
         scroll.set_policy(
             Gtk.PolicyType.AUTOMATIC,
             Gtk.PolicyType.NEVER)
