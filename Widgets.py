@@ -870,14 +870,14 @@ class PollCanvas(Gtk.EventBox):
         self._grid.attach(self.question, 0, row, 2, 1)
         row += 1
 
-        tabla = Gtk.Table(rows=6, columns=6)
-        tabla.props.margin_left = style.GRID_CELL_SIZE * 2
+        self.tabla = Gtk.Table(rows=6, columns=6)
+        self.tabla.props.margin_left = style.GRID_CELL_SIZE * 2
 
         scroll = Gtk.ScrolledWindow()
 
         scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
 
-        scroll.add_with_viewport(tabla)
+        scroll.add_with_viewport(self.tabla)
         scroll.set_hexpand(True)
         scroll.set_vexpand(True)
 
@@ -900,6 +900,7 @@ class PollCanvas(Gtk.EventBox):
                 button = Gtk.RadioButton.new_with_label_from_widget(
                     group, text)
                 button.props.margin = style.GRID_CELL_SIZE / 4
+                button.set_halign(Gtk.Align.CENTER)
                 roundbox.add(button)
                 roundbox.set_valign(Gtk.Align.CENTER)
                 roundbox.set_hexpand(False)
@@ -908,7 +909,7 @@ class PollCanvas(Gtk.EventBox):
                 button.connect(
                     'toggled', poll.activity.vote_choice_radio_button, choice)
 
-                tabla.attach(box, 0, 1, row, row + 1)
+                self.tabla.attach(box, 0, 1, row, row + 1)
 
                 if choice == current_vote:
                     button.set_active(True)
@@ -917,7 +918,7 @@ class PollCanvas(Gtk.EventBox):
                     image = Gtk.Image()
                     image.set_from_pixbuf(poll.images[choice])
                     image.set_halign(Gtk.Align.START)
-                    tabla.attach(image, 1, 2, row, row + 1)
+                    self.tabla.attach(image, 1, 2, row, row + 1)
 
             row += 1
 
@@ -982,6 +983,10 @@ class PollCanvas(Gtk.EventBox):
     def set_view_answer(self, visible):
         self.chart.set_visible(visible)
         self.question.set_visible(not visible)
+        if visible:
+            self.tabla.props.margin_right = 0
+        else:
+            self.tabla.props.margin_right = style.GRID_CELL_SIZE * 2
 
     def _button_save_cb(self, button):
         """
