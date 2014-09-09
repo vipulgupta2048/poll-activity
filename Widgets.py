@@ -27,6 +27,7 @@ from gettext import gettext as _
 from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
+from gi.repository import GObject
 
 from sugar3 import mime
 from sugar3 import profile
@@ -178,8 +179,9 @@ class NewPollCanvas(Gtk.EventBox):
         self._notebook.append_page(self._maxvoters_page, None)
         self._maxvoters_page.show()
 
-        item_poll = ItemNewPoll(_('How many votes do you want to collect?'),
-                                self._poll, 'maxvoters')
+        item_poll = ItemNumberNewPoll(
+            _('How many votes do you want to collect?'),
+            self._poll, 'maxvoters')
         self._maxvoters_page.pack_start(item_poll, False, False, 10)
 
         # options page
@@ -413,10 +415,6 @@ class ItemNewPoll(Gtk.Box):
         self.entry = BigEntry()
         margin = style.GRID_CELL_SIZE * 2
 
-        if field == 'maxvoters':
-            self.entry.props.xalign = 1
-            margin = Gdk.Screen.width() / 2 - (style.GRID_CELL_SIZE * 2)
-
         self.entry.props.margin_left = margin
         self.entry.props.margin_right = margin
 
@@ -429,16 +427,67 @@ class ItemNewPoll(Gtk.Box):
         self.show_all()
 
     def __entry_changed_cb(self, entry):
-        logging.error(entry.get_text())
         text = entry.get_text()
         if text:
             if self.field == 'title':
                 self._poll.title = text
             elif self.field == 'question':
                 self._poll.question = text
-            elif self.field == 'maxvoters':
-                self._poll.maxvoters = int(text)
         entry.modify_bg(Gtk.StateType.NORMAL, None)
+
+
+class ItemNumberNewPoll(Gtk.Box):
+
+    def __init__(self, label_text, poll, field):
+
+        Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL)
+        self._poll = poll
+        self.field = field
+
+        label = Gtk.Label()
+        label.set_markup('<span size="xx-large" color="%s">%s</span>'
+                         % (darker_color_str, label_text))
+        label.set_halign(Gtk.Align.CENTER)
+        label.props.margin = style.GRID_CELL_SIZE / 2
+        self.pack_start(label, False, False, 0)
+
+        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+        self.entry = BigEntry()
+        self.entry.set_width_chars(4)
+        self.entry.props.xalign = 1
+        self.entry.set_text(str(getattr(poll, field)))
+
+        self.entry.connect('changed', self.__entry_changed_cb)
+
+        increase_bt = Gtk.Button()
+        increase_bt.set_image(Icon(icon_name='list-add'))
+        increase_bt.connect('clicked', self.__button_clicked_cb, 1)
+
+        decrease_bt = Gtk.Button()
+        decrease_bt.set_image(Icon(icon_name='list-remove'))
+        decrease_bt.connect('clicked', self.__button_clicked_cb, -1)
+
+        hbox.pack_start(self.entry, False, False, 5)
+        hbox.pack_start(increase_bt, False, False, 5)
+        hbox.pack_start(decrease_bt, False, False, 5)
+        hbox.set_halign(Gtk.Align.CENTER)
+
+        self.pack_start(hbox, False, False, 0)
+        self.set_valign(Gtk.Align.CENTER)
+        self.show_all()
+
+    def __button_clicked_cb(self, button, delta):
+        entry_value = int(self.entry.get_text())
+        self.entry.set_text(str(entry_value + delta))
+
+    def __entry_changed_cb(self, entry):
+        try:
+            value = int(entry.get_text())
+            if self.field == 'maxvoters':
+                self._poll.maxvoters = value
+            entry.modify_bg(Gtk.StateType.NORMAL, None)
+        except ValueError:
+            GObject.idle_add(entry.set_text, str(self._poll.maxvoters))
 
 
 class ItemOptionNewPoll(Gtk.Box):
