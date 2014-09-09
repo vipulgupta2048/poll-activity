@@ -387,9 +387,9 @@ class NewPollCanvas(Gtk.EventBox):
 
 class BigEntry(Gtk.Entry):
 
-    def __init__(self):
+    def __init__(self, size=1.25):
         Gtk.Entry.__init__(self)
-        theme = 'GtkEntry {font-size:%s;}' % int(style.FONT_SIZE * 1.25)
+        theme = 'GtkEntry {font-size:%s;}' % int(style.FONT_SIZE * size)
         css_provider = Gtk.CssProvider()
         css_provider.load_from_data(theme)
         style_context = self.get_style_context()
@@ -452,7 +452,7 @@ class ItemNumberNewPoll(Gtk.Box):
         self.pack_start(label, False, False, 0)
 
         hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
-        self.entry = BigEntry()
+        self.entry = BigEntry(size=2)
         self.entry.set_width_chars(4)
         self.entry.props.xalign = 1
         self.entry.set_text(str(getattr(poll, field)))
@@ -460,11 +460,13 @@ class ItemNumberNewPoll(Gtk.Box):
         self.entry.connect('changed', self.__entry_changed_cb)
 
         increase_bt = Gtk.Button()
-        increase_bt.set_image(Icon(icon_name='list-add'))
+        increase_bt.set_image(Icon(icon_name='list-add',
+                                   pixel_size=style.STANDARD_ICON_SIZE))
         increase_bt.connect('clicked', self.__button_clicked_cb, 1)
 
         decrease_bt = Gtk.Button()
-        decrease_bt.set_image(Icon(icon_name='list-remove'))
+        decrease_bt.set_image(Icon(icon_name='list-remove',
+                                   pixel_size=style.STANDARD_ICON_SIZE))
         decrease_bt.connect('clicked', self.__button_clicked_cb, -1)
 
         hbox.pack_start(self.entry, False, False, 5)
