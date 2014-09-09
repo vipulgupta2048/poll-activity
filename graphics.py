@@ -112,6 +112,12 @@ class Chart(Gtk.DrawingArea):
         image_surface.write_to_png(image_file)
 
     def create_chart(self, context, image_width, image_height):
+        if self._chart_type == CHART_TYPE_PIE:
+            self._create_pie_chart(context, image_width, image_height)
+        if self._chart_type == CHART_TYPE_VERTICAL_BARS:
+            self._create_bars_chart(context, image_width, image_height)
+
+    def _create_pie_chart(self, context, image_width, image_height):
 
         _set_screen_dpi()
 
@@ -232,71 +238,191 @@ class Chart(Gtk.DrawingArea):
             context.show_text(self._title)
             context.restore()
 
-        if self._chart_type == CHART_TYPE_PIE:
-            # draw the pie
-            x = (image_width - rectangles_width) / 2 + rectangles_width
-            y = image_height / 2 + margin_top
-            r = min(image_width, image_height - margin_top * 2) / 2
+        # draw the pie
+        x = (image_width - rectangles_width) / 2 + rectangles_width
+        y = image_height / 2 + margin_top
+        r = min(image_width, image_height - margin_top * 2) / 2
 
-            total = 0
-            for data in self._data:
-                total += data['value']
+        total = 0
+        for data in self._data:
+            total += data['value']
 
-            if total != 0:
-                angle = 0.0
+        if total != 0:
+            angle = 0.0
 
-                for data in self._data:
-                    value = data['value']
-                    label = data['label']
-                    slice = 2 * math.pi * value / total
-                    color = colors.get_category_color(label)
-
-                    context.move_to(x, y)
-                    context.arc(x, y, r, angle, angle + slice)
-                    context.close_path()
-
-                    context.set_source_rgb(color[0], color[1], color[2])
-                    context.fill()
-
-                    angle += slice
-
-        if self._chart_type == CHART_TYPE_VERTICAL_BARS:
-            margin = padding * 2
-            graph_width = image_width - rectangles_width - margin * 2
-            graph_height = image_height - margin_top - margin * 2
-            bar_width = graph_width / len(self._data) - margin
-
-            max_value = 0
-            for data in self._data:
-                max_value = max(max_value, data['value'])
-
-            x_value = rectangles_width + margin
             for data in self._data:
                 value = data['value']
                 label = data['label']
-                bar_height = value * graph_height / max_value
-                top_rounded_rect(
-                    context,
-                    x_value + margin,
-                    graph_height - bar_height + margin + margin_top,
-                    bar_width, bar_height, 10)
+                slice = 2 * math.pi * value / total
                 color = colors.get_category_color(label)
+
+                context.move_to(x, y)
+                context.arc(x, y, r, angle, angle + slice)
+                context.close_path()
+
                 context.set_source_rgb(color[0], color[1], color[2])
                 context.fill()
-                x_value += bar_width + margin
 
-            # add a shadow at the bottom
-            context.rectangle(
-                rectangles_width + 2 * margin,
-                graph_height + margin + margin_top,
-                (bar_width + margin) * len(self._data) - margin,
-                margin)
-            gradient = cairo.LinearGradient(
-                rectangles_width + 2 * margin,
-                graph_height + margin + margin_top,
-                rectangles_width + 2 * margin,
-                graph_height + margin * 1.5 + margin_top)
-            gradient.add_color_stop_rgba(0, 0, 0, 0, 0.10)
-            gradient.add_color_stop_rgba(1, 1, 1, 1, 0.10)
-            context.set_source(gradient)
+                angle += slice
+
+    def _create_bars_chart(self, context, image_width, image_height):
+
+        _set_screen_dpi()
+
+        scale = image_width / 1600.
+        context.rectangle(0, 0, image_width, image_height)
+        logging.debug('canvas size %s x %s - scale %s', image_width,
+                      image_height, scale)
+        context.set_source_rgb(1, 1, 1)
+        context.fill()
+
+        margin_top = (style.GRID_CELL_SIZE / 2) * scale
+        padding = 20 * scale
+
+        title_font_size = int(40 * scale)
+        if self._title is not None:
+            # measure the title
+            context.save()
+            context.select_font_face('Sans', cairo.FONT_SLANT_NORMAL,
+                                     cairo.FONT_WEIGHT_NORMAL)
+            context.set_font_size(title_font_size)
+            x_bearing, y_bearing, width, height, x_advance, y_advance = \
+                context.text_extents(self._title)
+            title_y = margin_top
+            title_width = width
+            context.restore()
+            # change the top margin
+            margin_top += height * 1.5
+
+        rectangles_width = 0
+        """
+        if self._show_labels:
+            # measure the descriptions
+            max_width_desc = 0
+            max_width_amount = 0
+            max_height = 0
+            context.select_font_face('Sans', cairo.FONT_SLANT_NORMAL,
+                                     cairo.FONT_WEIGHT_NORMAL)
+            context.set_font_size(26 * scale)
+
+            for data in self._data:
+                description = data['label']
+                # If there is no category, display as Unknown
+                if description is '':
+                    description = _('Unknown')
+
+                # need measure the description width to align the amounts
+                x_bearing, y_bearing, width, height, x_advance, y_advance = \
+                    context.text_extents(description)
+                max_width_desc = max(max_width_desc, width)
+                max_height = max(max_height, height)
+
+                x_bearing, y_bearing, width, height, x_advance, y_advance = \
+                    context.text_extents(str(data['value']))
+                max_height = max(max_height, height)
+                max_width_amount = max(max_width_amount, width)
+
+            # draw the labels
+            labels_height = max_height + padding * 2
+            y = (image_height - labels_height) / 2
+            context.save()
+            context.translate(margin_left, 0)
+            rectangles_width = max_width_desc + max_width_amount + padding * 3
+            for data in self._data:
+                description = data['label']
+                if description is '':
+                    description = _('Unknown')
+                context.save()
+                context.translate(0, y)
+                draw_round_rect(context, 0, 0,
+                                rectangles_width, max_height + padding, 10)
+
+                color = colors.get_category_color(description)
+                context.set_source_rgb(color[0], color[1], color[2])
+                context.fill()
+
+                if colors.is_too_light(colors.get_category_color_str(
+                        description)):
+                    context.set_source_rgb(0, 0, 0)
+                else:
+                    context.set_source_rgb(1, 1, 1)
+
+                context.save()
+                x_bearing, y_bearing, width, height, x_advance, y_advance = \
+                    context.text_extents(description)
+                context.move_to(padding, padding * 2.5 + y_bearing)
+                context.show_text(description)
+                context.restore()
+
+                context.save()
+                text = str(data['value'])
+                x_bearing, y_bearing, width, height, x_advance, y_advance = \
+                    context.text_extents(text)
+                context.move_to(rectangles_width - x_advance - padding,
+                                padding * 2.5 + y_bearing)
+                context.show_text(text)
+                context.restore()
+
+                y += max_height + padding * 2
+                context.restore()
+
+            context.restore()
+        """
+
+        if self._title is not None:
+            # print the title
+            logging.error('Printing title %s', self._title)
+            title_y = margin_top - y_bearing
+            context.save()
+            context.set_font_size(title_font_size)
+            title_x = (image_width + rectangles_width) / 2 - title_width / 2
+            context.move_to(title_x, title_y)
+
+            if self._title_color is None:
+                context.set_source_rgb(0, 0, 0)
+            else:
+                context.set_source_rgba(*style.Color(
+                    self._title_color).get_rgba())
+
+            context.show_text(self._title)
+            context.restore()
+
+        margin = padding * 2
+        graph_width = image_width - rectangles_width - margin * 2
+        graph_height = image_height - margin_top - margin * 2
+        bar_width = graph_width / len(self._data) - margin
+
+        max_value = 0
+        for data in self._data:
+            max_value = max(max_value, data['value'])
+
+        x_value = rectangles_width + margin
+        for data in self._data:
+            value = data['value']
+            label = data['label']
+            bar_height = value * graph_height / max_value
+            top_rounded_rect(
+                context,
+                x_value + margin,
+                graph_height - bar_height + margin + margin_top,
+                bar_width, bar_height, 10)
+            color = colors.get_category_color(label)
+            context.set_source_rgb(color[0], color[1], color[2])
             context.fill()
+            x_value += bar_width + margin
+
+        # add a shadow at the bottom
+        context.rectangle(
+            rectangles_width + 2 * margin,
+            graph_height + margin + margin_top,
+            (bar_width + margin) * len(self._data) - margin,
+            margin)
+        gradient = cairo.LinearGradient(
+            rectangles_width + 2 * margin,
+            graph_height + margin + margin_top,
+            rectangles_width + 2 * margin,
+            graph_height + margin * 1.5 + margin_top)
+        gradient.add_color_stop_rgba(0, 0, 0, 0, 0.10)
+        gradient.add_color_stop_rgba(1, 1, 1, 1, 0.10)
+        context.set_source(gradient)
+        context.fill()
