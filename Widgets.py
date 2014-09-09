@@ -28,6 +28,7 @@ from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 from gi.repository import GObject
+from gi.repository import Pango
 
 from sugar3 import mime
 from sugar3 import profile
@@ -222,8 +223,8 @@ class NewPollCanvas(Gtk.EventBox):
         first_column.set_homogeneous(True)
         second_column = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         second_column.set_homogeneous(True)
-        columns_box.pack_start(first_column, False, False, 10)
-        columns_box.pack_start(second_column, False, False, 10)
+        columns_box.pack_start(first_column, True, True, 10)
+        columns_box.pack_start(second_column, True, True, 10)
 
         label = Gtk.Label()
         label.set_markup('<b><span size="x-large" color="%s">%s</span></b>' %
@@ -231,6 +232,7 @@ class NewPollCanvas(Gtk.EventBox):
         first_column.pack_start(label, False, True, 10)
 
         self._title_label = Gtk.Label()
+        self._title_label.set_ellipsize(Pango.EllipsizeMode.END)
         first_column.pack_start(self._title_label, False, False, 10)
 
         label = Gtk.Label()
@@ -239,6 +241,7 @@ class NewPollCanvas(Gtk.EventBox):
         first_column.pack_start(label, False, False, 10)
 
         self._question_label = Gtk.Label()
+        self._question_label.set_ellipsize(Pango.EllipsizeMode.END)
         first_column.pack_start(self._question_label, False, False, 10)
 
         label = Gtk.Label()
@@ -257,6 +260,7 @@ class NewPollCanvas(Gtk.EventBox):
         self._option_labels = {}
         for choice in self._poll.options.keys():
             label = Gtk.Label()
+            label.set_ellipsize(Pango.EllipsizeMode.END)
             self._option_labels[int(choice)] = label
             second_column.pack_start(label, False, False, 10)
 
@@ -417,6 +421,7 @@ class ItemNewPoll(Gtk.Box):
         self.pack_start(label, False, False, 0)
 
         self.entry = BigEntry()
+        self.entry.set_max_length(80)
         margin = style.GRID_CELL_SIZE * 2
 
         self.entry.props.margin_left = margin
@@ -515,6 +520,7 @@ class ItemOptionNewPoll(Gtk.Box):
 
         self.entry = BigEntry()
         self.entry.set_text(poll.options[field])
+        self.entry.set_max_length(80)
         self.entry.connect('changed', self.__entry_changed_cb)
         self.pack_start(self.entry, True, True, 0)
 
