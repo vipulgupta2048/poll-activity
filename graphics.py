@@ -60,14 +60,22 @@ CHART_TYPE_VERTICAL_BARS = 2
 
 class Chart(Gtk.DrawingArea):
 
-    def __init__(self, data, chart_type, show_labels=True):
-        # data is a array to be able to preserve the order
-        # selected by the user.
-        # every item in the array is a dict with keys 'label' and 'value'
+    def __init__(self, data, chart_type, show_labels=True, title=None,
+                 title_color=None):
+        """
+            data: array
+                every item in the array is a dict with keys 'label' and 'value'
+            chart_type: CHART_TYPE_PIE or CHART_TYPE_VERTICAL_BARS
+            show_labels: bool
+            title: str
+            title_color: str with format "#rrggbb"
+        """
         Gtk.DrawingArea.__init__(self)
         self._data = data
         self._chart_type = chart_type
         self._show_labels = show_labels
+        self._title = title
+        self._title_color = title_color
         self.connect('draw', self.__chart_draw_cb)
 
     def set_data(self, data):
@@ -80,6 +88,14 @@ class Chart(Gtk.DrawingArea):
 
     def set_show_labels(self, show_labels):
         self._show_labels = show_labels
+        self.queue_draw()
+
+    def set_title(self, title):
+        self._title = title
+        self.queue_draw()
+
+    def set_title_color(self, title_color):
+        self._title_color = title_color
         self.queue_draw()
 
     def __chart_draw_cb(self, widget, context):
@@ -110,6 +126,21 @@ class Chart(Gtk.DrawingArea):
         margin_top = (style.GRID_CELL_SIZE / 2) * scale
         padding = 20 * scale
 
+        title_font_size = int(40 * scale)
+        if self._title is not None:
+            # measure the title
+            context.save()
+            context.select_font_face('Sans', cairo.FONT_SLANT_NORMAL,
+                                     cairo.FONT_WEIGHT_NORMAL)
+            context.set_font_size(title_font_size)
+            x_bearing, y_bearing, width, height, x_advance, y_advance = \
+                context.text_extents(self._title)
+            title_y = margin_top
+            title_width = width
+            context.restore()
+            # change the top margin
+            margin_top += height * 1.5
+
         rectangles_width = 0
         if self._show_labels:
             # measure the descriptions
@@ -138,7 +169,8 @@ class Chart(Gtk.DrawingArea):
                 max_width_amount = max(max_width_amount, width)
 
             # draw the labels
-            y = margin_top
+            labels_height = max_height + padding * 2
+            y = (image_height - labels_height) / 2
             context.save()
             context.translate(margin_left, 0)
             rectangles_width = max_width_desc + max_width_amount + padding * 3
@@ -182,11 +214,29 @@ class Chart(Gtk.DrawingArea):
 
             context.restore()
 
+        if self._title is not None:
+            # print the title
+            logging.error('Printing title %s', self._title)
+            title_y = margin_top - y_bearing
+            context.save()
+            context.set_font_size(title_font_size)
+            title_x = (image_width + rectangles_width) / 2 - title_width / 2
+            context.move_to(title_x, title_y)
+
+            if self._title_color is None:
+                context.set_source_rgb(0, 0, 0)
+            else:
+                context.set_source_rgba(*style.Color(
+                    self._title_color).get_rgba())
+
+            context.show_text(self._title)
+            context.restore()
+
         if self._chart_type == CHART_TYPE_PIE:
             # draw the pie
             x = (image_width - rectangles_width) / 2 + rectangles_width
-            y = image_height / 2
-            r = min(image_width, image_height) / 2 - 10
+            y = image_height / 2 + margin_top
+            r = min(image_width, image_height - margin_top * 2) / 2
 
             total = 0
             for data in self._data:
@@ -213,7 +263,7 @@ class Chart(Gtk.DrawingArea):
         if self._chart_type == CHART_TYPE_VERTICAL_BARS:
             margin = padding * 2
             graph_width = image_width - rectangles_width - margin * 2
-            graph_height = image_height - margin * 2
+            graph_height = image_height - margin_top - margin * 2
             bar_width = graph_width / len(self._data) - margin
 
             max_value = 0
@@ -225,10 +275,11 @@ class Chart(Gtk.DrawingArea):
                 value = data['value']
                 label = data['label']
                 bar_height = value * graph_height / max_value
-                top_rounded_rect(context,
-                                 x_value + margin,
-                                 graph_height - bar_height + margin,
-                                 bar_width, bar_height, 10)
+                top_rounded_rect(
+                    context,
+                    x_value + margin,
+                    graph_height - bar_height + margin + margin_top,
+                    bar_width, bar_height, 10)
                 color = colors.get_category_color(label)
                 context.set_source_rgb(color[0], color[1], color[2])
                 context.fill()
@@ -236,12 +287,15 @@ class Chart(Gtk.DrawingArea):
 
             # add a shadow at the bottom
             context.rectangle(
-                rectangles_width + 2 * margin, graph_height + margin,
+                rectangles_width + 2 * margin,
+                graph_height + margin + margin_top,
                 (bar_width + margin) * len(self._data) - margin,
                 margin)
             gradient = cairo.LinearGradient(
-                rectangles_width + 2 * margin, graph_height + margin,
-                rectangles_width + 2 * margin, graph_height + margin * 1.5)
+                rectangles_width + 2 * margin,
+                graph_height + margin + margin_top,
+                rectangles_width + 2 * margin,
+                graph_height + margin * 1.5 + margin_top)
             gradient.add_color_stop_rgba(0, 0, 0, 0, 0.10)
             gradient.add_color_stop_rgba(1, 1, 1, 1, 0.10)
             context.set_source(gradient)

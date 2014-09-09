@@ -866,7 +866,6 @@ class PollCanvas(Gtk.EventBox):
             (darker_color_str, poll.question))
         self.question.props.margin_top = style.GRID_CELL_SIZE / 2
         self.question.props.margin_bottom = style.GRID_CELL_SIZE / 2
-        self.question.props.margin_left = style.GRID_CELL_SIZE * 2
         self.question.set_halign(Gtk.Align.CENTER)
         self._grid.attach(self.question, 0, row, 2, 1)
         row += 1
@@ -924,7 +923,9 @@ class PollCanvas(Gtk.EventBox):
 
         logging.error('poll options %s data %s', poll.options, poll.data)
 
-        self.chart = Chart(data, chart_type, show_labels=not poll.active)
+        self.chart = Chart(data, chart_type, show_labels=not poll.active,
+                           title=poll.question,
+                           title_color=darker_color_str)
         self.chart.set_hexpand(True)
         self.chart.set_vexpand(True)
         self.chart.props.margin_right = style.GRID_CELL_SIZE * 2
@@ -980,6 +981,7 @@ class PollCanvas(Gtk.EventBox):
 
     def set_view_answer(self, visible):
         self.chart.set_visible(visible)
+        self.question.set_visible(not visible)
 
     def _button_save_cb(self, button):
         """
