@@ -117,6 +117,40 @@ class Chart(Gtk.DrawingArea):
         if self._chart_type == CHART_TYPE_VERTICAL_BARS:
             self._create_bars_chart(context, image_width, image_height)
 
+    def _measure_title(self, context, title_font_size):
+        title_width = 0
+        # change the top margin
+        title_height = 0
+        if self._title is not None:
+            # measure the title
+            context.save()
+            context.select_font_face('Sans', cairo.FONT_SLANT_NORMAL,
+                                     cairo.FONT_WEIGHT_NORMAL)
+            context.set_font_size(title_font_size)
+            x_bearing, y_bearing, width, height, x_advance, y_advance = \
+                context.text_extents(self._title)
+            title_width = width
+            context.restore()
+            title_height = height
+        return title_width, title_height
+
+    def _print_title(self, context, title_x, title_y, title_font_size):
+        if self._title is not None:
+            # print the title
+            logging.error('Printing title %s', self._title)
+            context.save()
+            context.set_font_size(title_font_size)
+            context.move_to(title_x, title_y)
+
+            if self._title_color is None:
+                context.set_source_rgb(0, 0, 0)
+            else:
+                context.set_source_rgba(*style.Color(
+                    self._title_color).get_rgba())
+
+            context.show_text(self._title)
+            context.restore()
+
     def _create_pie_chart(self, context, image_width, image_height):
 
         _set_screen_dpi()
@@ -133,19 +167,9 @@ class Chart(Gtk.DrawingArea):
         padding = 20 * scale
 
         title_font_size = int(40 * scale)
-        if self._title is not None:
-            # measure the title
-            context.save()
-            context.select_font_face('Sans', cairo.FONT_SLANT_NORMAL,
-                                     cairo.FONT_WEIGHT_NORMAL)
-            context.set_font_size(title_font_size)
-            x_bearing, y_bearing, width, height, x_advance, y_advance = \
-                context.text_extents(self._title)
-            title_y = margin_top
-            title_width = width
-            context.restore()
-            # change the top margin
-            margin_top += height * 1.5
+        title_width, title_height = self._measure_title(context,
+                                                        title_font_size)
+        margin_top += title_height * 1.5
 
         rectangles_width = 0
         if self._show_labels:
@@ -220,23 +244,10 @@ class Chart(Gtk.DrawingArea):
 
             context.restore()
 
-        if self._title is not None:
-            # print the title
-            logging.error('Printing title %s', self._title)
-            title_y = margin_top - y_bearing
-            context.save()
-            context.set_font_size(title_font_size)
-            title_x = (image_width + rectangles_width) / 2 - title_width / 2
-            context.move_to(title_x, title_y)
-
-            if self._title_color is None:
-                context.set_source_rgb(0, 0, 0)
-            else:
-                context.set_source_rgba(*style.Color(
-                    self._title_color).get_rgba())
-
-            context.show_text(self._title)
-            context.restore()
+        self._print_title(
+            context,
+            (image_width + rectangles_width) / 2 - title_width / 2,
+            margin_top, title_font_size)
 
         # draw the pie
         x = (image_width - rectangles_width) / 2 + rectangles_width
@@ -280,19 +291,9 @@ class Chart(Gtk.DrawingArea):
         padding = 20 * scale
 
         title_font_size = int(40 * scale)
-        if self._title is not None:
-            # measure the title
-            context.save()
-            context.select_font_face('Sans', cairo.FONT_SLANT_NORMAL,
-                                     cairo.FONT_WEIGHT_NORMAL)
-            context.set_font_size(title_font_size)
-            x_bearing, y_bearing, width, height, x_advance, y_advance = \
-                context.text_extents(self._title)
-            title_y = margin_top
-            title_width = width
-            context.restore()
-            # change the top margin
-            margin_top += height * 1.5
+        title_width, title_height = self._measure_title(context,
+                                                        title_font_size)
+        margin_top += title_height * 1.5
 
         rectangles_width = 0
         """
@@ -369,23 +370,10 @@ class Chart(Gtk.DrawingArea):
             context.restore()
         """
 
-        if self._title is not None:
-            # print the title
-            logging.error('Printing title %s', self._title)
-            title_y = margin_top - y_bearing
-            context.save()
-            context.set_font_size(title_font_size)
-            title_x = (image_width + rectangles_width) / 2 - title_width / 2
-            context.move_to(title_x, title_y)
-
-            if self._title_color is None:
-                context.set_source_rgb(0, 0, 0)
-            else:
-                context.set_source_rgba(*style.Color(
-                    self._title_color).get_rgba())
-
-            context.show_text(self._title)
-            context.restore()
+        self._print_title(
+            context,
+            (image_width + rectangles_width) / 2 - title_width / 2,
+            margin_top, title_font_size)
 
         margin = padding * 2
         graph_width = image_width - rectangles_width - margin * 2
