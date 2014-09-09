@@ -294,6 +294,7 @@ class NewPollCanvas(Gtk.EventBox):
 
     def __button_back_cb(self, button):
         self._notebook.prev_page()
+        self._next_button.set_sensitive(True)
 
     def __button_next_cb(self, button):
         logging.error('current page %s', self._notebook.get_current_page())
@@ -314,6 +315,9 @@ class NewPollCanvas(Gtk.EventBox):
                     '<span size="x-large" >%s</span>' %
                     self._poll.options[int(choice)])
             self._notebook.next_page()
+
+            # disble next button in the last page
+            self._next_button.set_sensitive(False)
 
     def set_image_widgets_visible(self, visible):
         for widget in self._option_widgets:
