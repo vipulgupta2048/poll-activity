@@ -187,6 +187,8 @@ class Chart(Gtk.DrawingArea):
                 # If there is no category, display as Unknown
                 if description is '':
                     description = _('Unknown')
+                if len(description) > 30:
+                    description = description[:30] + '...'
 
                 # need measure the description width to align the amounts
                 x_bearing, y_bearing, width, height, x_advance, y_advance = \
@@ -200,7 +202,7 @@ class Chart(Gtk.DrawingArea):
                 max_width_amount = max(max_width_amount, width)
 
             # draw the labels
-            labels_height = max_height + padding * 2
+            labels_height = (max_height + padding * 2) * len(self._data)
             y = (image_height - labels_height) / 2
             context.save()
             context.translate(margin_left, 0)
@@ -209,6 +211,9 @@ class Chart(Gtk.DrawingArea):
                 description = data['label']
                 if description is '':
                     description = _('Unknown')
+                if len(description) > 30:
+                    description = description[:30] + '...'
+
                 context.save()
                 context.translate(0, y)
                 draw_round_rect(context, 0, 0,
