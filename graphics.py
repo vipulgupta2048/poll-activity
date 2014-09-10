@@ -5,6 +5,7 @@ from gettext import gettext as _
 
 from gi.repository import Gtk
 from gi.repository import PangoCairo
+from gi.repository import Pango
 
 from sugar3.graphics import style
 
@@ -295,16 +296,15 @@ class Chart(Gtk.DrawingArea):
                                                         title_font_size)
         margin_top += title_height * 1.5
 
-        rectangles_width = 0
-        """
+        margin = padding * 2
+        graph_width = image_width - margin * 2
+        graph_height = image_height - margin_top - margin * 3
+        bar_width = graph_width / len(self._data) - margin
+        max_bar_height = graph_height
+
         if self._show_labels:
             # measure the descriptions
-            max_width_desc = 0
-            max_width_amount = 0
             max_height = 0
-            context.select_font_face('Sans', cairo.FONT_SLANT_NORMAL,
-                                     cairo.FONT_WEIGHT_NORMAL)
-            context.set_font_size(26 * scale)
 
             for data in self._data:
                 description = data['label']
@@ -312,87 +312,61 @@ class Chart(Gtk.DrawingArea):
                 if description is '':
                     description = _('Unknown')
 
-                # need measure the description width to align the amounts
-                x_bearing, y_bearing, width, height, x_advance, y_advance = \
-                    context.text_extents(description)
-                max_width_desc = max(max_width_desc, width)
+                layout = self.create_pango_layout(description)
+                layout.set_width(bar_width)
+                layout.set_wrap(Pango.WrapMode.WORD)
+                layout.set_alignment(Pango.Alignment.CENTER)
+                font_desc = Pango.FontDescription("Sans %s" % (12 * scale))
+                layout.set_font_description(font_desc)
+                width, height = layout.get_pixel_size()
                 max_height = max(max_height, height)
 
-                x_bearing, y_bearing, width, height, x_advance, y_advance = \
-                    context.text_extents(str(data['value']))
-                max_height = max(max_height, height)
-                max_width_amount = max(max_width_amount, width)
+            max_bar_height = graph_height - max_height
 
             # draw the labels
-            labels_height = max_height + padding * 2
-            y = (image_height - labels_height) / 2
-            context.save()
-            context.translate(margin_left, 0)
-            rectangles_width = max_width_desc + max_width_amount + padding * 3
+            y = max_bar_height + margin * 2 + margin_top
+            x = margin * 2.5 + bar_width / 2
             for data in self._data:
                 description = data['label']
                 if description is '':
                     description = _('Unknown')
-                context.save()
-                context.translate(0, y)
-                draw_round_rect(context, 0, 0,
-                                rectangles_width, max_height + padding, 10)
 
-                color = colors.get_category_color(description)
-                context.set_source_rgb(color[0], color[1], color[2])
+                context.save()
+                context.translate(x, y)
+                logging.error('Printing %s at %s, %s', description, x, y)
+                layout = self.create_pango_layout(description)
+                layout.set_width(bar_width)
+                layout.set_wrap(Pango.WrapMode.WORD)
+                layout.set_alignment(Pango.Alignment.CENTER)
+                font_desc = Pango.FontDescription("Sans %s" % (12 * scale))
+                layout.set_font_description(font_desc)
+
+                context.set_source_rgb(0, 0, 0)
+                PangoCairo.update_layout(context, layout)
+                PangoCairo.show_layout(context, layout)
                 context.fill()
 
-                if colors.is_too_light(colors.get_category_color_str(
-                        description)):
-                    context.set_source_rgb(0, 0, 0)
-                else:
-                    context.set_source_rgb(1, 1, 1)
-
-                context.save()
-                x_bearing, y_bearing, width, height, x_advance, y_advance = \
-                    context.text_extents(description)
-                context.move_to(padding, padding * 2.5 + y_bearing)
-                context.show_text(description)
+                x += bar_width + margin
                 context.restore()
-
-                context.save()
-                text = str(data['value'])
-                x_bearing, y_bearing, width, height, x_advance, y_advance = \
-                    context.text_extents(text)
-                context.move_to(rectangles_width - x_advance - padding,
-                                padding * 2.5 + y_bearing)
-                context.show_text(text)
-                context.restore()
-
-                y += max_height + padding * 2
-                context.restore()
-
-            context.restore()
-        """
 
         self._print_title(
             context,
-            (image_width + rectangles_width) / 2 - title_width / 2,
+            image_width / 2 - title_width / 2,
             margin_top, title_font_size)
-
-        margin = padding * 2
-        graph_width = image_width - rectangles_width - margin * 2
-        graph_height = image_height - margin_top - margin * 2
-        bar_width = graph_width / len(self._data) - margin
 
         max_value = 0
         for data in self._data:
             max_value = max(max_value, data['value'])
 
-        x_value = rectangles_width + margin
+        x_value = margin * 1.5
         for data in self._data:
             value = data['value']
             label = data['label']
-            bar_height = value * graph_height / max_value
+            bar_height = value * max_bar_height / max_value
             top_rounded_rect(
                 context,
                 x_value + margin,
-                graph_height - bar_height + margin + margin_top,
+                max_bar_height - bar_height + margin + margin_top,
                 bar_width, bar_height, 10)
             color = colors.get_category_color(label)
             context.set_source_rgb(color[0], color[1], color[2])
@@ -401,15 +375,15 @@ class Chart(Gtk.DrawingArea):
 
         # add a shadow at the bottom
         context.rectangle(
-            rectangles_width + 2 * margin,
-            graph_height + margin + margin_top,
+            2.5 * margin,
+            max_bar_height + margin + margin_top,
             (bar_width + margin) * len(self._data) - margin,
             margin)
         gradient = cairo.LinearGradient(
-            rectangles_width + 2 * margin,
-            graph_height + margin + margin_top,
-            rectangles_width + 2 * margin,
-            graph_height + margin * 1.5 + margin_top)
+            2.5 * margin,
+            max_bar_height + margin + margin_top,
+            2.5 * margin,
+            max_bar_height + margin * 1.5 + margin_top)
         gradient.add_color_stop_rgba(0, 0, 0, 0, 0.10)
         gradient.add_color_stop_rgba(1, 1, 1, 1, 0.10)
         context.set_source(gradient)
