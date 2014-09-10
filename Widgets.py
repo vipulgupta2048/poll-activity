@@ -970,6 +970,7 @@ class PollCanvas(Gtk.EventBox):
         else:
             logging.error('poll not active')
             self._grid.attach(self.chart, 0, row, 2, 1)
+            self.chart.props.margin_left = style.GRID_CELL_SIZE * 2
             row += 1
 
         counter_label = Gtk.Label()

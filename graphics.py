@@ -331,7 +331,7 @@ class Chart(Gtk.DrawingArea):
 
             # draw the labels
             y = max_bar_height + margin * 2 + margin_top
-            x = margin * 2.5 + bar_width / 2
+            x = margin * 2 + bar_width / 2
             for data in self._data:
                 description = data['label']
                 if description is '':
@@ -364,7 +364,7 @@ class Chart(Gtk.DrawingArea):
         for data in self._data:
             max_value = max(max_value, data['value'])
 
-        x_value = margin * 1.5
+        x_value = margin
         for data in self._data:
             value = data['value']
             label = data['label']
@@ -381,14 +381,14 @@ class Chart(Gtk.DrawingArea):
 
         # add a shadow at the bottom
         context.rectangle(
-            2.5 * margin,
+            2 * margin,
             max_bar_height + margin + margin_top,
             (bar_width + margin) * len(self._data) - margin,
             margin)
         gradient = cairo.LinearGradient(
-            2.5 * margin,
+            2 * margin,
             max_bar_height + margin + margin_top,
-            2.5 * margin,
+            2 * margin,
             max_bar_height + margin * 1.5 + margin_top)
         gradient.add_color_stop_rgba(0, 0, 0, 0, 0.10)
         gradient.add_color_stop_rgba(1, 1, 1, 1, 0.10)
