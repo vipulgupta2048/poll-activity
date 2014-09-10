@@ -961,7 +961,6 @@ class PollCanvas(Gtk.EventBox):
                                        Gtk.STYLE_PROVIDER_PRIORITY_USER)
 
             button.connect('clicked', poll.activity.button_vote_cb)
-            button.props.margin = style.GRID_CELL_SIZE / 2
             button.set_hexpand(False)
             button.set_halign(Gtk.Align.CENTER)
 
@@ -982,7 +981,7 @@ class PollCanvas(Gtk.EventBox):
         counter_label.set_markup('<span size="large">%s</span>' % text)
 
         counter_label.props.margin_top = style.GRID_CELL_SIZE / 2
-        counter_label.props.margin_bottom = style.GRID_CELL_SIZE
+        counter_label.props.margin_bottom = style.GRID_CELL_SIZE / 2
         counter_label.set_halign(Gtk.Align.CENTER)
         self._grid.attach(counter_label, 0, row, 2, 1)
 
