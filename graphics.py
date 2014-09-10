@@ -167,7 +167,7 @@ class Chart(Gtk.DrawingArea):
         margin_top = (style.GRID_CELL_SIZE / 2) * scale
         padding = 20 * scale
 
-        title_font_size = int(40 * scale)
+        title_font_size = int(40 * _get_screen_dpi() / 96. * scale)
         title_width, title_height = self._measure_title(context,
                                                         title_font_size)
         margin_top += title_height * 1.5
@@ -296,7 +296,8 @@ class Chart(Gtk.DrawingArea):
         margin_top = (style.GRID_CELL_SIZE / 2) * scale
         padding = 20 * scale
 
-        title_font_size = int(40 * scale)
+        title_font_size = int(40 * _get_screen_dpi() / 96. * scale)
+
         title_width, title_height = self._measure_title(context,
                                                         title_font_size)
         margin_top += title_height * 1.5
