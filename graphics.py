@@ -152,6 +152,34 @@ class Chart(Gtk.DrawingArea):
             context.show_text(self._title)
             context.restore()
 
+    def _measure_text(self, text, font_size, max_width=0):
+        layout = self.create_pango_layout(text)
+        if max_width > 0:
+            layout.set_width(max_width)
+            layout.set_wrap(Pango.WrapMode.WORD)
+        font_desc = Pango.FontDescription("Sans %s" % font_size)
+        layout.set_font_description(font_desc)
+        return layout.get_pixel_size()
+
+    def _print_text(self, context, x, y, text, font_size, max_width=0,
+                    alignment=None):
+        context.save()
+        context.translate(x, y)
+        layout = self.create_pango_layout(text)
+        if max_width > 0:
+            layout.set_width(max_width)
+            layout.set_wrap(Pango.WrapMode.WORD)
+        if alignment is not None:
+            layout.set_alignment(alignment)
+        font_desc = Pango.FontDescription("Sans %s" % font_size)
+        layout.set_font_description(font_desc)
+
+        context.set_source_rgb(0, 0, 0)
+        PangoCairo.update_layout(context, layout)
+        PangoCairo.show_layout(context, layout)
+        context.fill()
+        context.restore()
+
     def _create_pie_chart(self, context, image_width, image_height):
 
         _set_screen_dpi()
@@ -178,10 +206,7 @@ class Chart(Gtk.DrawingArea):
             max_width_desc = 0
             max_width_amount = 0
             max_height = 0
-            context.select_font_face('Sans', cairo.FONT_SLANT_NORMAL,
-                                     cairo.FONT_WEIGHT_NORMAL)
-            context.set_font_size(26 * scale)
-
+            label_font_size = 14 * scale
             for data in self._data:
                 description = data['label']
                 # If there is no category, display as Unknown
@@ -191,18 +216,20 @@ class Chart(Gtk.DrawingArea):
                     description = description[:30] + '...'
 
                 # need measure the description width to align the amounts
-                x_bearing, y_bearing, width, height, x_advance, y_advance = \
-                    context.text_extents(description)
+                width, height = self._measure_text(description,
+                                                   label_font_size)
+
                 max_width_desc = max(max_width_desc, width)
                 max_height = max(max_height, height)
 
-                x_bearing, y_bearing, width, height, x_advance, y_advance = \
-                    context.text_extents(str(data['value']))
+                width, height = self._measure_text(str(data['value']),
+                                                   label_font_size)
+
                 max_height = max(max_height, height)
                 max_width_amount = max(max_width_amount, width)
 
             # draw the labels
-            labels_height = (max_height + padding * 2) * len(self._data)
+            labels_height = (max_height * 2.5) * len(self._data)
             y = (image_height - labels_height) / 2
             context.save()
             context.translate(margin_left, 0)
@@ -217,7 +244,7 @@ class Chart(Gtk.DrawingArea):
                 context.save()
                 context.translate(0, y)
                 draw_round_rect(context, 0, 0,
-                                rectangles_width, max_height + padding, 10)
+                                rectangles_width, max_height * 2, 10)
 
                 color = colors.get_category_color(description)
                 context.set_source_rgb(color[0], color[1], color[2])
@@ -229,23 +256,19 @@ class Chart(Gtk.DrawingArea):
                 else:
                     context.set_source_rgb(1, 1, 1)
 
-                context.save()
-                x_bearing, y_bearing, width, height, x_advance, y_advance = \
-                    context.text_extents(description)
-                context.move_to(padding, padding * 2.5 + y_bearing)
-                context.show_text(description)
-                context.restore()
+                width, height = self._measure_text(description,
+                                                   label_font_size)
 
-                context.save()
+                self._print_text(context, padding, height * .5, description,
+                                 label_font_size)
+
                 text = str(data['value'])
-                x_bearing, y_bearing, width, height, x_advance, y_advance = \
-                    context.text_extents(text)
-                context.move_to(rectangles_width - x_advance - padding,
-                                padding * 2.5 + y_bearing)
-                context.show_text(text)
-                context.restore()
+                width, height = self._measure_text(text, label_font_size)
 
-                y += max_height + padding * 2
+                self._print_text(context, rectangles_width - width - padding,
+                                 height * .5, text, label_font_size)
+
+                y += max_height * 2.5
                 context.restore()
 
             context.restore()
@@ -318,13 +341,8 @@ class Chart(Gtk.DrawingArea):
                 if description is '':
                     description = _('Unknown')
 
-                layout = self.create_pango_layout(description)
-                layout.set_width(bar_width)
-                layout.set_wrap(Pango.WrapMode.WORD)
-                layout.set_alignment(Pango.Alignment.CENTER)
-                font_desc = Pango.FontDescription("Sans %s" % (12 * scale))
-                layout.set_font_description(font_desc)
-                width, height = layout.get_pixel_size()
+                width, height = self._measure_text(
+                    description, (12 * scale), max_width=bar_width)
                 max_height = max(max_height, height)
 
             max_bar_height = graph_height - max_height
@@ -337,23 +355,10 @@ class Chart(Gtk.DrawingArea):
                 if description is '':
                     description = _('Unknown')
 
-                context.save()
-                context.translate(x, y)
-                logging.error('Printing %s at %s, %s', description, x, y)
-                layout = self.create_pango_layout(description)
-                layout.set_width(bar_width)
-                layout.set_wrap(Pango.WrapMode.WORD)
-                layout.set_alignment(Pango.Alignment.CENTER)
-                font_desc = Pango.FontDescription("Sans %s" % (12 * scale))
-                layout.set_font_description(font_desc)
-
-                context.set_source_rgb(0, 0, 0)
-                PangoCairo.update_layout(context, layout)
-                PangoCairo.show_layout(context, layout)
-                context.fill()
-
+                self._print_text(context, x, y, description, (12 * scale),
+                                 max_width=bar_width,
+                                 alignment=Pango.Alignment.CENTER)
                 x += bar_width + margin
-                context.restore()
 
         self._print_title(
             context,
@@ -377,25 +382,17 @@ class Chart(Gtk.DrawingArea):
             context.fill()
 
             # draw the value
-            context.save()
-            layout = self.create_pango_layout(str(value))
-            layout.set_alignment(Pango.Alignment.CENTER)
-            font_desc = Pango.FontDescription("Sans %s" % (22 * scale))
-            layout.set_font_description(font_desc)
-            width, height = layout.get_pixel_size()
+            width, height = self._measure_text(str(value), (22 * scale))
 
             x_label = x_value + margin + bar_width / 2
             if height * 2 < bar_height:
                 y_label = bar_top + height
             else:
                 y_label = bar_top - height * 2
-            context.translate(x_label, y_label)
 
-            context.set_source_rgb(0, 0, 0)
-            PangoCairo.update_layout(context, layout)
-            PangoCairo.show_layout(context, layout)
-            context.fill()
-            context.restore()
+            self._print_text(context, x_label, y_label, str(value),
+                             (22 * scale),
+                             alignment=Pango.Alignment.CENTER)
 
             x_value += bar_width + margin
 
