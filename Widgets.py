@@ -897,13 +897,28 @@ class PollCanvas(Gtk.EventBox):
         data = []
         for choice in range(poll.number_of_options):
             # data is used by the chart
+            color_str = colors.get_category_color_str(poll.options[choice])
+            # verify if the color is unique
+            unique = False
+            counter = 1
+            while not unique:
+                unique = True
+                for element in data:
+                    if element['color'] == color_str:
+                        unique = False
+                if not unique:
+                    color_str = colors.get_category_color_str(
+                        poll.options[choice] + str(counter))
+                    counter += 1
+
             data.append({'label': poll.options[choice],
-                         'value': poll.data[choice]})
+                         'value': poll.data[choice],
+                         'color': color_str})
 
             if poll.active:
                 box = Gtk.VBox()
                 text = poll.options[choice]
-                color = style.Color(colors.get_category_color_str(text))
+                color = style.Color(color_str)
                 roundbox = RoundBox()
                 roundbox.background_color = color
                 roundbox.border_color = color

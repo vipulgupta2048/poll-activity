@@ -65,7 +65,8 @@ class Chart(Gtk.DrawingArea):
                  title_color=None):
         """
             data: array
-                every item in the array is a dict with keys 'label' and 'value'
+                every item in the array is a dict with keys 'label', 'value',
+                and color (color is a str with format "#rrggbb")
             chart_type: CHART_TYPE_PIE or CHART_TYPE_VERTICAL_BARS
             show_labels: bool
             title: str
@@ -246,12 +247,11 @@ class Chart(Gtk.DrawingArea):
                 draw_round_rect(context, 0, 0,
                                 rectangles_width, max_height * 2, 10)
 
-                color = colors.get_category_color(description)
-                context.set_source_rgb(color[0], color[1], color[2])
+                color = style.Color(data['color'])
+                context.set_source_rgba(*color.get_rgba())
                 context.fill()
 
-                if colors.is_too_light(colors.get_category_color_str(
-                        description)):
+                if colors.is_too_light(data['color']):
                     context.set_source_rgb(0, 0, 0)
                 else:
                     context.set_source_rgb(1, 1, 1)
@@ -292,15 +292,14 @@ class Chart(Gtk.DrawingArea):
 
             for data in self._data:
                 value = data['value']
-                label = data['label']
                 slice = 2 * math.pi * value / total
-                color = colors.get_category_color(label)
+                color = style.Color(data['color'])
 
                 context.move_to(x, y)
                 context.arc(x, y, r, angle, angle + slice)
                 context.close_path()
 
-                context.set_source_rgb(color[0], color[1], color[2])
+                context.set_source_rgba(*color.get_rgba())
                 context.fill()
 
                 angle += slice
@@ -372,13 +371,12 @@ class Chart(Gtk.DrawingArea):
         x_value = margin
         for data in self._data:
             value = data['value']
-            label = data['label']
             bar_height = value * max_bar_height / max_value
             bar_top = max_bar_height - bar_height + margin + margin_top
             top_rounded_rect(context, x_value + margin, bar_top,
                              bar_width, bar_height, 10)
-            color = colors.get_category_color(label)
-            context.set_source_rgb(color[0], color[1], color[2])
+            color = style.Color(data['color'])
+            context.set_source_rgba(*color.get_rgba())
             context.fill()
 
             # draw the value
