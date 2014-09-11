@@ -381,6 +381,12 @@ class NewPollCanvas(Gtk.EventBox):
             else:
                 self._poll.number_of_options = 5
 
+            # if there are images loaded, request a description
+            for field in range(0, 5):
+                image_loaded = self._poll.images_ds_objects[field] != {}
+                if image_loaded and self._poll.options[field] == '':
+                    failed_items.append(field)
+
         # paint the obligatory entries without value
 
         for child in box:
