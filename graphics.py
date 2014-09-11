@@ -369,14 +369,34 @@ class Chart(Gtk.DrawingArea):
             value = data['value']
             label = data['label']
             bar_height = value * max_bar_height / max_value
-            top_rounded_rect(
-                context,
-                x_value + margin,
-                max_bar_height - bar_height + margin + margin_top,
-                bar_width, bar_height, 10)
+            bar_top = max_bar_height - bar_height + margin + margin_top
+            top_rounded_rect(context, x_value + margin, bar_top,
+                             bar_width, bar_height, 10)
             color = colors.get_category_color(label)
             context.set_source_rgb(color[0], color[1], color[2])
             context.fill()
+
+            # draw the value
+            context.save()
+            layout = self.create_pango_layout(str(value))
+            layout.set_alignment(Pango.Alignment.CENTER)
+            font_desc = Pango.FontDescription("Sans %s" % (22 * scale))
+            layout.set_font_description(font_desc)
+            width, height = layout.get_pixel_size()
+
+            x_label = x_value + margin + bar_width / 2
+            if height * 2 < bar_height:
+                y_label = bar_top + height
+            else:
+                y_label = bar_top - height * 2
+            context.translate(x_label, y_label)
+
+            context.set_source_rgb(0, 0, 0)
+            PangoCairo.update_layout(context, layout)
+            PangoCairo.show_layout(context, layout)
+            context.fill()
+            context.restore()
+
             x_value += bar_width + margin
 
         # add a shadow at the bottom
