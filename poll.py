@@ -381,16 +381,6 @@ class PollBuilder(activity.Activity):
 
             self.set_canvas(SelectCanvas(self))
 
-    def vote_choice_radio_button(self, widget, data):
-        """
-        Track which radio button has been selected
-
-        This is connected to the vote choice radio buttons.
-        data contains the choice (0 - 4) selected.
-        """
-
-        self.current_vote = data
-
     def __play_vote_button_sound(self):
 
         try:
@@ -400,7 +390,7 @@ class PollBuilder(activity.Activity):
         except (OSError, ValueError), e:
             logging.exception(e)
 
-    def button_vote_cb(self, button):
+    def poll_vote(self, vote):
         """
         Register a vote
 
@@ -408,38 +398,35 @@ class PollBuilder(activity.Activity):
         and increment the poll_data.
         """
 
-        if self.current_vote is not None:
-            if self._poll.vote_count >= self._poll.maxvoters:
-                self._logger.debug('Hit the max voters, ignoring this vote.')
-                return
+        self.current_vote = vote
 
-            self._logger.debug('Voted ' + str(self.current_vote))
+        if self._poll.vote_count >= self._poll.maxvoters:
+            self._logger.debug('Hit the max voters, ignoring this vote.')
+            return
 
-            try:
-                self._poll.register_vote(self.current_vote, self.nick_sha1)
+        self._logger.debug('Voted ' + str(self.current_vote))
 
-            except OverflowError:
-                self._logger.debug('Local vote failed: '
-                                   'maximum votes already registered.')
+        try:
+            self._poll.register_vote(self.current_vote, self.nick_sha1)
 
-            except ValueError:
-                self._logger.debug('Local vote failed: poll closed.')
+        except OverflowError:
+            self._logger.debug('Local vote failed: '
+                               'maximum votes already registered.')
 
-            self._logger.debug('Results: ' + str(self._poll.data))
+        except ValueError:
+            self._logger.debug('Local vote failed: poll closed.')
 
-            if self._play_vote_sound:
-                self.__play_vote_button_sound()
+        self._logger.debug('Results: ' + str(self._poll.data))
 
-            if not self._remember_last_vote:
-                self.current_vote = None
+        if self._play_vote_sound:
+            self.__play_vote_button_sound()
 
-            self.set_canvas(PollCanvas(
-                self._poll, self.current_vote,
-                self._view_answer, self._chart_type_selected))
-        else:
-            self.get_alert(
-                _('Poll Activity'),
-                _('To vote you have to select first one option'))
+        if not self._remember_last_vote:
+            self.current_vote = None
+
+        self.set_canvas(PollCanvas(
+            self._poll, self.current_vote,
+            self._view_answer, self._chart_type_selected))
 
     def __button_select_clicked(self, button):
         """
@@ -504,6 +491,20 @@ class PollBuilder(activity.Activity):
 
     def get_use_image(self):
         return self._use_image
+
+    def set_remember_last_vote(self, remember_last_vote):
+        self._remember_last_vote = remember_last_vote
+        if type(self.get_canvas()) is PollCanvas:
+            if self._remember_last_vote:
+                self.current_vote = self._poll.last_vote
+            else:
+                self.current_vote = None
+            self.set_canvas(PollCanvas(
+                self._poll, self.current_vote,
+                self._view_answer, self._chart_type_selected))
+
+    def get_remember_last_vote(self):
+        return self._remember_last_vote
 
     def __save_image_cb(self, button):
         if type(self.get_canvas()) is not PollCanvas:

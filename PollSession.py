@@ -66,6 +66,7 @@ class Poll():
 
         self.data = (data or {0: 0, 1: 0, 2: 0, 3: 0, 4: 0})
         self.votes = (votes or {})
+        self.last_vote = None
 
         self._logger = logging.getLogger('poll-activity.Poll')
         self._logger.debug('Creating Poll(%s by %s)' % (title, author))
@@ -148,6 +149,7 @@ class Poll():
 
                 self.votes[votersha] = choice
                 self.data[choice] += 1
+                self.last_vote = choice
                 self._logger.debug(
                     'Recording vote %d by %s on %s by %s' %
                     (choice, votersha, self.title, self.author))

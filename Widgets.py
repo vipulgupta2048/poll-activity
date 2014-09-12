@@ -695,7 +695,7 @@ class OptionsPalette(Gtk.Box):
         self._view_results_checkbutton.set_active(
             self._poll_activity.get_view_answer())
         self._remember_vote_checkbutton.set_active(
-            self._poll_activity._remember_last_vote)
+            self._poll_activity.get_remember_last_vote())
         self._play_vote_sound_checkbutton.set_active(
             self._poll_activity._play_vote_sound)
         self._use_image_checkbox.set_active(
@@ -709,7 +709,7 @@ class OptionsPalette(Gtk.Box):
         self._poll_activity.set_view_answer(checkbox.get_active())
 
     def __remember_last_vote_checkbox_cb(self, checkbox):
-        self._poll_activity._remember_last_vote = checkbox.get_active()
+        self._poll_activity.set_remember_last_vote(checkbox.get_active())
 
     def __play_vote_sound_checkbox_cb(self, checkbox):
         self._poll_activity._play_vote_sound = checkbox.get_active()
@@ -857,6 +857,7 @@ class PollCanvas(Gtk.EventBox):
         self.modify_bg(Gtk.StateType.NORMAL,
                        style.COLOR_WHITE.get_gdk_color())
 
+        self._current_vote = current_vote
         box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         self.add(box)
 
@@ -936,8 +937,7 @@ class PollCanvas(Gtk.EventBox):
                 roundbox.set_hexpand(False)
                 box.pack_start(roundbox, False, False, 0)
                 box.set_valign(Gtk.Align.CENTER)
-                button.connect(
-                    'toggled', poll.activity.vote_choice_radio_button, choice)
+                button.connect('toggled', self.__vote_radio_button_cb, choice)
 
                 self.tabla.attach(box, 0, 1, row, row + 1)
 
@@ -980,7 +980,7 @@ class PollCanvas(Gtk.EventBox):
             style_context.add_provider(css_provider,
                                        Gtk.STYLE_PROVIDER_PRIORITY_USER)
 
-            button.connect('clicked', poll.activity.button_vote_cb)
+            button.connect('clicked', self.__button_vote_cb)
             button.set_hexpand(False)
             button.set_halign(Gtk.Align.CENTER)
 
@@ -1010,6 +1010,24 @@ class PollCanvas(Gtk.EventBox):
         # hide or show the results if needed
         self.set_view_answer(view_answer or not poll.active)
 
+    def __vote_radio_button_cb(self, button, data):
+        """
+        Track which radio button has been selected
+
+        This is connected to the vote choice radio buttons.
+        data contains the choice (0 - 4) selected.
+        """
+        self._current_vote = data
+
+    def __button_vote_cb(self, button):
+        # check if some option is selected
+        if self._current_vote is None:
+            self._poll.activity.get_alert(
+                _('Poll Activity'),
+                _('To vote you have to select first one option'))
+        else:
+            self._poll.activity.poll_vote(self._current_vote)
+
     def set_view_answer(self, visible):
         self.chart.set_visible(visible)
         self.question.set_visible(not visible)
@@ -1017,14 +1035,3 @@ class PollCanvas(Gtk.EventBox):
             self.tabla.props.margin_right = 0
         else:
             self.tabla.props.margin_right = style.GRID_CELL_SIZE * 2
-
-    def _button_save_cb(self, button):
-        """
-        Save button clicked.
-        """
-        # Data OK
-        self._poll.active = True
-        self._poll.activity._polls.add(self._poll)
-        self._poll.broadcast_on_mesh()
-        self._poll.activity.set_canvas(self._poll.activity._poll_canvas())
-        self._poll.activity.show_all()
