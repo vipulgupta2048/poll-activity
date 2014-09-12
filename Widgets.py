@@ -336,7 +336,6 @@ class NewPollCanvas(Gtk.EventBox):
         self._poll.activity._polls.add(self._poll)
         self._poll.broadcast_on_mesh()
         self._poll.activity.set_canvas(self._poll.activity._poll_canvas())
-        self._poll.activity.show_all()
 
     def _validate(self, page):
 
