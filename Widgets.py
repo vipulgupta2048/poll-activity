@@ -859,6 +859,9 @@ class PollCanvas(Gtk.EventBox):
 
         self._current_vote = current_vote
         box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        box.props.margin_left = style.GRID_CELL_SIZE * 2
+        box.props.margin_right = style.GRID_CELL_SIZE * 2
+
         self.add(box)
 
         self._poll = poll
@@ -871,7 +874,8 @@ class PollCanvas(Gtk.EventBox):
             self.title = Gtk.Label()
             self.title.set_markup('<span size="xx-large">%s</span>' %
                                   poll.title)
-            self.title.props.margin = style.GRID_CELL_SIZE / 2
+            self.title.props.margin_top = style.GRID_CELL_SIZE / 2
+            self.title.props.margin_bottom = style.GRID_CELL_SIZE / 2
             self.title.set_halign(Gtk.Align.START)
             self._grid.attach(self.title, 0, row, 2, 1)
             row += 1
@@ -887,7 +891,6 @@ class PollCanvas(Gtk.EventBox):
         row += 1
 
         self.tabla = Gtk.Table(rows=6, columns=6)
-        self.tabla.props.margin_left = style.GRID_CELL_SIZE * 2
 
         scroll = Gtk.ScrolledWindow()
 
@@ -959,7 +962,6 @@ class PollCanvas(Gtk.EventBox):
                            title_color=darker_color_str)
         self.chart.set_hexpand(True)
         self.chart.set_vexpand(True)
-        self.chart.props.margin_right = style.GRID_CELL_SIZE * 2
 
         # Button area
         if poll.active:
@@ -990,7 +992,6 @@ class PollCanvas(Gtk.EventBox):
         else:
             logging.error('poll not active')
             self._grid.attach(self.chart, 0, row, 2, 1)
-            self.chart.props.margin_left = style.GRID_CELL_SIZE * 2
             row += 1
 
         counter_label = Gtk.Label()
@@ -1031,7 +1032,3 @@ class PollCanvas(Gtk.EventBox):
     def set_view_answer(self, visible):
         self.chart.set_visible(visible)
         self.question.set_visible(not visible)
-        if visible:
-            self.tabla.props.margin_right = 0
-        else:
-            self.tabla.props.margin_right = style.GRID_CELL_SIZE * 2
