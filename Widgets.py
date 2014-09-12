@@ -754,9 +754,9 @@ class SelectCanvas(Gtk.EventBox):
         scroll.modify_bg(Gtk.StateType.NORMAL,
                          style.COLOR_WHITE.get_gdk_color())
         scroll.set_valign(Gtk.Align.START)
-        scroll.set_policy(
-            Gtk.PolicyType.AUTOMATIC,
-            Gtk.PolicyType.NEVER)
+        scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+        scroll.set_size_request(
+            -1, Gdk.Screen.height() - style.GRID_CELL_SIZE * 4)
 
         scroll.add_with_viewport(poll_selector_box)
 
