@@ -507,6 +507,8 @@ class ItemNumberNewPoll(Gtk.Box):
     def __entry_changed_cb(self, entry):
         try:
             value = int(entry.get_text())
+            if value > 1000 or value < 1:
+                raise ValueError('Invalid number')
             if self.field == 'maxvoters':
                 self._poll.maxvoters = value
             entry.modify_bg(Gtk.StateType.NORMAL, None)
