@@ -279,9 +279,14 @@ class Chart(Gtk.DrawingArea):
             margin_top, title_font_size)
 
         # draw the pie
-        y = image_height / 2 + margin_top
-        r = min(image_width, image_height - margin_top * 2) / 2
-        x = image_width - margin_left - r
+        r = min(image_width - rectangles_width - margin_left * 2,
+                image_height - margin_top - margin_left) / 2
+        y = max(r + margin_top + margin_left,
+                image_height / 2)
+        if rectangles_width == 0:
+            x = image_width / 2
+        else:
+            x = image_width - margin_left - r
 
         total = 0
         for data in self._data:
