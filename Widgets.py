@@ -787,6 +787,9 @@ class SelectCanvas(Gtk.EventBox):
                 (GObject.markup_escape_text(poll.title),
                  GObject.markup_escape_text(poll.author)))
             title.set_halign(Gtk.Align.START)
+            title.set_max_width_chars(55)
+            title.set_ellipsize(Pango.EllipsizeMode.END)
+
             evbox.add(title)
             poll_row.pack_start(evbox, True, True, 0)
 
