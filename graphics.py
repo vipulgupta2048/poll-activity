@@ -382,7 +382,7 @@ class Chart(Gtk.DrawingArea):
             # draw the value
             width, height = self._measure_text(str(value), (22 * scale))
 
-            x_label = x_value + margin + bar_width / 2
+            x_label = x_value + margin + bar_width / 2 - width / 2
             if height * 2 < bar_height:
                 y_label = bar_top + height
             else:
