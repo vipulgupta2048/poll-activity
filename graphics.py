@@ -119,66 +119,41 @@ class Chart(Gtk.DrawingArea):
         if self._chart_type == CHART_TYPE_VERTICAL_BARS:
             self._create_bars_chart(context, image_width, image_height)
 
-    def _measure_title(self, context, title_font_size):
-        title_width = 0
-        # change the top margin
-        title_height = 0
-        if self._title is not None:
-            # measure the title
-            context.save()
-            context.select_font_face('Sans', cairo.FONT_SLANT_NORMAL,
-                                     cairo.FONT_WEIGHT_NORMAL)
-            context.set_font_size(title_font_size)
-            x_bearing, y_bearing, width, height, x_advance, y_advance = \
-                context.text_extents(self._title)
-            title_width = width
-            context.restore()
-            title_height = height
-        return title_width, title_height
-
-    def _print_title(self, context, title_x, title_y, title_font_size):
-        if self._title is not None:
-            # print the title
-            logging.error('Printing title %s', self._title)
-            context.save()
-            context.set_font_size(title_font_size)
-            context.move_to(title_x, title_y)
-
-            if self._title_color is None:
-                context.set_source_rgb(0, 0, 0)
-            else:
-                context.set_source_rgba(*style.Color(
-                    self._title_color).get_rgba())
-
-            context.show_text(self._title)
-            context.restore()
-
     def _measure_text(self, text, font_size, max_width=0):
+        if text is None:
+            return 0, 0
         layout = self.create_pango_layout(text)
         if max_width > 0:
-            layout.set_width(max_width)
+            layout.set_width(max_width * Pango.SCALE)
             layout.set_wrap(Pango.WrapMode.WORD)
         font_desc = Pango.FontDescription("Sans %s" % font_size)
         layout.set_font_description(font_desc)
         return layout.get_pixel_size()
 
     def _print_text(self, context, x, y, text, font_size, max_width=0,
-                    alignment=None):
+                    alignment=None, color=None):
+        if text is None:
+            return
         context.save()
         context.translate(x, y)
         layout = self.create_pango_layout(text)
         if max_width > 0:
-            layout.set_width(max_width)
+            layout.set_width(max_width * Pango.SCALE)
             layout.set_wrap(Pango.WrapMode.WORD)
         if alignment is not None:
             layout.set_alignment(alignment)
         font_desc = Pango.FontDescription("Sans %s" % font_size)
         layout.set_font_description(font_desc)
 
-        context.set_source_rgb(0, 0, 0)
+        if color is None:
+            context.set_source_rgb(0, 0, 0)
+        else:
+            context.set_source_rgba(*style.Color(color).get_rgba())
+
         PangoCairo.update_layout(context, layout)
         PangoCairo.show_layout(context, layout)
         context.fill()
+
         context.restore()
 
     def _create_pie_chart(self, context, image_width, image_height):
@@ -196,10 +171,11 @@ class Chart(Gtk.DrawingArea):
         margin_top = (style.GRID_CELL_SIZE / 2) * scale
         padding = 20 * scale
 
-        title_font_size = int(40 * _get_screen_dpi() / 96. * scale)
-        title_width, title_height = self._measure_title(context,
-                                                        title_font_size)
-        margin_top += title_height * 1.5
+        title_font_size = 36 * scale
+        title_width, title_height = self._measure_text(
+            self._title, title_font_size,
+            max_width=image_width - margin_left * 2)
+        logging.error('measure text pie %s %s', title_width, title_height)
 
         rectangles_width = 0
         if self._show_labels:
@@ -273,15 +249,18 @@ class Chart(Gtk.DrawingArea):
 
             context.restore()
 
-        self._print_title(
+        self._print_text(
             context,
-            (image_width + rectangles_width) / 2 - title_width / 2,
-            margin_top, title_font_size)
+            0, margin_top,
+            self._title, title_font_size,
+            max_width=image_width - margin_left * 2,
+            alignment=Pango.Alignment.CENTER, color=self._title_color)
+        margin_top += title_height + margin_top * 2
 
         # draw the pie
         r = min(image_width - rectangles_width - margin_left * 2,
                 image_height - margin_top - margin_left) / 2
-        y = max(r + margin_top + margin_left,
+        y = max(r + margin_top,
                 image_height / 2)
         if rectangles_width == 0:
             x = image_width / 2
@@ -322,14 +301,16 @@ class Chart(Gtk.DrawingArea):
 
         margin_top = (style.GRID_CELL_SIZE / 2) * scale
         padding = 20 * scale
-
-        title_font_size = int(40 * _get_screen_dpi() / 96. * scale)
-
-        title_width, title_height = self._measure_title(context,
-                                                        title_font_size)
-        margin_top += title_height * 1.5
-
         margin = padding * 2
+
+        title_font_size = 36 * scale
+        title_width, title_height = self._measure_text(
+            self._title, title_font_size,
+            max_width=image_width - margin * 2)
+        logging.error('measure text bars %s %s', title_width, title_height)
+
+        margin_top += title_height + margin
+
         graph_width = image_width - margin * 2
         graph_height = image_height - margin_top - margin * 3
         bar_width = graph_width / len(self._data) - margin
@@ -353,7 +334,7 @@ class Chart(Gtk.DrawingArea):
 
             # draw the labels
             y = max_bar_height + margin * 2 + margin_top
-            x = margin * 2 + bar_width / 2
+            x = margin * 2
             for data in self._data:
                 description = data['label']
                 if description is '':
@@ -364,10 +345,11 @@ class Chart(Gtk.DrawingArea):
                                  alignment=Pango.Alignment.CENTER)
                 x += bar_width + margin
 
-        self._print_title(
-            context,
-            image_width / 2 - title_width / 2,
-            margin_top, title_font_size)
+        self._print_text(
+            context, 0, margin,
+            self._title, title_font_size,
+            max_width=image_width - margin * 2,
+            alignment=Pango.Alignment.CENTER, color=self._title_color)
 
         max_value = 0
         for data in self._data:
