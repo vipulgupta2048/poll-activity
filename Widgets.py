@@ -285,6 +285,7 @@ class NewPollCanvas(Gtk.EventBox):
         self._back_button.set_image(Icon(icon_name='go-left'))
         self._back_button.connect('clicked', self.__button_back_cb)
         hbox.pack_start(self._back_button, True, True, 10)
+        self._back_button.set_sensitive(False)
 
         self._next_button = Gtk.Button(_("Next"))
         self._next_button.set_image(Icon(icon_name='go-right'))
@@ -299,8 +300,12 @@ class NewPollCanvas(Gtk.EventBox):
     def __button_back_cb(self, button):
         self._notebook.prev_page()
         self._next_button.set_sensitive(True)
+        if self._notebook.get_current_page() == 0:
+            self._back_button.set_sensitive(False)
 
     def __button_next_cb(self, button):
+        self._back_button.set_sensitive(True)
+        self._next_button.set_sensitive(True)
         logging.error('current page %s', self._notebook.get_current_page())
         if self._notebook.get_current_page() < 3:
             errors = self._validate(self._notebook.get_current_page())
