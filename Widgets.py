@@ -312,17 +312,20 @@ class NewPollCanvas(Gtk.EventBox):
             if not errors:
                 self._notebook.next_page()
         if self._notebook.get_current_page() == 3:
-            self._title_label.set_markup('<span size="x-large" >%s</span>' %
-                                         self._poll.title)
+            self._title_label.set_markup(
+                '<span size="x-large" >%s</span>' %
+                GObject.markup_escape_text(self._poll.title))
             self._question_label.set_markup(
-                '<span size="x-large" >%s</span>' % self._poll.question)
+                '<span size="x-large" >%s</span>' %
+                GObject.markup_escape_text(self._poll.question))
             self._maxvoters_label.set_markup(
                 '<span size="x-large" >%s</span>' % str(self._poll.maxvoters))
 
             for choice in self._poll.options.keys():
                 self._option_labels[int(choice)].set_markup(
                     '<span size="x-large" >%s</span>' %
-                    self._poll.options[int(choice)])
+                    GObject.markup_escape_text(
+                        self._poll.options[int(choice)]))
             self._notebook.next_page()
 
             # disble next button in the last page
@@ -777,8 +780,10 @@ class SelectCanvas(Gtk.EventBox):
 
             evbox = Gtk.EventBox()
             title = Gtk.Label()
-            title.set_markup('<span size="large">%s (%s)</span>' %
-                             (poll.title, poll.author))
+            title.set_markup(
+                '<span size="large">%s (%s)</span>' %
+                (GObject.markup_escape_text(poll.title),
+                 GObject.markup_escape_text(poll.author)))
             title.set_halign(Gtk.Align.START)
             evbox.add(title)
             poll_row.pack_start(evbox, True, True, 0)
@@ -878,7 +883,7 @@ class PollCanvas(Gtk.EventBox):
         if not poll.active:
             self.title = Gtk.Label()
             self.title.set_markup('<span size="xx-large">%s</span>' %
-                                  poll.title)
+                                  GObject.markup_escape_text(poll.title))
             self.title.props.margin_top = style.GRID_CELL_SIZE / 2
             self.title.props.margin_bottom = style.GRID_CELL_SIZE / 2
             self.title.set_halign(Gtk.Align.START)
@@ -888,7 +893,7 @@ class PollCanvas(Gtk.EventBox):
         self.question = Gtk.Label()
         self.question.set_markup(
             '<span size="xx-large" color="%s"><b>%s</b></span>' %
-            (darker_color_str, poll.question))
+            (darker_color_str, GObject.markup_escape_text(poll.question)))
         self.question.props.margin_top = style.GRID_CELL_SIZE / 2
         self.question.props.margin_bottom = style.GRID_CELL_SIZE / 2
         self.question.set_halign(Gtk.Align.CENTER)
@@ -1005,7 +1010,8 @@ class PollCanvas(Gtk.EventBox):
                                                    poll.maxvoters)
         else:
             text = '%s votes collected' % poll.maxvoters
-        counter_label.set_markup('<span size="large">%s</span>' % text)
+        counter_label.set_markup('<span size="large">%s</span>' %
+                                 GObject.markup_escape_text(text))
 
         counter_label.props.margin_top = style.GRID_CELL_SIZE / 2
         counter_label.props.margin_bottom = style.GRID_CELL_SIZE / 2
