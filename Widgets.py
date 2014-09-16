@@ -923,6 +923,7 @@ class PollCanvas(Gtk.EventBox):
 
         row = 0
         data = []
+        self._button_labels = []
         for choice in range(poll.number_of_options):
             # data is used by the chart
             color_str = colors.get_category_color_str(poll.options[choice])
@@ -950,10 +951,14 @@ class PollCanvas(Gtk.EventBox):
                 roundbox = RoundBox()
                 roundbox.background_color = color
                 roundbox.border_color = color
-                button = Gtk.RadioButton.new_with_label_from_widget(
-                    group, text)
+                button = Gtk.RadioButton.new_from_widget(group)
+                label = Gtk.Label(text)
+                label.set_max_width_chars(28)
+                label.set_ellipsize(Pango.EllipsizeMode.END)
+                self._button_labels.append(label)
+                button.add(label)
                 button.props.margin = style.GRID_CELL_SIZE / 4
-                button.set_halign(Gtk.Align.CENTER)
+                button.set_halign(Gtk.Align.START)
                 roundbox.add(button)
                 roundbox.set_valign(Gtk.Align.CENTER)
                 roundbox.set_hexpand(False)
@@ -1052,3 +1057,11 @@ class PollCanvas(Gtk.EventBox):
     def set_view_answer(self, visible):
         self.chart.set_visible(visible)
         self.question.set_visible(not visible)
+
+        # change the with on the button labels
+        for label in self._button_labels:
+            if visible:
+                max_width = 28
+            else:
+                max_width = 60
+            label.set_max_width_chars(max_width)
