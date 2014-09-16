@@ -892,6 +892,8 @@ class PollCanvas(Gtk.EventBox):
             self.title.props.margin_top = style.GRID_CELL_SIZE / 2
             self.title.props.margin_bottom = style.GRID_CELL_SIZE / 2
             self.title.set_halign(Gtk.Align.START)
+            self.title.set_max_width_chars(70)
+            self.title.set_ellipsize(Pango.EllipsizeMode.END)
             self._grid.attach(self.title, 0, row, 2, 1)
             row += 1
 
@@ -902,6 +904,8 @@ class PollCanvas(Gtk.EventBox):
         self.question.props.margin_top = style.GRID_CELL_SIZE / 2
         self.question.props.margin_bottom = style.GRID_CELL_SIZE / 2
         self.question.set_halign(Gtk.Align.CENTER)
+        self.question.set_max_width_chars(70)
+        self.question.set_ellipsize(Pango.EllipsizeMode.END)
         self._grid.attach(self.question, 0, row, 2, 1)
         row += 1
 
