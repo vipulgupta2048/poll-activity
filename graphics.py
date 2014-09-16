@@ -156,6 +156,14 @@ class Chart(Gtk.DrawingArea):
 
         context.restore()
 
+    def _calculate_title_font_size(self, scale):
+        title_font_size = 30 * scale
+        if title_font_size < 7:
+            title_font_size = 7
+        if title_font_size > 12:
+            title_font_size = 12
+        return title_font_size
+
     def _create_pie_chart(self, context, image_width, image_height):
 
         _set_screen_dpi()
@@ -171,7 +179,8 @@ class Chart(Gtk.DrawingArea):
         margin_top = (style.GRID_CELL_SIZE / 2) * scale
         padding = 20 * scale
 
-        title_font_size = 36 * scale
+        title_font_size = self._calculate_title_font_size(scale)
+
         title_width, title_height = self._measure_text(
             self._title, title_font_size,
             max_width=image_width - margin_left * 2)
@@ -303,7 +312,7 @@ class Chart(Gtk.DrawingArea):
         padding = 20 * scale
         margin = padding * 2
 
-        title_font_size = 36 * scale
+        title_font_size = self._calculate_title_font_size(scale)
         title_width, title_height = self._measure_text(
             self._title, title_font_size,
             max_width=image_width - margin * 2)
