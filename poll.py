@@ -32,7 +32,6 @@ import json
 import logging
 import tempfile
 import dbus
-import StringIO
 
 from hashlib import sha1
 from datetime import date
@@ -518,14 +517,10 @@ class PollBuilder(activity.Activity):
         journal_entry.metadata['mime_type'] = 'image/png'
 
         # generate the image
-        chart.save_image(image_file.file, 800, 600)
+        preview_str = chart.save_image(image_file.file, 800, 600)
         image_file.file.close()
         journal_entry.file_path = image_file.name
 
-        # generate the preview
-        preview_str = StringIO.StringIO()
-        chart.save_image(preview_str, activity.PREVIEW_SIZE[0],
-                         activity.PREVIEW_SIZE[1])
         journal_entry.metadata['preview'] = dbus.ByteArray(
             preview_str.getvalue())
 

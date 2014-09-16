@@ -2,12 +2,14 @@ import logging
 import cairo
 import math
 from gettext import gettext as _
+import StringIO
 
 from gi.repository import Gtk
 from gi.repository import PangoCairo
 from gi.repository import Pango
 
 from sugar3.graphics import style
+from sugar3.activity import activity
 
 import colors
 
@@ -112,6 +114,24 @@ class Chart(Gtk.DrawingArea):
         self.create_chart(context, width, height)
         image_surface.flush()
         image_surface.write_to_png(image_file)
+
+        # generate the preview str
+        preview_image_surface = cairo.ImageSurface(
+            cairo.FORMAT_ARGB32, activity.PREVIEW_SIZE[0],
+            activity.PREVIEW_SIZE[1])
+        preview_context = cairo.Context(preview_image_surface)
+        scale = min(activity.PREVIEW_SIZE[0] / float(width),
+                    activity.PREVIEW_SIZE[1] / float(height))
+        preview_context.rectangle(
+            0, 0, activity.PREVIEW_SIZE[0], activity.PREVIEW_SIZE[1])
+        preview_context.scale(scale, scale)
+        preview_context.set_source_surface(image_surface)
+        preview_context.paint()
+        preview_image_surface.flush()
+
+        preview_str = StringIO.StringIO()
+        preview_image_surface.write_to_png(preview_str)
+        return preview_str
 
     def create_chart(self, context, image_width, image_height):
         if self._chart_type == CHART_TYPE_PIE:
