@@ -145,7 +145,7 @@ class Chart(Gtk.DrawingArea):
         layout = self.create_pango_layout(text)
         if max_width > 0:
             layout.set_width(max_width * Pango.SCALE)
-            layout.set_wrap(Pango.WrapMode.WORD)
+            layout.set_wrap(Pango.WrapMode.WORD_CHAR)
         font_desc = Pango.FontDescription("Sans %s" % font_size)
         layout.set_font_description(font_desc)
         return layout.get_pixel_size()
@@ -159,7 +159,7 @@ class Chart(Gtk.DrawingArea):
         layout = self.create_pango_layout(text)
         if max_width > 0:
             layout.set_width(max_width * Pango.SCALE)
-            layout.set_wrap(Pango.WrapMode.WORD)
+            layout.set_wrap(Pango.WrapMode.WORD_CHAR)
         if alignment is not None:
             layout.set_alignment(alignment)
         font_desc = Pango.FontDescription("Sans %s" % font_size)
