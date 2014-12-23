@@ -6,3 +6,4 @@ icon = activity-poll
 activity_version = 30
 show_launcher = yes
 license = GPLv2+
+repository = git@github.com:godiard/poll-activity.git
