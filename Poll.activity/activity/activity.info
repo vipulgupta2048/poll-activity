@@ -27,7 +27,7 @@ long_description: Sugar Learning Platform - poll activity
  Poll help you to create and run polls, and display the results in
  different ways. You can share polls on the network too.
 
-sources_url = http://download.sugarlabs.org/sources/honey/Physics/
+sources_url = http://download.sugarlabs.org/sources/honey/Poll/
 sources_format = tar.bz2
 
 [Maintainer]
