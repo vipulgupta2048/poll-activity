@@ -8,3 +8,4 @@ show_launcher = yes
 license = GPLv2+
 repository = https://github.com/godiard/poll-activity.git
 max_participants = 10
+summary = Make a poll
