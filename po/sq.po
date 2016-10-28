@@ -42,218 +42,213 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-08 00:33-0400\n"
-"PO-Revision-Date: 2011-04-07 05:23+0200\n"
-"Last-Translator: Chris <cjl@laptop.org>\n"
+"POT-Creation-Date: 2013-09-04 00:33-0400\n"
+"PO-Revision-Date: 2016-10-28 02:20+0000\n"
+"Last-Translator: Chris <cjl@sugarlabs.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: sq\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.1\n"
+"X-Generator: Pootle 2.5.1.1\n"
+"X-POOTLE-MTIME: 1477621257.000000\n"
 
 #. TRANS: "name" option from activity.info file
 #. TRANS: "summary" option from activity.info file
 #. TRANS: "description" option from activity.info file
 msgid "Poll"
-msgstr "Anket"
+msgstr "Pyetësor"
 
-#: i18n_misc_strings.py:1
-msgid "Lesson 1"
-msgstr "Mësimi 1"
-
-#: i18n_misc_strings.py:2
-msgid "Lesson 2"
-msgstr "Mësimi 2"
-
-#: i18n_misc_strings.py:3
-msgid "Lesson 3"
-msgstr "Mësimi 3"
-
-#: i18n_misc_strings.py:4
-msgid "Lesson 4"
-msgstr "Mësimi 4"
-
-#: i18n_misc_strings.py:5
-msgid "Introduction"
-msgstr "Njohje"
-
-#: poll.py:162 poll.py:362
-msgid "Choose a Poll"
-msgstr "Zgjidhni një Anketë"
-
-#: poll.py:167 poll.py:735
-msgid "Build a Poll"
-msgstr "Krijo një Sondazh"
-
-#: poll.py:172 poll.py:819
-msgid "Settings"
-msgstr ""
-
-#: poll.py:177 poll.py:423 poll.py:1059
-msgid "Lesson Plans"
-msgstr "Planet e mësimit"
-
-#: poll.py:322
-msgid "VOTE!"
-msgstr "VOTO!"
-
-#: poll.py:324
-msgid "Poll Preview"
-msgstr ""
-
-#: poll.py:394
-msgid "VOTE"
-msgstr "VOTO"
-
-#: poll.py:396
-msgid "SEE RESULTS"
-msgstr "SHIKO REZULTATET"
-
-#: poll.py:401
-msgid "DELETE"
-msgstr "FSHIJ"
-
-#: poll.py:565
-msgid "votes"
-msgstr "votat"
-
-#: poll.py:568
+#: PollSession.py:502 PollSession.py:586
 #, python-format
-msgid "(%d votes left to collect)"
-msgstr ""
+msgid "%(author)s shared a poll '%(title)s' with you."
+msgstr "%(author)s ndau me ju një pyetësor '%(title)s'."
 
-#: poll.py:575 poll.py:1036
-msgid "Vote"
-msgstr "Voto"
+#: PollSession.py:585
+msgid "New Poll"
+msgstr "Pyetësor i Ri"
 
-#: poll.py:581
-msgid "Edit Poll"
-msgstr ""
+#: Widgets.py:59 Widgets.py:497
+msgid "Choose a Poll"
+msgstr "Zgjidhni një Pyetësor"
 
-#: poll.py:584
-msgid "Save Poll"
-msgstr "Ruaj Sondazh"
+#: Widgets.py:63
+msgid "Build a Poll"
+msgstr "Formoni një Pyetësor"
 
-#: poll.py:631 poll.py:693 poll.py:928
-msgid "Poll Activity"
-msgstr ""
+#: Widgets.py:67 Widgets.py:388
+msgid "Settings"
+msgstr "Rregullime"
 
-#: poll.py:632
-msgid "To vote you have to select first one option"
-msgstr ""
+#: Widgets.py:71 Widgets.py:570
+msgid "Lesson Plans"
+msgstr "Plane Mësimore"
 
-#: poll.py:663 poll.py:668
-msgid "Choose image"
-msgstr ""
+#: Widgets.py:106
+msgid "Build a poll"
+msgstr "Formoni një pyetësor"
 
-#: poll.py:690 poll.py:780
-msgid "Change Image"
-msgstr ""
-
-#: poll.py:694
-msgid "Your selection is not an image"
-msgstr ""
-
-#: poll.py:745
+#: Widgets.py:109
 msgid "Poll Title:"
-msgstr "Titulli Sondazhit:"
+msgstr "Titull Pyetësori:"
 
-#: poll.py:753
+#: Widgets.py:113
 msgid "Question:"
 msgstr "Pyetje:"
 
-#: poll.py:761
+#: Widgets.py:118
 msgid "Number of votes to collect:"
 msgstr "Numri i votave të mbledhura:"
 
-#: poll.py:771
+#: Widgets.py:126
 #, python-format
-msgid "Answer %d:"
-msgstr ""
+msgid "Answer %s:"
+msgstr "Përgjigje %s:"
 
-#: poll.py:784
+#: Widgets.py:134 Widgets.py:205
+msgid "Change Image"
+msgstr "Ndryshoni Figurën"
+
+#: Widgets.py:139
 msgid "Add Image"
-msgstr ""
+msgstr "Shtoni Figurë"
 
-#: poll.py:793
+#: Widgets.py:150
 msgid "Step 1: Preview"
-msgstr ""
+msgstr "Hapi 1: Paraparje"
 
-#: poll.py:796
+#: Widgets.py:154
 msgid "Step 2: Save"
 msgstr "Hapi 2: Ruaje"
 
-#: poll.py:827
+#: Widgets.py:209 Widgets.py:484 poll.py:380
+msgid "Poll Activity"
+msgstr "Veprimtaria Pyetësor"
+
+#: Widgets.py:210
+msgid "Your selection is not an image"
+msgstr "Përzgjedhja juaj s’është figurë"
+
+#: Widgets.py:394
 msgid "Show answers while voting"
-msgstr ""
+msgstr "Shfaqi përgjigjet teksa votohet"
 
-#: poll.py:832
+#: Widgets.py:399
 msgid "Remember last vote"
-msgstr ""
+msgstr "Mba mend votën e fundit"
 
-#: poll.py:838
+#: Widgets.py:406
 msgid "Play a sound when make a vote"
-msgstr ""
+msgstr "Luaj një tingull kur hidhet një votë"
 
-#: poll.py:845
+#: Widgets.py:412
 msgid "Use image in answer"
-msgstr ""
+msgstr "Përdorni figurë në përgjigje"
 
-#: poll.py:850
+#: Widgets.py:417
 msgid "Image Size: "
-msgstr ""
+msgstr "Madhësi Figure: "
 
-#: poll.py:872
+#: Widgets.py:445
 msgid "Save"
-msgstr "Ruaj"
+msgstr "Ruaje"
 
-#: poll.py:929
+#: Widgets.py:485
 msgid "The settings have been saved"
-msgstr ""
+msgstr "Rregullimet u ruajtën"
 
-#: poll.py:964
-msgid "Favorite Color"
-msgstr "Ngjyra e Preferuar"
+#: Widgets.py:536
+msgid "VOTE"
+msgstr "VOTONI"
 
-#: poll.py:966
-msgid "What is your favorite color?"
-msgstr "Cila është ngjyra e juaj e preferuar?"
+#: Widgets.py:539
+msgid "SEE RESULTS"
+msgstr "SHIHNI PËRFUNDIMET"
 
-#: poll.py:970
-msgid "Orange"
-msgstr "Portokalli"
+#: Widgets.py:546
+msgid "DELETE"
+msgstr "FSHIJE"
 
-#: poll.py:971
-msgid "None of the above"
-msgstr "Asnjë nga më lartë"
+#: Widgets.py:560
+msgid "Introduction"
+msgstr "Hyrje"
 
-#: poll.py:1037
+#: Widgets.py:560
+msgid "Lesson 1"
+msgstr "Mësimi 1"
+
+#: Widgets.py:560
+msgid "Lesson 2"
+msgstr "Mësimi 2"
+
+#: Widgets.py:561
+msgid "Lesson 3"
+msgstr "Mësimi 3"
+
+#: Widgets.py:561
+msgid "Lesson 4"
+msgstr "Mësimi 4"
+
+#: Widgets.py:725
+msgid "votes"
+msgstr "vota"
+
+#: Widgets.py:725
+msgid "(votes left to collect)"
+msgstr "(vota për t’u mbledhur)"
+
+#: Widgets.py:733 poll.py:476
+msgid "Vote"
+msgstr "Voto"
+
+#: Widgets.py:739
+msgid "Edit Poll"
+msgstr "Përpunoni Pyetësorin"
+
+#: Widgets.py:744
+msgid "Save Poll"
+msgstr "Ruaje Pyetësorin"
+
+#: poll.py:279 poll.py:370 poll.py:480
+msgid "VOTE!"
+msgstr "VOTONI!"
+
+#: poll.py:282 poll.py:373 poll.py:483
+msgid "Poll Preview"
+msgstr "Paraparje Pyetësori"
+
+#: poll.py:381
+msgid "To vote you have to select first one option"
+msgstr "Që të votoni, duhet që së pari të përzgjidhni një mundësi"
+
+#: poll.py:477
 #, python-format
 msgid "Somebody voted on %s"
 msgstr "Dikush votoi në %s"
 
-#: poll.py:1056
-msgid "Close Lessons"
-msgstr "Mbylle Mësimin"
-
-#: poll.py:1144 poll.py:1173
+#: poll.py:564 poll.py:599
 msgid "Joined"
-msgstr "U bashkua"
+msgstr "Erdhi"
 
-#: poll.py:1177
+#: poll.py:604
 msgid "Left"
-msgstr "E majta"
+msgstr "Iku"
 
-#: poll.py:1549 poll.py:1613
-msgid "New Poll"
-msgstr "Anket e re"
+#~ msgid "Favorite Color"
+#~ msgstr "Ngjyra e Preferuar"
 
-#: poll.py:1550 poll.py:1614
-#, python-format
-msgid "%(author)s shared a poll '%(title)s' with you."
-msgstr "%(author)s ndahet një sondazh '%(title)s' me ju."
+#~ msgid "What is your favorite color?"
+#~ msgstr "Cila është ngjyra e juaj e preferuar?"
+
+#~ msgid "Orange"
+#~ msgstr "Portokalli"
+
+#~ msgid "None of the above"
+#~ msgstr "Asnjë nga më lartë"
+
+#~ msgid "Close Lessons"
+#~ msgstr "Mbylle Mësimin"
 
 #~ msgid "Answer"
 #~ msgstr "Përgjigjja"
