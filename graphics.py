@@ -1,9 +1,10 @@
-import logging
 import cairo
 import math
 from gettext import gettext as _
 import StringIO
 
+import gi
+gi.require_version('PangoCairo', '1.0')
 from gi.repository import Gtk
 from gi.repository import PangoCairo
 from gi.repository import Pango
@@ -17,7 +18,6 @@ import colors
 def _get_screen_dpi():
     xft_dpi = Gtk.Settings.get_default().get_property('gtk-xft-dpi')
     dpi = float(xft_dpi / 1024)
-    logging.error('Setting dpi to: %f', dpi)
     return dpi
 
 
@@ -190,8 +190,6 @@ class Chart(Gtk.DrawingArea):
 
         scale = image_width / 1600.
         context.rectangle(0, 0, image_width, image_height)
-        logging.debug('canvas size %s x %s - scale %s', image_width,
-                      image_height, scale)
         context.set_source_rgb(1, 1, 1)
         context.fill()
 
@@ -204,7 +202,6 @@ class Chart(Gtk.DrawingArea):
         title_width, title_height = self._measure_text(
             self._title, title_font_size,
             max_width=image_width - margin_left * 2)
-        logging.error('measure text pie %s %s', title_width, title_height)
 
         rectangles_width = 0
         if self._show_labels:
@@ -323,8 +320,6 @@ class Chart(Gtk.DrawingArea):
 
         scale = image_width / 1600.
         context.rectangle(0, 0, image_width, image_height)
-        logging.debug('canvas size %s x %s - scale %s', image_width,
-                      image_height, scale)
         context.set_source_rgb(1, 1, 1)
         context.fill()
 
@@ -336,7 +331,6 @@ class Chart(Gtk.DrawingArea):
         title_width, title_height = self._measure_text(
             self._title, title_font_size,
             max_width=image_width - margin * 2)
-        logging.error('measure text bars %s %s', title_width, title_height)
 
         margin_top += title_height + margin
 

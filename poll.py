@@ -23,8 +23,11 @@
 # your own creations we would love to hear from you at
 # info@WorldWideWorkshop.org !
 
-from gi.repository import GdkPixbuf
+import gi
+gi.require_version('Gtk', '3.0')
+gi.require_version('GdkPixbuf', '2.0')
 from gi.repository import Gtk
+from gi.repository import GdkPixbuf
 
 import subprocess
 import cPickle
