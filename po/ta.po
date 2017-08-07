@@ -34,7 +34,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-08 00:33-0400\n"
+"POT-Creation-Date: 2013-09-04 00:33-0400\n"
 "PO-Revision-Date: 2011-07-31 04:39+0200\n"
 "Last-Translator: Thangamani <thangam.arunx@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,204 +51,202 @@ msgstr ""
 msgid "Poll"
 msgstr "வாக்களிப்பு"
 
-#: i18n_misc_strings.py:1
-msgid "Lesson 1"
-msgstr "பாடம் 1"
-
-#: i18n_misc_strings.py:2
-msgid "Lesson 2"
-msgstr "பாடம் 2"
-
-#: i18n_misc_strings.py:3
-msgid "Lesson 3"
-msgstr "பாடம் 3"
-
-#: i18n_misc_strings.py:4
-msgid "Lesson 4"
-msgstr "பாடம் 4"
-
-#: i18n_misc_strings.py:5
-msgid "Introduction"
-msgstr "அறிமுகம்"
-
-#: poll.py:162 poll.py:362
-msgid "Choose a Poll"
-msgstr "வாக்களிப்பை தெரிவு செய்"
-
-#: poll.py:167 poll.py:735
-msgid "Build a Poll"
-msgstr "வாக்களிப்பை நடாத்து"
-
-#: poll.py:172 poll.py:819
-msgid "Settings"
-msgstr "அமைப்புகள்"
-
-#: poll.py:177 poll.py:423 poll.py:1059
-msgid "Lesson Plans"
-msgstr "பாடத்திட்டம்"
-
-#: poll.py:322
-msgid "VOTE!"
-msgstr "வாக்கு அளி !"
-
-#: poll.py:324
-msgid "Poll Preview"
-msgstr "வாக்களிப்பு முன் பார்வை"
-
-#: poll.py:394
-msgid "VOTE"
-msgstr "வாக்களி"
-
-#: poll.py:396
-msgid "SEE RESULTS"
-msgstr "பெறுபேறுகளைப்பார்"
-
-#: poll.py:401
-msgid "DELETE"
-msgstr "அழி"
-
-#: poll.py:565
-msgid "votes"
-msgstr "வாக்குகள்"
-
-#: poll.py:568
-#, python-format
-#, python-format, fuzzy
-msgid "(%d votes left to collect)"
-msgstr " சேர்ப்பதற்க்காக விடப்பட்ட வாக்குகள்"
-
-#: poll.py:575 poll.py:1036
-msgid "Vote"
-msgstr "வாக்கு"
-
-#: poll.py:581
-msgid "Edit Poll"
-msgstr "வாக்களிப்பை திருத்து"
-
-#: poll.py:584
-msgid "Save Poll"
-msgstr "வாக்களிப்பை பதி"
-
-#: poll.py:631 poll.py:693 poll.py:928
-msgid "Poll Activity"
-msgstr "வாக்களிப்பு செயற்பாடு"
-
-#: poll.py:632
-msgid "To vote you have to select first one option"
-msgstr ""
-"நீங்கள் வாக்களிக்க வேண்டுமானால் முதல் விருப்பத்தை தெறிவுச்செய்ய வேண்டும்"
-
-#: poll.py:663 poll.py:668
-msgid "Choose image"
-msgstr "படத்தை தெரிவுசெய்"
-
-#: poll.py:690 poll.py:780
-msgid "Change Image"
-msgstr "படத்தை மாற்று"
-
-#: poll.py:694
-msgid "Your selection is not an image"
-msgstr "நீங்கள் தெறிவுச்செய்தது ஒரு படமல்ல"
-
-#: poll.py:745
-msgid "Poll Title:"
-msgstr "வாக்களிப்பு தலைப்பு"
-
-#: poll.py:753
-msgid "Question:"
-msgstr "வினா:"
-
-#: poll.py:761
-msgid "Number of votes to collect:"
-msgstr "சேகரிக்க வேண்டிய வாக்குகளின் எண்ணிக்கை"
-
-#: poll.py:771
-#, python-format
-msgid "Answer %d:"
-msgstr ""
-
-#: poll.py:784
-msgid "Add Image"
-msgstr "படத்தை செர்"
-
-#: poll.py:793
-msgid "Step 1: Preview"
-msgstr "படி 1: முன்பார்வை"
-
-#: poll.py:796
-msgid "Step 2: Save"
-msgstr "படி 2: சேமி"
-
-#: poll.py:827
-msgid "Show answers while voting"
-msgstr "வாக்களிக்கும் போதே பதில்களை காட்டவும்"
-
-#: poll.py:832
-msgid "Remember last vote"
-msgstr "கடைசி வாக்கை நினைவுக்கூறவும்"
-
-#: poll.py:838
-msgid "Play a sound when make a vote"
-msgstr "வாக்களிக்கும்பொருட்டு ஒரு சத்தத்தை இயக்கவும்"
-
-#: poll.py:845
-msgid "Use image in answer"
-msgstr "பதிலில் படத்தை பயன்படுத்தவும்"
-
-#: poll.py:850
-msgid "Image Size: "
-msgstr "படத்தின் அளவு: "
-
-#: poll.py:872
-msgid "Save"
-msgstr "சேமி"
-
-#: poll.py:929
-msgid "The settings have been saved"
-msgstr "அமைப்புகள் யாவும் சேமிக்கப்பட்டன"
-
-#: poll.py:964
-msgid "Favorite Color"
-msgstr "விருப்புக்குரிய நிறம்"
-
-#: poll.py:966
-msgid "What is your favorite color?"
-msgstr "உனது விருப்புக்குரிய நிறம் என்ன?"
-
-#: poll.py:970
-msgid "Orange"
-msgstr "செம்மஞ்சல்"
-
-#: poll.py:971
-msgid "None of the above"
-msgstr "மேலுள்ளவற்றில் எதுவுமில்லை"
-
-#: poll.py:1037
-#, python-format
-msgid "Somebody voted on %s"
-msgstr "யாரோ ஒருவர் இதற்கு வாக்களித்துள்ளார் %s"
-
-#: poll.py:1056
-msgid "Close Lessons"
-msgstr "பாடத்தை மூடு"
-
-#: poll.py:1144 poll.py:1173
-msgid "Joined"
-msgstr "இணைக்கப்பட்டது"
-
-#: poll.py:1177
-msgid "Left"
-msgstr "இடது"
-
-#: poll.py:1549 poll.py:1613
-msgid "New Poll"
-msgstr "புதிய வாக்களிப்பு"
-
-#: poll.py:1550 poll.py:1614
+#: PollSession.py:502 PollSession.py:586
 #, python-format
 #, python-format,
 msgid "%(author)s shared a poll '%(title)s' with you."
 msgstr "%(author)s கள் உங்களுடன் %(title)s' வாக்குகளை பகிர்ந்துள்ளார்கள்."
+
+#: PollSession.py:585
+msgid "New Poll"
+msgstr "புதிய வாக்களிப்பு"
+
+#: Widgets.py:59 Widgets.py:497
+msgid "Choose a Poll"
+msgstr "வாக்களிப்பை தெரிவு செய்"
+
+#: Widgets.py:63
+msgid "Build a Poll"
+msgstr "வாக்களிப்பை நடாத்து"
+
+#: Widgets.py:67 Widgets.py:388
+msgid "Settings"
+msgstr "அமைப்புகள்"
+
+#: Widgets.py:71 Widgets.py:570
+msgid "Lesson Plans"
+msgstr "பாடத்திட்டம்"
+
+#: Widgets.py:106
+#, fuzzy
+msgid "Build a poll"
+msgstr "வாக்களிப்பை நடாத்து"
+
+#: Widgets.py:109
+msgid "Poll Title:"
+msgstr "வாக்களிப்பு தலைப்பு"
+
+#: Widgets.py:113
+msgid "Question:"
+msgstr "வினா:"
+
+#: Widgets.py:118
+msgid "Number of votes to collect:"
+msgstr "சேகரிக்க வேண்டிய வாக்குகளின் எண்ணிக்கை"
+
+#: Widgets.py:126
+#, python-format
+msgid "Answer %s:"
+msgstr ""
+
+#: Widgets.py:134 Widgets.py:205
+msgid "Change Image"
+msgstr "படத்தை மாற்று"
+
+#: Widgets.py:139
+msgid "Add Image"
+msgstr "படத்தை செர்"
+
+#: Widgets.py:150
+msgid "Step 1: Preview"
+msgstr "படி 1: முன்பார்வை"
+
+#: Widgets.py:154
+msgid "Step 2: Save"
+msgstr "படி 2: சேமி"
+
+#: Widgets.py:209 Widgets.py:484 poll.py:380
+msgid "Poll Activity"
+msgstr "வாக்களிப்பு செயற்பாடு"
+
+#: Widgets.py:210
+msgid "Your selection is not an image"
+msgstr "நீங்கள் தெறிவுச்செய்தது ஒரு படமல்ல"
+
+#: Widgets.py:394
+msgid "Show answers while voting"
+msgstr "வாக்களிக்கும் போதே பதில்களை காட்டவும்"
+
+#: Widgets.py:399
+msgid "Remember last vote"
+msgstr "கடைசி வாக்கை நினைவுக்கூறவும்"
+
+#: Widgets.py:406
+msgid "Play a sound when make a vote"
+msgstr "வாக்களிக்கும்பொருட்டு ஒரு சத்தத்தை இயக்கவும்"
+
+#: Widgets.py:412
+msgid "Use image in answer"
+msgstr "பதிலில் படத்தை பயன்படுத்தவும்"
+
+#: Widgets.py:417
+msgid "Image Size: "
+msgstr "படத்தின் அளவு: "
+
+#: Widgets.py:445
+msgid "Save"
+msgstr "சேமி"
+
+#: Widgets.py:485
+msgid "The settings have been saved"
+msgstr "அமைப்புகள் யாவும் சேமிக்கப்பட்டன"
+
+#: Widgets.py:536
+msgid "VOTE"
+msgstr "வாக்களி"
+
+#: Widgets.py:539
+msgid "SEE RESULTS"
+msgstr "பெறுபேறுகளைப்பார்"
+
+#: Widgets.py:546
+msgid "DELETE"
+msgstr "அழி"
+
+#: Widgets.py:560
+msgid "Introduction"
+msgstr "அறிமுகம்"
+
+#: Widgets.py:560
+msgid "Lesson 1"
+msgstr "பாடம் 1"
+
+#: Widgets.py:560
+msgid "Lesson 2"
+msgstr "பாடம் 2"
+
+#: Widgets.py:561
+msgid "Lesson 3"
+msgstr "பாடம் 3"
+
+#: Widgets.py:561
+msgid "Lesson 4"
+msgstr "பாடம் 4"
+
+#: Widgets.py:725
+msgid "votes"
+msgstr "வாக்குகள்"
+
+#: Widgets.py:725
+#, fuzzy
+msgid "(votes left to collect)"
+msgstr " சேர்ப்பதற்க்காக விடப்பட்ட வாக்குகள்"
+
+#: Widgets.py:733 poll.py:476
+msgid "Vote"
+msgstr "வாக்கு"
+
+#: Widgets.py:739
+msgid "Edit Poll"
+msgstr "வாக்களிப்பை திருத்து"
+
+#: Widgets.py:744
+msgid "Save Poll"
+msgstr "வாக்களிப்பை பதி"
+
+#: poll.py:279 poll.py:370 poll.py:480
+msgid "VOTE!"
+msgstr "வாக்கு அளி !"
+
+#: poll.py:282 poll.py:373 poll.py:483
+msgid "Poll Preview"
+msgstr "வாக்களிப்பு முன் பார்வை"
+
+#: poll.py:381
+msgid "To vote you have to select first one option"
+msgstr ""
+"நீங்கள் வாக்களிக்க வேண்டுமானால் முதல் விருப்பத்தை தெறிவுச்செய்ய வேண்டும்"
+
+#: poll.py:477
+#, python-format
+msgid "Somebody voted on %s"
+msgstr "யாரோ ஒருவர் இதற்கு வாக்களித்துள்ளார் %s"
+
+#: poll.py:564 poll.py:599
+msgid "Joined"
+msgstr "இணைக்கப்பட்டது"
+
+#: poll.py:604
+msgid "Left"
+msgstr "இடது"
+
+#~ msgid "Choose image"
+#~ msgstr "படத்தை தெரிவுசெய்"
+
+#~ msgid "Favorite Color"
+#~ msgstr "விருப்புக்குரிய நிறம்"
+
+#~ msgid "What is your favorite color?"
+#~ msgstr "உனது விருப்புக்குரிய நிறம் என்ன?"
+
+#~ msgid "Orange"
+#~ msgstr "செம்மஞ்சல்"
+
+#~ msgid "None of the above"
+#~ msgstr "மேலுள்ளவற்றில் எதுவுமில்லை"
+
+#~ msgid "Close Lessons"
+#~ msgstr "பாடத்தை மூடு"
 
 #~ msgid "Answer"
 #~ msgstr "விடை"

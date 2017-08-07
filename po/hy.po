@@ -26,9 +26,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-08 00:33-0400\n"
-"PO-Revision-Date: 2013-07-25 21:01+0200\n"
-"Last-Translator: Chris <cjl@laptop.org>\n"
+"POT-Creation-Date: 2013-09-04 00:33-0400\n"
+"PO-Revision-Date: 2014-03-18 21:19+0200\n"
+"Last-Translator: anushnur <anush.mkrtchyan@ca1492.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: hy\n"
 "MIME-Version: 1.0\n"
@@ -43,203 +43,200 @@ msgstr ""
 msgid "Poll"
 msgstr "Հարցախույզ"
 
-#: i18n_misc_strings.py:1
-msgid "Lesson 1"
-msgstr "Դաս 1"
+#: PollSession.py:502 PollSession.py:586
+#, python-format
+msgid "%(author)s shared a poll '%(title)s' with you."
+msgstr "%(author)s Ձեզ հետ կիսել է '%(title)s' հարցումը"
 
-#: i18n_misc_strings.py:2
-msgid "Lesson 2"
-msgstr "Դաս 2"
+#: PollSession.py:585
+msgid "New Poll"
+msgstr "Նոր հարցախույզ"
 
-#: i18n_misc_strings.py:3
-msgid "Lesson 3"
-msgstr "Դաս 3"
-
-#: i18n_misc_strings.py:4
-msgid "Lesson 4"
-msgstr "Դաս 4"
-
-#: i18n_misc_strings.py:5
-msgid "Introduction"
-msgstr "Ներածություն"
-
-#: poll.py:162 poll.py:362
+#: Widgets.py:59 Widgets.py:497
 msgid "Choose a Poll"
 msgstr "Հարցախույզ ընտրել"
 
-#: poll.py:167 poll.py:735
+#: Widgets.py:63
 msgid "Build a Poll"
 msgstr "Ստեղծել հարցախույզ"
 
-#: poll.py:172 poll.py:819
+#: Widgets.py:67 Widgets.py:388
 msgid "Settings"
 msgstr "Չափանիշները"
 
-#: poll.py:177 poll.py:423 poll.py:1059
+#: Widgets.py:71 Widgets.py:570
 msgid "Lesson Plans"
 msgstr "Դասի պլաններ"
 
-#: poll.py:322
-msgid "VOTE!"
-msgstr "ՔՎԵԱՐԿԵ՛Լ"
+#: Widgets.py:106
+msgid "Build a poll"
+msgstr "Ստեղծել հարցախույզ"
 
-#: poll.py:324
-msgid "Poll Preview"
-msgstr "Հարցախույզի նախնական դիտում"
+#: Widgets.py:109
+msgid "Poll Title:"
+msgstr "Հարցախույզի վերնագիրը."
 
-#: poll.py:394
+#: Widgets.py:113
+msgid "Question:"
+msgstr "Հարցը."
+
+#: Widgets.py:118
+msgid "Number of votes to collect:"
+msgstr "Հավաքելիք քվեների քանակը."
+
+#: Widgets.py:126
+#, python-format
+#, python-format, 
+msgid "Answer %s:"
+msgstr "Պատասխան. %s:"
+
+#: Widgets.py:134 Widgets.py:205
+msgid "Change Image"
+msgstr "Փոխել պատկերը"
+
+#: Widgets.py:139
+msgid "Add Image"
+msgstr "Պատկեր ավելացնել"
+
+#: Widgets.py:150
+msgid "Step 1: Preview"
+msgstr "Քայլ 1. Նախնական տեսք"
+
+#: Widgets.py:154
+msgid "Step 2: Save"
+msgstr "Քայլ 2. Պահել"
+
+#: Widgets.py:209 Widgets.py:484 poll.py:380
+msgid "Poll Activity"
+msgstr "Հարցախույզ գործունեություն"
+
+#: Widgets.py:210
+msgid "Your selection is not an image"
+msgstr "Ձեր ընտրածը պատկեր չէ"
+
+#: Widgets.py:394
+msgid "Show answers while voting"
+msgstr "Ցույց տալ պատասխանները քվեարկության պահին"
+
+#: Widgets.py:399
+msgid "Remember last vote"
+msgstr "Հիշել վերջին քվեն"
+
+#: Widgets.py:406
+msgid "Play a sound when make a vote"
+msgstr "Քվեարկելիս հնչյունային ազդանշան տալ"
+
+#: Widgets.py:412
+msgid "Use image in answer"
+msgstr "Պատասխանում պատկեր օգտագործել"
+
+#: Widgets.py:417
+msgid "Image Size: "
+msgstr "Պատկերի չափսը. "
+
+#: Widgets.py:445
+msgid "Save"
+msgstr "պահել"
+
+#: Widgets.py:485
+msgid "The settings have been saved"
+msgstr "Չափանիշները պահվել են"
+
+#: Widgets.py:536
 msgid "VOTE"
 msgstr "ՔՎԵԱՐԿԵԼ"
 
-#: poll.py:396
+#: Widgets.py:539
 msgid "SEE RESULTS"
 msgstr "ՏԵՍՆԵԼ ԱՐԴՅՈՒՆՔՆԵՐԸ"
 
-#: poll.py:401
+#: Widgets.py:546
 msgid "DELETE"
 msgstr "ՋՆՋԵԼ"
 
-#: poll.py:565
+#: Widgets.py:560
+msgid "Introduction"
+msgstr "Ներածություն"
+
+#: Widgets.py:560
+msgid "Lesson 1"
+msgstr "Դաս 1"
+
+#: Widgets.py:560
+msgid "Lesson 2"
+msgstr "Դաս 2"
+
+#: Widgets.py:561
+msgid "Lesson 3"
+msgstr "Դաս 3"
+
+#: Widgets.py:561
+msgid "Lesson 4"
+msgstr "Դաս 4"
+
+#: Widgets.py:725
 msgid "votes"
 msgstr "քվեներ"
 
 # needs to include %d
-#: poll.py:568
-#, python-format
-#, python-format,
-msgid "(%d votes left to collect)"
-msgstr "(%d մնացած քվեներ)"
+#: Widgets.py:725
+msgid "(votes left to collect)"
+msgstr "(մնացած քվեներ)"
 
-#: poll.py:575 poll.py:1036
+#: Widgets.py:733 poll.py:476
 msgid "Vote"
 msgstr "Քվեարկել"
 
-#: poll.py:581
+#: Widgets.py:739
 msgid "Edit Poll"
 msgstr "Խմբագրել հարցախույզը"
 
-#: poll.py:584
+#: Widgets.py:744
 msgid "Save Poll"
 msgstr "Պահել հարցախույզը"
 
-#: poll.py:631 poll.py:693 poll.py:928
-msgid "Poll Activity"
-msgstr "Հարցախույզ գործունեություն"
+#: poll.py:279 poll.py:370 poll.py:480
+msgid "VOTE!"
+msgstr "ՔՎԵԱՐԿԵ՛Լ"
 
-#: poll.py:632
+#: poll.py:282 poll.py:373 poll.py:483
+msgid "Poll Preview"
+msgstr "Հարցախույզի նախնական դիտում"
+
+#: poll.py:381
 msgid "To vote you have to select first one option"
 msgstr "Քվեարկելու համար նախ ընտրեք որևէ տարբերակ"
 
-#: poll.py:663 poll.py:668
-msgid "Choose image"
-msgstr "Ընտրել պատկերը"
-
-#: poll.py:690 poll.py:780
-msgid "Change Image"
-msgstr "Փոխել պատկերը"
-
-#: poll.py:694
-msgid "Your selection is not an image"
-msgstr "Ձեր ընտրածը պատկեր չէ"
-
-#: poll.py:745
-msgid "Poll Title:"
-msgstr "Հարցախույզի վերնագիրը."
-
-#: poll.py:753
-msgid "Question:"
-msgstr "Հարցը."
-
-#: poll.py:761
-msgid "Number of votes to collect:"
-msgstr "Հավաքելիք քվեների քանակը."
-
-#: poll.py:771
-#, python-format
-msgid "Answer %d:"
-msgstr "Պատասխան. %d:"
-
-#: poll.py:784
-msgid "Add Image"
-msgstr "Պատկեր ավելացնել"
-
-#: poll.py:793
-msgid "Step 1: Preview"
-msgstr "Քայլ 1. Նախնական տեսք"
-
-#: poll.py:796
-msgid "Step 2: Save"
-msgstr "Քայլ 2. Պահել"
-
-#: poll.py:827
-msgid "Show answers while voting"
-msgstr "Ցույց տալ պատասխանները քվեարկության պահին"
-
-#: poll.py:832
-msgid "Remember last vote"
-msgstr "Հիշել վերջին քվեն"
-
-#: poll.py:838
-msgid "Play a sound when make a vote"
-msgstr "Քվեարկելիս հնչյունային ազդանշան տալ"
-
-#: poll.py:845
-msgid "Use image in answer"
-msgstr "Պատասխանում պատկեր օգտագործել"
-
-#: poll.py:850
-msgid "Image Size: "
-msgstr "Պատկերի չափսը. "
-
-#: poll.py:872
-msgid "Save"
-msgstr "պահել"
-
-#: poll.py:929
-msgid "The settings have been saved"
-msgstr "Չափանիշները պահվել են"
-
-#: poll.py:964
-msgid "Favorite Color"
-msgstr "Նախընտրած գույնը"
-
-#: poll.py:966
-msgid "What is your favorite color?"
-msgstr "Ո՞րն է Ձեր նախընտրած գույնը"
-
-#: poll.py:970
-msgid "Orange"
-msgstr "Նարնջագույն"
-
-#: poll.py:971
-msgid "None of the above"
-msgstr "Վերոհիշյալներից ոչ մեկը"
-
-#: poll.py:1037
+#: poll.py:477
 #, python-format
 msgid "Somebody voted on %s"
 msgstr "Ինչ-որ մեկը քվեարկել է %s-ի կապակցությամբ"
 
-#: poll.py:1056
-msgid "Close Lessons"
-msgstr "Փակել Դասերը"
-
-#: poll.py:1144 poll.py:1173
+#: poll.py:564 poll.py:599
 msgid "Joined"
 msgstr "Միացավ"
 
-#: poll.py:1177
+#: poll.py:604
 msgid "Left"
 msgstr "Լքեց"
 
-#: poll.py:1549 poll.py:1613
-msgid "New Poll"
-msgstr "Նոր հարցախույզ"
+#~ msgid "Choose image"
+#~ msgstr "Ընտրել պատկերը"
 
-#: poll.py:1550 poll.py:1614
-#, python-format
-msgid "%(author)s shared a poll '%(title)s' with you."
-msgstr "%(author)s Ձեզ հետ կիսել է '%(title)s' հարցումը"
+#~ msgid "Favorite Color"
+#~ msgstr "Նախընտրած գույնը"
+
+#~ msgid "What is your favorite color?"
+#~ msgstr "Ո՞րն է Ձեր նախընտրած գույնը"
+
+#~ msgid "Orange"
+#~ msgstr "Նարնջագույն"
+
+#~ msgid "None of the above"
+#~ msgstr "Վերոհիշյալներից ոչ մեկը"
+
+#~ msgid "Close Lessons"
+#~ msgstr "Փակել Դասերը"
 
 #~ msgid "Answer"
 #~ msgstr "Պատասխան"

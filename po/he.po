@@ -34,214 +34,195 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-08 00:33-0400\n"
-"PO-Revision-Date: 2009-01-07 01:06-0500\n"
-"Last-Translator: Chris Leonard <cjl@laptop.org>\n"
+"POT-Creation-Date: 2013-09-04 00:33-0400\n"
+"PO-Revision-Date: 2017-04-23 19:46+0000\n"
+"Last-Translator: Yaron <sh.yaron@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 1.1.0rc2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.5.1.1\n"
+"X-POOTLE-MTIME: 1492976813.000000\n"
 
 #. TRANS: "name" option from activity.info file
 #. TRANS: "summary" option from activity.info file
 #. TRANS: "description" option from activity.info file
 msgid "Poll"
-msgstr ""
+msgstr "סקר"
 
-#: i18n_misc_strings.py:1
-msgid "Lesson 1"
-msgstr ""
-
-#: i18n_misc_strings.py:2
-msgid "Lesson 2"
-msgstr ""
-
-#: i18n_misc_strings.py:3
-msgid "Lesson 3"
-msgstr ""
-
-#: i18n_misc_strings.py:4
-msgid "Lesson 4"
-msgstr ""
-
-#: i18n_misc_strings.py:5
-msgid "Introduction"
-msgstr ""
-
-#: poll.py:162 poll.py:362
-msgid "Choose a Poll"
-msgstr ""
-
-#: poll.py:167 poll.py:735
-msgid "Build a Poll"
-msgstr ""
-
-#: poll.py:172 poll.py:819
-msgid "Settings"
-msgstr ""
-
-#: poll.py:177 poll.py:423 poll.py:1059
-msgid "Lesson Plans"
-msgstr ""
-
-#: poll.py:322
-msgid "VOTE!"
-msgstr ""
-
-#: poll.py:324
-msgid "Poll Preview"
-msgstr ""
-
-#: poll.py:394
-msgid "VOTE"
-msgstr ""
-
-#: poll.py:396
-msgid "SEE RESULTS"
-msgstr ""
-
-#: poll.py:401
-#, fuzzy
-msgid "DELETE"
-msgstr "מחק"
-
-#: poll.py:565
-msgid "votes"
-msgstr ""
-
-#: poll.py:568
-#, python-format
-msgid "(%d votes left to collect)"
-msgstr ""
-
-#: poll.py:575 poll.py:1036
-msgid "Vote"
-msgstr ""
-
-#: poll.py:581
-msgid "Edit Poll"
-msgstr ""
-
-#: poll.py:584
-msgid "Save Poll"
-msgstr ""
-
-#: poll.py:631 poll.py:693 poll.py:928
-msgid "Poll Activity"
-msgstr ""
-
-#: poll.py:632
-msgid "To vote you have to select first one option"
-msgstr ""
-
-#: poll.py:663 poll.py:668
-msgid "Choose image"
-msgstr ""
-
-#: poll.py:690 poll.py:780
-msgid "Change Image"
-msgstr ""
-
-#: poll.py:694
-msgid "Your selection is not an image"
-msgstr ""
-
-#: poll.py:745
-msgid "Poll Title:"
-msgstr ""
-
-#: poll.py:753
-msgid "Question:"
-msgstr ""
-
-#: poll.py:761
-msgid "Number of votes to collect:"
-msgstr ""
-
-#: poll.py:771
-#, python-format
-msgid "Answer %d:"
-msgstr ""
-
-#: poll.py:784
-msgid "Add Image"
-msgstr ""
-
-#: poll.py:793
-msgid "Step 1: Preview"
-msgstr ""
-
-#: poll.py:796
-msgid "Step 2: Save"
-msgstr ""
-
-#: poll.py:827
-msgid "Show answers while voting"
-msgstr ""
-
-#: poll.py:832
-msgid "Remember last vote"
-msgstr ""
-
-#: poll.py:838
-msgid "Play a sound when make a vote"
-msgstr ""
-
-#: poll.py:845
-msgid "Use image in answer"
-msgstr ""
-
-#: poll.py:850
-msgid "Image Size: "
-msgstr ""
-
-#: poll.py:872
-msgid "Save"
-msgstr ""
-
-#: poll.py:929
-msgid "The settings have been saved"
-msgstr ""
-
-#: poll.py:964
-msgid "Favorite Color"
-msgstr ""
-
-#: poll.py:966
-msgid "What is your favorite color?"
-msgstr ""
-
-#: poll.py:970
-msgid "Orange"
-msgstr ""
-
-#: poll.py:971
-msgid "None of the above"
-msgstr ""
-
-#: poll.py:1037
-#, python-format
-msgid "Somebody voted on %s"
-msgstr ""
-
-#: poll.py:1056
-msgid "Close Lessons"
-msgstr ""
-
-#: poll.py:1144 poll.py:1173
-msgid "Joined"
-msgstr ""
-
-#: poll.py:1177
-msgid "Left"
-msgstr ""
-
-#: poll.py:1549 poll.py:1613
-msgid "New Poll"
-msgstr ""
-
-#: poll.py:1550 poll.py:1614
+#: PollSession.py:502 PollSession.py:586
 #, python-format
 msgid "%(author)s shared a poll '%(title)s' with you."
-msgstr ""
+msgstr "הסקר „%(title)s“ שותף אתך על ידי %(author)s"
+
+#: PollSession.py:585
+msgid "New Poll"
+msgstr "סקר חדש"
+
+#: Widgets.py:59 Widgets.py:497
+msgid "Choose a Poll"
+msgstr "בחירת סקר"
+
+#: Widgets.py:63
+msgid "Build a Poll"
+msgstr "הרכבת סקר"
+
+#: Widgets.py:67 Widgets.py:388
+msgid "Settings"
+msgstr "הגדרות"
+
+#: Widgets.py:71 Widgets.py:570
+msgid "Lesson Plans"
+msgstr "תכניות השיעור"
+
+#: Widgets.py:106
+msgid "Build a poll"
+msgstr "הרכבת סקר"
+
+#: Widgets.py:109
+msgid "Poll Title:"
+msgstr "כותרת הסקר:"
+
+#: Widgets.py:113
+msgid "Question:"
+msgstr "שאלה:"
+
+#: Widgets.py:118
+msgid "Number of votes to collect:"
+msgstr "מספר ההצבעות לאיסוף:"
+
+#: Widgets.py:126
+#, python-format
+msgid "Answer %s:"
+msgstr "תשובה %s:"
+
+#: Widgets.py:134 Widgets.py:205
+msgid "Change Image"
+msgstr "החלפת התמונה"
+
+#: Widgets.py:139
+msgid "Add Image"
+msgstr "הוספת תמונה"
+
+#: Widgets.py:150
+msgid "Step 1: Preview"
+msgstr "שלב 1: תצוגה מקדימה"
+
+#: Widgets.py:154
+msgid "Step 2: Save"
+msgstr "שלב 2: שמירה"
+
+#: Widgets.py:209 Widgets.py:484 poll.py:380
+msgid "Poll Activity"
+msgstr "פעילות בסקר"
+
+#: Widgets.py:210
+msgid "Your selection is not an image"
+msgstr "הבחירה שלך היא אינה תמונה"
+
+#: Widgets.py:394
+msgid "Show answers while voting"
+msgstr "הצגת תשובות בעת ההצבעה"
+
+#: Widgets.py:399
+msgid "Remember last vote"
+msgstr "שמירת ההצבעה האחרונה"
+
+#: Widgets.py:406
+msgid "Play a sound when make a vote"
+msgstr "יש להשמיע צליל בעת ההצבעה"
+
+#: Widgets.py:412
+msgid "Use image in answer"
+msgstr "שימוש בתמונה בתשובה"
+
+#: Widgets.py:417
+msgid "Image Size: "
+msgstr "גודל התמונה: "
+
+#: Widgets.py:445
+msgid "Save"
+msgstr "שמירה"
+
+#: Widgets.py:485
+msgid "The settings have been saved"
+msgstr "ההגדרות נשמרו"
+
+#: Widgets.py:536
+msgid "VOTE"
+msgstr "הצבעה"
+
+#: Widgets.py:539
+msgid "SEE RESULTS"
+msgstr "הצגת התוצאות"
+
+#: Widgets.py:546
+msgid "DELETE"
+msgstr "מחיקה"
+
+#: Widgets.py:560
+msgid "Introduction"
+msgstr "הקדמה"
+
+#: Widgets.py:560
+msgid "Lesson 1"
+msgstr "שיעור 1"
+
+#: Widgets.py:560
+msgid "Lesson 2"
+msgstr "שיעור 2"
+
+#: Widgets.py:561
+msgid "Lesson 3"
+msgstr "שיעור 3"
+
+#: Widgets.py:561
+msgid "Lesson 4"
+msgstr "שיעור 4"
+
+#: Widgets.py:725
+msgid "votes"
+msgstr "הצבעות"
+
+#: Widgets.py:725
+msgid "(votes left to collect)"
+msgstr "(הצבעות שנשאר לאסוף)"
+
+#: Widgets.py:733 poll.py:476
+msgid "Vote"
+msgstr "הצבעה"
+
+#: Widgets.py:739
+msgid "Edit Poll"
+msgstr "עריכת סקר"
+
+#: Widgets.py:744
+msgid "Save Poll"
+msgstr "שמירת סקר"
+
+#: poll.py:279 poll.py:370 poll.py:480
+msgid "VOTE!"
+msgstr "הצבעה!"
+
+#: poll.py:282 poll.py:373 poll.py:483
+msgid "Poll Preview"
+msgstr "תצוגה מקדימה של הסקר"
+
+#: poll.py:381
+msgid "To vote you have to select first one option"
+msgstr "כדי להצביע עליך לבחור תחילה באחת מהאפשרויות"
+
+#: poll.py:477
+#, python-format
+msgid "Somebody voted on %s"
+msgstr "מישהו הצביע לטובת %s"
+
+#: poll.py:564 poll.py:599
+msgid "Joined"
+msgstr "הצטרפות"
+
+#: poll.py:604
+msgid "Left"
+msgstr "עזיבה"

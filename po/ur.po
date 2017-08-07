@@ -34,7 +34,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-08 00:33-0400\n"
+"POT-Creation-Date: 2013-09-04 00:33-0400\n"
 "PO-Revision-Date: 2012-04-16 19:35+0200\n"
 "Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,207 +51,202 @@ msgstr ""
 msgid "Poll"
 msgstr "پول"
 
-#: i18n_misc_strings.py:1
-#, fuzzy
-msgid "Lesson 1"
-msgstr "سبق 1"
-
-#: i18n_misc_strings.py:2
-#, fuzzy
-msgid "Lesson 2"
-msgstr "سبق 2"
-
-#: i18n_misc_strings.py:3
-#, fuzzy
-msgid "Lesson 3"
-msgstr "سبق 3"
-
-#: i18n_misc_strings.py:4
-#, fuzzy
-msgid "Lesson 4"
-msgstr "سبق 4"
-
-#: i18n_misc_strings.py:5
-#, fuzzy
-msgid "Introduction"
-msgstr "تعارف"
-
-#: poll.py:162 poll.py:362
-msgid "Choose a Poll"
-msgstr "پول منتخب کريں"
-
-#: poll.py:167 poll.py:735
-msgid "Build a Poll"
-msgstr "پول بنايئں"
-
-#: poll.py:172 poll.py:819
-msgid "Settings"
-msgstr ""
-
-#: poll.py:177 poll.py:423 poll.py:1059
-msgid "Lesson Plans"
-msgstr "سبق کے پلان"
-
-#: poll.py:322
-msgid "VOTE!"
-msgstr "ووٹ!"
-
-#: poll.py:324
-msgid "Poll Preview"
-msgstr "پول پريوو"
-
-#: poll.py:394
-msgid "VOTE"
-msgstr "ووٹ"
-
-#: poll.py:396
-msgid "SEE RESULTS"
-msgstr "نتيجہ ديکھيں"
-
-#: poll.py:401
-msgid "DELETE"
-msgstr "ختم کريں"
-
-#: poll.py:565
-msgid "votes"
-msgstr "ووٹ"
-
-#: poll.py:568
-#, python-format
-msgid "(%d votes left to collect)"
-msgstr ""
-
-#: poll.py:575 poll.py:1036
-msgid "Vote"
-msgstr "ووٹ"
-
-#: poll.py:581
-msgid "Edit Poll"
-msgstr "پول کو تبديل کريں"
-
-#: poll.py:584
-msgid "Save Poll"
-msgstr "پول کو محفوظ کريں"
-
-#: poll.py:631 poll.py:693 poll.py:928
-msgid "Poll Activity"
-msgstr ""
-
-#: poll.py:632
-msgid "To vote you have to select first one option"
-msgstr ""
-
-#: poll.py:663 poll.py:668
-msgid "Choose image"
-msgstr ""
-
-#: poll.py:690 poll.py:780
-msgid "Change Image"
-msgstr ""
-
-#: poll.py:694
-msgid "Your selection is not an image"
-msgstr ""
-
-#: poll.py:745
-msgid "Poll Title:"
-msgstr "پول کا ٹائيٹل:"
-
-#: poll.py:753
-msgid "Question:"
-msgstr "سوال:"
-
-#: poll.py:761
-msgid "Number of votes to collect:"
-msgstr "جمع کيے جانے والے ووٹ:"
-
-#: poll.py:771
-#, python-format
-msgid "Answer %d:"
-msgstr ""
-
-#: poll.py:784
-msgid "Add Image"
-msgstr ""
-
-#: poll.py:793
-msgid "Step 1: Preview"
-msgstr "پہلا سٹيپ: پريوو"
-
-#: poll.py:796
-msgid "Step 2: Save"
-msgstr "دوسرا سٹيپ: محفوظ کريں"
-
-#: poll.py:827
-msgid "Show answers while voting"
-msgstr ""
-
-#: poll.py:832
-msgid "Remember last vote"
-msgstr ""
-
-#: poll.py:838
-msgid "Play a sound when make a vote"
-msgstr ""
-
-#: poll.py:845
-msgid "Use image in answer"
-msgstr ""
-
-#: poll.py:850
-msgid "Image Size: "
-msgstr ""
-
-#: poll.py:872
-msgid "Save"
-msgstr ""
-
-#: poll.py:929
-msgid "The settings have been saved"
-msgstr ""
-
-#: poll.py:964
-msgid "Favorite Color"
-msgstr "پسنديدہ رنگ"
-
-#: poll.py:966
-msgid "What is your favorite color?"
-msgstr "آپ کا پسنديدہ رنگ کيا ہے؟"
-
-#: poll.py:970
-msgid "Orange"
-msgstr "نارنچی"
-
-#: poll.py:971
-msgid "None of the above"
-msgstr "ان ميں کوئی نہيں ہے"
-
-#: poll.py:1037
-#, python-format
-msgid "Somebody voted on %s"
-msgstr "کسی نيں ووٹ ديا %s"
-
-#: poll.py:1056
-msgid "Close Lessons"
-msgstr "سبق بند کريں"
-
-#: poll.py:1144 poll.py:1173
-msgid "Joined"
-msgstr "جڑا ہوا"
-
-#: poll.py:1177
-msgid "Left"
-msgstr "باياں"
-
-#: poll.py:1549 poll.py:1613
-msgid "New Poll"
-msgstr "نيا پول"
-
-#: poll.py:1550 poll.py:1614
+#: PollSession.py:502 PollSession.py:586
 #, python-format
 #, python-format,
 msgid "%(author)s shared a poll '%(title)s' with you."
 msgstr "%(author)s پول کو شئر کريں '%(title)s' آپ کے ساتھہ۔"
+
+#: PollSession.py:585
+msgid "New Poll"
+msgstr "نيا پول"
+
+#: Widgets.py:59 Widgets.py:497
+msgid "Choose a Poll"
+msgstr "پول منتخب کريں"
+
+#: Widgets.py:63
+msgid "Build a Poll"
+msgstr "پول بنايئں"
+
+#: Widgets.py:67 Widgets.py:388
+msgid "Settings"
+msgstr ""
+
+#: Widgets.py:71 Widgets.py:570
+msgid "Lesson Plans"
+msgstr "سبق کے پلان"
+
+#: Widgets.py:106
+#, fuzzy
+msgid "Build a poll"
+msgstr "پول بنايئں"
+
+#: Widgets.py:109
+msgid "Poll Title:"
+msgstr "پول کا ٹائيٹل:"
+
+#: Widgets.py:113
+msgid "Question:"
+msgstr "سوال:"
+
+#: Widgets.py:118
+msgid "Number of votes to collect:"
+msgstr "جمع کيے جانے والے ووٹ:"
+
+#: Widgets.py:126
+#, python-format
+msgid "Answer %s:"
+msgstr ""
+
+#: Widgets.py:134 Widgets.py:205
+msgid "Change Image"
+msgstr ""
+
+#: Widgets.py:139
+msgid "Add Image"
+msgstr ""
+
+#: Widgets.py:150
+msgid "Step 1: Preview"
+msgstr "پہلا سٹيپ: پريوو"
+
+#: Widgets.py:154
+msgid "Step 2: Save"
+msgstr "دوسرا سٹيپ: محفوظ کريں"
+
+#: Widgets.py:209 Widgets.py:484 poll.py:380
+msgid "Poll Activity"
+msgstr ""
+
+#: Widgets.py:210
+msgid "Your selection is not an image"
+msgstr ""
+
+#: Widgets.py:394
+msgid "Show answers while voting"
+msgstr ""
+
+#: Widgets.py:399
+msgid "Remember last vote"
+msgstr ""
+
+#: Widgets.py:406
+msgid "Play a sound when make a vote"
+msgstr ""
+
+#: Widgets.py:412
+msgid "Use image in answer"
+msgstr ""
+
+#: Widgets.py:417
+msgid "Image Size: "
+msgstr ""
+
+#: Widgets.py:445
+msgid "Save"
+msgstr ""
+
+#: Widgets.py:485
+msgid "The settings have been saved"
+msgstr ""
+
+#: Widgets.py:536
+msgid "VOTE"
+msgstr "ووٹ"
+
+#: Widgets.py:539
+msgid "SEE RESULTS"
+msgstr "نتيجہ ديکھيں"
+
+#: Widgets.py:546
+msgid "DELETE"
+msgstr "ختم کريں"
+
+#: Widgets.py:560
+#, fuzzy
+msgid "Introduction"
+msgstr "تعارف"
+
+#: Widgets.py:560
+#, fuzzy
+msgid "Lesson 1"
+msgstr "سبق 1"
+
+#: Widgets.py:560
+#, fuzzy
+msgid "Lesson 2"
+msgstr "سبق 2"
+
+#: Widgets.py:561
+#, fuzzy
+msgid "Lesson 3"
+msgstr "سبق 3"
+
+#: Widgets.py:561
+#, fuzzy
+msgid "Lesson 4"
+msgstr "سبق 4"
+
+#: Widgets.py:725
+msgid "votes"
+msgstr "ووٹ"
+
+#: Widgets.py:725
+msgid "(votes left to collect)"
+msgstr ""
+
+#: Widgets.py:733 poll.py:476
+msgid "Vote"
+msgstr "ووٹ"
+
+#: Widgets.py:739
+msgid "Edit Poll"
+msgstr "پول کو تبديل کريں"
+
+#: Widgets.py:744
+msgid "Save Poll"
+msgstr "پول کو محفوظ کريں"
+
+#: poll.py:279 poll.py:370 poll.py:480
+msgid "VOTE!"
+msgstr "ووٹ!"
+
+#: poll.py:282 poll.py:373 poll.py:483
+msgid "Poll Preview"
+msgstr "پول پريوو"
+
+#: poll.py:381
+msgid "To vote you have to select first one option"
+msgstr ""
+
+#: poll.py:477
+#, python-format
+msgid "Somebody voted on %s"
+msgstr "کسی نيں ووٹ ديا %s"
+
+#: poll.py:564 poll.py:599
+msgid "Joined"
+msgstr "جڑا ہوا"
+
+#: poll.py:604
+msgid "Left"
+msgstr "باياں"
+
+#~ msgid "Favorite Color"
+#~ msgstr "پسنديدہ رنگ"
+
+#~ msgid "What is your favorite color?"
+#~ msgstr "آپ کا پسنديدہ رنگ کيا ہے؟"
+
+#~ msgid "Orange"
+#~ msgstr "نارنچی"
+
+#~ msgid "None of the above"
+#~ msgstr "ان ميں کوئی نہيں ہے"
+
+#~ msgid "Close Lessons"
+#~ msgstr "سبق بند کريں"
 
 #~ msgid "Answer"
 #~ msgstr "جواب"

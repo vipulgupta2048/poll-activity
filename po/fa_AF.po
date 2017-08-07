@@ -34,7 +34,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Honey\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-08 00:33-0400\n"
+"POT-Creation-Date: 2013-09-04 00:33-0400\n"
 "PO-Revision-Date: 2009-06-11 07:25-0400\n"
 "Last-Translator: Sohaib Obaidi <ebtihaj_obaidi@yahoo.com>\n"
 "Language-Team: Farsi AF <LL@li.org>\n"
@@ -51,201 +51,196 @@ msgstr ""
 msgid "Poll"
 msgstr "رای دادن"
 
-#: i18n_misc_strings.py:1
-msgid "Lesson 1"
-msgstr "درس ۱"
+#: PollSession.py:502 PollSession.py:586
+#, python-format
+msgid "%(author)s shared a poll '%(title)s' with you."
+msgstr "%(author)s رای خود را شریک ساخته  '%(title)s' باشما."
 
-#: i18n_misc_strings.py:2
-msgid "Lesson 2"
-msgstr "درس ۲"
+#: PollSession.py:585
+msgid "New Poll"
+msgstr "رای جدید"
 
-#: i18n_misc_strings.py:3
-msgid "Lesson 3"
-msgstr "درس ۳"
-
-#: i18n_misc_strings.py:4
-msgid "Lesson 4"
-msgstr "درس ۴"
-
-#: i18n_misc_strings.py:5
-msgid "Introduction"
-msgstr "مقدمه"
-
-#: poll.py:162 poll.py:362
+#: Widgets.py:59 Widgets.py:497
 msgid "Choose a Poll"
 msgstr "یک رای را انتخاب کن"
 
-#: poll.py:167 poll.py:735
+#: Widgets.py:63
 msgid "Build a Poll"
 msgstr "ساختن یک رای"
 
-#: poll.py:172 poll.py:819
+#: Widgets.py:67 Widgets.py:388
 msgid "Settings"
 msgstr ""
 
-#: poll.py:177 poll.py:423 poll.py:1059
+#: Widgets.py:71 Widgets.py:570
 msgid "Lesson Plans"
 msgstr "برنامه های درس"
 
-#: poll.py:322
-msgid "VOTE!"
-msgstr "رای گیری"
+#: Widgets.py:106
+#, fuzzy
+msgid "Build a poll"
+msgstr "ساختن یک رای"
 
-#: poll.py:324
-msgid "Poll Preview"
-msgstr "نمایش رای دادن"
-
-#: poll.py:394
-msgid "VOTE"
-msgstr "رای دادن"
-
-#: poll.py:396
-msgid "SEE RESULTS"
-msgstr "نتایج را ببین"
-
-#: poll.py:401
-msgid "DELETE"
-msgstr "حذف"
-
-#: poll.py:565
-msgid "votes"
-msgstr "رای  ها "
-
-#: poll.py:568
-#, python-format
-msgid "(%d votes left to collect)"
-msgstr ""
-
-#: poll.py:575 poll.py:1036
-msgid "Vote"
-msgstr "رای دادن"
-
-#: poll.py:581
-msgid "Edit Poll"
-msgstr "تنظیم رای"
-
-#: poll.py:584
-msgid "Save Poll"
-msgstr "ثبت رای"
-
-#: poll.py:631 poll.py:693 poll.py:928
-msgid "Poll Activity"
-msgstr ""
-
-#: poll.py:632
-msgid "To vote you have to select first one option"
-msgstr ""
-
-#: poll.py:663 poll.py:668
-msgid "Choose image"
-msgstr ""
-
-#: poll.py:690 poll.py:780
-msgid "Change Image"
-msgstr ""
-
-#: poll.py:694
-msgid "Your selection is not an image"
-msgstr ""
-
-#: poll.py:745
+#: Widgets.py:109
 msgid "Poll Title:"
 msgstr "عنوان رای"
 
-#: poll.py:753
+#: Widgets.py:113
 msgid "Question:"
 msgstr "سوال"
 
-#: poll.py:761
+#: Widgets.py:118
 msgid "Number of votes to collect:"
 msgstr "تعداد رای برای جمع آوری"
 
-#: poll.py:771
+#: Widgets.py:126
 #, python-format
-msgid "Answer %d:"
+msgid "Answer %s:"
 msgstr ""
 
-#: poll.py:784
+#: Widgets.py:134 Widgets.py:205
+msgid "Change Image"
+msgstr ""
+
+#: Widgets.py:139
 msgid "Add Image"
 msgstr ""
 
-#: poll.py:793
+#: Widgets.py:150
 msgid "Step 1: Preview"
 msgstr "مرحله ۱:‌ پیش نمایش"
 
-#: poll.py:796
+#: Widgets.py:154
 msgid "Step 2: Save"
 msgstr "مرحله دو: ثبت 2: "
 
-#: poll.py:827
+#: Widgets.py:209 Widgets.py:484 poll.py:380
+msgid "Poll Activity"
+msgstr ""
+
+#: Widgets.py:210
+msgid "Your selection is not an image"
+msgstr ""
+
+#: Widgets.py:394
 msgid "Show answers while voting"
 msgstr ""
 
-#: poll.py:832
+#: Widgets.py:399
 msgid "Remember last vote"
 msgstr ""
 
-#: poll.py:838
+#: Widgets.py:406
 msgid "Play a sound when make a vote"
 msgstr ""
 
-#: poll.py:845
+#: Widgets.py:412
 msgid "Use image in answer"
 msgstr ""
 
-#: poll.py:850
+#: Widgets.py:417
 msgid "Image Size: "
 msgstr ""
 
-#: poll.py:872
+#: Widgets.py:445
 msgid "Save"
 msgstr ""
 
-#: poll.py:929
+#: Widgets.py:485
 msgid "The settings have been saved"
 msgstr ""
 
-#: poll.py:964
-msgid "Favorite Color"
-msgstr "رنگ دلخواه"
+#: Widgets.py:536
+msgid "VOTE"
+msgstr "رای دادن"
 
-#: poll.py:966
-msgid "What is your favorite color?"
-msgstr "رنگ دلخواه شما کدام است?"
+#: Widgets.py:539
+msgid "SEE RESULTS"
+msgstr "نتایج را ببین"
 
-#: poll.py:970
-msgid "Orange"
-msgstr "نارنجی"
+#: Widgets.py:546
+msgid "DELETE"
+msgstr "حذف"
 
-#: poll.py:971
-msgid "None of the above"
-msgstr "هیچ کدام ازبالا"
+#: Widgets.py:560
+msgid "Introduction"
+msgstr "مقدمه"
 
-#: poll.py:1037
+#: Widgets.py:560
+msgid "Lesson 1"
+msgstr "درس ۱"
+
+#: Widgets.py:560
+msgid "Lesson 2"
+msgstr "درس ۲"
+
+#: Widgets.py:561
+msgid "Lesson 3"
+msgstr "درس ۳"
+
+#: Widgets.py:561
+msgid "Lesson 4"
+msgstr "درس ۴"
+
+#: Widgets.py:725
+msgid "votes"
+msgstr "رای  ها "
+
+#: Widgets.py:725
+msgid "(votes left to collect)"
+msgstr ""
+
+#: Widgets.py:733 poll.py:476
+msgid "Vote"
+msgstr "رای دادن"
+
+#: Widgets.py:739
+msgid "Edit Poll"
+msgstr "تنظیم رای"
+
+#: Widgets.py:744
+msgid "Save Poll"
+msgstr "ثبت رای"
+
+#: poll.py:279 poll.py:370 poll.py:480
+msgid "VOTE!"
+msgstr "رای گیری"
+
+#: poll.py:282 poll.py:373 poll.py:483
+msgid "Poll Preview"
+msgstr "نمایش رای دادن"
+
+#: poll.py:381
+msgid "To vote you have to select first one option"
+msgstr ""
+
+#: poll.py:477
 #, python-format
 msgid "Somebody voted on %s"
 msgstr "کسی رای داده است با %s"
 
-#: poll.py:1056
-msgid "Close Lessons"
-msgstr "درست را ختم کنید"
-
-#: poll.py:1144 poll.py:1173
+#: poll.py:564 poll.py:599
 msgid "Joined"
 msgstr "وصل شد"
 
-#: poll.py:1177
+#: poll.py:604
 msgid "Left"
 msgstr "ترک کرد"
 
-#: poll.py:1549 poll.py:1613
-msgid "New Poll"
-msgstr "رای جدید"
+#~ msgid "Favorite Color"
+#~ msgstr "رنگ دلخواه"
 
-#: poll.py:1550 poll.py:1614
-#, python-format
-msgid "%(author)s shared a poll '%(title)s' with you."
-msgstr "%(author)s رای خود را شریک ساخته  '%(title)s' باشما."
+#~ msgid "What is your favorite color?"
+#~ msgstr "رنگ دلخواه شما کدام است?"
+
+#~ msgid "Orange"
+#~ msgstr "نارنجی"
+
+#~ msgid "None of the above"
+#~ msgstr "هیچ کدام ازبالا"
+
+#~ msgid "Close Lessons"
+#~ msgstr "درست را ختم کنید"
 
 #~ msgid "Answer"
 #~ msgstr "جواب"

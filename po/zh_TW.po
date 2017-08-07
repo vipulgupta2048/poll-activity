@@ -34,16 +34,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-08 00:33-0400\n"
-"PO-Revision-Date: 2011-08-08 03:47+0200\n"
-"Last-Translator: Chris <cjl@laptop.org>\n"
+"POT-Creation-Date: 2013-09-04 00:33-0400\n"
+"PO-Revision-Date: 2017-03-25 12:04+0000\n"
+"Last-Translator: Yuan <yuanchao@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Pootle 2.0.1\n"
+"X-Generator: Pootle 2.5.1.1\n"
+"X-POOTLE-MTIME: 1490443451.000000\n"
 
 #. TRANS: "name" option from activity.info file
 #. TRANS: "summary" option from activity.info file
@@ -51,202 +52,198 @@ msgstr ""
 msgid "Poll"
 msgstr "投票表決"
 
-#: i18n_misc_strings.py:1
-msgid "Lesson 1"
-msgstr "第一課"
+#: PollSession.py:502 PollSession.py:586
+#, python-format
+msgid "%(author)s shared a poll '%(title)s' with you."
+msgstr "%(author)s 與你分享 '%(title)s' 表決"
 
-#: i18n_misc_strings.py:2
-msgid "Lesson 2"
-msgstr "第二課"
+#: PollSession.py:585
+msgid "New Poll"
+msgstr "新增表決項目"
 
-#: i18n_misc_strings.py:3
-msgid "Lesson 3"
-msgstr "第三課"
-
-#: i18n_misc_strings.py:4
-msgid "Lesson 4"
-msgstr "第四課"
-
-#: i18n_misc_strings.py:5
-msgid "Introduction"
-msgstr "介紹"
-
-#: poll.py:162 poll.py:362
+#: Widgets.py:59 Widgets.py:497
 msgid "Choose a Poll"
 msgstr "選擇表決議題"
 
-#: poll.py:167 poll.py:735
+#: Widgets.py:63
 msgid "Build a Poll"
 msgstr "建立表決項目"
 
-#: poll.py:172 poll.py:819
+#: Widgets.py:67 Widgets.py:388
 msgid "Settings"
 msgstr "設定"
 
-#: poll.py:177 poll.py:423 poll.py:1059
+#: Widgets.py:71 Widgets.py:570
 msgid "Lesson Plans"
 msgstr "議題規劃"
 
-#: poll.py:322
-msgid "VOTE!"
-msgstr "投票！"
+#: Widgets.py:106
+msgid "Build a poll"
+msgstr "建立投票表決項目"
 
-#: poll.py:324
-msgid "Poll Preview"
-msgstr "表決預覽"
-
-#: poll.py:394
-msgid "VOTE"
-msgstr "投票"
-
-#: poll.py:396
-msgid "SEE RESULTS"
-msgstr "看結果"
-
-#: poll.py:401
-msgid "DELETE"
-msgstr "删除"
-
-#: poll.py:565
-msgid "votes"
-msgstr "得票數"
-
-#: poll.py:568
-#, python-format
-#, python-format, fuzzy
-msgid "(%d votes left to collect)"
-msgstr " 尚未投票票數"
-
-#: poll.py:575 poll.py:1036
-msgid "Vote"
-msgstr "投票"
-
-#: poll.py:581
-msgid "Edit Poll"
-msgstr "編輯表決項目"
-
-#: poll.py:584
-msgid "Save Poll"
-msgstr "儲存表決項目"
-
-#: poll.py:631 poll.py:693 poll.py:928
-msgid "Poll Activity"
-msgstr "投票活動"
-
-#: poll.py:632
-msgid "To vote you have to select first one option"
-msgstr "你必須至少選一個選項來進行投票"
-
-#: poll.py:663 poll.py:668
-msgid "Choose image"
-msgstr "選擇圖片"
-
-#: poll.py:690 poll.py:780
-msgid "Change Image"
-msgstr "更改圖片"
-
-#: poll.py:694
-msgid "Your selection is not an image"
-msgstr "妳選擇的並非圖片"
-
-#: poll.py:745
+#: Widgets.py:109
 msgid "Poll Title:"
 msgstr "議題："
 
-#: poll.py:753
+#: Widgets.py:113
 msgid "Question:"
 msgstr "問題："
 
-#: poll.py:761
+#: Widgets.py:118
 msgid "Number of votes to collect:"
 msgstr "達成尚需票數"
 
-#: poll.py:771
+#: Widgets.py:126
 #, python-format
-msgid "Answer %d:"
-msgstr ""
+msgid "Answer %s:"
+msgstr "回覆 %s:"
 
-#: poll.py:784
+#: Widgets.py:134 Widgets.py:205
+msgid "Change Image"
+msgstr "更改圖片"
+
+#: Widgets.py:139
 msgid "Add Image"
 msgstr "增加圖片"
 
-#: poll.py:793
+#: Widgets.py:150
 msgid "Step 1: Preview"
 msgstr "第一步：預覽"
 
-#: poll.py:796
+#: Widgets.py:154
 msgid "Step 2: Save"
 msgstr "第二步：存檔"
 
-#: poll.py:827
+#: Widgets.py:209 Widgets.py:484 poll.py:380
+msgid "Poll Activity"
+msgstr "投票活動"
+
+#: Widgets.py:210
+msgid "Your selection is not an image"
+msgstr "妳選擇的並非圖片"
+
+#: Widgets.py:394
 msgid "Show answers while voting"
 msgstr "在投票時顯示答案"
 
-#: poll.py:832
+#: Widgets.py:399
 msgid "Remember last vote"
 msgstr "記住上次決定"
 
-#: poll.py:838
+#: Widgets.py:406
 msgid "Play a sound when make a vote"
 msgstr "當投票時播放音效"
 
-#: poll.py:845
+#: Widgets.py:412
 msgid "Use image in answer"
 msgstr "用圖片作為答案"
 
-#: poll.py:850
+#: Widgets.py:417
 msgid "Image Size: "
 msgstr "圖片大小："
 
-#: poll.py:872
+#: Widgets.py:445
 msgid "Save"
 msgstr "儲存"
 
-#: poll.py:929
+#: Widgets.py:485
 msgid "The settings have been saved"
 msgstr "設定已儲存"
 
-#: poll.py:964
-msgid "Favorite Color"
-msgstr "最愛的顏色"
+#: Widgets.py:536
+msgid "VOTE"
+msgstr "投票"
 
-#: poll.py:966
-msgid "What is your favorite color?"
-msgstr "您最愛的顏色是什麼？"
+#: Widgets.py:539
+msgid "SEE RESULTS"
+msgstr "看結果"
 
-#: poll.py:970
-msgid "Orange"
-msgstr "橘色"
+#: Widgets.py:546
+msgid "DELETE"
+msgstr "删除"
 
-#: poll.py:971
-msgid "None of the above"
-msgstr "以上接非"
+#: Widgets.py:560
+msgid "Introduction"
+msgstr "介紹"
 
-#: poll.py:1037
+#: Widgets.py:560
+msgid "Lesson 1"
+msgstr "第一課"
+
+#: Widgets.py:560
+msgid "Lesson 2"
+msgstr "第二課"
+
+#: Widgets.py:561
+msgid "Lesson 3"
+msgstr "第三課"
+
+#: Widgets.py:561
+msgid "Lesson 4"
+msgstr "第四課"
+
+#: Widgets.py:725
+msgid "votes"
+msgstr "得票數"
+
+#: Widgets.py:725
+msgid "(votes left to collect)"
+msgstr "(尚未投票票數)"
+
+#: Widgets.py:733 poll.py:476
+msgid "Vote"
+msgstr "投票"
+
+#: Widgets.py:739
+msgid "Edit Poll"
+msgstr "編輯表決項目"
+
+#: Widgets.py:744
+msgid "Save Poll"
+msgstr "儲存表決項目"
+
+#: poll.py:279 poll.py:370 poll.py:480
+msgid "VOTE!"
+msgstr "投票！"
+
+#: poll.py:282 poll.py:373 poll.py:483
+msgid "Poll Preview"
+msgstr "表決預覽"
+
+#: poll.py:381
+msgid "To vote you have to select first one option"
+msgstr "你必須至少選一個選項來進行投票"
+
+#: poll.py:477
 #, python-format
 msgid "Somebody voted on %s"
 msgstr "有人投給 %s"
 
-#: poll.py:1056
-msgid "Close Lessons"
-msgstr "關閉議題"
-
-#: poll.py:1144 poll.py:1173
+#: poll.py:564 poll.py:599
 msgid "Joined"
 msgstr "已加入"
 
-#: poll.py:1177
+#: poll.py:604
 msgid "Left"
 msgstr "左側"
 
-#: poll.py:1549 poll.py:1613
-msgid "New Poll"
-msgstr "新增表決項目"
+#~ msgid "Choose image"
+#~ msgstr "選擇圖片"
 
-#: poll.py:1550 poll.py:1614
-#, python-format
-msgid "%(author)s shared a poll '%(title)s' with you."
-msgstr "%(author)s 與你分享 '%(title)s' 表決"
+#~ msgid "Favorite Color"
+#~ msgstr "最愛的顏色"
+
+#~ msgid "What is your favorite color?"
+#~ msgstr "您最愛的顏色是什麼？"
+
+#~ msgid "Orange"
+#~ msgstr "橘色"
+
+#~ msgid "None of the above"
+#~ msgstr "以上接非"
+
+#~ msgid "Close Lessons"
+#~ msgstr "關閉議題"
 
 #~ msgid "Answer"
 #~ msgstr "回答"

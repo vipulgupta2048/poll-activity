@@ -58,16 +58,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-08 00:33-0400\n"
-"PO-Revision-Date: 2010-11-03 19:43+0200\n"
-"Last-Translator: FlowerPowerGirl <o.parczyk@online.de>\n"
+"POT-Creation-Date: 2013-09-04 00:33-0400\n"
+"PO-Revision-Date: 2016-04-09 20:33+0000\n"
+"Last-Translator: Chris <cjl@sugarlabs.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.3\n"
+"X-Generator: Pootle 2.5.1.1\n"
+"X-POOTLE-MTIME: 1460233983.000000\n"
 
 #. TRANS: "name" option from activity.info file
 #. TRANS: "summary" option from activity.info file
@@ -75,203 +76,199 @@ msgstr ""
 msgid "Poll"
 msgstr "Abstimmung"
 
-#: i18n_misc_strings.py:1
-msgid "Lesson 1"
-msgstr "Lektion 1"
+#: PollSession.py:502 PollSession.py:586
+#, python-format
+msgid "%(author)s shared a poll '%(title)s' with you."
+msgstr "%(author)s teilte eine Abstimmung '%(title)s' mit dir."
 
-#: i18n_misc_strings.py:2
-msgid "Lesson 2"
-msgstr "Lektion 2"
+#: PollSession.py:585
+msgid "New Poll"
+msgstr "Neue Abstimmung"
 
-#: i18n_misc_strings.py:3
-msgid "Lesson 3"
-msgstr "Lektion 3"
-
-#: i18n_misc_strings.py:4
-msgid "Lesson 4"
-msgstr "Lektion 4"
-
-#: i18n_misc_strings.py:5
-msgid "Introduction"
-msgstr "Einführung"
-
-#: poll.py:162 poll.py:362
+#: Widgets.py:59 Widgets.py:497
 msgid "Choose a Poll"
 msgstr "Abstimmung auswählen"
 
-#: poll.py:167 poll.py:735
+#: Widgets.py:63
 msgid "Build a Poll"
 msgstr "Abstimmung erstellen"
 
-#: poll.py:172 poll.py:819
+#: Widgets.py:67 Widgets.py:388
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: poll.py:177 poll.py:423 poll.py:1059
+#: Widgets.py:71 Widgets.py:570
 msgid "Lesson Plans"
 msgstr "Übungspläne"
 
-#: poll.py:322
-msgid "VOTE!"
-msgstr "ABSTIMMEN!"
+#: Widgets.py:106
+msgid "Build a poll"
+msgstr "Abstimmung erstellen"
 
-#: poll.py:324
-msgid "Poll Preview"
-msgstr "Abstimmungsvorschau"
-
-# (Markus S.) 'STIMME'?
-#: poll.py:394
-msgid "VOTE"
-msgstr "ABSTIMMEN"
-
-#: poll.py:396
-msgid "SEE RESULTS"
-msgstr "ERGEBNISSE"
-
-#: poll.py:401
-msgid "DELETE"
-msgstr "LÖSCHEN"
-
-#: poll.py:565
-msgid "votes"
-msgstr "Stimmen"
-
-#: poll.py:568
-#, python-format
-#, python-format, fuzzy
-msgid "(%d votes left to collect)"
-msgstr " übrige Stimmen zum einsammeln"
-
-#: poll.py:575 poll.py:1036
-msgid "Vote"
-msgstr "Abstimmen"
-
-#: poll.py:581
-msgid "Edit Poll"
-msgstr "Abstimmung bearbeiten"
-
-#: poll.py:584
-msgid "Save Poll"
-msgstr "Abstimmung speichern"
-
-#: poll.py:631 poll.py:693 poll.py:928
-msgid "Poll Activity"
-msgstr "Abstimmungs-Aktivität"
-
-#: poll.py:632
-msgid "To vote you have to select first one option"
-msgstr "Um abzustimmen musst Du die erste Option auswählen"
-
-#: poll.py:663 poll.py:668
-msgid "Choose image"
-msgstr "Wähle ein Bild aus"
-
-#: poll.py:690 poll.py:780
-msgid "Change Image"
-msgstr "Ändere das Bild"
-
-#: poll.py:694
-msgid "Your selection is not an image"
-msgstr "Deine Wahl ist kein Bild"
-
-#: poll.py:745
+#: Widgets.py:109
 msgid "Poll Title:"
 msgstr "Abstimmungstitel:"
 
-#: poll.py:753
+#: Widgets.py:113
 msgid "Question:"
 msgstr "Frage:"
 
-#: poll.py:761
+#: Widgets.py:118
 msgid "Number of votes to collect:"
 msgstr "Zahl der zu sammelnden Stimmen:"
 
-#: poll.py:771
+#: Widgets.py:126
 #, python-format
-msgid "Answer %d:"
-msgstr ""
+msgid "Answer %s:"
+msgstr "Antwort %s:"
 
-#: poll.py:784
+#: Widgets.py:134 Widgets.py:205
+msgid "Change Image"
+msgstr "Ändere das Bild"
+
+#: Widgets.py:139
 msgid "Add Image"
 msgstr "Füge ein Bild hinzu"
 
-#: poll.py:793
+#: Widgets.py:150
 msgid "Step 1: Preview"
 msgstr "Schritt 1: Vorschau"
 
-#: poll.py:796
+#: Widgets.py:154
 msgid "Step 2: Save"
 msgstr "Schritt 2: Speichern"
 
-#: poll.py:827
+#: Widgets.py:209 Widgets.py:484 poll.py:380
+msgid "Poll Activity"
+msgstr "Abstimmungs-Aktivität"
+
+#: Widgets.py:210
+msgid "Your selection is not an image"
+msgstr "Deine Wahl ist kein Bild"
+
+#: Widgets.py:394
 msgid "Show answers while voting"
 msgstr "Antwörten während der Abstimmung anzeigen"
 
-#: poll.py:832
+#: Widgets.py:399
 msgid "Remember last vote"
 msgstr "An die letzte Abstimmung erinnern"
 
-#: poll.py:838
+#: Widgets.py:406
 msgid "Play a sound when make a vote"
 msgstr "Einen Sound abpielen, wenn eine Stimme abgegeben wird"
 
-#: poll.py:845
+#: Widgets.py:412
 msgid "Use image in answer"
 msgstr "Ein Bild in der Antwort benutzen"
 
-#: poll.py:850
+#: Widgets.py:417
 msgid "Image Size: "
 msgstr "Bildgröße: "
 
-#: poll.py:872
+#: Widgets.py:445
 msgid "Save"
 msgstr "Speichern"
 
-#: poll.py:929
+#: Widgets.py:485
 msgid "The settings have been saved"
 msgstr "Die Einstellungen wurden gespeichert"
 
-#: poll.py:964
-msgid "Favorite Color"
-msgstr "Lieblingsfarbe"
+# (Markus S.) 'STIMME'?
+#: Widgets.py:536
+msgid "VOTE"
+msgstr "ABSTIMMEN"
 
-#: poll.py:966
-msgid "What is your favorite color?"
-msgstr "Welches ist deine Lieblingsfarbe?"
+#: Widgets.py:539
+msgid "SEE RESULTS"
+msgstr "ERGEBNISSE"
 
-#: poll.py:970
-msgid "Orange"
-msgstr "Orange"
+#: Widgets.py:546
+msgid "DELETE"
+msgstr "LÖSCHEN"
 
-#: poll.py:971
-msgid "None of the above"
-msgstr "Keine der angeführten"
+#: Widgets.py:560
+msgid "Introduction"
+msgstr "Einführung"
 
-#: poll.py:1037
+#: Widgets.py:560
+msgid "Lesson 1"
+msgstr "Lektion 1"
+
+#: Widgets.py:560
+msgid "Lesson 2"
+msgstr "Lektion 2"
+
+#: Widgets.py:561
+msgid "Lesson 3"
+msgstr "Lektion 3"
+
+#: Widgets.py:561
+msgid "Lesson 4"
+msgstr "Lektion 4"
+
+#: Widgets.py:725
+msgid "votes"
+msgstr "Stimmen"
+
+#: Widgets.py:725
+msgid "(votes left to collect)"
+msgstr "(Stimmen noch einzusammeln)"
+
+#: Widgets.py:733 poll.py:476
+msgid "Vote"
+msgstr "Abstimmen"
+
+#: Widgets.py:739
+msgid "Edit Poll"
+msgstr "Abstimmung bearbeiten"
+
+#: Widgets.py:744
+msgid "Save Poll"
+msgstr "Abstimmung speichern"
+
+#: poll.py:279 poll.py:370 poll.py:480
+msgid "VOTE!"
+msgstr "ABSTIMMEN!"
+
+#: poll.py:282 poll.py:373 poll.py:483
+msgid "Poll Preview"
+msgstr "Abstimmungsvorschau"
+
+#: poll.py:381
+msgid "To vote you have to select first one option"
+msgstr "Um abzustimmen musst Du die erste Option auswählen"
+
+#: poll.py:477
 #, python-format
 msgid "Somebody voted on %s"
 msgstr "Jemand stimmte für %s"
 
-#: poll.py:1056
-msgid "Close Lessons"
-msgstr "Übungen beenden"
-
-#: poll.py:1144 poll.py:1173
+#: poll.py:564 poll.py:599
 msgid "Joined"
 msgstr "Dazugekommen"
 
-#: poll.py:1177
+#: poll.py:604
 msgid "Left"
 msgstr "Ausgestiegen"
 
-#: poll.py:1549 poll.py:1613
-msgid "New Poll"
-msgstr "Neue Abstimmung"
+#~ msgid "Choose image"
+#~ msgstr "Wähle ein Bild aus"
 
-#: poll.py:1550 poll.py:1614
-#, python-format
-msgid "%(author)s shared a poll '%(title)s' with you."
-msgstr "%(author)s teilte eine Abstimmung '%(title)s' mit dir."
+#~ msgid "Favorite Color"
+#~ msgstr "Lieblingsfarbe"
+
+#~ msgid "What is your favorite color?"
+#~ msgstr "Welches ist deine Lieblingsfarbe?"
+
+#~ msgid "Orange"
+#~ msgstr "Orange"
+
+#~ msgid "None of the above"
+#~ msgstr "Keine der angeführten"
+
+#~ msgid "Close Lessons"
+#~ msgstr "Übungen beenden"
 
 #~ msgid "Answer"
 #~ msgstr "Antwort"

@@ -66,7 +66,7 @@ msgstr "Jaqtäwinaka apthapiña jakhu chimpu:"
 
 #: Widgets.py:126
 #, python-format
-#, python-format, 
+#, python-format,
 msgid "Answer %s:"
 msgstr "Kutsuyäwi %s:"
 

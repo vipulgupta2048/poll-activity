@@ -102,7 +102,7 @@ msgstr "Number of votes to collect:"
 
 #: Widgets.py:126
 #, python-format
-#, python-format, 
+#, python-format,
 msgid "Answer %s:"
 msgstr "Answer %s:"
 

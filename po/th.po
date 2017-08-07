@@ -34,7 +34,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-08 00:33-0400\n"
+"POT-Creation-Date: 2013-09-04 00:33-0400\n"
 "PO-Revision-Date: 2012-03-09 11:26+0200\n"
 "Last-Translator: Meechai <malaku38@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,202 +51,200 @@ msgstr ""
 msgid "Poll"
 msgstr "ผลสำรวจ"
 
-#: i18n_misc_strings.py:1
-msgid "Lesson 1"
-msgstr "บทที่ 1"
+#: PollSession.py:502 PollSession.py:586
+#, python-format
+msgid "%(author)s shared a poll '%(title)s' with you."
+msgstr "%(author)s แบ่งปันแบบสำรวจ '%(title)s' ให้กับคุณ"
 
-#: i18n_misc_strings.py:2
-msgid "Lesson 2"
-msgstr "บทที่ 2"
+#: PollSession.py:585
+msgid "New Poll"
+msgstr "ผลสำรวจใหม่"
 
-#: i18n_misc_strings.py:3
-msgid "Lesson 3"
-msgstr "บทที่ 3"
-
-#: i18n_misc_strings.py:4
-msgid "Lesson 4"
-msgstr "บทที่ 4"
-
-#: i18n_misc_strings.py:5
-msgid "Introduction"
-msgstr "คำนำ"
-
-#: poll.py:162 poll.py:362
+#: Widgets.py:59 Widgets.py:497
 msgid "Choose a Poll"
 msgstr "เลือกผลสำรวจ"
 
-#: poll.py:167 poll.py:735
+#: Widgets.py:63
 msgid "Build a Poll"
 msgstr "สร้างแบบสำรวจ"
 
-#: poll.py:172 poll.py:819
+#: Widgets.py:67 Widgets.py:388
 msgid "Settings"
 msgstr "ตั้งค่า"
 
-#: poll.py:177 poll.py:423 poll.py:1059
+#: Widgets.py:71 Widgets.py:570
 msgid "Lesson Plans"
 msgstr "บทเรียน"
 
-#: poll.py:322
-msgid "VOTE!"
-msgstr "ลงคะแนน!"
+#: Widgets.py:106
+#, fuzzy
+msgid "Build a poll"
+msgstr "สร้างแบบสำรวจ"
 
-#: poll.py:324
-msgid "Poll Preview"
-msgstr "ดูแบบสำรวจ"
-
-#: poll.py:394
-msgid "VOTE"
-msgstr "ลงคะแนน"
-
-#: poll.py:396
-msgid "SEE RESULTS"
-msgstr "ดู ผลลัพธ์"
-
-#: poll.py:401
-msgid "DELETE"
-msgstr "ลบ"
-
-#: poll.py:565
-msgid "votes"
-msgstr "คะแนนโหวต"
-
-#: poll.py:568
-#, python-format
-#, python-format, fuzzy
-msgid "(%d votes left to collect)"
-msgstr " คะแนนที่เหลือในการเก็บรวบรวม"
-
-#: poll.py:575 poll.py:1036
-msgid "Vote"
-msgstr "ออกเสียง"
-
-#: poll.py:581
-msgid "Edit Poll"
-msgstr "แก้ไขแบบสำรวจ"
-
-#: poll.py:584
-msgid "Save Poll"
-msgstr "บันทึกแบบสำรวจ"
-
-#: poll.py:631 poll.py:693 poll.py:928
-msgid "Poll Activity"
-msgstr "กิจกรรม สำรวจความคิดเห็น"
-
-#: poll.py:632
-msgid "To vote you have to select first one option"
-msgstr "การโหวตลงคะแนน คุณต้องเลือกเพียงหนึ่งตัวเลือก"
-
-#: poll.py:663 poll.py:668
-msgid "Choose image"
-msgstr "เลือกรูปภาพ"
-
-#: poll.py:690 poll.py:780
-msgid "Change Image"
-msgstr "เปลี่ยนรูปภาพ"
-
-#: poll.py:694
-msgid "Your selection is not an image"
-msgstr "ตัวเลือกของคุณไม่ใช่รูปภาพ"
-
-#: poll.py:745
+#: Widgets.py:109
 msgid "Poll Title:"
 msgstr "ชื่อแบบสำรวจ:"
 
-#: poll.py:753
+#: Widgets.py:113
 msgid "Question:"
 msgstr "คำถาม:"
 
-#: poll.py:761
+#: Widgets.py:118
 msgid "Number of votes to collect:"
 msgstr "จำนวนคะแนนเสียงที่เก็บรวบรวม:"
 
-#: poll.py:771
+#: Widgets.py:126
 #, python-format
-msgid "Answer %d:"
+msgid "Answer %s:"
 msgstr ""
 
-#: poll.py:784
+#: Widgets.py:134 Widgets.py:205
+msgid "Change Image"
+msgstr "เปลี่ยนรูปภาพ"
+
+#: Widgets.py:139
 msgid "Add Image"
 msgstr "เพิ่ม รูปภาพ"
 
-#: poll.py:793
+#: Widgets.py:150
 msgid "Step 1: Preview"
 msgstr "ขั้นตอนแรก : แสดงตัวอย่าง"
 
-#: poll.py:796
+#: Widgets.py:154
 msgid "Step 2: Save"
 msgstr "ขั้นตอน 2 บันทึก"
 
-#: poll.py:827
+#: Widgets.py:209 Widgets.py:484 poll.py:380
+msgid "Poll Activity"
+msgstr "กิจกรรม สำรวจความคิดเห็น"
+
+#: Widgets.py:210
+msgid "Your selection is not an image"
+msgstr "ตัวเลือกของคุณไม่ใช่รูปภาพ"
+
+#: Widgets.py:394
 msgid "Show answers while voting"
 msgstr "แสดงคำตอบในขณะที่กำลังลงคะแนนเสียง"
 
-#: poll.py:832
+#: Widgets.py:399
 msgid "Remember last vote"
 msgstr "จดจำการลงคะแนนล่าสุด"
 
-#: poll.py:838
+#: Widgets.py:406
 msgid "Play a sound when make a vote"
 msgstr "เล่นเสียงเมื่อทำการลงคะแนน"
 
-#: poll.py:845
+#: Widgets.py:412
 msgid "Use image in answer"
 msgstr "ใช้ภาพในคำตอบ"
 
-#: poll.py:850
+#: Widgets.py:417
 msgid "Image Size: "
 msgstr "ขนาดของภาพ: "
 
-#: poll.py:872
+#: Widgets.py:445
 msgid "Save"
 msgstr "บันทึก"
 
-#: poll.py:929
+#: Widgets.py:485
 msgid "The settings have been saved"
 msgstr "การตั้งค่าได้ถูกบันทักแล้ว"
 
-#: poll.py:964
-msgid "Favorite Color"
-msgstr "สีโปรด"
+#: Widgets.py:536
+msgid "VOTE"
+msgstr "ลงคะแนน"
 
-#: poll.py:966
-msgid "What is your favorite color?"
-msgstr "สี่โปรดของคุณคือสีอะไร"
+#: Widgets.py:539
+msgid "SEE RESULTS"
+msgstr "ดู ผลลัพธ์"
 
-#: poll.py:970
-msgid "Orange"
-msgstr "สีส้ม"
+#: Widgets.py:546
+msgid "DELETE"
+msgstr "ลบ"
 
-#: poll.py:971
-msgid "None of the above"
-msgstr "ไม่มีให้เลือก"
+#: Widgets.py:560
+msgid "Introduction"
+msgstr "คำนำ"
 
-#: poll.py:1037
+#: Widgets.py:560
+msgid "Lesson 1"
+msgstr "บทที่ 1"
+
+#: Widgets.py:560
+msgid "Lesson 2"
+msgstr "บทที่ 2"
+
+#: Widgets.py:561
+msgid "Lesson 3"
+msgstr "บทที่ 3"
+
+#: Widgets.py:561
+msgid "Lesson 4"
+msgstr "บทที่ 4"
+
+#: Widgets.py:725
+msgid "votes"
+msgstr "คะแนนโหวต"
+
+#: Widgets.py:725
+#, fuzzy
+msgid "(votes left to collect)"
+msgstr " คะแนนที่เหลือในการเก็บรวบรวม"
+
+#: Widgets.py:733 poll.py:476
+msgid "Vote"
+msgstr "ออกเสียง"
+
+#: Widgets.py:739
+msgid "Edit Poll"
+msgstr "แก้ไขแบบสำรวจ"
+
+#: Widgets.py:744
+msgid "Save Poll"
+msgstr "บันทึกแบบสำรวจ"
+
+#: poll.py:279 poll.py:370 poll.py:480
+msgid "VOTE!"
+msgstr "ลงคะแนน!"
+
+#: poll.py:282 poll.py:373 poll.py:483
+msgid "Poll Preview"
+msgstr "ดูแบบสำรวจ"
+
+#: poll.py:381
+msgid "To vote you have to select first one option"
+msgstr "การโหวตลงคะแนน คุณต้องเลือกเพียงหนึ่งตัวเลือก"
+
+#: poll.py:477
 #, python-format
 msgid "Somebody voted on %s"
 msgstr "ใครบางคนลงคะแนน %s"
 
-#: poll.py:1056
-msgid "Close Lessons"
-msgstr "ปิดบทเรียน"
-
-#: poll.py:1144 poll.py:1173
+#: poll.py:564 poll.py:599
 msgid "Joined"
 msgstr "เข้าร่วม"
 
-#: poll.py:1177
+#: poll.py:604
 msgid "Left"
 msgstr "ซ้าย"
 
-#: poll.py:1549 poll.py:1613
-msgid "New Poll"
-msgstr "ผลสำรวจใหม่"
+#~ msgid "Choose image"
+#~ msgstr "เลือกรูปภาพ"
 
-#: poll.py:1550 poll.py:1614
-#, python-format
-msgid "%(author)s shared a poll '%(title)s' with you."
-msgstr "%(author)s แบ่งปันแบบสำรวจ '%(title)s' ให้กับคุณ"
+#~ msgid "Favorite Color"
+#~ msgstr "สีโปรด"
+
+#~ msgid "What is your favorite color?"
+#~ msgstr "สี่โปรดของคุณคือสีอะไร"
+
+#~ msgid "Orange"
+#~ msgstr "สีส้ม"
+
+#~ msgid "None of the above"
+#~ msgstr "ไม่มีให้เลือก"
+
+#~ msgid "Close Lessons"
+#~ msgstr "ปิดบทเรียน"
 
 #~ msgid "Answer"
 #~ msgstr "คำตอบ"

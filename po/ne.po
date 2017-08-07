@@ -34,7 +34,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-08 00:33-0400\n"
+"POT-Creation-Date: 2013-09-04 00:33-0400\n"
 "PO-Revision-Date: 2011-07-15 04:09+0200\n"
 "Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,202 +51,200 @@ msgstr ""
 msgid "Poll"
 msgstr "मतदान"
 
-#: i18n_misc_strings.py:1
-msgid "Lesson 1"
-msgstr "पाठ १"
+#: PollSession.py:502 PollSession.py:586
+#, python-format
+msgid "%(author)s shared a poll '%(title)s' with you."
+msgstr "%(author)s ले तिमीसँग '%(title)s'मतदान  सेयर गर्यो"
 
-#: i18n_misc_strings.py:2
-msgid "Lesson 2"
-msgstr "पाठ २"
+#: PollSession.py:585
+msgid "New Poll"
+msgstr "नयाँ मतदान"
 
-#: i18n_misc_strings.py:3
-msgid "Lesson 3"
-msgstr "पाठ ३"
-
-#: i18n_misc_strings.py:4
-msgid "Lesson 4"
-msgstr "पाठ ४"
-
-#: i18n_misc_strings.py:5
-msgid "Introduction"
-msgstr "परिचय"
-
-#: poll.py:162 poll.py:362
+#: Widgets.py:59 Widgets.py:497
 msgid "Choose a Poll"
 msgstr "मतदान छान"
 
-#: poll.py:167 poll.py:735
+#: Widgets.py:63
 msgid "Build a Poll"
 msgstr "मतदान बनाऊ"
 
-#: poll.py:172 poll.py:819
+#: Widgets.py:67 Widgets.py:388
 msgid "Settings"
 msgstr "सेटिङहरू"
 
-#: poll.py:177 poll.py:423 poll.py:1059
+#: Widgets.py:71 Widgets.py:570
 msgid "Lesson Plans"
 msgstr "पाठयोजना"
 
-#: poll.py:322
-msgid "VOTE!"
-msgstr "भोट!"
+#: Widgets.py:106
+#, fuzzy
+msgid "Build a poll"
+msgstr "मतदान बनाऊ"
 
-#: poll.py:324
-msgid "Poll Preview"
-msgstr "मतदान हेर"
-
-#: poll.py:394
-msgid "VOTE"
-msgstr "भोट"
-
-#: poll.py:396
-msgid "SEE RESULTS"
-msgstr "परिणाम हेर"
-
-#: poll.py:401
-msgid "DELETE"
-msgstr "मेटाऊ"
-
-#: poll.py:565
-msgid "votes"
-msgstr "मतदान"
-
-#: poll.py:568
-#, python-format
-#, python-format, fuzzy
-msgid "(%d votes left to collect)"
-msgstr " सङ्कलन गर्न बाँकी मतदान"
-
-#: poll.py:575 poll.py:1036
-msgid "Vote"
-msgstr "मतदान"
-
-#: poll.py:581
-msgid "Edit Poll"
-msgstr "मतदान सम्पादन गर"
-
-#: poll.py:584
-msgid "Save Poll"
-msgstr "मतदान बचत गर"
-
-#: poll.py:631 poll.py:693 poll.py:928
-msgid "Poll Activity"
-msgstr "मतदान क्रियाकलाप"
-
-#: poll.py:632
-msgid "To vote you have to select first one option"
-msgstr "मतदान गर्न पहिला एउटा विकल्प छान्नु पर्छ"
-
-#: poll.py:663 poll.py:668
-msgid "Choose image"
-msgstr "चित्र छान"
-
-#: poll.py:690 poll.py:780
-msgid "Change Image"
-msgstr "चित्र परिवर्तन गर"
-
-#: poll.py:694
-msgid "Your selection is not an image"
-msgstr "तिमीले छानेको चित्र होइन"
-
-#: poll.py:745
+#: Widgets.py:109
 msgid "Poll Title:"
 msgstr "मतदानको शीर्षक"
 
-#: poll.py:753
+#: Widgets.py:113
 msgid "Question:"
 msgstr "प्रश्नहरु:"
 
-#: poll.py:761
+#: Widgets.py:118
 msgid "Number of votes to collect:"
 msgstr "सङ्कलन गर्नुपर्ने मतदान"
 
-#: poll.py:771
+#: Widgets.py:126
 #, python-format
-msgid "Answer %d:"
+msgid "Answer %s:"
 msgstr ""
 
-#: poll.py:784
+#: Widgets.py:134 Widgets.py:205
+msgid "Change Image"
+msgstr "चित्र परिवर्तन गर"
+
+#: Widgets.py:139
 msgid "Add Image"
 msgstr "चित्र थप"
 
-#: poll.py:793
+#: Widgets.py:150
 msgid "Step 1: Preview"
 msgstr "चरण 1: पूर्वावलोकन गर"
 
-#: poll.py:796
+#: Widgets.py:154
 msgid "Step 2: Save"
 msgstr "चरण २: बचत गर"
 
-#: poll.py:827
+#: Widgets.py:209 Widgets.py:484 poll.py:380
+msgid "Poll Activity"
+msgstr "मतदान क्रियाकलाप"
+
+#: Widgets.py:210
+msgid "Your selection is not an image"
+msgstr "तिमीले छानेको चित्र होइन"
+
+#: Widgets.py:394
 msgid "Show answers while voting"
 msgstr "मतदान गर्दा उत्तर देखाऊ"
 
-#: poll.py:832
+#: Widgets.py:399
 msgid "Remember last vote"
 msgstr "अन्तिम मतदान याद राख"
 
-#: poll.py:838
+#: Widgets.py:406
 msgid "Play a sound when make a vote"
 msgstr "मतदान गर्दा आवाज बजाऊ"
 
-#: poll.py:845
+#: Widgets.py:412
 msgid "Use image in answer"
 msgstr "उत्तरमा चित्रको प्रयोग गर"
 
-#: poll.py:850
+#: Widgets.py:417
 msgid "Image Size: "
 msgstr "चित्रको आकार "
 
-#: poll.py:872
+#: Widgets.py:445
 msgid "Save"
 msgstr "बचत गर"
 
-#: poll.py:929
+#: Widgets.py:485
 msgid "The settings have been saved"
 msgstr "सेटिङहरू बचत गरियो"
 
-#: poll.py:964
-msgid "Favorite Color"
-msgstr "मनपर्ने रङ्ग"
+#: Widgets.py:536
+msgid "VOTE"
+msgstr "भोट"
 
-#: poll.py:966
-msgid "What is your favorite color?"
-msgstr "तिम्रो मनपर्ने रङ्ग के हो?"
+#: Widgets.py:539
+msgid "SEE RESULTS"
+msgstr "परिणाम हेर"
 
-#: poll.py:970
-msgid "Orange"
-msgstr "सुन्तला रङ्ग"
+#: Widgets.py:546
+msgid "DELETE"
+msgstr "मेटाऊ"
 
-#: poll.py:971
-msgid "None of the above"
-msgstr "माथीको कुनैपनी होइन"
+#: Widgets.py:560
+msgid "Introduction"
+msgstr "परिचय"
 
-#: poll.py:1037
+#: Widgets.py:560
+msgid "Lesson 1"
+msgstr "पाठ १"
+
+#: Widgets.py:560
+msgid "Lesson 2"
+msgstr "पाठ २"
+
+#: Widgets.py:561
+msgid "Lesson 3"
+msgstr "पाठ ३"
+
+#: Widgets.py:561
+msgid "Lesson 4"
+msgstr "पाठ ४"
+
+#: Widgets.py:725
+msgid "votes"
+msgstr "मतदान"
+
+#: Widgets.py:725
+#, fuzzy
+msgid "(votes left to collect)"
+msgstr " सङ्कलन गर्न बाँकी मतदान"
+
+#: Widgets.py:733 poll.py:476
+msgid "Vote"
+msgstr "मतदान"
+
+#: Widgets.py:739
+msgid "Edit Poll"
+msgstr "मतदान सम्पादन गर"
+
+#: Widgets.py:744
+msgid "Save Poll"
+msgstr "मतदान बचत गर"
+
+#: poll.py:279 poll.py:370 poll.py:480
+msgid "VOTE!"
+msgstr "भोट!"
+
+#: poll.py:282 poll.py:373 poll.py:483
+msgid "Poll Preview"
+msgstr "मतदान हेर"
+
+#: poll.py:381
+msgid "To vote you have to select first one option"
+msgstr "मतदान गर्न पहिला एउटा विकल्प छान्नु पर्छ"
+
+#: poll.py:477
 #, python-format
 msgid "Somebody voted on %s"
 msgstr "कसैले %s लाई भोट दियो"
 
-#: poll.py:1056
-msgid "Close Lessons"
-msgstr "पाठ छान"
-
-#: poll.py:1144 poll.py:1173
+#: poll.py:564 poll.py:599
 msgid "Joined"
 msgstr "जोडिएको"
 
-#: poll.py:1177
+#: poll.py:604
 msgid "Left"
 msgstr "बाँया"
 
-#: poll.py:1549 poll.py:1613
-msgid "New Poll"
-msgstr "नयाँ मतदान"
+#~ msgid "Choose image"
+#~ msgstr "चित्र छान"
 
-#: poll.py:1550 poll.py:1614
-#, python-format
-msgid "%(author)s shared a poll '%(title)s' with you."
-msgstr "%(author)s ले तिमीसँग '%(title)s'मतदान  सेयर गर्यो"
+#~ msgid "Favorite Color"
+#~ msgstr "मनपर्ने रङ्ग"
+
+#~ msgid "What is your favorite color?"
+#~ msgstr "तिम्रो मनपर्ने रङ्ग के हो?"
+
+#~ msgid "Orange"
+#~ msgstr "सुन्तला रङ्ग"
+
+#~ msgid "None of the above"
+#~ msgstr "माथीको कुनैपनी होइन"
+
+#~ msgid "Close Lessons"
+#~ msgstr "पाठ छान"
 
 #~ msgid "Answer"
 #~ msgstr "उत्तर"

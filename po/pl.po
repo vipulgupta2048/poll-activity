@@ -34,7 +34,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-08 00:33-0400\n"
+"POT-Creation-Date: 2013-09-04 00:33-0400\n"
 "PO-Revision-Date: 2011-12-12 02:52+0200\n"
 "Last-Translator: Chris <cjl@laptop.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,202 +52,200 @@ msgstr ""
 msgid "Poll"
 msgstr "Ankieta"
 
-#: i18n_misc_strings.py:1
-msgid "Lesson 1"
-msgstr "Lekcja 1"
+#: PollSession.py:502 PollSession.py:586
+#, python-format
+msgid "%(author)s shared a poll '%(title)s' with you."
+msgstr "%(author)s udostępnił tobie głos '%(title)s."
 
-#: i18n_misc_strings.py:2
-msgid "Lesson 2"
-msgstr "Lekcja 2"
+#: PollSession.py:585
+msgid "New Poll"
+msgstr "Nowa Ankieta"
 
-#: i18n_misc_strings.py:3
-msgid "Lesson 3"
-msgstr "Lekcja 3"
-
-#: i18n_misc_strings.py:4
-msgid "Lesson 4"
-msgstr "Lekcja 4"
-
-#: i18n_misc_strings.py:5
-msgid "Introduction"
-msgstr "Wprowadzenie"
-
-#: poll.py:162 poll.py:362
+#: Widgets.py:59 Widgets.py:497
 msgid "Choose a Poll"
 msgstr "Wybierz ankietę"
 
-#: poll.py:167 poll.py:735
+#: Widgets.py:63
 msgid "Build a Poll"
 msgstr "Stwórz Ankietę"
 
-#: poll.py:172 poll.py:819
+#: Widgets.py:67 Widgets.py:388
 msgid "Settings"
 msgstr "Ustawienia"
 
-#: poll.py:177 poll.py:423 poll.py:1059
+#: Widgets.py:71 Widgets.py:570
 msgid "Lesson Plans"
 msgstr "Plan zajęć"
 
-#: poll.py:322
-msgid "VOTE!"
-msgstr "Głosuj!"
+#: Widgets.py:106
+#, fuzzy
+msgid "Build a poll"
+msgstr "Stwórz Ankietę"
 
-#: poll.py:324
-msgid "Poll Preview"
-msgstr "Podgląd ankiety"
-
-#: poll.py:394
-msgid "VOTE"
-msgstr "Głos"
-
-#: poll.py:396
-msgid "SEE RESULTS"
-msgstr "Zobacz wyniki"
-
-#: poll.py:401
-msgid "DELETE"
-msgstr "Usuń"
-
-#: poll.py:565
-msgid "votes"
-msgstr "głosy"
-
-#: poll.py:568
-#, python-format
-#, python-format, fuzzy
-msgid "(%d votes left to collect)"
-msgstr " głosy pozostające do zebrania"
-
-#: poll.py:575 poll.py:1036
-msgid "Vote"
-msgstr "Głosuj"
-
-#: poll.py:581
-msgid "Edit Poll"
-msgstr "Edytuj Ankietę"
-
-#: poll.py:584
-msgid "Save Poll"
-msgstr "Zapisz Ankietę"
-
-#: poll.py:631 poll.py:693 poll.py:928
-msgid "Poll Activity"
-msgstr "Ankieta"
-
-#: poll.py:632
-msgid "To vote you have to select first one option"
-msgstr "Aby zagłosować zaznacz swój wybór"
-
-#: poll.py:663 poll.py:668
-msgid "Choose image"
-msgstr "Wybierz obraz"
-
-#: poll.py:690 poll.py:780
-msgid "Change Image"
-msgstr "Zmień obraz"
-
-#: poll.py:694
-msgid "Your selection is not an image"
-msgstr "Wybrany obiekt nie jest obrazem"
-
-#: poll.py:745
+#: Widgets.py:109
 msgid "Poll Title:"
 msgstr "Tytuł Ankiety:"
 
-#: poll.py:753
+#: Widgets.py:113
 msgid "Question:"
 msgstr "Pytanie:"
 
-#: poll.py:761
+#: Widgets.py:118
 msgid "Number of votes to collect:"
 msgstr "Liczba głosów do zebrania:"
 
-#: poll.py:771
+#: Widgets.py:126
 #, python-format
-msgid "Answer %d:"
+msgid "Answer %s:"
 msgstr ""
 
-#: poll.py:784
+#: Widgets.py:134 Widgets.py:205
+msgid "Change Image"
+msgstr "Zmień obraz"
+
+#: Widgets.py:139
 msgid "Add Image"
 msgstr "Dodaj obraz"
 
-#: poll.py:793
+#: Widgets.py:150
 msgid "Step 1: Preview"
 msgstr "Krok 1: Podgląd"
 
-#: poll.py:796
+#: Widgets.py:154
 msgid "Step 2: Save"
 msgstr "Krok 2: Zapisz"
 
-#: poll.py:827
+#: Widgets.py:209 Widgets.py:484 poll.py:380
+msgid "Poll Activity"
+msgstr "Ankieta"
+
+#: Widgets.py:210
+msgid "Your selection is not an image"
+msgstr "Wybrany obiekt nie jest obrazem"
+
+#: Widgets.py:394
 msgid "Show answers while voting"
 msgstr "Pokaż odpowiedzi podczas głosowania"
 
-#: poll.py:832
+#: Widgets.py:399
 msgid "Remember last vote"
 msgstr "Pamiętaj ostatni głos"
 
-#: poll.py:838
+#: Widgets.py:406
 msgid "Play a sound when make a vote"
 msgstr "Odtwarzaj dźwięk podczas głosowania"
 
-#: poll.py:845
+#: Widgets.py:412
 msgid "Use image in answer"
 msgstr "Użyj obrazu w odpowiedzi"
 
-#: poll.py:850
+#: Widgets.py:417
 msgid "Image Size: "
 msgstr "Rozmiar obrazu: "
 
-#: poll.py:872
+#: Widgets.py:445
 msgid "Save"
 msgstr "Zapisz"
 
-#: poll.py:929
+#: Widgets.py:485
 msgid "The settings have been saved"
 msgstr "Ustawienia zostały zapisane"
 
-#: poll.py:964
-msgid "Favorite Color"
-msgstr "Ulubiony kolor"
+#: Widgets.py:536
+msgid "VOTE"
+msgstr "Głos"
 
-#: poll.py:966
-msgid "What is your favorite color?"
-msgstr "Jaki jest Twój ulubiony kolor?"
+#: Widgets.py:539
+msgid "SEE RESULTS"
+msgstr "Zobacz wyniki"
 
-#: poll.py:970
-msgid "Orange"
-msgstr "Pomarańczowy"
+#: Widgets.py:546
+msgid "DELETE"
+msgstr "Usuń"
 
-#: poll.py:971
-msgid "None of the above"
-msgstr "Żaden z wymienionych"
+#: Widgets.py:560
+msgid "Introduction"
+msgstr "Wprowadzenie"
 
-#: poll.py:1037
+#: Widgets.py:560
+msgid "Lesson 1"
+msgstr "Lekcja 1"
+
+#: Widgets.py:560
+msgid "Lesson 2"
+msgstr "Lekcja 2"
+
+#: Widgets.py:561
+msgid "Lesson 3"
+msgstr "Lekcja 3"
+
+#: Widgets.py:561
+msgid "Lesson 4"
+msgstr "Lekcja 4"
+
+#: Widgets.py:725
+msgid "votes"
+msgstr "głosy"
+
+#: Widgets.py:725
+#, fuzzy
+msgid "(votes left to collect)"
+msgstr " głosy pozostające do zebrania"
+
+#: Widgets.py:733 poll.py:476
+msgid "Vote"
+msgstr "Głosuj"
+
+#: Widgets.py:739
+msgid "Edit Poll"
+msgstr "Edytuj Ankietę"
+
+#: Widgets.py:744
+msgid "Save Poll"
+msgstr "Zapisz Ankietę"
+
+#: poll.py:279 poll.py:370 poll.py:480
+msgid "VOTE!"
+msgstr "Głosuj!"
+
+#: poll.py:282 poll.py:373 poll.py:483
+msgid "Poll Preview"
+msgstr "Podgląd ankiety"
+
+#: poll.py:381
+msgid "To vote you have to select first one option"
+msgstr "Aby zagłosować zaznacz swój wybór"
+
+#: poll.py:477
 #, python-format
 msgid "Somebody voted on %s"
 msgstr "Ktoś zagłosował na %s"
 
-#: poll.py:1056
-msgid "Close Lessons"
-msgstr "Zamknij lekcję"
-
-#: poll.py:1144 poll.py:1173
+#: poll.py:564 poll.py:599
 msgid "Joined"
 msgstr "Dołączył"
 
-#: poll.py:1177
+#: poll.py:604
 msgid "Left"
 msgstr "Opuścił(a)"
 
-#: poll.py:1549 poll.py:1613
-msgid "New Poll"
-msgstr "Nowa Ankieta"
+#~ msgid "Choose image"
+#~ msgstr "Wybierz obraz"
 
-#: poll.py:1550 poll.py:1614
-#, python-format
-msgid "%(author)s shared a poll '%(title)s' with you."
-msgstr "%(author)s udostępnił tobie głos '%(title)s."
+#~ msgid "Favorite Color"
+#~ msgstr "Ulubiony kolor"
+
+#~ msgid "What is your favorite color?"
+#~ msgstr "Jaki jest Twój ulubiony kolor?"
+
+#~ msgid "Orange"
+#~ msgstr "Pomarańczowy"
+
+#~ msgid "None of the above"
+#~ msgstr "Żaden z wymienionych"
+
+#~ msgid "Close Lessons"
+#~ msgstr "Zamknij lekcję"
 
 #~ msgid "Answer"
 #~ msgstr "Odpowiedź"
