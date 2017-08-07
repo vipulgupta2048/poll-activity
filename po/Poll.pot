@@ -8,212 +8,199 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-08 00:33-0400\n"
+"POT-Creation-Date: 2017-08-07 14:50+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. TRANS: "name" option from activity.info file
-#. TRANS: "summary" option from activity.info file
-#. TRANS: "description" option from activity.info file
+#: activity/activity.info:2
 msgid "Poll"
 msgstr ""
 
-#: i18n_misc_strings.py:1
-msgid "Lesson 1"
+#: activity/activity.info:3
+msgid "Make a poll"
 msgstr ""
 
-#: i18n_misc_strings.py:2
-msgid "Lesson 2"
+#: PollSession.py:483 PollSession.py:567
+#, python-format
+msgid "%(author)s shared a poll '%(title)s' with you."
 msgstr ""
 
-#: i18n_misc_strings.py:3
-msgid "Lesson 3"
+#: PollSession.py:566
+msgid "New Poll"
 msgstr ""
 
-#: i18n_misc_strings.py:4
-msgid "Lesson 4"
-msgstr ""
-
-#: i18n_misc_strings.py:5
-msgid "Introduction"
-msgstr ""
-
-#: poll.py:162 poll.py:362
+#: Widgets.py:77 Widgets.py:752
 msgid "Choose a Poll"
 msgstr ""
 
-#: poll.py:167 poll.py:735
+#: Widgets.py:82
 msgid "Build a Poll"
 msgstr ""
 
-#: poll.py:172 poll.py:819
+#: Widgets.py:87
 msgid "Settings"
 msgstr ""
 
-#: poll.py:177 poll.py:423 poll.py:1059
-msgid "Lesson Plans"
+#: Widgets.py:104
+msgid "Pie chart"
 msgstr ""
 
-#: poll.py:322
-msgid "VOTE!"
+#: Widgets.py:109
+msgid "Vertical bar chart"
 msgstr ""
 
-#: poll.py:324
-msgid "Poll Preview"
+#: Widgets.py:125
+msgid "Export data"
 msgstr ""
 
-#: poll.py:394
-msgid "VOTE"
+#: Widgets.py:129
+msgid "Save as Image"
 msgstr ""
 
-#: poll.py:396
-msgid "SEE RESULTS"
+#: Widgets.py:169
+msgid "What is the title?"
 msgstr ""
 
-#: poll.py:401
-msgid "DELETE"
+#: Widgets.py:172
+msgid "What is the question?"
 msgstr ""
 
-#: poll.py:565
-msgid "votes"
+#: Widgets.py:184
+msgid "How many votes do you want to collect?"
 msgstr ""
 
-#: poll.py:568
-#, python-format
-msgid "(%d votes left to collect)"
+#: Widgets.py:197
+msgid "What are the choices?"
 msgstr ""
 
-#: poll.py:575 poll.py:1036
-msgid "Vote"
+#: Widgets.py:215
+msgid "Is this correct?"
 msgstr ""
 
-#: poll.py:581
-msgid "Edit Poll"
+#: Widgets.py:231
+msgid "Title"
 msgstr ""
 
-#: poll.py:584
-msgid "Save Poll"
+#: Widgets.py:240
+msgid "Question"
 msgstr ""
 
-#: poll.py:631 poll.py:693 poll.py:928
+#: Widgets.py:249
+msgid "How many votes"
+msgstr ""
+
+#: Widgets.py:257
+msgid "Answers"
+msgstr ""
+
+#: Widgets.py:271
+msgid "Make the poll"
+msgstr ""
+
+#: Widgets.py:284
+msgid "Back"
+msgstr ""
+
+#: Widgets.py:290
+msgid "Next"
+msgstr ""
+
+#: Widgets.py:624 Widgets.py:1052
 msgid "Poll Activity"
 msgstr ""
 
-#: poll.py:632
-msgid "To vote you have to select first one option"
-msgstr ""
-
-#: poll.py:663 poll.py:668
-msgid "Choose image"
-msgstr ""
-
-#: poll.py:690 poll.py:780
-msgid "Change Image"
-msgstr ""
-
-#: poll.py:694
+#: Widgets.py:625
 msgid "Your selection is not an image"
 msgstr ""
 
-#: poll.py:745
-msgid "Poll Title:"
-msgstr ""
-
-#: poll.py:753
-msgid "Question:"
-msgstr ""
-
-#: poll.py:761
-msgid "Number of votes to collect:"
-msgstr ""
-
-#: poll.py:771
-#, python-format
-msgid "Answer %d:"
-msgstr ""
-
-#: poll.py:784
-msgid "Add Image"
-msgstr ""
-
-#: poll.py:793
-msgid "Step 1: Preview"
-msgstr ""
-
-#: poll.py:796
-msgid "Step 2: Save"
-msgstr ""
-
-#: poll.py:827
+#: Widgets.py:656
 msgid "Show answers while voting"
 msgstr ""
 
-#: poll.py:832
+#: Widgets.py:662
 msgid "Remember last vote"
 msgstr ""
 
-#: poll.py:838
-msgid "Play a sound when make a vote"
+#: Widgets.py:668
+msgid "Play a sound when making a vote"
 msgstr ""
 
-#: poll.py:845
+#: Widgets.py:675
 msgid "Use image in answer"
 msgstr ""
 
-#: poll.py:850
+#: Widgets.py:681
 msgid "Image Size: "
 msgstr ""
 
-#: poll.py:872
-msgid "Save"
+#: Widgets.py:996 poll.py:634
+msgid "Vote"
 msgstr ""
 
-#: poll.py:929
-msgid "The settings have been saved"
+#: Widgets.py:1053
+msgid "To vote you have to select first one option"
 msgstr ""
 
-#: poll.py:964
-msgid "Favorite Color"
+#: graphics.py:217 graphics.py:243 graphics.py:350 graphics.py:364
+msgid "Unknown"
 msgstr ""
 
-#: poll.py:966
-msgid "What is your favorite color?"
+#: poll.py:140 poll.py:234
+msgid "Create a new poll"
 msgstr ""
 
-#: poll.py:970
-msgid "Orange"
+#: poll.py:141 poll.py:235
+msgid "Create"
 msgstr ""
 
-#: poll.py:971
-msgid "None of the above"
+#: poll.py:366
+msgid "Delete Poll?"
 msgstr ""
 
-#: poll.py:1037
+#: poll.py:367
+#, python-format
+msgid "Do you want delete the poll \"%s\"?"
+msgstr ""
+
+#: poll.py:533
+msgid "Chart created"
+msgstr ""
+
+#: poll.py:533 poll.py:611
+msgid "Open in the Journal"
+msgstr ""
+
+#: poll.py:542
+msgid "Show in Journal"
+msgstr ""
+
+#: poll.py:545
+msgid "Ok"
+msgstr ""
+
+#: poll.py:572
+#, python-format
+msgid "Results from poll \"%s\""
+msgstr ""
+
+#: poll.py:611
+msgid "Exported data"
+msgstr ""
+
+#: poll.py:635
 #, python-format
 msgid "Somebody voted on %s"
 msgstr ""
 
-#: poll.py:1056
-msgid "Close Lessons"
-msgstr ""
-
-#: poll.py:1144 poll.py:1173
+#: poll.py:710 poll.py:745
 msgid "Joined"
 msgstr ""
 
-#: poll.py:1177
+#: poll.py:750
 msgid "Left"
-msgstr ""
-
-#: poll.py:1549 poll.py:1613
-msgid "New Poll"
-msgstr ""
-
-#: poll.py:1550 poll.py:1614
-#, python-format
-msgid "%(author)s shared a poll '%(title)s' with you."
 msgstr ""
