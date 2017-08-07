@@ -527,7 +527,7 @@ class PollBuilder(activity.Activity):
         journal_entry.metadata['preview'] = dbus.ByteArray(
             preview_str.getvalue())
 
-        logging.error('Create %s image file', image_file.name)
+        logging.debug('Create %s image file', image_file.name)
         datastore.write(journal_entry)
         self._show_journal_alert(
             _('Chart created'), _('Open in the Journal'),

@@ -264,7 +264,7 @@ class NewPollCanvas(Gtk.EventBox):
             self._option_labels[int(choice)] = label
             second_column.pack_start(label, False, False, 10)
 
-        logging.error(self._option_labels)
+        logging.debug(self._option_labels)
 
         summary_page.pack_start(columns_box, True, True, 10)
 
@@ -306,7 +306,7 @@ class NewPollCanvas(Gtk.EventBox):
     def __button_next_cb(self, button):
         self._back_button.set_sensitive(True)
         self._next_button.set_sensitive(True)
-        logging.error('current page %s', self._notebook.get_current_page())
+        logging.debug('current page %s', self._notebook.get_current_page())
         if self._notebook.get_current_page() < 3:
             errors = self._validate(self._notebook.get_current_page())
             if not errors:
@@ -555,14 +555,14 @@ class ItemOptionNewPoll(Gtk.Box):
         self._image_button.connect('clicked', self.__button_choose_image_cb)
 
     def __entry_changed_cb(self, entry):
-        logging.error(entry.get_text())
+        logging.debug(entry.get_text())
         text = entry.get_text()
         if text:
             self._poll.options[self.field] = text
         entry.modify_bg(Gtk.StateType.NORMAL, None)
 
     def set_image_widgets_visible(self, visible):
-        logging.error('set_image_widgets_visible %s %s', self.field, visible)
+        logging.debug('set_image_widgets_visible %s %s', self.field, visible)
         self._image_button.set_visible(visible)
         self._image.set_visible(visible)
         if visible:
@@ -578,7 +578,7 @@ class ItemOptionNewPoll(Gtk.Box):
 
     def __already_loaded_image_in_answer(self):
         loaded = self._poll.images_ds_objects[self.field] != {}
-        logging.error('__already_loaded_image_in_answer %s', loaded)
+        logging.debug('__already_loaded_image_in_answer %s', loaded)
         return loaded
 
     def __button_choose_image_cb(self, button):
@@ -979,7 +979,7 @@ class PollCanvas(Gtk.EventBox):
 
             row += 1
 
-        logging.error('poll options %s data %s', poll.options, poll.data)
+        logging.debug('poll options %s data %s', poll.options, poll.data)
 
         self.chart = Chart(data, chart_type, show_labels=not poll.active,
                            title=poll.question,
@@ -1014,7 +1014,7 @@ class PollCanvas(Gtk.EventBox):
             row += 1
 
         else:
-            logging.error('poll not active')
+            logging.debug('poll not active')
             self._grid.attach(self.chart, 0, row, 2, 1)
             row += 1
 
