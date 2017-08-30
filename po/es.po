@@ -158,7 +158,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-04 00:33-0400\n"
+"POT-Creation-Date: 2017-08-07 14:50+1000\n"
 "PO-Revision-Date: 2013-10-16 03:43+0200\n"
 "Last-Translator: AlanJAS <alanjas@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -169,188 +169,267 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.0.5\n"
 
-#. TRANS: "name" option from activity.info file
-#. TRANS: "summary" option from activity.info file
-#. TRANS: "description" option from activity.info file
+#: activity/activity.info:2
 msgid "Poll"
 msgstr "Encuesta"
 
-#: PollSession.py:502 PollSession.py:586
+#: activity/activity.info:3
+#, fuzzy
+msgid "Make a poll"
+msgstr "Construir una encuesta"
+
+#: PollSession.py:483 PollSession.py:567
 #, python-format
 msgid "%(author)s shared a poll '%(title)s' with you."
 msgstr "%(author)s ha compartido la encuesta '%(title)s' contigo."
 
-#: PollSession.py:585
+#: PollSession.py:566
 msgid "New Poll"
 msgstr "Nueva Encuesta"
 
-#: Widgets.py:59 Widgets.py:497
+#: Widgets.py:77 Widgets.py:752
 msgid "Choose a Poll"
 msgstr "Elige una encuesta"
 
-#: Widgets.py:63
+#: Widgets.py:82
 msgid "Build a Poll"
 msgstr "Construir Encuesta"
 
-#: Widgets.py:67 Widgets.py:388
+#: Widgets.py:87
 msgid "Settings"
 msgstr "Configuraciones"
 
-#: Widgets.py:71 Widgets.py:570
-msgid "Lesson Plans"
-msgstr "Planes de la lección"
-
-#: Widgets.py:106
-msgid "Build a poll"
-msgstr "Construir una encuesta"
+#: Widgets.py:104
+msgid "Pie chart"
+msgstr ""
 
 #: Widgets.py:109
-msgid "Poll Title:"
-msgstr "Título de la encuesta:"
+msgid "Vertical bar chart"
+msgstr ""
 
-#: Widgets.py:113
-msgid "Question:"
-msgstr "Pregunta:"
+#: Widgets.py:125
+msgid "Export data"
+msgstr ""
 
-#: Widgets.py:118
-msgid "Number of votes to collect:"
-msgstr "Número de votos a recoger:"
-
-#: Widgets.py:126
-#, python-format
-#, python-format,
-msgid "Answer %s:"
-msgstr "Respuesta %s:"
-
-#: Widgets.py:134 Widgets.py:205
-msgid "Change Image"
+#: Widgets.py:129
+#, fuzzy
+msgid "Save as Image"
 msgstr "Cambiar imagen"
 
-#: Widgets.py:139
-msgid "Add Image"
-msgstr "Agregar imagen"
+#: Widgets.py:169
+msgid "What is the title?"
+msgstr ""
 
-#: Widgets.py:150
-msgid "Step 1: Preview"
-msgstr "Paso 1: Vista previa"
+#: Widgets.py:172
+msgid "What is the question?"
+msgstr ""
 
-#: Widgets.py:154
-msgid "Step 2: Save"
-msgstr "Paso 2: Guardar"
+#: Widgets.py:184
+msgid "How many votes do you want to collect?"
+msgstr ""
 
-#: Widgets.py:209 Widgets.py:484 poll.py:380
+#: Widgets.py:197
+msgid "What are the choices?"
+msgstr ""
+
+#: Widgets.py:215
+msgid "Is this correct?"
+msgstr ""
+
+#: Widgets.py:231
+#, fuzzy
+msgid "Title"
+msgstr "Título de la encuesta:"
+
+#: Widgets.py:240
+#, fuzzy
+msgid "Question"
+msgstr "Pregunta:"
+
+#: Widgets.py:249
+msgid "How many votes"
+msgstr ""
+
+#: Widgets.py:257
+#, fuzzy
+msgid "Answers"
+msgstr "Respuesta"
+
+#: Widgets.py:271
+msgid "Make the poll"
+msgstr ""
+
+#: Widgets.py:284
+msgid "Back"
+msgstr ""
+
+#: Widgets.py:290
+msgid "Next"
+msgstr ""
+
+#: Widgets.py:624 Widgets.py:1052
 msgid "Poll Activity"
 msgstr "Actividad Encuesta"
 
-#: Widgets.py:210
+#: Widgets.py:625
 msgid "Your selection is not an image"
 msgstr "Su selección no es una imagen"
 
-#: Widgets.py:394
+#: Widgets.py:656
 msgid "Show answers while voting"
 msgstr "Mostrar resultados durante la votación"
 
-#: Widgets.py:399
+#: Widgets.py:662
 msgid "Remember last vote"
 msgstr "Marcar última opción votada"
 
-#: Widgets.py:406
-msgid "Play a sound when make a vote"
+#: Widgets.py:668
+#, fuzzy
+msgid "Play a sound when making a vote"
 msgstr "Ejecutar sonido al momento de realizar el voto"
 
-#: Widgets.py:412
+#: Widgets.py:675
 msgid "Use image in answer"
 msgstr "Usar imagen en respuesta"
 
-#: Widgets.py:417
+#: Widgets.py:681
 msgid "Image Size: "
 msgstr "Tamaño de la imagen: "
 
-#: Widgets.py:445
-msgid "Save"
-msgstr "Guardar"
-
-#: Widgets.py:485
-msgid "The settings have been saved"
-msgstr "Las configuraciones han sido guardadas"
-
-#: Widgets.py:536
-msgid "VOTE"
-msgstr "VOTO"
-
-#: Widgets.py:539
-msgid "SEE RESULTS"
-msgstr "VER RESULTADOS"
-
-#: Widgets.py:546
-msgid "DELETE"
-msgstr "BORRAR"
-
-#: Widgets.py:560
-msgid "Introduction"
-msgstr "Introducción"
-
-#: Widgets.py:560
-msgid "Lesson 1"
-msgstr "Lección 1"
-
-#: Widgets.py:560
-msgid "Lesson 2"
-msgstr "Lección 2"
-
-#: Widgets.py:561
-msgid "Lesson 3"
-msgstr "Lección 3"
-
-#: Widgets.py:561
-msgid "Lesson 4"
-msgstr "Lección 4"
-
-#: Widgets.py:725
-msgid "votes"
-msgstr "votos"
-
-#: Widgets.py:725
-msgid "(votes left to collect)"
-msgstr "(votos restantes)"
-
-#: Widgets.py:733 poll.py:476
+#: Widgets.py:996 poll.py:634
 msgid "Vote"
 msgstr "Vota"
 
-#: Widgets.py:739
-msgid "Edit Poll"
-msgstr "Editar Encuesta"
-
-#: Widgets.py:744
-msgid "Save Poll"
-msgstr "Guardar Encuesta"
-
-#: poll.py:279 poll.py:370 poll.py:480
-msgid "VOTE!"
-msgstr "¡VOTA!"
-
-#: poll.py:282 poll.py:373 poll.py:483
-msgid "Poll Preview"
-msgstr "Vista previa de la encuesta"
-
-#: poll.py:381
+#: Widgets.py:1053
 msgid "To vote you have to select first one option"
 msgstr "Para votar debe primero seleccionar una opción"
 
-#: poll.py:477
+#: graphics.py:217 graphics.py:243 graphics.py:350 graphics.py:364
+msgid "Unknown"
+msgstr ""
+
+#: poll.py:140 poll.py:234
+msgid "Create a new poll"
+msgstr ""
+
+#: poll.py:141 poll.py:235
+msgid "Create"
+msgstr ""
+
+#: poll.py:366
+#, fuzzy
+msgid "Delete Poll?"
+msgstr "Nueva Encuesta"
+
+#: poll.py:367
+#, python-format
+msgid "Do you want delete the poll \"%s\"?"
+msgstr ""
+
+#: poll.py:533
+msgid "Chart created"
+msgstr ""
+
+#: poll.py:533 poll.py:611
+msgid "Open in the Journal"
+msgstr ""
+
+#: poll.py:542
+msgid "Show in Journal"
+msgstr ""
+
+#: poll.py:545
+msgid "Ok"
+msgstr ""
+
+#: poll.py:572
+#, python-format
+msgid "Results from poll \"%s\""
+msgstr ""
+
+#: poll.py:611
+msgid "Exported data"
+msgstr ""
+
+#: poll.py:635
 #, python-format
 msgid "Somebody voted on %s"
 msgstr "Alguien votó en %s"
 
 # Dj ToXiC: Es lo más adecuado al contexto. GC: Presente no es un verbo. En este caso Joined se refiere a "unirse a..."
-#: poll.py:564 poll.py:599
+#: poll.py:710 poll.py:745
 msgid "Joined"
 msgstr "Se unió"
 
-#: poll.py:604
+#: poll.py:750
 msgid "Left"
 msgstr "Abandonó"
+
+#~ msgid "Lesson Plans"
+#~ msgstr "Planes de la lección"
+
+#~ msgid "Number of votes to collect:"
+#~ msgstr "Número de votos a recoger:"
+
+#~ msgid "Answer %s:"
+#~ msgstr "Respuesta %s:"
+
+#~ msgid "Add Image"
+#~ msgstr "Agregar imagen"
+
+#~ msgid "Step 1: Preview"
+#~ msgstr "Paso 1: Vista previa"
+
+#~ msgid "Step 2: Save"
+#~ msgstr "Paso 2: Guardar"
+
+#~ msgid "Save"
+#~ msgstr "Guardar"
+
+#~ msgid "The settings have been saved"
+#~ msgstr "Las configuraciones han sido guardadas"
+
+#~ msgid "VOTE"
+#~ msgstr "VOTO"
+
+#~ msgid "SEE RESULTS"
+#~ msgstr "VER RESULTADOS"
+
+#~ msgid "DELETE"
+#~ msgstr "BORRAR"
+
+#~ msgid "Introduction"
+#~ msgstr "Introducción"
+
+#~ msgid "Lesson 1"
+#~ msgstr "Lección 1"
+
+#~ msgid "Lesson 2"
+#~ msgstr "Lección 2"
+
+#~ msgid "Lesson 3"
+#~ msgstr "Lección 3"
+
+#~ msgid "Lesson 4"
+#~ msgstr "Lección 4"
+
+#~ msgid "votes"
+#~ msgstr "votos"
+
+#~ msgid "(votes left to collect)"
+#~ msgstr "(votos restantes)"
+
+#~ msgid "Edit Poll"
+#~ msgstr "Editar Encuesta"
+
+#~ msgid "Save Poll"
+#~ msgstr "Guardar Encuesta"
+
+#~ msgid "VOTE!"
+#~ msgstr "¡VOTA!"
+
+#~ msgid "Poll Preview"
+#~ msgstr "Vista previa de la encuesta"
 
 #~ msgid "Choose image"
 #~ msgstr "Elegir una imagen"
@@ -369,9 +448,6 @@ msgstr "Abandonó"
 
 #~ msgid "Close Lessons"
 #~ msgstr "Cerrar Lecciones"
-
-#~ msgid "Answer"
-#~ msgstr "Respuesta"
 
 #~ msgid "Green"
 #~ msgstr "Verde"
