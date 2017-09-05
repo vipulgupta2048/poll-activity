@@ -364,7 +364,7 @@ class PollBuilder(activity.Activity):
 
         alert = ConfirmationAlert()
         alert.props.title = _('Delete Poll?')
-        alert.props.msg = _('Do you want delete the poll "%s"?' % title)
+        alert.props.msg = _('Do you want delete the poll "%s"?') % title
         alert.connect('response', self._delete_alert_confirmation_cb, sha)
         self.add_alert(alert)
 
